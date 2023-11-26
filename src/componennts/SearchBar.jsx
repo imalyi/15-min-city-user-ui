@@ -1,22 +1,18 @@
-import { useState } from "react";
-import { FaSearch } from "react-icons/fa";
-import addresses from "../data/addresses.json"
+import React from 'react';
+import { FaSearch } from 'react-icons/fa';
+import addresses from '../data/addresses.json';
+import '../styles/SearchBar.css';
 
-import "../styles/SearchBar.css";
-
-export const SearchBar = ({ setResults }) => {
-  const [input, setInput] = useState("");
-
+export const SearchBar = ({ setResults, input, setInput }) => {
   const fetchData = (value) => {
     const results = addresses.filter((address) => {
-      console.log(address.address)
       return (
         value &&
         address &&
+        address.address &&
         address.address.toLowerCase().includes(value.toLowerCase())
       );
     });
-    console.log(results)
     setResults(results);
   };
 

@@ -1,11 +1,9 @@
-import "../styles/SearchResult.css";
+import React from 'react';
+import '../styles/SearchResult.css';
 
-export const SearchResult = ({ result }) => {
+export const SearchResult = ({ result, onResultClick }) => {
   return (
-    <div
-      className="search-result"
-      onClick={(e) => alert(`You selected ${result}!`)}
-    >
+    <div className="search-result" onClick={() => onResultClick(result)}>
       {result}
     </div>
   );

@@ -1,0 +1,15 @@
+
+  
+  .user-location-button {
+    height: 2.5rem;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 0 15px;
+    box-shadow: 0px 0px 8px #ddd;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  #localization-icon {
+    color: rgb(255, 0, 0)
+  }

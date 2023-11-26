@@ -1,15 +1,17 @@
+/* Dodaj do pliku styles.css lub odpowiedniego pliku ze stylami */
+
 .Home {
-    background-color: #eee;
-    width: 100vw;
-    height: 100vh;
-  }
-  
-  .search-bar-container {
-    padding-top: 20vh;
-    width: 40%;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 200px;
-  }
+  background-color: #eee;
+  width: 100vw;
+  height: 100vh;
+}
+
+.search-bar-container {
+  padding-top: 20vh;
+  width: 60%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Zmiana na flex-start, aby elementy były poukładane od lewej do prawej */
+  min-width: 200px;
+}
