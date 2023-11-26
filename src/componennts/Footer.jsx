@@ -1,10 +1,13 @@
 import React from 'react';
+import '../styles/Footer.css';
 
-
-function Footer() {
+function Footer({ additionalInfo }) {
   return (
-    <div>
-        Hello world
+    <div className="footer bg-dark text-light p-3 mt-auto">
+      <div className="container text-center">
+        <p>{additionalInfo}</p>
+        <p>© 15 minut city</p>
+      </div>
     </div>
   );
 }
