@@ -41,4 +41,5 @@ jobs:
         with:
           url: 'https://portainer_dev.1213213.xyz/api/stacks/webhooks/578909dc-44c6-4070-9504-e2bb594d1cc9'
           method: 'POST'
+          preventFailureOnNoResponse: true
         
