@@ -35,3 +35,9 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      - name: Deploy Stage
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://portainer_dev.1213213.xyz/api/stacks/webhooks/578909dc-44c6-4070-9504-e2bb594d1cc9'
+          method: 'POST'
+        
