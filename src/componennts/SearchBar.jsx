@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaSearch } from 'react-icons/fa';
 import addresses from '../data/addresses.json';
 import '../styles/SearchBar.css';
 
@@ -23,7 +22,6 @@ export const SearchBar = ({ setResults, input, setInput }) => {
 
   return (
     <div className="input-wrapper">
-      <FaSearch id="search-icon" />
       <input
         placeholder="Type to search..."
         value={input}
