@@ -1,0 +1,23 @@
+{
+    "doctor": [
+        {
+            "distance": 12,
+            "gmaps_url": "https://googlemaps..."
+        },
+        {
+            "distance": 441,
+            "gmaps_url": "https://googlemaps..."
+        }
+    ],
+    "atm": [
+        {
+            "distance": 1200,
+            "gmaps_url": "https://googlemaps..."
+        },
+        {
+            "distance": 4120,
+            "gmaps_url": "https://googlemaps..."
+        }
+    ],
+    "car_service": []
+}
