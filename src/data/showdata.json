@@ -1,15 +1,15 @@
 {
     "doctor": [
         {
-            "distance": 12,
+            "distance": 10,
             "gmaps_url": "https://googlemaps..."
         },
         {
-            "distance": 441,
+            "distance": 440,
             "gmaps_url": "https://googlemaps..."
         }
     ],
-    "atm": [
+    "fast food": [
         {
             "distance": 1200,
             "gmaps_url": "https://googlemaps..."
@@ -19,5 +19,24 @@
             "gmaps_url": "https://googlemaps..."
         }
     ],
-    "car_service": []
+    "drugstore": [
+        {
+            "distance": 12,
+            "gmaps_url": "https://googlemaps..."
+        },
+        {
+            "distance": 530,
+            "gmaps_url": "https://googlemaps..."
+        }
+    ],
+    "grocery store": [
+        {
+            "distance": 100,
+            "gmaps_url": "https://googlemaps..."
+        },
+        {
+            "distance": 420,
+            "gmaps_url": "https://googlemaps..."
+        }
+    ]
 }
