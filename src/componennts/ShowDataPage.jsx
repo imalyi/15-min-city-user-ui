@@ -2,17 +2,50 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../styles/ShowDataPage.css'; // Dodaj import stylów
 import Map from './Map';
+import Footer from './Footer';
+import { SearchBar } from './SearchBar';
+import { SearchResultsList } from './SearchResultsList';
+import { UserLocationButton } from './UserLocationButton';
+import showdata from '../data/showdata.json';
+import ShowDataButton from './ShowDataButton';
 
 function ShowDataPage() {
   const location = useLocation();
   const jsonData = location.state?.jsonData || {};
   const address = location.state?.address || 'Unknown Address';
-
+  const aboutInfo = 'Information from Show-Adresses Component';
   const [view, setView] = useState('Data');
+  const [results, setResults] = useState([]);
+  const [input, setInput] = useState('');
+  const [isResultClicked, setIsResultClicked] = useState(false);
 
+  const handleResultClick = (result) => {
+    setInput(result);
+    setIsResultClicked(true);
+  };
+
+  const handleSearchBarChange = (value) => {
+    setInput(value);
+    setIsResultClicked(false);
+  };
+
+  const handleUserLocationUpdate = (latitude, longitude) => {
+    setInput(`${latitude} ${longitude}`);
+  };
   return (
+    <div>
     <div className="showDataContainer">
       <div className="ShowDataPage">
+        <div className="search-bar-container-show-data">
+          <UserLocationButton onLocationUpdate={handleUserLocationUpdate} />
+          <div className="column-show-data search-bar-and-results-show-data results-container-show-data">
+            <SearchBar setResults={setResults} input={input} setInput={handleSearchBarChange} />
+            {results && results.length > 0 && !isResultClicked && (
+              <SearchResultsList results={results} onResultClick={handleResultClick} />
+            )}
+          </div>
+          <ShowDataButton jsonData={showdata} address={input} />
+        </div>
         <button
           className={`toggleButton ${view === 'Map' ? 'mapButton' : 'dataButton'}`}
           onClick={() => setView(view === 'Data' ? 'Map' : 'Data')}
@@ -44,6 +77,11 @@ function ShowDataPage() {
         )}
       </div>
     </div>
+      <div>
+        <Footer additionalInfo={aboutInfo} />
+      </div>
+    </div>
+
   );
 }
 

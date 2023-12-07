@@ -7,11 +7,22 @@
 }
 
 .search-bar-container {
+  flex: 1;
+  display: flex;
   padding-top: 20vh;
-  width: 40%;
+  width: 60%;
   margin: auto;
   display: flex;
   min-width: 200px;
+}
+
+.how-it-works-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 30;
+  min-width: 400px;
+
 }
 
 .column {
@@ -23,6 +34,13 @@
 .search-bar-and-results {
   flex-grow: 1; /* Ustawia flex-grow na 1, aby zajmować dostępną przestrzeń */
 }
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 
 .text {
   width: 50%;

@@ -1,13 +1,13 @@
-// Komponent Home.jsx
+// Home.js
 import React, { useState } from 'react';
 import Footer from './Footer';
 import '../styles/Home.css';
 import { SearchBar } from './SearchBar';
 import { SearchResultsList } from './SearchResultsList';
 import { UserLocationButton } from './UserLocationButton';
-import showdata from '../data/showdata.json';
 import ShowDataButton from './ShowDataButton';
 import HowItWorks from './HowItWorks';
+import showdata from '../data/showdata.json';
 
 function Home() {
   const [results, setResults] = useState([]);
@@ -31,7 +31,7 @@ function Home() {
   };
 
   return (
-    <div>
+    <div className="home-container">
       <div className="search-bar-container">
         <UserLocationButton onLocationUpdate={handleUserLocationUpdate} />
         <div className="column search-bar-and-results results-container">
@@ -42,7 +42,9 @@ function Home() {
         </div>
         <ShowDataButton jsonData={showdata} address={input} />
       </div>
-      <HowItWorks howItWorksText={howItWorksText} />
+      <div className="how-it-works-container">
+        <HowItWorks howItWorksText={howItWorksText} />
+      </div>
       <Footer additionalInfo={aboutInfo} />
     </div>
   );

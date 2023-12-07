@@ -1,6 +1,7 @@
+/* Footer.css */
 .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-  }
+  width: 100%;
+  color: #000000; /* Use the desired text color */
+  padding: 5px;
+  text-align: center;
+}

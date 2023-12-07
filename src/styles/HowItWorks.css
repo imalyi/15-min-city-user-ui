@@ -1,7 +1,9 @@
 /* HowItWorks.css */
 .how-it-works {
-    text-align: center;
-    margin-top: 5vh;
+    width: 100%; /* Adjust the width as per your design */
+    margin: auto;
+    margin-top: 20px; /* Add margin-top to create space between search results and HowItWorks */
+
   }
   
   h2 {

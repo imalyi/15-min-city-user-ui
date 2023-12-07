@@ -64,12 +64,34 @@
   }
 
   .map-container {
-    margin-top: 3vh;
-    margin-bottom: 3vh;
+    margin-top: 1vh;
     margin-right: 3vh;
     margin-left: 3vh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+  }
+
+  .search-bar-container-show-data {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    width: 60%;
+    margin: auto;
+    display: flex;
+    min-width: 200px;
+  }
+
+  .column-show-data {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Ustawia flex-grow na 1, aby zajmować dostępną przestrzeń */
+  }
+  
+  .search-bar-and-results-show-data {
+    flex-grow: 1; /* Ustawia flex-grow na 1, aby zajmować dostępną przestrzeń */
+  }
+
+  .results-container-show-data {
+    position: relative;
   }
