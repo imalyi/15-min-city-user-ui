@@ -6,15 +6,17 @@ import { SearchBar } from './SearchBar';
 import { SearchResultsList } from './SearchResultsList';
 import { UserLocationButton } from './UserLocationButton';
 import ShowDataButton from './ShowDataButton';
-import HowItWorks from './HowItWorks';
+//import HowItWorks from './HowItWorks';
 import showdata from '../data/showdata.json';
+import Roles from './Roles';
 
 function Home() {
   const [results, setResults] = useState([]);
   const [input, setInput] = useState('');
   const [isResultClicked, setIsResultClicked] = useState(false);
   const aboutInfo = 'Information from Home Component';
-  const howItWorksText = '***Description of page functions***';
+  const [selectedRole, setSelectedRole] = useState('');
+  //const howItWorksText = '***Description of page functions***';
 
   const handleResultClick = (result) => {
     setInput(result);
@@ -30,6 +32,10 @@ function Home() {
     setInput(`${latitude} ${longitude}`);
   };
 
+  const handleRoleSelect = (role) => {
+    setSelectedRole(role);
+  };
+
   return (
     <div className="home-container">
       <div className="search-bar-container">
@@ -40,10 +46,10 @@ function Home() {
             <SearchResultsList results={results} onResultClick={handleResultClick} />
           )}
         </div>
-        <ShowDataButton jsonData={showdata} address={input} />
+        <ShowDataButton jsonData={showdata} address={input} selectedRole={selectedRole}/>
       </div>
       <div className="how-it-works-container">
-        <HowItWorks howItWorksText={howItWorksText} />
+        <Roles onSelectRole={handleRoleSelect}/>
       </div>
       <Footer additionalInfo={aboutInfo} />
     </div>

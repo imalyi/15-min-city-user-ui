@@ -65,8 +65,6 @@
 
   .map-container {
     margin-top: 1vh;
-    margin-right: 3vh;
-    margin-left: 3vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -76,7 +74,7 @@
   .search-bar-container-show-data {
     padding-top: 1vh;
     padding-bottom: 1vh;
-    width: 60%;
+    width: 78%;
     margin: auto;
     display: flex;
     min-width: 200px;
