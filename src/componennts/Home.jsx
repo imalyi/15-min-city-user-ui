@@ -28,8 +28,8 @@ function Home() {
     setIsResultClicked(false);
   };
 
-  const handleUserLocationUpdate = (latitude, longitude) => {
-    setInput(`${latitude} ${longitude}`);
+  const handleUserLocationUpdate = (address) => {
+    setInput(`${address[0].address}`);
   };
 
   const handleRoleSelect = (role) => {
