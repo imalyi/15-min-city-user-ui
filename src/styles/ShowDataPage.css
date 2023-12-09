@@ -1,7 +1,6 @@
 .ShowDataPage {
     background-color: white;
     width: 100vw;
-    height: 100vh;
     padding: 20px;
   }
   
@@ -35,7 +34,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Opcjonalne: Ustawia wysokość kontenera na całą wysokość widoku. */
   }
   
   .toggleButton {

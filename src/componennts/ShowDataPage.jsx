@@ -52,7 +52,7 @@ function ShowDataPage() {
           <div className="search-bar-container-show-data">
             <UserLocationButton onLocationUpdate={handleUserLocationUpdate} />
             <div className="column-show-data search-bar-and-results-show-data results-container-show-data">
-              <SearchBar setResults={setResults} input={input} setInput={handleSearchBarChange} />
+              <SearchBar setResults={setResults} input={input} setInput={handleSearchBarChange} setIsResultClicked={setIsResultClicked}/>
               {results && results.length > 0 && !isResultClicked && (
                 <SearchResultsList results={results} onResultClick={handleResultClick} />
               )}
