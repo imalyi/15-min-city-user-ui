@@ -10,7 +10,7 @@
   flex: 1;
   display: flex;
   padding-top: 20vh;
-  width: 60%;
+  width: 78%;
   margin: auto;
   display: flex;
   min-width: 200px;
@@ -19,9 +19,7 @@
 .how-it-works-container {
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-grow: 30;
-  min-width: 400px;
 
 }
 

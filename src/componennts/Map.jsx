@@ -2,21 +2,9 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import '../styles/Map.css';
 import Markers from './Markers';
-const Map = () => {
 
-  const coordinates = {lat: 54.35, lng:18.63};
-
-  const points = [
-    { placeName: "doctor", lat: 54.354331916, lng: 18.63999744 },
-    { placeName: "drugstore", lat: 54.36, lng: 18.64 },
-    { placeName: "fast food", lat: 54.37, lng: 18.65 },
-    { placeName: "grocery store", lat: 54.36, lng: 18.63 },
-    { placeName: "doctor", lat: 54.34, lng: 18.62 },
-    { placeName: "drugstore", lat: 54.33, lng: 18.61 },
-    { placeName: "fast food", lat: 54.35, lng: 18.60 },
-    { placeName: "grocery store", lat: 54.36, lng: 18.60 }
-  ];
-  
+const Map = ({ jsonData, categoriesToShow }) => {
+  const coordinates = { lat: 54.35, lng: 18.63 };
 
   return (
     <div style={{height: '80vh', width: '100%'}}>
@@ -29,12 +17,12 @@ const Map = () => {
         options={''}
         onChange={''}
         onChildClick={''}
-      >
-      {points.map(({ placeName, lat, lng}) => {
-        return (
-          <Markers placeName={placeName} lat={lat} lng={lng}/>
-        );
-      })}
+        >
+        {categoriesToShow.map((category) =>
+          jsonData[category]?.map((item, index) => (
+            <Markers key={`${category}-${index}`} placeName={category} lat={item.lat} lng={item.lng} />
+          ))
+        )}
       </GoogleMapReact>
     </div>
   );

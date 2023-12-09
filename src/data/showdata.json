@@ -2,41 +2,57 @@
     "doctor": [
         {
             "distance": 10,
-            "gmaps_url": "https://googlemaps..."
+            "gmaps_url": "https://googlemaps...",
+            "lat": 54.354331916, 
+            "lng": 18.63999744
         },
         {
             "distance": 440,
-            "gmaps_url": "https://googlemaps..."
+            "gmaps_url": "https://googlemaps...",
+            "lat": 54.34, 
+            "lng": 18.62
         }
     ],
     "fast food": [
         {
             "distance": 1200,
-            "gmaps_url": "https://googlemaps..."
+            "gmaps_url": "https://googlemaps...",
+            "lat": 54.37, 
+            "lng": 18.65
         },
         {
             "distance": 4120,
-            "gmaps_url": "https://googlemaps..."
+            "gmaps_url": "https://googlemaps...",
+            "lat": 54.35, 
+            "lng": 18.60
         }
     ],
     "drugstore": [
         {
             "distance": 12,
-            "gmaps_url": "https://googlemaps..."
+            "gmaps_url": "https://googlemaps...",
+            "lat": 54.36, 
+            "lng": 18.64
         },
         {
             "distance": 530,
-            "gmaps_url": "https://googlemaps..."
+            "gmaps_url": "https://googlemaps...",
+            "lat": 54.33, 
+            "lng": 18.61
         }
     ],
     "grocery store": [
         {
             "distance": 100,
-            "gmaps_url": "https://googlemaps..."
+            "gmaps_url": "https://googlemaps...",
+            "lat": 54.36, 
+            "lng": 18.63
         },
         {
             "distance": 420,
-            "gmaps_url": "https://googlemaps..."
+            "gmaps_url": "https://googlemaps...",
+            "lat": 54.36, 
+            "lng": 18.60
         }
     ]
 }
