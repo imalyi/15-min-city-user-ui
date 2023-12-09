@@ -46,7 +46,7 @@ export const UserLocationButton = ({ onLocationUpdate }) => {
   };
 
   return (
-    <button className="user-location-button" onClick={handleUserLocationClick}>
+    <button className="user-location-button" onClick={handleUserLocationClick} >
       <SlLocationPin id="localization-icon" />
     </button>
   );

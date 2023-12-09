@@ -23,6 +23,7 @@ function Home() {
     setIsResultClicked(true);
   };
 
+
   const handleSearchBarChange = (value) => {
     setInput(value);
     setIsResultClicked(false);
@@ -30,6 +31,7 @@ function Home() {
 
   const handleUserLocationUpdate = (address) => {
     setInput(`${address[0].address}`);
+    setIsResultClicked(true);
   };
 
   const handleRoleSelect = (role) => {
@@ -39,9 +41,9 @@ function Home() {
   return (
     <div className="home-container">
       <div className="search-bar-container">
-        <UserLocationButton onLocationUpdate={handleUserLocationUpdate} />
+        <UserLocationButton onLocationUpdate={handleUserLocationUpdate}/>
         <div className="column search-bar-and-results results-container">
-          <SearchBar setResults={setResults} input={input} setInput={handleSearchBarChange} />
+          <SearchBar setResults={setResults} input={input} setInput={handleSearchBarChange} setIsResultClicked={setIsResultClicked}/>
           {results && results.length > 0 && !isResultClicked && (
             <SearchResultsList results={results} onResultClick={handleResultClick} />
           )}
