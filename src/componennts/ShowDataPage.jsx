@@ -30,9 +30,11 @@ function ShowDataPage() {
     setIsResultClicked(false);
   };
 
-  const handleUserLocationUpdate = (latitude, longitude) => {
-    setInput(`${latitude} ${longitude}`);
+  const handleUserLocationUpdate = (address) => {
+    setInput(`${address[0].address}`);
+    setIsResultClicked(true);
   };
+
 
   // Definicja kategorii danych dostępnych dla różnych ról
   const roleCategories = {
