@@ -1,63 +1,62 @@
 [
-    {
-      "id": 1,
-      "address": "Gdańsk Główny"
-    },
-    {
-      "id": 2,
-      "address": "Warszawa Centralna"
-    },
-    {
-      "id": 3,
-      "address": "Kraków Główny"
-    },
-    {
-      "id": 4,
-      "address": "Poznań Główny"
-    },
-    {
-      "id": 5,
-      "address": "Wrocław Główny"
-    },
-    {
-      "id": 1,
-      "address": "Gdańsk Główny"
-    },
-    {
-      "id": 2,
-      "address": "Warszawa Centralna"
-    },
-    {
-      "id": 3,
-      "address": "Kraków Główny"
-    },
-    {
-      "id": 4,
-      "address": "Poznań Główny"
-    },
-    {
-      "id": 5,
-      "address": "Wrocław Główny"
-    },
-    {
-      "id": 1,
-      "address": "Gdańsk Główny"
-    },
-    {
-      "id": 2,
-      "address": "Warszawa Centralna"
-    },
-    {
-      "id": 3,
-      "address": "Kraków Główny"
-    },
-    {
-      "id": 4,
-      "address": "Poznań Główny"
-    },
-    {
-      "id": 5,
-      "address": "Wrocław Główny"
-    }
-  ]
-  
+  {
+    "id": 1,
+    "address": "Gdańsk Główny"
+  },
+  {
+    "id": 2,
+    "address": "Warszawa Centralna"
+  },
+  {
+    "id": 3,
+    "address": "Kraków Główny"
+  },
+  {
+    "id": 4,
+    "address": "Poznań Główny"
+  },
+  {
+    "id": 5,
+    "address": "Wrocław Główny"
+  },
+  {
+    "id": 1,
+    "address": "Gdańsk Główny"
+  },
+  {
+    "id": 2,
+    "address": "Warszawa Centralna"
+  },
+  {
+    "id": 3,
+    "address": "Kraków Główny"
+  },
+  {
+    "id": 4,
+    "address": "Poznań Główny"
+  },
+  {
+    "id": 5,
+    "address": "Wrocław Główny"
+  },
+  {
+    "id": 1,
+    "address": "Gdańsk Główny"
+  },
+  {
+    "id": 2,
+    "address": "Warszawa Centralna"
+  },
+  {
+    "id": 3,
+    "address": "Kraków Główny"
+  },
+  {
+    "id": 4,
+    "address": "Poznań Główny"
+  },
+  {
+    "id": 5,
+    "address": "Wrocław Główny"
+  }
+]

@@ -3,7 +3,12 @@ import Home from './componennts/Home';
 import About from './componennts/About';
 import ShowDataPage from './componennts/ShowDataPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 function App() {
   return (
     <Router>

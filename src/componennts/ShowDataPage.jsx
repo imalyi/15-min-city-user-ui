@@ -9,7 +9,6 @@ import { UserLocationButton } from './UserLocationButton';
 import showdata from '../data/showdata.json';
 import ShowDataButton from './ShowDataButton';
 
-
 //test
 function ShowDataPage() {
   const location = useLocation();
@@ -54,15 +53,29 @@ function ShowDataPage() {
           <div className="search-bar-container-show-data">
             <UserLocationButton onLocationUpdate={handleUserLocationUpdate} />
             <div className="column-show-data search-bar-and-results-show-data results-container-show-data">
-              <SearchBar setResults={setResults} input={input} setInput={handleSearchBarChange} setIsResultClicked={setIsResultClicked}/>
+              <SearchBar
+                setResults={setResults}
+                input={input}
+                setInput={handleSearchBarChange}
+                setIsResultClicked={setIsResultClicked}
+              />
               {results && results.length > 0 && !isResultClicked && (
-                <SearchResultsList results={results} onResultClick={handleResultClick} />
+                <SearchResultsList
+                  results={results}
+                  onResultClick={handleResultClick}
+                />
               )}
             </div>
-            <ShowDataButton jsonData={showdata} address={input} selectedRole={selectedRole} />
+            <ShowDataButton
+              jsonData={showdata}
+              address={input}
+              selectedRole={selectedRole}
+            />
           </div>
           <button
-            className={`toggleButton ${view === 'Map' ? 'mapButton' : 'dataButton'}`}
+            className={`toggleButton ${
+              view === 'Map' ? 'mapButton' : 'dataButton'
+            }`}
             onClick={() => setView(view === 'Data' ? 'Map' : 'Data')}
           >
             {view === 'Data' ? 'Show Map' : 'Show Data'}
@@ -86,18 +99,17 @@ function ShowDataPage() {
               ))}
             </>
           )}
-        {view === 'Map' && (
-          <div className="map-container">
-            <Map jsonData={jsonData} categoriesToShow={categoriesToShow}/>
-          </div>
-        )}
+          {view === 'Map' && (
+            <div className="map-container">
+              <Map jsonData={jsonData} categoriesToShow={categoriesToShow} />
+            </div>
+          )}
+        </div>
       </div>
-    </div>
       <div>
         <Footer additionalInfo={aboutInfo} />
       </div>
     </div>
-
   );
 }
 
