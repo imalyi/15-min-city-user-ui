@@ -1,11 +1,11 @@
 // Home.js
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Footer from './Footer';
 import '../styles/Home.css';
 import { SearchBar } from './SearchBar';
 import { SearchResultsList } from './SearchResultsList';
 import { UserLocationButton } from './UserLocationButton';
-import ShowDataButton from './ShowDataButton';
+import {ShowDataButton} from './ShowDataButton';
 //import HowItWorks from './HowItWorks';
 import showdata from '../data/showdata.json';
 import Roles from './Roles';
@@ -17,6 +17,17 @@ function Home() {
   const aboutInfo = 'Information from Home Component';
   const [selectedRole, setSelectedRole] = useState('');
   //const howItWorksText = '***Description of page functions***';
+
+  const buttonRef = useRef(null); // Dodaj ref do przycisku
+
+  const handleEnterPress = () => {
+    // Po naciśnięciu Enter, naciśnij przycisk ShowDataButton
+    console.log("aaaaaaaa")
+    console.log(buttonRef)
+    if (buttonRef.current) {
+      buttonRef.current.click();
+    }
+  };
 
   const handleResultClick = (result) => {
     setInput(result);
@@ -43,12 +54,12 @@ function Home() {
       <div className="search-bar-container">
         <UserLocationButton onLocationUpdate={handleUserLocationUpdate}/>
         <div className="column search-bar-and-results results-container">
-          <SearchBar setResults={setResults} input={input} setInput={handleSearchBarChange} setIsResultClicked={setIsResultClicked}/>
+          <SearchBar setResults={setResults} input={input} setInput={handleSearchBarChange} setIsResultClicked={setIsResultClicked} onEnterPress={handleEnterPress}/>
           {results && results.length > 0 && !isResultClicked && (
             <SearchResultsList results={results} onResultClick={handleResultClick} />
           )}
         </div>
-        <ShowDataButton jsonData={showdata} address={input} selectedRole={selectedRole}/>
+        <ShowDataButton ref={buttonRef} jsonData={showdata} address={input} selectedRole={selectedRole}/>
       </div>
       <div className="how-it-works-container">
         <Roles onSelectRole={handleRoleSelect}/>

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import '../styles/SearchBar.css';
 
-export const SearchBar = ({ setResults, input, setInput, setIsResultClicked}) => {
+export const SearchBar = ({ setResults, input, setInput, setIsResultClicked, onEnterPress }) => {
   const fetchData = async (value) => {
     if (value==="") {
 
@@ -37,13 +37,23 @@ export const SearchBar = ({ setResults, input, setInput, setIsResultClicked}) =>
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      onEnterPress(); // Wywołaj funkcję, którą przekazałeś jako prop (np. obsługę naciśnięcia przycisku ShowDataButton)
+    }
+  };
+
+  const buttonRef = useRef(null); // Dodaj ref do przycisku
+
   return (
     <div className="input-wrapper">
       <input
         placeholder="Type to search..."
         value={input}
         onChange={(e) => handleChange(e.target.value)}
+        onKeyPress={handleKeyPress}
       />
+      <button ref={buttonRef} style={{ display: 'none' }}></button>
     </div>
   );
 };

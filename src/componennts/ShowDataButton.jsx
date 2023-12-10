@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import "../styles/ShowDataButton.css"
 import { FaSearch } from 'react-icons/fa';
 
-const ShowDataButton = ({ jsonData, address, selectedRole }) => {
+export const ShowDataButton = React.forwardRef(({ jsonData, address, selectedRole }, ref) => {
   return (
     <Link to="/show-addresses" state={{ jsonData, address, selectedRole }}>
-      <button className="show-data-button">{<FaSearch id="search-icon" />}</button>
+      <button ref={ref} className="show-data-button">
+        {<FaSearch id="search-icon" />}
+      </button>
     </Link>
   );
-};
+});
 
 export default ShowDataButton;
