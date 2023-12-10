@@ -4,8 +4,9 @@ import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 import rolesData from '../data/roles.json';
 import '../styles/Roles.css';
 
-const Roles = ({ onSelectRole }) => {
-  const [selectedRole, setSelectedRole] = useState('');
+const Roles = ({ onSelectRole, selectedRoleFromShowPage }) => {
+  const [selectedRole, setSelectedRole] = useState(selectedRoleFromShowPage);
+
 
   const handleRoleChange = (event) => {
     const selectedRole = event.target.value;
@@ -15,11 +16,15 @@ const Roles = ({ onSelectRole }) => {
 
   useEffect(() => {
     // Jeśli nie wybrano żadnej roli, domyślnie ustaw "without role"
-    if (!selectedRole) {
+    if (selectedRole === "without role") {
       setSelectedRole('without role');
       onSelectRole('without role');
+    }else{
+      setSelectedRole(selectedRole);
+      onSelectRole(selectedRole);
     }
   }, [onSelectRole, selectedRole]);
+
 
   return (
     <div className="roles-container">

@@ -15,7 +15,7 @@ function Home() {
   const [input, setInput] = useState('');
   const [isResultClicked, setIsResultClicked] = useState(false);
   const aboutInfo = 'Information from Home Component';
-  const [selectedRole, setSelectedRole] = useState('');
+  const [selectedRole, setSelectedRole] = useState('without role');
   //const howItWorksText = '***Description of page functions***';
 
   const buttonRef = useRef(null); // Dodaj ref do przycisku
@@ -62,7 +62,7 @@ function Home() {
         <ShowDataButton ref={buttonRef} jsonData={showdata} address={input} selectedRole={selectedRole}/>
       </div>
       <div className="how-it-works-container">
-        <Roles onSelectRole={handleRoleSelect}/>
+        <Roles onSelectRole={handleRoleSelect} selectedRoleFromShowPage={selectedRole}/>
       </div>
       <Footer additionalInfo={aboutInfo} />
     </div>

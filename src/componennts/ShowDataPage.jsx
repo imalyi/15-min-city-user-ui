@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../styles/ShowDataPage.css'; // Dodaj import stylów
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import Map from './Map';
 import Footer from './Footer';
 import { SearchBar } from './SearchBar';
@@ -8,18 +9,21 @@ import { SearchResultsList } from './SearchResultsList';
 import { UserLocationButton } from './UserLocationButton';
 import showdata from '../data/showdata.json';
 import ShowDataButton from './ShowDataButton';
+import Roles from './Roles';
+
 
 function ShowDataPage() {
+  const [isRolesVisible, setIsRolesVisible] = useState(false); 
   const location = useLocation();
   const jsonData = location.state?.jsonData || {};
   const address = location.state?.address || 'Unknown Address';
-  const selectedRole = location.state?.selectedRole || 'Unknown Role';
   const aboutInfo = 'Information from Show-Adresses Component';
+  const selectedRole = location.state?.selectedRole || 'Unknown Role'
   const [view, setView] = useState('Data');
   const [results, setResults] = useState([]);
-  const [input, setInput] = useState('');
-  const [isResultClicked, setIsResultClicked] = useState(false);
-
+  const [input, setInput] = useState(address);
+  const [isResultClicked, setIsResultClicked] = useState(true);
+  const [selectedRoleShowPage, setSelectedRoleShowPage] = useState(selectedRole);
   const buttonRef = useRef(null); // Dodaj ref do przycisku
 
   const handleEnterPress = () => {
@@ -44,6 +48,16 @@ function ShowDataPage() {
     setIsResultClicked(true);
   };
 
+  const handleRoleSelect = (role) => {
+    setSelectedRoleShowPage(role);
+  };
+
+  const handleToggleRoles = () => {
+    // Funkcja do przełączania widoczności komponentu Roles
+    setIsRolesVisible((prev) => !prev);
+  };
+
+  
 
   // Definicja kategorii danych dostępnych dla różnych ról
   const roleCategories = {
@@ -68,8 +82,17 @@ function ShowDataPage() {
                 <SearchResultsList results={results} onResultClick={handleResultClick} />
               )}
             </div>
-            <ShowDataButton ref={buttonRef} jsonData={showdata} address={input} selectedRole={selectedRole}/>
+            <ShowDataButton ref={buttonRef} jsonData={showdata} address={input} selectedRole={selectedRoleShowPage}/>
+            <button onClick={handleToggleRoles} className="toggleRolesButton">
+            {isRolesVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
+            </button>
           </div>
+          {isRolesVisible && (
+            <div className="how-it-works-container">
+              <Roles onSelectRole={handleRoleSelect} selectedRoleFromShowPage={selectedRoleShowPage}/>
+            </div>
+          )}
+
           <button
             className={`toggleButton ${view === 'Map' ? 'mapButton' : 'dataButton'}`}
             onClick={() => setView(view === 'Data' ? 'Map' : 'Data')}
