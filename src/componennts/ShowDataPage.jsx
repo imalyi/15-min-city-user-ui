@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../styles/ShowDataPage.css'; // Dodaj import stylów
 import Map from './Map';
@@ -19,6 +19,15 @@ function ShowDataPage() {
   const [results, setResults] = useState([]);
   const [input, setInput] = useState('');
   const [isResultClicked, setIsResultClicked] = useState(false);
+
+  const buttonRef = useRef(null); // Dodaj ref do przycisku
+
+  const handleEnterPress = () => {
+    // Po naciśnięciu Enter, naciśnij przycisk ShowDataButton
+    if (buttonRef.current) {
+      buttonRef.current.click();
+    }
+  };
 
   const handleResultClick = (result) => {
     setInput(result);
@@ -52,14 +61,14 @@ function ShowDataPage() {
       <div className="showDataContainer">
         <div className="ShowDataPage">
           <div className="search-bar-container-show-data">
-            <UserLocationButton onLocationUpdate={handleUserLocationUpdate} />
+            <UserLocationButton onLocationUpdate={handleUserLocationUpdate} onEnterPress={handleEnterPress}/>
             <div className="column-show-data search-bar-and-results-show-data results-container-show-data">
-              <SearchBar setResults={setResults} input={input} setInput={handleSearchBarChange} setIsResultClicked={setIsResultClicked}/>
+              <SearchBar setResults={setResults} input={input} setInput={handleSearchBarChange} setIsResultClicked={setIsResultClicked} onEnterPress={handleEnterPress}/>
               {results && results.length > 0 && !isResultClicked && (
                 <SearchResultsList results={results} onResultClick={handleResultClick} />
               )}
             </div>
-            <ShowDataButton jsonData={showdata} address={input} selectedRole={selectedRole} />
+            <ShowDataButton ref={buttonRef} jsonData={showdata} address={input} selectedRole={selectedRole}/>
           </div>
           <button
             className={`toggleButton ${view === 'Map' ? 'mapButton' : 'dataButton'}`}

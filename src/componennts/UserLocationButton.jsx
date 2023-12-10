@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { SlLocationPin } from "react-icons/sl";
 import '../styles/UserLocationButton.css';
 
-export const UserLocationButton = ({ onLocationUpdate }) => {
+export const UserLocationButton = ({ onLocationUpdate, onEnterPress }) => {
   const handleUserLocationClick = async () => {
     try {
       const position = await getCurrentPosition();
@@ -45,8 +45,16 @@ export const UserLocationButton = ({ onLocationUpdate }) => {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      onEnterPress(); // Wywołaj funkcję, którą przekazałeś jako prop (np. obsługę naciśnięcia przycisku ShowDataButton)
+    }
+  };
+
+  const buttonRef = useRef(null); // Dodaj ref do przycisku
+
   return (
-    <button className="user-location-button" onClick={handleUserLocationClick} >
+    <button className="user-location-button" onClick={handleUserLocationClick} onKeyPress={handleKeyPress} ref={buttonRef}>
       <SlLocationPin id="localization-icon" />
     </button>
   );

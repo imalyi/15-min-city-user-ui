@@ -52,7 +52,7 @@ function Home() {
   return (
     <div className="home-container">
       <div className="search-bar-container">
-        <UserLocationButton onLocationUpdate={handleUserLocationUpdate}/>
+        <UserLocationButton onLocationUpdate={handleUserLocationUpdate} onEnterPress={handleEnterPress}/>
         <div className="column search-bar-and-results results-container">
           <SearchBar setResults={setResults} input={input} setInput={handleSearchBarChange} setIsResultClicked={setIsResultClicked} onEnterPress={handleEnterPress}/>
           {results && results.length > 0 && !isResultClicked && (
