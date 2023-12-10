@@ -1,33 +1,33 @@
-    .markerContainer {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    }
+.markerContainer {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
 
-    .markerContainer:hover {
-    z-index: 2;
-    }
+.markerContainer:hover {
+  z-index: 2;
+}
 
-    .markerSquare {
-        width: 30px; /* Dostosuj szerokość kwadratu */
-        height: 30px; /* Dostosuj wysokość kwadratu */
-        background-color: #ffffff; /* Kolor tła kwadratu */
-        border: 2px solid #000000; /* Grubość i kolor obramowania kwadratu */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 4px; /* Zaokrąglij rogi kwadratu */
-      }
+.markerSquare {
+  width: 30px; /* Dostosuj szerokość kwadratu */
+  height: 30px; /* Dostosuj wysokość kwadratu */
+  background-color: #ffffff; /* Kolor tła kwadratu */
+  border: 2px solid #000000; /* Grubość i kolor obramowania kwadratu */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px; /* Zaokrąglij rogi kwadratu */
+}
 
-    #fast-food-marker{
-        color: rgb(255, 0, 0)
-    }
-    #doctor-marker{
-        color: rgb(0, 13, 255)
-    }
-    #drugstore-marker{
-        color: rgb(0, 204, 255)
-    }
-    #grocery-store-marker{
-        color: rgb(17, 255, 0)
-    }
+#fast-food-marker {
+  color: rgb(255, 0, 0);
+}
+#doctor-marker {
+  color: rgb(0, 13, 255);
+}
+#drugstore-marker {
+  color: rgb(0, 204, 255);
+}
+#grocery-store-marker {
+  color: rgb(17, 255, 0);
+}
