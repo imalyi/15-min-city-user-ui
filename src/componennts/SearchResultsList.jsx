@@ -5,12 +5,12 @@ import '../styles/SearchResultsList.css';
 export const SearchResultsList = ({ results, onResultClick }) => {
   return (
     <div className="results-list">
-      {console.log('ja tu')}
+      {console.log(results)}
       {results.map((result) => {
         return (
           <SearchResult
             key={result.id}
-            result={result.address}
+            result={result}
             onResultClick={onResultClick}
           />
         );

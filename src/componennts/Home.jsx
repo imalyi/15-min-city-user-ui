@@ -6,16 +6,18 @@ import { SearchResultsList } from './SearchResultsList';
 import { UserLocationButton } from './UserLocationButton';
 import { ShowDataButton } from './ShowDataButton';
 //import HowItWorks from './HowItWorks';
-import showdata from '../data/showdata.json';
 import Roles from './Roles';
 
 function Home() {
   const [results, setResults] = useState([]);
   const [input, setInput] = useState('');
+  const [addressId, setAddressId] = useState('');
   const [isResultClicked, setIsResultClicked] = useState(false);
   const aboutInfo = 'Information from Home Component';
   const [selectedRole, setSelectedRole] = useState('without role');
   const [selectedPreferences, setSelectedPreferences] = useState([]);
+  const [selectedCoordinates, setSelectedCoordinates] = useState([]);
+
   //const howItWorksText = '***Description of page functions***';
 
   const buttonRef = useRef(null); // Dodaj ref do przycisku
@@ -30,7 +32,9 @@ function Home() {
   };
 
   const handleResultClick = (result) => {
-    setInput(result);
+    setInput(result.address);
+    setAddressId(result.id);
+    setSelectedCoordinates([result.location[1], result.location[0]]);
     setIsResultClicked(true);
   };
 
@@ -39,8 +43,11 @@ function Home() {
     setIsResultClicked(false);
   };
 
-  const handleUserLocationUpdate = (address) => {
+  const handleUserLocationUpdate = (address, lat, lng) => {
     setInput(`${address[0].address}`);
+    setAddressId(`${address[0].id}`);
+    console.log(lat, lng);
+    setSelectedCoordinates([lat, lng]);
     setIsResultClicked(true);
   };
 
@@ -76,10 +83,11 @@ function Home() {
         </div>
         <ShowDataButton
           ref={buttonRef}
-          jsonData={showdata}
           address={input}
+          addressId={addressId}
           selectedRole={selectedRole}
           selectedPreferences={selectedPreferences}
+          selectedCoordinates={selectedCoordinates}
         />
       </div>
       <div className="how-it-works-container">

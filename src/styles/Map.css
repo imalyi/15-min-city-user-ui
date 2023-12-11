@@ -34,3 +34,26 @@
 #map-coordinates-marker {
   color: rgb(255, 0, 0);
 }
+
+#bank-marker {
+  color: rgb(53, 37, 197);
+}
+#bar-marker {
+  color: rgb(21, 255, 71);
+}
+#cafe-marker {
+  color: rgb(162, 106, 0);
+}
+#restaurant-marker {
+  color: rgb(254, 126, 87);
+}
+#school-marker {
+  color: rgb(70, 255, 107);
+}
+
+#theatre-marker {
+  color: rgb(13, 0, 128);
+}
+#police-marker {
+  color: rgb(0, 1, 68);
+}
