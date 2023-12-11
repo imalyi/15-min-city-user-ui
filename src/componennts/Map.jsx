@@ -4,7 +4,7 @@ import '../styles/Map.css';
 import Markers from './Markers';
 import { BiSolidMap } from 'react-icons/bi';
 
-const Map = ({ jsonData, categoriesToShow }) => {
+const Map = ({ places, categoriesToShow }) => {
   const coordinates = { lat: 54.35, lng: 18.63 };
 
   return (
@@ -32,12 +32,12 @@ const Map = ({ jsonData, categoriesToShow }) => {
           </div>
         </div>
         {categoriesToShow.map((category) =>
-          jsonData[category]?.map((item, index) => (
+          places[category]?.map((item, index) => (
             <Markers
               key={`${category}-${index}`}
               placeName={category}
-              lat={item.lat}
-              lng={item.lng}
+              lat={item.location[1]}
+              lng={item.location[0]}
             />
           )),
         )}

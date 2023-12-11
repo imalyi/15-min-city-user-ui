@@ -7,21 +7,23 @@ import Footer from './Footer';
 import { SearchBar } from './SearchBar';
 import { SearchResultsList } from './SearchResultsList';
 import { UserLocationButton } from './UserLocationButton';
-import showdata from '../data/showdata.json';
 import ShowDataButton from './ShowDataButton';
 import Roles from './Roles';
 
 function ShowDataPage() {
   const [isRolesVisible, setIsRolesVisible] = useState(false);
   const location = useLocation();
-  const jsonData = location.state?.jsonData || {};
+  const places = location.state?.places || {};
   const address = location.state?.address || 'Unknown Address';
+  const addressId = location.state?.addressId || 'Unknown Address';
+  console.log(address);
   const aboutInfo = 'Information from Show-Adresses Component';
   const selectedRole = location.state?.selectedRole || 'Unknown Role';
   const selectedPreferences = location.state?.selectedPreferences || [];
   const [view, setView] = useState('Data');
   const [results, setResults] = useState([]);
   const [input, setInput] = useState(address);
+  const [addressIdShowPage, setAddressIdShowPage] = useState(addressId);
   const [isResultClicked, setIsResultClicked] = useState(true);
   const [selectedRoleShowPage, setSelectedRoleShowPage] =
     useState(selectedRole);
@@ -37,7 +39,8 @@ function ShowDataPage() {
   };
 
   const handleResultClick = (result) => {
-    setInput(result);
+    setInput(result.address);
+    setAddressIdShowPage(result.id);
     setIsResultClicked(true);
   };
 
@@ -48,6 +51,7 @@ function ShowDataPage() {
 
   const handleUserLocationUpdate = (address) => {
     setInput(`${address[0].address}`);
+    setAddressIdShowPage(`${address[0].id}`);
     setIsResultClicked(true);
   };
 
@@ -66,9 +70,19 @@ function ShowDataPage() {
 
   // Definicja kategorii danych dostępnych dla różnych ról
   const roleCategories = {
-    'without role': ['fast food', 'grocery store', 'doctor', 'drugstore'],
-    Student: ['fast food', 'grocery store'],
-    Pensioner: ['doctor', 'drugstore'],
+    'without role': [
+      'bank',
+      'bar',
+      'cafe',
+      'doctors',
+      'fast_food',
+      'restaurant',
+      'school',
+      'theatre',
+      'police',
+    ],
+    Student: ['fast_food', 'cafe', 'bar'],
+    Pensioner: ['doctors', 'theatre', 'bank', 'restaurant'],
     // Dodaj inne role w miarę potrzeb
   };
 
@@ -106,8 +120,8 @@ function ShowDataPage() {
             </div>
             <ShowDataButton
               ref={buttonRef}
-              jsonData={showdata}
               address={input}
+              addressId={addressIdShowPage}
               selectedRole={selectedRoleShowPage}
               selectedPreferences={selectedPreferencesShowPage}
             />
@@ -137,12 +151,11 @@ function ShowDataPage() {
           {view === 'Data' && (
             <>
               <h2>{address}</h2>
-              <h2>{selectedRole}</h2>
               {categoriesToShow.map((category) => (
                 <div key={category} className="data-category">
                   <h3>{category}</h3>
                   <ul className="data-list">
-                    {jsonData[category]?.map((item, index) => (
+                    {places[category]?.map((item, index) => (
                       <li key={index} className="data-list-item">
                         Distance: {item.distance}, Gmaps URL:{' '}
                         <a href={item.gmaps_url}>{item.gmaps_url}</a>
@@ -155,7 +168,7 @@ function ShowDataPage() {
           )}
           {view === 'Map' && (
             <div className="map-container">
-              <Map jsonData={jsonData} categoriesToShow={categoriesToShow} />
+              <Map places={places} categoriesToShow={categoriesToShow} />
             </div>
           )}
         </div>

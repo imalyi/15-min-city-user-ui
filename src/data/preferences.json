@@ -1,14 +1,14 @@
 [
   {
     "id": 1,
-    "preference": "fast food"
+    "preference": "cafe"
   },
   {
     "id": 2,
-    "preference": "doctor"
+    "preference": "doctors"
   },
   {
     "id": 3,
-    "preference": "grocery store"
+    "preference": "restaurant"
   }
 ]

@@ -6,12 +6,12 @@ import { SearchResultsList } from './SearchResultsList';
 import { UserLocationButton } from './UserLocationButton';
 import { ShowDataButton } from './ShowDataButton';
 //import HowItWorks from './HowItWorks';
-import showdata from '../data/showdata.json';
 import Roles from './Roles';
 
 function Home() {
   const [results, setResults] = useState([]);
   const [input, setInput] = useState('');
+  const [addressId, setAddressId] = useState('');
   const [isResultClicked, setIsResultClicked] = useState(false);
   const aboutInfo = 'Information from Home Component';
   const [selectedRole, setSelectedRole] = useState('without role');
@@ -30,7 +30,8 @@ function Home() {
   };
 
   const handleResultClick = (result) => {
-    setInput(result);
+    setInput(result.address);
+    setAddressId(result.id);
     setIsResultClicked(true);
   };
 
@@ -41,6 +42,7 @@ function Home() {
 
   const handleUserLocationUpdate = (address) => {
     setInput(`${address[0].address}`);
+    setAddressId(`${address[0].id}`);
     setIsResultClicked(true);
   };
 
@@ -76,8 +78,8 @@ function Home() {
         </div>
         <ShowDataButton
           ref={buttonRef}
-          jsonData={showdata}
           address={input}
+          addressId={addressId}
           selectedRole={selectedRole}
           selectedPreferences={selectedPreferences}
         />
