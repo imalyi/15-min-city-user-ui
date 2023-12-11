@@ -1,0 +1,15 @@
+[
+    {
+        "id": 1,
+        "preference": "fast food"
+      },
+      {
+        "id": 2,
+        "preference": "doctor"
+      },
+      {
+        "id": 3,
+        "preference": "grocery store"
+      }
+]
+  
