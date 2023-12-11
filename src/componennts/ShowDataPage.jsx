@@ -20,15 +20,19 @@ function ShowDataPage() {
   const aboutInfo = 'Information from Show-Adresses Component';
   const selectedRole = location.state?.selectedRole || 'Unknown Role';
   const selectedPreferences = location.state?.selectedPreferences || [];
+  const selectedCoordinates = location.state?.selectedCoordinates || [90, 90];
   const [view, setView] = useState('Data');
   const [results, setResults] = useState([]);
   const [input, setInput] = useState(address);
   const [addressIdShowPage, setAddressIdShowPage] = useState(addressId);
   const [isResultClicked, setIsResultClicked] = useState(true);
+  const [selectedCoordinatesShowPage, setSelectedCoordinatesShowPage] =
+    useState(selectedCoordinates);
   const [selectedRoleShowPage, setSelectedRoleShowPage] =
     useState(selectedRole);
   const [selectedPreferencesShowPage, setSelectedPreferencesShowPage] =
     useState(selectedPreferences);
+
   const buttonRef = useRef(null); // Dodaj ref do przycisku
 
   const handleEnterPress = () => {
@@ -41,6 +45,7 @@ function ShowDataPage() {
   const handleResultClick = (result) => {
     setInput(result.address);
     setAddressIdShowPage(result.id);
+    setSelectedCoordinatesShowPage([result.location[1], result.location[0]]);
     setIsResultClicked(true);
   };
 
@@ -49,9 +54,10 @@ function ShowDataPage() {
     setIsResultClicked(false);
   };
 
-  const handleUserLocationUpdate = (address) => {
+  const handleUserLocationUpdate = (address, lat, lng) => {
     setInput(`${address[0].address}`);
     setAddressIdShowPage(`${address[0].id}`);
+    setSelectedCoordinatesShowPage([lat, lng]);
     setIsResultClicked(true);
   };
 
@@ -124,6 +130,7 @@ function ShowDataPage() {
               addressId={addressIdShowPage}
               selectedRole={selectedRoleShowPage}
               selectedPreferences={selectedPreferencesShowPage}
+              selectedCoordinates={selectedCoordinatesShowPage}
             />
             <button onClick={handleToggleRoles} className="toggleRolesButton">
               {isRolesVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
@@ -155,12 +162,14 @@ function ShowDataPage() {
                 <div key={category} className="data-category">
                   <h3>{category}</h3>
                   <ul className="data-list">
-                    {places[category]?.map((item, index) => (
-                      <li key={index} className="data-list-item">
-                        Distance: {item.distance}, Gmaps URL:{' '}
-                        <a href={item.gmaps_url}>{item.gmaps_url}</a>
-                      </li>
-                    ))}
+                    {places.osm.points_of_interest[category]?.map(
+                      (item, index) => (
+                        <li key={index} className="data-list-item">
+                          Distance: {item.distance}, Gmaps URL:{' '}
+                          <a href={item.gmaps_url}>{item.gmaps_url}</a>
+                        </li>
+                      ),
+                    )}
                   </ul>
                 </div>
               ))}
@@ -168,7 +177,11 @@ function ShowDataPage() {
           )}
           {view === 'Map' && (
             <div className="map-container">
-              <Map places={places} categoriesToShow={categoriesToShow} />
+              <Map
+                places={places.osm.points_of_interest}
+                categoriesToShow={categoriesToShow}
+                selectedCoordinatesShowPage={selectedCoordinates}
+              />
             </div>
           )}
         </div>

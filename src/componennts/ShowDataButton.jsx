@@ -4,11 +4,20 @@ import '../styles/ShowDataButton.css';
 import { FaSearch } from 'react-icons/fa';
 
 export const ShowDataButton = React.forwardRef(
-  ({ address, addressId, selectedRole, selectedPreferences }, ref) => {
+  (
+    {
+      address,
+      addressId,
+      selectedRole,
+      selectedPreferences,
+      selectedCoordinates,
+    },
+    ref,
+  ) => {
     const navigate = useNavigate();
 
     const handleUserLocationClick = async () => {
-      if (addressId === '') {
+      if (addressId === '' || address === '') {
         alert(
           'Please, choose an address from the prompts or localization button',
         );
@@ -24,6 +33,7 @@ export const ShowDataButton = React.forwardRef(
             places,
             selectedRole,
             selectedPreferences,
+            selectedCoordinates,
           },
         });
       }
@@ -44,7 +54,7 @@ export const ShowDataButton = React.forwardRef(
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
+          console.log(data.osm.points_of_interest);
           return data;
         } else {
           console.error(

@@ -4,15 +4,15 @@ import '../styles/Map.css';
 import Markers from './Markers';
 import { BiSolidMap } from 'react-icons/bi';
 
-const Map = ({ places, categoriesToShow }) => {
-  const coordinates = { lat: 54.35, lng: 18.63 };
+const Map = ({ places, categoriesToShow, selectedCoordinatesShowPage }) => {
+  console.log(selectedCoordinatesShowPage);
 
   return (
     <div style={{ height: '76.3vh', width: '100%' }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyCoR0IBs5iHPFGyq3Q8DsuBRZZjziBSVQg' }}
-        defaultCenter={coordinates}
-        center={coordinates}
+        defaultCenter={selectedCoordinatesShowPage}
+        center={selectedCoordinatesShowPage}
         defaultZoom={13}
         margin={[50, 50, 50, 50]}
         options={{
@@ -24,8 +24,8 @@ const Map = ({ places, categoriesToShow }) => {
       >
         <div
           className="markerContainer"
-          lat={Number(coordinates.lat)}
-          lng={Number(coordinates.lng)}
+          lat={Number(selectedCoordinatesShowPage[0])}
+          lng={Number(selectedCoordinatesShowPage[1])}
         >
           <div>
             <BiSolidMap id="map-coordinates-marker" fontSize="x-large" />

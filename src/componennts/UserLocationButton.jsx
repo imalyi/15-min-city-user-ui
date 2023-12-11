@@ -12,7 +12,11 @@ export const UserLocationButton = ({ onLocationUpdate, onEnterPress }) => {
         position.coords.longitude,
       );
 
-      onLocationUpdate(address);
+      onLocationUpdate(
+        address,
+        position.coords.latitude,
+        position.coords.longitude,
+      );
     } catch (error) {
       console.error('Error getting user location:', error);
       if (error.code === 1) {
