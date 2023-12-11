@@ -16,6 +16,7 @@ function Home() {
   const [isResultClicked, setIsResultClicked] = useState(false);
   const aboutInfo = 'Information from Home Component';
   const [selectedRole, setSelectedRole] = useState('without role');
+  const [selectedPreferences, setSelectedPreferences] = useState([]);
   //const howItWorksText = '***Description of page functions***';
 
   const buttonRef = useRef(null); // Dodaj ref do przycisku
@@ -49,6 +50,10 @@ function Home() {
     setSelectedRole(role);
   };
 
+  const handlePreferencesSelect = (preferences) => {
+    setSelectedPreferences(preferences);
+  };
+
   return (
     <div className="home-container">
       <div className="search-bar-container">
@@ -59,10 +64,10 @@ function Home() {
             <SearchResultsList results={results} onResultClick={handleResultClick} />
           )}
         </div>
-        <ShowDataButton ref={buttonRef} jsonData={showdata} address={input} selectedRole={selectedRole}/>
+        <ShowDataButton ref={buttonRef} jsonData={showdata} address={input} selectedRole={selectedRole} selectedPreferences={selectedPreferences}/>
       </div>
       <div className="how-it-works-container">
-        <Roles onSelectRole={handleRoleSelect} selectedRoleFromShowPage={selectedRole}/>
+        <Roles onSelectRole={handleRoleSelect} onSelectPreferences={handlePreferencesSelect} selectedRoleFromShowPage={selectedRole} selectedPreferencesShowPage={selectedPreferences}/>
       </div>
       <Footer additionalInfo={aboutInfo} />
     </div>

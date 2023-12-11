@@ -19,11 +19,13 @@ function ShowDataPage() {
   const address = location.state?.address || 'Unknown Address';
   const aboutInfo = 'Information from Show-Adresses Component';
   const selectedRole = location.state?.selectedRole || 'Unknown Role'
+  const selectedPreferences = location.state?.selectedPreferences || [];
   const [view, setView] = useState('Data');
   const [results, setResults] = useState([]);
   const [input, setInput] = useState(address);
   const [isResultClicked, setIsResultClicked] = useState(true);
   const [selectedRoleShowPage, setSelectedRoleShowPage] = useState(selectedRole);
+  const [selectedPreferencesShowPage, setSelectedPreferencesShowPage] = useState(selectedPreferences);
   const buttonRef = useRef(null); // Dodaj ref do przycisku
 
   const handleEnterPress = () => {
@@ -57,7 +59,9 @@ function ShowDataPage() {
     setIsRolesVisible((prev) => !prev);
   };
 
-  
+  const handlePreferencesSelect = (preferences) => {
+    setSelectedPreferencesShowPage(preferences);
+  };
 
   // Definicja kategorii danych dostępnych dla różnych ról
   const roleCategories = {
@@ -69,6 +73,11 @@ function ShowDataPage() {
 
   // Wybierz kategorie na podstawie wybranej roli
   const categoriesToShow = roleCategories[selectedRole] || [];
+  selectedPreferences.forEach((preference) => {
+    if (!categoriesToShow.includes(preference)) {
+      categoriesToShow.push(preference);
+    }
+  });
 
   return (
     <div>
@@ -82,14 +91,14 @@ function ShowDataPage() {
                 <SearchResultsList results={results} onResultClick={handleResultClick} />
               )}
             </div>
-            <ShowDataButton ref={buttonRef} jsonData={showdata} address={input} selectedRole={selectedRoleShowPage}/>
+            <ShowDataButton ref={buttonRef} jsonData={showdata} address={input} selectedRole={selectedRoleShowPage} selectedPreferences={selectedPreferencesShowPage}/>
             <button onClick={handleToggleRoles} className="toggleRolesButton">
             {isRolesVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
             </button>
           </div>
           {isRolesVisible && (
             <div className="how-it-works-container">
-              <Roles onSelectRole={handleRoleSelect} selectedRoleFromShowPage={selectedRoleShowPage}/>
+              <Roles onSelectRole={handleRoleSelect} onSelectPreferences={handlePreferencesSelect} selectedRoleFromShowPage={selectedRoleShowPage} selectedPreferencesShowPage={selectedPreferencesShowPage}/>
             </div>
           )}
 

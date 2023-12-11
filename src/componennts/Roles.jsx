@@ -4,9 +4,9 @@ import rolesData from '../data/roles.json';
 import preferencesData from '../data/preferences.json';
 import '../styles/Roles.css';
 
-const Roles = ({ onSelectRole, selectedRoleFromShowPage }) => {
+const Roles = ({ onSelectRole, onSelectPreferences, selectedRoleFromShowPage, selectedPreferencesShowPage }) => {
   const [selectedRole, setSelectedRole] = useState(selectedRoleFromShowPage);
-  const [userPreferences, setUserPreferences] = useState([]);
+  const [selectedPreferences, setSetectedPreferences] = useState(selectedPreferencesShowPage);
 
   const handleRoleChange = (event) => {
     const selectedRole = event.target.value;
@@ -16,11 +16,11 @@ const Roles = ({ onSelectRole, selectedRoleFromShowPage }) => {
 
   const handlePreferenceChange = (event) => {
     const preference = event.target.value;
-    const updatedPreferences = userPreferences.includes(preference)
-      ? userPreferences.filter((item) => item !== preference)
-      : [...userPreferences, preference];
-
-    setUserPreferences(updatedPreferences);
+    const updatedPreferences = selectedPreferences.includes(preference)
+      ? selectedPreferences.filter((item) => item !== preference)
+      : [...selectedPreferences, preference];
+    setSetectedPreferences(updatedPreferences);
+    onSelectPreferences(updatedPreferences)
   };
 
   useEffect(() => {
@@ -80,7 +80,7 @@ const Roles = ({ onSelectRole, selectedRoleFromShowPage }) => {
                 control={
                   <Checkbox
                     value={preference.preference}
-                    checked={userPreferences.includes(preference.preference)}
+                    checked={selectedPreferences.includes(preference.preference)}
                     onChange={handlePreferenceChange}
                     className="role-checkbox"
                   />
