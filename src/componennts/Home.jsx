@@ -1,11 +1,10 @@
-// Home.js
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Footer from './Footer';
 import '../styles/Home.css';
 import { SearchBar } from './SearchBar';
 import { SearchResultsList } from './SearchResultsList';
 import { UserLocationButton } from './UserLocationButton';
-import ShowDataButton from './ShowDataButton';
+import { ShowDataButton } from './ShowDataButton';
 //import HowItWorks from './HowItWorks';
 import showdata from '../data/showdata.json';
 import Roles from './Roles';
@@ -15,8 +14,20 @@ function Home() {
   const [input, setInput] = useState('');
   const [isResultClicked, setIsResultClicked] = useState(false);
   const aboutInfo = 'Information from Home Component';
-  const [selectedRole, setSelectedRole] = useState('');
+  const [selectedRole, setSelectedRole] = useState('without role');
+  const [selectedPreferences, setSelectedPreferences] = useState([]);
   //const howItWorksText = '***Description of page functions***';
+
+  const buttonRef = useRef(null); // Dodaj ref do przycisku
+
+  const handleEnterPress = () => {
+    // Po naciśnięciu Enter, naciśnij przycisk ShowDataButton
+    console.log('aaaaaaaa');
+    console.log(buttonRef);
+    if (buttonRef.current) {
+      buttonRef.current.click();
+    }
+  };
 
   const handleResultClick = (result) => {
     setInput(result);
@@ -37,16 +48,24 @@ function Home() {
     setSelectedRole(role);
   };
 
+  const handlePreferencesSelect = (preferences) => {
+    setSelectedPreferences(preferences);
+  };
+
   return (
     <div className="home-container">
       <div className="search-bar-container">
-        <UserLocationButton onLocationUpdate={handleUserLocationUpdate} />
+        <UserLocationButton
+          onLocationUpdate={handleUserLocationUpdate}
+          onEnterPress={handleEnterPress}
+        />
         <div className="column search-bar-and-results results-container">
           <SearchBar
             setResults={setResults}
             input={input}
             setInput={handleSearchBarChange}
             setIsResultClicked={setIsResultClicked}
+            onEnterPress={handleEnterPress}
           />
           {results && results.length > 0 && !isResultClicked && (
             <SearchResultsList
@@ -56,13 +75,20 @@ function Home() {
           )}
         </div>
         <ShowDataButton
+          ref={buttonRef}
           jsonData={showdata}
           address={input}
           selectedRole={selectedRole}
+          selectedPreferences={selectedPreferences}
         />
       </div>
       <div className="how-it-works-container">
-        <Roles onSelectRole={handleRoleSelect} />
+        <Roles
+          onSelectRole={handleRoleSelect}
+          onSelectPreferences={handlePreferencesSelect}
+          selectedRoleFromShowPage={selectedRole}
+          selectedPreferencesShowPage={selectedPreferences}
+        />
       </div>
       <Footer additionalInfo={aboutInfo} />
     </div>
