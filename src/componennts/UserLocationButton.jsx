@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { SlLocationPin } from 'react-icons/sl';
 import '../styles/UserLocationButton.css';
 
-export const UserLocationButton = ({ onLocationUpdate }) => {
+export const UserLocationButton = ({ onLocationUpdate, onEnterPress }) => {
   const handleUserLocationClick = async () => {
     try {
       const position = await getCurrentPosition();
@@ -15,12 +15,17 @@ export const UserLocationButton = ({ onLocationUpdate }) => {
       onLocationUpdate(address);
     } catch (error) {
       console.error('Error getting user location:', error);
+      if (error.code === 1) {
+        alert('Please allow access to your location');
+      }
     }
   };
 
   const getCurrentPosition = () => {
     return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(resolve, reject);
+      navigator.geolocation.getCurrentPosition(resolve, reject, {
+        enableHighAccuracy: true,
+      });
     });
   };
 
@@ -32,7 +37,7 @@ export const UserLocationButton = ({ onLocationUpdate }) => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-          }, // Zamień dane na format JSON
+          },
         },
       );
 
@@ -53,8 +58,21 @@ export const UserLocationButton = ({ onLocationUpdate }) => {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      onEnterPress();
+    }
+  };
+
+  const buttonRef = useRef(null);
+
   return (
-    <button className="user-location-button" onClick={handleUserLocationClick}>
+    <button
+      className="user-location-button"
+      onClick={handleUserLocationClick}
+      onKeyPress={handleKeyPress}
+      ref={buttonRef}
+    >
       <SlLocationPin id="localization-icon" />
     </button>
   );
