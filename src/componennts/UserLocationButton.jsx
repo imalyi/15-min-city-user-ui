@@ -36,7 +36,7 @@ export const UserLocationButton = ({ onLocationUpdate, onEnterPress }) => {
   const getAddressFromCoordinates = async (latitude, longitude) => {
     try {
       const response = await fetch(
-        `https://15minuserapi.1213213.xyz/address/?lat=${latitude}&lon=${longitude}`,
+        `${process.env.REACT_APP_URL_USER_API}address/?lat=${latitude}&lon=${longitude}`,
         {
           method: 'GET',
           headers: {

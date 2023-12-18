@@ -21,7 +21,7 @@ export const SearchBar = ({
       console.log('przed response');
       try {
         const response = await fetch(
-          `https://15minuserapi.1213213.xyz/address/?name=${value}`,
+          `${process.env.REACT_APP_URL_USER_API}address/?name=${value}`,
           {
             method: 'GET',
             headers: {

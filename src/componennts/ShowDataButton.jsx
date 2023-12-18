@@ -43,7 +43,7 @@ export const ShowDataButton = React.forwardRef(
       try {
         console.log(addressId);
         const response = await fetch(
-          `https://15minuserapi.1213213.xyz/report/?address_id=${addressId}`,
+          `${process.env.REACT_APP_URL_USER_API}report/?address_id=${addressId}`,
           {
             method: 'GET',
             headers: {
