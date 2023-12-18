@@ -6,11 +6,12 @@ import { BiSolidMap } from 'react-icons/bi';
 
 const Map = ({ places, categoriesToShow, selectedCoordinatesShowPage }) => {
   console.log(selectedCoordinatesShowPage);
+  console.log(process.env.REACT_APP_MAP_API);
 
   return (
     <div style={{ height: '76.3vh', width: '100%' }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyCoR0IBs5iHPFGyq3Q8DsuBRZZjziBSVQg' }}
+        bootstrapURLKeys={{ key: process.env.REACT_APP_MAP_API }}
         defaultCenter={selectedCoordinatesShowPage}
         center={selectedCoordinatesShowPage}
         defaultZoom={13}
