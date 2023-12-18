@@ -175,6 +175,7 @@ function ShowDataPage() {
               ))}
             </>
           )}
+
           {view === 'Map' && (
             <div className="map-container">
               <Map
