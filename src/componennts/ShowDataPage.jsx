@@ -21,7 +21,6 @@ function ShowDataPage() {
   const selectedRole = location.state?.selectedRole || 'Unknown Role';
   const selectedPreferences = location.state?.selectedPreferences || [];
   const selectedCoordinates = location.state?.selectedCoordinates || [90, 90];
-  const [view, setView] = useState('Data');
   const [results, setResults] = useState([]);
   const [input, setInput] = useState(address);
   const [addressIdShowPage, setAddressIdShowPage] = useState(addressId);
@@ -146,18 +145,8 @@ function ShowDataPage() {
               />
             </div>
           )}
-
-          <button
-            className={`toggleButton ${
-              view === 'Map' ? 'mapButton' : 'dataButton'
-            }`}
-            onClick={() => setView(view === 'Data' ? 'Map' : 'Data')}
-          >
-            {view === 'Data' ? 'Show Map' : 'Show Data'}
-          </button>
-          {view === 'Data' && (
-            <>
-              <h2>{address}</h2>
+          <div className="show-data-map">
+            <div className="left-section">
               {categoriesToShow.map((category) => (
                 <div key={category} className="data-category">
                   <h3>{category}</h3>
@@ -173,18 +162,16 @@ function ShowDataPage() {
                   </ul>
                 </div>
               ))}
-            </>
-          )}
+            </div>
 
-          {view === 'Map' && (
-            <div className="map-container">
+            <div className="map-container right-section">
               <Map
                 places={places.osm.points_of_interest}
                 categoriesToShow={categoriesToShow}
                 selectedCoordinatesShowPage={selectedCoordinates}
               />
             </div>
-          )}
+          </div>
         </div>
       </div>
       <div>

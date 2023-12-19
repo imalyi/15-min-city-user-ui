@@ -30,12 +30,6 @@
   color: royalblue;
 }
 
-.showDataContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .toggleButton {
   padding: 10px 20px; /* Dostosuj padding według potrzeb */
   font-size: 16px; /* Dostosuj rozmiar czcionki według potrzeb */
@@ -63,10 +57,9 @@
 }
 
 .map-container {
-  margin-top: 1vh;
+  margin-top: 2vh;
+  margin-left: 2vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
   overflow: hidden;
 }
 
@@ -74,6 +67,13 @@
   padding-top: 1vh;
   padding-bottom: 1vh;
   width: 78%;
+  margin: auto;
+  display: flex;
+  min-width: 200px;
+}
+
+.show-data-map {
+  width: 100%;
   margin: auto;
   display: flex;
   min-width: 200px;
@@ -103,4 +103,17 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+}
+
+.showDataContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-section {
+  width: 20%; /* Adjust the width as needed */
+}
+
+.right-section {
+  width: 80%; /* Adjust the width as needed */
 }
