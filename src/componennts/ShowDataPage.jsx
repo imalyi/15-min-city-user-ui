@@ -154,8 +154,56 @@ function ShowDataPage() {
                     {places.osm.points_of_interest[category]?.map(
                       (item, index) => (
                         <li key={index} className="data-list-item">
-                          Distance: {item.distance}, Gmaps URL:{' '}
-                          <a href={item.gmaps_url}>{item.gmaps_url}</a>
+                          {item.name !== 'unknown' && (
+                            <>
+                              <strong>Name:</strong> {item.name}
+                              <br />
+                            </>
+                          )}
+                          {item.address.full && (
+                            <>
+                              <strong>Address:</strong> {item.address.full}
+                              <br />
+                            </>
+                          )}
+                          <strong>Distance:</strong>{' '}
+                          {item.distance < 1000
+                            ? `${item.distance.toFixed(0)}m`
+                            : `${(item.distance / 1000).toFixed(1)}km`}
+                          <br />
+                          {item.tags['contact:instagram'] && (
+                            <>
+                              <strong>Instagram:</strong>{' '}
+                              <a href={item.tags['contact:instagram']}>
+                                {item.tags['contact:instagram']}
+                              </a>
+                              <br />
+                            </>
+                          )}
+                          {item.tags['contact:facebook'] && (
+                            <>
+                              <strong>Facebook:</strong>{' '}
+                              <a href={item.tags['contact:facebook']}>
+                                {item.tags['contact:facebook']}
+                              </a>
+                              <br />
+                            </>
+                          )}
+                          {item.tags.mobile && (
+                            <>
+                              <strong>Phone number:</strong> {item.tags.mobile}
+                              <br />
+                            </>
+                          )}
+                          {item.tags['website:menu'] && (
+                            <>
+                              <strong>Menu:</strong>{' '}
+                              <a href={item.tags['website:menu']}>
+                                {item.tags['website:menu']}
+                              </a>
+                              <br />
+                            </>
+                          )}
                         </li>
                       ),
                     )}

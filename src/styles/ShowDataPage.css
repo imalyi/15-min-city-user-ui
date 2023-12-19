@@ -111,9 +111,45 @@
 }
 
 .left-section {
-  width: 20%; /* Adjust the width as needed */
+  width: 26%; /* Adjust the width as needed */
 }
 
 .right-section {
-  width: 80%; /* Adjust the width as needed */
+  width: 70%; /* Adjust the width as needed */
+}
+
+.data-category {
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px #ddd;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.data-category h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #333;
+  font-weight: bold;
+}
+
+.data-list {
+  list-style: none;
+  padding: 0;
+}
+
+.data-list-item {
+  margin-bottom: 10px;
+}
+
+.data-list-item strong {
+  display: inline-block;
+  width: 100px;
+  font-weight: bold;
+}
+
+/* Optional: Hover effect on list items */
+.data-list-item:hover {
+  background-color: #e0e0e0;
+  transition: background-color 0.3s ease;
 }
