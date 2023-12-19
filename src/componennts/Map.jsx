@@ -3,17 +3,23 @@ import GoogleMapReact from 'google-map-react';
 import '../styles/Map.css';
 import Markers from './Markers';
 import { BiSolidMap } from 'react-icons/bi';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Map = ({ places, categoriesToShow, selectedCoordinatesShowPage }) => {
   console.log(selectedCoordinatesShowPage);
-  console.log(process.env.REACT_APP_MAP_API);
+  const [mapCenter, setMapCenter] = useState(selectedCoordinatesShowPage);
+
+  useEffect(() => {
+    // Update the center when selectedCoordinatesShowPage changes
+    setMapCenter(selectedCoordinatesShowPage);
+  }, [selectedCoordinatesShowPage]);
 
   return (
-    <div style={{ height: '76.3vh', width: '100%' }}>
+    <div style={{ height: '80vh', width: '100%' }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: process.env.REACT_APP_MAP_API }}
-        defaultCenter={selectedCoordinatesShowPage}
-        center={selectedCoordinatesShowPage}
+        center={mapCenter}
         defaultZoom={13}
         margin={[50, 50, 50, 50]}
         options={{
