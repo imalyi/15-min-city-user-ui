@@ -21,7 +21,6 @@ function ShowDataPage() {
   const selectedRole = location.state?.selectedRole || 'Unknown Role';
   const selectedPreferences = location.state?.selectedPreferences || [];
   const selectedCoordinates = location.state?.selectedCoordinates || [90, 90];
-  const [view, setView] = useState('Data');
   const [results, setResults] = useState([]);
   const [input, setInput] = useState(address);
   const [addressIdShowPage, setAddressIdShowPage] = useState(addressId);
