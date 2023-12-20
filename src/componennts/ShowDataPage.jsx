@@ -147,6 +147,7 @@ function ShowDataPage() {
           )}
           <div className="show-data-map">
             <div className="left-section">
+              {console.log(places.osm.points_of_interest)}
               {categoriesToShow.map((category) => (
                 <div key={category} className="data-category">
                   <h3>{category}</h3>
@@ -212,7 +213,7 @@ function ShowDataPage() {
               ))}
             </div>
 
-            <div className="map-container right-section">
+            <div className="right-section map-container">
               <Map
                 places={places.osm.points_of_interest}
                 categoriesToShow={categoriesToShow}

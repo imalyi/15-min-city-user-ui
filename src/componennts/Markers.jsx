@@ -1,34 +1,75 @@
 import React from 'react';
-import { IoFastFood } from 'react-icons/io5';
-import { FaUserDoctor } from 'react-icons/fa6';
-import { FaPills } from 'react-icons/fa';
-import { CiBank } from 'react-icons/ci';
-import { MdOutlineLocalBar } from 'react-icons/md';
-import { MdOutlineLocalCafe } from 'react-icons/md';
-import { IoRestaurant } from 'react-icons/io5';
-import { MdSchool } from 'react-icons/md';
-import { FaTheaterMasks } from 'react-icons/fa';
-import { GiPoliceBadge } from 'react-icons/gi';
+import { Marker } from 'react-leaflet';
+import '../styles/Map.css';
+import {
+  doctor,
+  fast_food,
+  bank,
+  bar,
+  cafe,
+  restaurant,
+  school,
+  theatre,
+  police,
+  atm,
+  car_wash,
+  charging_station,
+  clinic,
+  dentist,
+  hospital,
+  kick_scooter_parking,
+  kindergarten,
+  library,
+  payment_centre,
+  pharmacy,
+  post_box,
+  post_office,
+  recycling,
+  shelter,
+  university,
+  veterinary,
+  waste_disposal,
+} from './Icons';
 const Markers = ({ placeName, lat, lng }) => {
   const iconMapping = {
-    doctors: <FaUserDoctor id="doctor-marker" fontSize="large" />,
-    fast_food: <IoFastFood id="fast-food-marker" fontSize="large" />,
-    drugstore: <FaPills id="drugstore-marker" fontSize="large" />,
-    bank: <CiBank id="bank-marker" fontSize="large" />,
-    bar: <MdOutlineLocalBar id="bar-marker" fontSize="large" />,
-    cafe: <MdOutlineLocalCafe id="cafe-marker" fontSize="large" />,
-    restaurant: <IoRestaurant id="restaurant-marker" fontSize="large" />,
-    school: <MdSchool id="school-marker" fontSize="large" />,
-    theatre: <FaTheaterMasks id="theatre-marker" fontSize="large" />,
-    police: <GiPoliceBadge id="police-marker" fontSize="large" />,
+    doctors: doctor,
+    fast_food: fast_food,
+    bank: bank,
+    bar: bar,
+    cafe: cafe,
+    restaurant: restaurant,
+    school: school,
+    theatre: theatre,
+    police: police,
+    clinic: clinic,
+    dentist: dentist,
+    atm: atm,
+    car_wash: car_wash,
+    charging_station: charging_station,
+    hospital: hospital,
+    kick_scooter_parking: kick_scooter_parking,
+    kindergarten: kindergarten,
+    library: library,
+    payment_centre: payment_centre,
+    pharmacy: pharmacy,
+    post_box: post_box,
+    post_office: post_office,
+    recycling: recycling,
+    shelter: shelter,
+    university: university,
+    veterinary: veterinary,
+    waste_disposal: waste_disposal,
   };
 
   const markerIcon = iconMapping[placeName];
 
   return (
-    <div className="markerContainer" lat={Number(lat)} lng={Number(lng)}>
-      <div className="markerSquare">{markerIcon}</div>
-    </div>
+    <Marker
+      className="markerContainer markerSquare"
+      position={[Number(lat), Number(lng)]}
+      icon={markerIcon}
+      riseOnHover={true}
+    />
   );
 };
 

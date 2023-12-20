@@ -111,7 +111,29 @@
 }
 
 .left-section {
+  margin-top: 2vh;
   width: 26%; /* Adjust the width as needed */
+  overflow-y: scroll;
+  height: 90vh;
+  box-shadow: 0px 0px 8px #ddd;
+}
+
+/* Dodaj te style w swoim arkuszu stylów CSS */
+.left-section::-webkit-scrollbar {
+  width: 7px; /* Szerokość paska przewijania */
+}
+
+.left-section::-webkit-scrollbar-thumb {
+  background-color: #a5a5a5; /* Kolor "kciuka" paska przewijania */
+  border-radius: 5px; /* Zaokrąglenie kciuka */
+}
+
+.left-section::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Kolor tła paska przewijania */
+}
+
+.left-section::-webkit-scrollbar-thumb:hover {
+  background-color: #787878; /* Kolor "kciuka" paska przewijania po najechaniu kursorem */
 }
 
 .right-section {

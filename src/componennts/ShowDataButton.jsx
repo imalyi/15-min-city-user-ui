@@ -36,6 +36,7 @@ export const ShowDataButton = React.forwardRef(
             selectedCoordinates,
           },
         });
+        window.location.reload();
       }
     };
 
@@ -65,7 +66,6 @@ export const ShowDataButton = React.forwardRef(
         }
       } catch (error) {
         console.error('Error getting places from addressId:', error);
-        throw error;
       }
     };
     return (
