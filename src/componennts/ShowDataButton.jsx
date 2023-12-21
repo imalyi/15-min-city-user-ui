@@ -27,6 +27,7 @@ export const ShowDataButton = React.forwardRef(
           },
         });
         window.location.reload();
+        console.log(places);
       }
     };
 

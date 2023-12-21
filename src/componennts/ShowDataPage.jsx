@@ -14,6 +14,7 @@ function ShowDataPage() {
   const [isRolesVisible, setIsRolesVisible] = useState(false);
   const location = useLocation();
   const places = location.state?.places || {};
+  console.log(places);
   const address = location.state?.address || 'Unknown Address';
   const addressId = location.state?.addressId || 'Unknown Address';
   const aboutInfo = 'Information from Show-Adresses Component';
@@ -28,6 +29,12 @@ function ShowDataPage() {
   const [selectedPreferencesShowPage, setSelectedPreferencesShowPage] =
     useState(selectedPreferences);
   const buttonRef = useRef(null);
+
+  const [flyToLocation, setFlyToLocation] = useState(null);
+
+  const handleDataCategoryClick = (location) => {
+    setFlyToLocation(location);
+  };
 
   const handleEnterPress = () => {
     if (buttonRef.current) {
@@ -129,7 +136,11 @@ function ShowDataPage() {
                   <ul className="data-list">
                     {places.osm.points_of_interest[category.key]?.map(
                       (item, index) => (
-                        <li key={index} className="data-list-item">
+                        <li
+                          key={index}
+                          className="data-list-item"
+                          onClick={() => handleDataCategoryClick(item.location)}
+                        >
                           {item.name !== 'unknown' && (
                             <>
                               <strong>Name:</strong> {item.name}
@@ -195,6 +206,7 @@ function ShowDataPage() {
                   (category) => category.key,
                 )}
                 selectedCoordinatesShowPage={selectedCoordinates}
+                flyToLocation={flyToLocation}
               />
             </div>
           </div>
