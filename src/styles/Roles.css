@@ -23,11 +23,14 @@
 
 .role-option {
   margin-top: 5px;
-  font-size: 16px; /* Ustawienie większych liter w label */
   /* Dodaj styl poniżej, aby dostosować wielkość tekstu w etykiecie */
   & .MuiFormControlLabel-label {
-    font-size: 14px; /* Wielkość tekstu w etykiecie */
+    font-size: 16px; /* Wielkość tekstu w etykiecie */
   }
+}
+
+.role-checkbox {
+  margin-left: 100px; /* Adjust the margin as needed */
 }
 
 .roles-section {
@@ -43,6 +46,7 @@
 
 .preferences-column {
   display: flex;
-  flex-direction: column;
-  align-items: center; /* Wyśrodkuj zawartość w kolumnie */
+  align-items: flex-start; /* Align items to the start of the container */
+  justify-content: flex-start; /* Justify content to the start of the container */ /* Wyśrodkuj zawartość w kolumnie */
+  flex-wrap: wrap;
 }

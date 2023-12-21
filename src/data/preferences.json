@@ -1,14 +1,132 @@
 [
   {
     "id": 1,
-    "preference": "cafe"
+    "preference": "doctor",
+    "web_preference": "Doctor"
   },
   {
     "id": 2,
-    "preference": "doctors"
+    "preference": "fast_food",
+    "web_preference": "Fast Food"
   },
   {
     "id": 3,
-    "preference": "restaurant"
+    "preference": "bar",
+    "web_preference": "Bar"
+  },
+  {
+    "id": 4,
+    "preference": "cafe",
+    "web_preference": "Cafe"
+  },
+  {
+    "id": 5,
+    "preference": "restaurant",
+    "web_preference": "Restaurant"
+  },
+  {
+    "id": 6,
+    "preference": "school",
+    "web_preference": "School"
+  },
+  {
+    "id": 7,
+    "preference": "theatre",
+    "web_preference": "Theatre"
+  },
+  {
+    "id": 8,
+    "preference": "police",
+    "web_preference": "Police"
+  },
+  {
+    "id": 9,
+    "preference": "atm",
+    "web_preference": "ATM"
+  },
+  {
+    "id": 10,
+    "preference": "car_wash",
+    "web_preference": "Car Wash"
+  },
+  {
+    "id": 11,
+    "preference": "charging_station",
+    "web_preference": "Charging Station"
+  },
+  {
+    "id": 12,
+    "preference": "clinic",
+    "web_preference": "Clinic"
+  },
+  {
+    "id": 13,
+    "preference": "dentist",
+    "web_preference": "Dentist"
+  },
+  {
+    "id": 14,
+    "preference": "hospital",
+    "web_preference": "Hospital"
+  },
+  {
+    "id": 15,
+    "preference": "kick_scooter_parking",
+    "web_preference": "Kick Scooter Parking"
+  },
+  {
+    "id": 16,
+    "preference": "kindergarten",
+    "web_preference": "Kindergarten"
+  },
+  {
+    "id": 17,
+    "preference": "library",
+    "web_preference": "Library"
+  },
+  {
+    "id": 18,
+    "preference": "payment_centre",
+    "web_preference": "Payment Centre"
+  },
+  {
+    "id": 19,
+    "preference": "pharmacy",
+    "web_preference": "Pharmacy"
+  },
+  {
+    "id": 20,
+    "preference": "post_box",
+    "web_preference": "Post Box"
+  },
+  {
+    "id": 21,
+    "preference": "post_office",
+    "web_preference": "Post Office"
+  },
+  {
+    "id": 22,
+    "preference": "recycling",
+    "web_preference": "Recycling"
+  },
+  {
+    "id": 23,
+    "preference": "shelter",
+    "web_preference": "Shelter"
+  },
+  {
+    "id": 24,
+    "preference": "university",
+    "web_preference": "University"
+  },
+  {
+    "id": 25,
+    "preference": "veterinary",
+    "web_preference": "Veterinary"
+  },
+  {
+    "id": 26,
+    "preference": "waste_disposal",
+    "web_preference": "Waste Disposal"
   }
 ]

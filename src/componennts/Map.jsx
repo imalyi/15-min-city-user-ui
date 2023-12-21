@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Circle,
+  Tooltip,
+} from 'react-leaflet';
 import Markers from './Markers';
 import '../styles/Map.css';
 import '../styles/Leaflet.css';

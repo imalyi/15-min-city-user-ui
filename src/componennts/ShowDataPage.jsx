@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import '../styles/ShowDataPage.css'; // Dodaj import stylów
+import '../styles/ShowDataPage.css';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import Map from './Map';
 import Footer from './Footer';
@@ -16,9 +16,7 @@ function ShowDataPage() {
   const places = location.state?.places || {};
   const address = location.state?.address || 'Unknown Address';
   const addressId = location.state?.addressId || 'Unknown Address';
-  console.log(address);
   const aboutInfo = 'Information from Show-Adresses Component';
-  const selectedRole = location.state?.selectedRole || 'Unknown Role';
   const selectedPreferences = location.state?.selectedPreferences || [];
   const selectedCoordinates = location.state?.selectedCoordinates || [90, 90];
   const [results, setResults] = useState([]);
@@ -27,15 +25,11 @@ function ShowDataPage() {
   const [isResultClicked, setIsResultClicked] = useState(true);
   const [selectedCoordinatesShowPage, setSelectedCoordinatesShowPage] =
     useState(selectedCoordinates);
-  const [selectedRoleShowPage, setSelectedRoleShowPage] =
-    useState(selectedRole);
   const [selectedPreferencesShowPage, setSelectedPreferencesShowPage] =
     useState(selectedPreferences);
-
-  const buttonRef = useRef(null); // Dodaj ref do przycisku
+  const buttonRef = useRef(null);
 
   const handleEnterPress = () => {
-    // Po naciśnięciu Enter, naciśnij przycisk ShowDataButton
     if (buttonRef.current) {
       buttonRef.current.click();
     }
@@ -60,12 +54,7 @@ function ShowDataPage() {
     setIsResultClicked(true);
   };
 
-  const handleRoleSelect = (role) => {
-    setSelectedRoleShowPage(role);
-  };
-
   const handleToggleRoles = () => {
-    // Funkcja do przełączania widoczności komponentu Roles
     setIsRolesVisible((prev) => !prev);
   };
 
@@ -73,31 +62,21 @@ function ShowDataPage() {
     setSelectedPreferencesShowPage(preferences);
   };
 
-  // Definicja kategorii danych dostępnych dla różnych ról
-  const roleCategories = {
-    'without role': [
-      'bank',
-      'bar',
-      'cafe',
-      'doctors',
-      'fast_food',
-      'restaurant',
-      'school',
-      'theatre',
-      'police',
-    ],
-    Student: ['fast_food', 'cafe', 'bar'],
-    Pensioner: ['doctors', 'theatre', 'bank', 'restaurant'],
-    // Dodaj inne role w miarę potrzeb
-  };
+  // Tutaj możesz umieścić kod obsługujący zmiany preferencji lub innych danych
+  // Wywołuje się za każdym razem, gdy selectedPreferencesShowPage zostanie zaktualizowane
+  const categoriesToShow = selectedPreferences.map((preference) => {
+    const formattedPreference = preference
+      .split('_')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
 
-  // Wybierz kategorie na podstawie wybranej roli
-  const categoriesToShow = roleCategories[selectedRole] || [];
-  selectedPreferences.forEach((preference) => {
-    if (!categoriesToShow.includes(preference)) {
-      categoriesToShow.push(preference);
-    }
+    return {
+      key: preference,
+      label: formattedPreference,
+    };
   });
+
+  // Tutaj możesz coś zrobić z categoriesToShow
 
   return (
     <div>
@@ -127,7 +106,6 @@ function ShowDataPage() {
               ref={buttonRef}
               address={input}
               addressId={addressIdShowPage}
-              selectedRole={selectedRoleShowPage}
               selectedPreferences={selectedPreferencesShowPage}
               selectedCoordinates={selectedCoordinatesShowPage}
             />
@@ -138,21 +116,18 @@ function ShowDataPage() {
           {isRolesVisible && (
             <div className="how-it-works-container">
               <Roles
-                onSelectRole={handleRoleSelect}
                 onSelectPreferences={handlePreferencesSelect}
-                selectedRoleFromShowPage={selectedRoleShowPage}
                 selectedPreferencesShowPage={selectedPreferencesShowPage}
               />
             </div>
           )}
           <div className="show-data-map">
             <div className="left-section">
-              {console.log(places.osm.points_of_interest)}
               {categoriesToShow.map((category) => (
-                <div key={category} className="data-category">
-                  <h3>{category}</h3>
+                <div key={category.key} className="data-category">
+                  <h3>{category.label}</h3>
                   <ul className="data-list">
-                    {places.osm.points_of_interest[category]?.map(
+                    {places.osm.points_of_interest[category.key]?.map(
                       (item, index) => (
                         <li key={index} className="data-list-item">
                           {item.name !== 'unknown' && (
@@ -216,7 +191,9 @@ function ShowDataPage() {
             <div className="right-section map-container">
               <Map
                 places={places.osm.points_of_interest}
-                categoriesToShow={categoriesToShow}
+                categoriesToShow={categoriesToShow.map(
+                  (category) => category.key,
+                )}
                 selectedCoordinatesShowPage={selectedCoordinates}
               />
             </div>
