@@ -175,3 +175,22 @@
   background-color: #e0e0e0;
   transition: background-color 0.3s ease;
 }
+
+.no-info-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15px; /* Dostosuj wysokość według potrzeb */
+}
+
+.centered-img-cross {
+  max-width: 50%; /* Dostosuj szerokość obrazka według potrzeb */
+  max-height: 100%; /* Dostosuj wysokość obrazka według potrzeb */
+  margin-bottom: 15px;
+}
+
+.centered-img-tick {
+  max-width: 50%; /* Dostosuj szerokość obrazka według potrzeb */
+  max-height: 100%; /* Dostosuj wysokość obrazka według potrzeb */
+  margin-bottom: 15px;
+}

@@ -133,68 +133,91 @@ function ShowDataPage() {
               {categoriesToShow.map((category) => (
                 <div key={category.key} className="data-category">
                   <h3>{category.label}</h3>
-                  <ul className="data-list">
-                    {places.osm.points_of_interest[category.key]?.map(
-                      (item, index) => (
-                        <li
-                          key={index}
-                          className="data-list-item"
-                          onClick={() => handleDataCategoryClick(item.location)}
-                        >
-                          {item.name !== 'unknown' && (
-                            <>
-                              <strong>Name:</strong> {item.name}
-                              <br />
-                            </>
-                          )}
-                          {item.address.full && (
-                            <>
-                              <strong>Address:</strong> {item.address.full}
-                              <br />
-                            </>
-                          )}
-                          <strong>Distance:</strong>{' '}
-                          {item.distance < 1000
-                            ? `${item.distance.toFixed(0)}m`
-                            : `${(item.distance / 1000).toFixed(1)}km`}
-                          <br />
-                          {item.tags['contact:instagram'] && (
-                            <>
-                              <strong>Instagram:</strong>{' '}
-                              <a href={item.tags['contact:instagram']}>
-                                {item.tags['contact:instagram']}
-                              </a>
-                              <br />
-                            </>
-                          )}
-                          {item.tags['contact:facebook'] && (
-                            <>
-                              <strong>Facebook:</strong>{' '}
-                              <a href={item.tags['contact:facebook']}>
-                                {item.tags['contact:facebook']}
-                              </a>
-                              <br />
-                            </>
-                          )}
-                          {item.tags.mobile && (
-                            <>
-                              <strong>Phone number:</strong> {item.tags.mobile}
-                              <br />
-                            </>
-                          )}
-                          {item.tags['website:menu'] && (
-                            <>
-                              <strong>Menu:</strong>{' '}
-                              <a href={item.tags['website:menu']}>
-                                {item.tags['website:menu']}
-                              </a>
-                              <br />
-                            </>
-                          )}
-                        </li>
-                      ),
-                    )}
-                  </ul>
+                  {places.osm.points_of_interest[category.key] ? (
+                    <div className="no-info-container">
+                      <img
+                        src="https://cdn-icons-png.flaticon.com/128/4315/4315445.png"
+                        alt="Red Cross"
+                        className="centered-img-tick"
+                      />
+                    </div>
+                  ) : null}
+                  {places.osm.points_of_interest[category.key] &&
+                  places.osm.points_of_interest[category.key].length > 0 ? (
+                    <ul className="data-list">
+                      {places.osm.points_of_interest[category.key]?.map(
+                        (item, index) => (
+                          <li
+                            key={index}
+                            className="data-list-item"
+                            onClick={() =>
+                              handleDataCategoryClick(item.location)
+                            }
+                          >
+                            {item.name !== 'unknown' && (
+                              <>
+                                <strong>Name:</strong> {item.name}
+                                <br />
+                              </>
+                            )}
+                            {item.address.full && (
+                              <>
+                                <strong>Address:</strong> {item.address.full}
+                                <br />
+                              </>
+                            )}
+                            <strong>Distance:</strong>{' '}
+                            {item.distance < 1000
+                              ? `${item.distance.toFixed(0)}m`
+                              : `${(item.distance / 1000).toFixed(1)}km`}
+                            <br />
+                            {item.tags['contact:instagram'] && (
+                              <>
+                                <strong>Instagram:</strong>{' '}
+                                <a href={item.tags['contact:instagram']}>
+                                  {item.tags['contact:instagram']}
+                                </a>
+                                <br />
+                              </>
+                            )}
+                            {item.tags['contact:facebook'] && (
+                              <>
+                                <strong>Facebook:</strong>{' '}
+                                <a href={item.tags['contact:facebook']}>
+                                  {item.tags['contact:facebook']}
+                                </a>
+                                <br />
+                              </>
+                            )}
+                            {item.tags.mobile && (
+                              <>
+                                <strong>Phone number:</strong>{' '}
+                                {item.tags.mobile}
+                                <br />
+                              </>
+                            )}
+                            {item.tags['website:menu'] && (
+                              <>
+                                <strong>Menu:</strong>{' '}
+                                <a href={item.tags['website:menu']}>
+                                  {item.tags['website:menu']}
+                                </a>
+                                <br />
+                              </>
+                            )}
+                          </li>
+                        ),
+                      )}
+                    </ul>
+                  ) : (
+                    <div className="no-info-container">
+                      <img
+                        src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
+                        alt="Red Cross"
+                        className="centered-img-cross"
+                      />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
