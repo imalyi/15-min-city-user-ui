@@ -1,5 +1,5 @@
 import React from 'react';
-import { Marker } from 'react-leaflet';
+import { Marker, Popup } from 'react-leaflet';
 import '../styles/Map.css';
 import {
   doctor,
@@ -30,7 +30,7 @@ import {
   veterinary,
   waste_disposal,
 } from './Icons';
-const Markers = ({ placeName, lat, lng }) => {
+const Markers = ({ placeName, lat, lng, distance, address, name }) => {
   const iconMapping = {
     doctors: doctor,
     fast_food: fast_food,
@@ -69,7 +69,20 @@ const Markers = ({ placeName, lat, lng }) => {
       position={[Number(lat), Number(lng)]}
       icon={markerIcon}
       riseOnHover={true}
-    />
+    >
+      <Popup>
+        <div className="centerized">
+          <strong>{name}</strong>
+        </div>
+        <div>{address}</div>
+        <div>
+          <strong>Distance:</strong>{' '}
+          {distance < 1000
+            ? `${distance.toFixed(0)}m`
+            : `${(distance / 1000).toFixed(1)}km`}
+        </div>
+      </Popup>
+    </Marker>
   );
 };
 

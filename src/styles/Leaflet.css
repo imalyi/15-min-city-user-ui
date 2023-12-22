@@ -21,10 +21,6 @@
 /* Leaflet Map Popup */
 .leaflet-popup {
   position: absolute;
-  text-align: center;
-  padding: 6px;
-  border-radius: 3px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   background-color: #fff;
 }
 

@@ -32,7 +32,6 @@ function Map({
       />
 
       <Marker position={selectedCoordinatesShowPage} icon={locationIcon} />
-      <LocationMarker />
       <FlyToMarker flyToLocation={flyToLocation} />
       {categoriesToShow.map((category) =>
         places[category]?.map((item, index) => (
@@ -41,6 +40,9 @@ function Map({
             placeName={category}
             lat={item.location[1]}
             lng={item.location[0]}
+            distance={item.distance}
+            address={item.address.full}
+            name={item.name}
           />
         )),
       )}
@@ -50,21 +52,9 @@ function Map({
 
 export default Map;
 
-function LocationMarker() {
-  const map = useMapEvents({
-    dblclick() {
-      map.locate();
-    },
-    locationfound(e) {
-      console.log(e);
-      map.flyTo(e.latlng, map.getZoom());
-    },
-  });
-}
-
 function FlyToMarker({ flyToLocation }) {
   const map = useMapEvents({
-    click() {
+    dblclick() {
       if (flyToLocation) {
         const [lng, lat] = flyToLocation;
         map.flyTo([lat, lng], 16, {
