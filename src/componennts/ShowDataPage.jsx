@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../styles/ShowDataPage.css';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { SlMenu } from 'react-icons/sl';
 import Map from './Map';
 import Footer from './Footer';
 import { SearchBar } from './SearchBar';
@@ -31,6 +32,12 @@ function ShowDataPage() {
   const buttonRef = useRef(null);
 
   const [flyToLocation, setFlyToLocation] = useState(null);
+
+  const [isLeftSectionVisible, setIsLeftSectionVisible] = useState(false);
+
+  const handleToggleLeftSection = () => {
+    setIsLeftSectionVisible((prev) => !prev);
+  };
 
   const handleDataCategoryClick = (location) => {
     setFlyToLocation(location);
@@ -90,6 +97,13 @@ function ShowDataPage() {
       <div className="showDataContainer">
         <div className="ShowDataPage">
           <div className="search-bar-container-show-data">
+            <button
+              onClick={handleToggleLeftSection}
+              className="toggleLeftSectionButton"
+              title="Show more information"
+            >
+              {<SlMenu />}
+            </button>
             <UserLocationButton
               onLocationUpdate={handleUserLocationUpdate}
               onEnterPress={handleEnterPress}
@@ -116,7 +130,11 @@ function ShowDataPage() {
               selectedPreferences={selectedPreferencesShowPage}
               selectedCoordinates={selectedCoordinatesShowPage}
             />
-            <button onClick={handleToggleRoles} className="toggleRolesButton">
+            <button
+              onClick={handleToggleRoles}
+              className="toggleRolesButton"
+              title="Choose your preferences"
+            >
               {isRolesVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
             </button>
           </div>
@@ -129,100 +147,106 @@ function ShowDataPage() {
             </div>
           )}
           <div className="show-data-map">
-            <div className="left-section">
-              {categoriesToShow.map((category) => (
-                <div key={category.key} className="data-category">
-                  <h3>{category.label}</h3>
-                  {places.osm.points_of_interest[category.key] ? (
-                    <div className="no-info-container">
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/128/4315/4315445.png"
-                        alt="Red Cross"
-                        className="centered-img-tick"
-                      />
-                    </div>
-                  ) : null}
-                  {places.osm.points_of_interest[category.key] &&
-                  places.osm.points_of_interest[category.key].length > 0 ? (
-                    <ul className="data-list">
-                      {places.osm.points_of_interest[category.key]?.map(
-                        (item, index) => (
-                          <li
-                            key={index}
-                            className="data-list-item"
-                            onClick={() =>
-                              handleDataCategoryClick(item.location)
-                            }
-                          >
-                            {item.name !== 'unknown' && (
-                              <>
-                                <strong>Name:</strong> {item.name}
-                                <br />
-                              </>
-                            )}
-                            {item.address.full && (
-                              <>
-                                <strong>Address:</strong> {item.address.full}
-                                <br />
-                              </>
-                            )}
-                            <strong>Distance:</strong>{' '}
-                            {item.distance < 1000
-                              ? `${item.distance.toFixed(0)}m`
-                              : `${(item.distance / 1000).toFixed(1)}km`}
-                            <br />
-                            {item.tags['contact:instagram'] && (
-                              <>
-                                <strong>Instagram:</strong>{' '}
-                                <a href={item.tags['contact:instagram']}>
-                                  {item.tags['contact:instagram']}
-                                </a>
-                                <br />
-                              </>
-                            )}
-                            {item.tags['contact:facebook'] && (
-                              <>
-                                <strong>Facebook:</strong>{' '}
-                                <a href={item.tags['contact:facebook']}>
-                                  {item.tags['contact:facebook']}
-                                </a>
-                                <br />
-                              </>
-                            )}
-                            {item.tags.mobile && (
-                              <>
-                                <strong>Phone number:</strong>{' '}
-                                {item.tags.mobile}
-                                <br />
-                              </>
-                            )}
-                            {item.tags['website:menu'] && (
-                              <>
-                                <strong>Menu:</strong>{' '}
-                                <a href={item.tags['website:menu']}>
-                                  {item.tags['website:menu']}
-                                </a>
-                                <br />
-                              </>
-                            )}
-                          </li>
-                        ),
-                      )}
-                    </ul>
-                  ) : (
-                    <div className="no-info-container">
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
-                        alt="Red Cross"
-                        className="centered-img-cross"
-                      />
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+            {isLeftSectionVisible && (
+              <div className="left-section">
+                {categoriesToShow.map((category) => (
+                  <div key={category.key} className="data-category">
+                    <h3>{category.label}</h3>
+                    {places.osm.points_of_interest[category.key] ? (
+                      <div className="no-info-container">
+                        <img
+                          src="https://cdn-icons-png.flaticon.com/128/4315/4315445.png"
+                          alt="Red Cross"
+                          className="centered-img-tick"
+                        />
+                      </div>
+                    ) : null}
+                    {places.osm.points_of_interest[category.key] &&
+                    places.osm.points_of_interest[category.key].length > 0 ? (
+                      <ul className="data-list">
+                        {places.osm.points_of_interest[category.key]?.map(
+                          (item, index) => (
+                            <li
+                              key={index}
+                              className="data-list-item"
+                              onClick={() =>
+                                handleDataCategoryClick(item.location)
+                              }
+                            >
+                              {item.name !== 'unknown' && (
+                                <>
+                                  <strong>Name:</strong> {item.name}
+                                  <br />
+                                </>
+                              )}
+                              {item.address.full && (
+                                <>
+                                  <strong>Address:</strong> {item.address.full}
+                                  <br />
+                                </>
+                              )}
+                              <strong>Distance:</strong>{' '}
+                              {item.distance < 1000
+                                ? `${item.distance.toFixed(0)}m`
+                                : `${(item.distance / 1000).toFixed(1)}km`}
+                              <br />
+                              {item.tags['contact:instagram'] && (
+                                <>
+                                  <strong>Instagram:</strong>{' '}
+                                  <a href={item.tags['contact:instagram']}>
+                                    {item.tags['contact:instagram']}
+                                  </a>
+                                  <br />
+                                </>
+                              )}
+                              {item.tags['contact:facebook'] && (
+                                <>
+                                  <strong>Facebook:</strong>{' '}
+                                  <a href={item.tags['contact:facebook']}>
+                                    {item.tags['contact:facebook']}
+                                  </a>
+                                  <br />
+                                </>
+                              )}
+                              {item.tags.mobile && (
+                                <>
+                                  <strong>Phone number:</strong>{' '}
+                                  {item.tags.mobile}
+                                  <br />
+                                </>
+                              )}
+                              {item.tags['website:menu'] && (
+                                <>
+                                  <strong>Menu:</strong>{' '}
+                                  <a href={item.tags['website:menu']}>
+                                    {item.tags['website:menu']}
+                                  </a>
+                                  <br />
+                                </>
+                              )}
+                            </li>
+                          ),
+                        )}
+                      </ul>
+                    ) : (
+                      <div className="no-info-container">
+                        <img
+                          src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
+                          alt="Red Cross"
+                          className="centered-img-cross"
+                        />
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
 
-            <div className="right-section map-container">
+            <div
+              className={`right-section map-container ${
+                isLeftSectionVisible ? '' : 'right-section-center'
+              }`}
+            >
               <Map
                 places={places.osm.points_of_interest}
                 categoriesToShow={categoriesToShow.map(

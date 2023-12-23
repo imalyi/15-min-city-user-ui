@@ -64,6 +64,7 @@ export const ShowDataButton = React.forwardRef(
         ref={ref}
         className="show-data-button"
         onClick={handleUserLocationClick}
+        title="Show results"
       >
         {<FaSearch id="search-icon" />}
       </button>

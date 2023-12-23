@@ -76,6 +76,7 @@ export const UserLocationButton = ({ onLocationUpdate, onEnterPress }) => {
       onClick={handleUserLocationClick}
       onKeyPress={handleKeyPress}
       ref={buttonRef}
+      title="Get your location"
     >
       <SlLocationPin id="localization-icon" />
     </button>
