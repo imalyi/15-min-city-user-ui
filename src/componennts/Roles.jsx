@@ -26,24 +26,28 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
         <div className="preferences-column">
           {preferencesData.map((category) => (
             <div key={category.category_name}>
-              <h4>{category.category_name}</h4>
-              {category.places.map((preference) => (
-                <FormControlLabel
-                  key={preference.id}
-                  control={
-                    <Checkbox
-                      value={preference.preference}
-                      checked={selectedPreferences.includes(
-                        preference.preference,
-                      )}
-                      onChange={handlePreferenceChange}
-                      className="role-checkbox"
-                    />
-                  }
-                  className="role-option"
-                  label={preference.web_preference}
-                />
-              ))}
+              <h4 className="centered-category-header">
+                {category.category_name}
+              </h4>
+              <div className="preferences-checkbox">
+                {category.places.map((preference) => (
+                  <FormControlLabel
+                    key={preference.id}
+                    control={
+                      <Checkbox
+                        value={preference.preference}
+                        checked={selectedPreferences.includes(
+                          preference.preference,
+                        )}
+                        onChange={handlePreferenceChange}
+                        className="role-checkbox"
+                      />
+                    }
+                    className="role-option"
+                    label={preference.web_preference}
+                  />
+                ))}
+              </div>
             </div>
           ))}
         </div>

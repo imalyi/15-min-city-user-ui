@@ -121,7 +121,7 @@ function ShowDataPage() {
             </button>
           </div>
           {isRolesVisible && (
-            <div className="how-it-works-container">
+            <div>
               <Roles
                 onSelectPreferences={handlePreferencesSelect}
                 selectedPreferencesShowPage={selectedPreferencesShowPage}

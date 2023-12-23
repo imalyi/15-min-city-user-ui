@@ -3,7 +3,7 @@
     "category_name": "Sustenance",
     "places": [
       { "id": 1, "preference": "bar", "web_preference": "Bar" },
-      { "id": 2, "preference": "biergarten", "web_preference": "Biergarten" },
+      { "id": 2, "preference": "biergarten", "web_preference": "Beer Garden" },
       { "id": 3, "preference": "cafe", "web_preference": "Cafe" },
       { "id": 4, "preference": "fast_food", "web_preference": "Fast Food" },
       { "id": 5, "preference": "food_court", "web_preference": "Food Court" },
