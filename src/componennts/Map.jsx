@@ -57,8 +57,8 @@ function FlyToMarker({ flyToLocation }) {
     dblclick() {
       if (flyToLocation) {
         const [lng, lat] = flyToLocation;
-        map.flyTo([lat, lng], 16, {
-          duration: 1.5,
+        map.flyTo([lat, lng], 18, {
+          duration: 1,
         });
       }
     },
