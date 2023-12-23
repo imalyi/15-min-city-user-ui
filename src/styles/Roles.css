@@ -1,5 +1,5 @@
 .roles-container {
-  width: 95%;
+  width: 97%;
   margin: auto;
   margin-top: 5px;
   box-shadow: 0px 0px 8px #ddd;
@@ -21,13 +21,20 @@
   text-align: center;
 }
 
+.centered-category-header {
+  text-align: center;
+  font-size: 15px;
+}
 .role-option {
   margin-top: 5px;
-  font-size: 16px; /* Ustawienie większych liter w label */
   /* Dodaj styl poniżej, aby dostosować wielkość tekstu w etykiecie */
   & .MuiFormControlLabel-label {
-    font-size: 14px; /* Wielkość tekstu w etykiecie */
+    font-size: 11px; /* Wielkość tekstu w etykiecie */
   }
+}
+
+.role-checkbox {
+  margin-left: 100px; /* Adjust the margin as needed */
 }
 
 .roles-section {
@@ -43,6 +50,13 @@
 
 .preferences-column {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.preferences-checkbox {
+  display: flex;
   flex-direction: column;
-  align-items: center; /* Wyśrodkuj zawartość w kolumnie */
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px #ddd;
 }

@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import '../styles/ShowDataPage.css'; // Dodaj import stylów
+import '../styles/ShowDataPage.css';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { SlMenu } from 'react-icons/sl';
 import Map from './Map';
 import Footer from './Footer';
 import { SearchBar } from './SearchBar';
@@ -14,11 +15,10 @@ function ShowDataPage() {
   const [isRolesVisible, setIsRolesVisible] = useState(false);
   const location = useLocation();
   const places = location.state?.places || {};
+  console.log(places);
   const address = location.state?.address || 'Unknown Address';
   const addressId = location.state?.addressId || 'Unknown Address';
-  console.log(address);
   const aboutInfo = 'Information from Show-Adresses Component';
-  const selectedRole = location.state?.selectedRole || 'Unknown Role';
   const selectedPreferences = location.state?.selectedPreferences || [];
   const selectedCoordinates = location.state?.selectedCoordinates || [90, 90];
   const [results, setResults] = useState([]);
@@ -27,15 +27,23 @@ function ShowDataPage() {
   const [isResultClicked, setIsResultClicked] = useState(true);
   const [selectedCoordinatesShowPage, setSelectedCoordinatesShowPage] =
     useState(selectedCoordinates);
-  const [selectedRoleShowPage, setSelectedRoleShowPage] =
-    useState(selectedRole);
   const [selectedPreferencesShowPage, setSelectedPreferencesShowPage] =
     useState(selectedPreferences);
+  const buttonRef = useRef(null);
 
-  const buttonRef = useRef(null); // Dodaj ref do przycisku
+  const [flyToLocation, setFlyToLocation] = useState(null);
+
+  const [isLeftSectionVisible, setIsLeftSectionVisible] = useState(false);
+
+  const handleToggleLeftSection = () => {
+    setIsLeftSectionVisible((prev) => !prev);
+  };
+
+  const handleDataCategoryClick = (location) => {
+    setFlyToLocation(location);
+  };
 
   const handleEnterPress = () => {
-    // Po naciśnięciu Enter, naciśnij przycisk ShowDataButton
     if (buttonRef.current) {
       buttonRef.current.click();
     }
@@ -60,12 +68,7 @@ function ShowDataPage() {
     setIsResultClicked(true);
   };
 
-  const handleRoleSelect = (role) => {
-    setSelectedRoleShowPage(role);
-  };
-
   const handleToggleRoles = () => {
-    // Funkcja do przełączania widoczności komponentu Roles
     setIsRolesVisible((prev) => !prev);
   };
 
@@ -73,37 +76,34 @@ function ShowDataPage() {
     setSelectedPreferencesShowPage(preferences);
   };
 
-  // Definicja kategorii danych dostępnych dla różnych ról
-  const roleCategories = {
-    'without role': [
-      'bank',
-      'bar',
-      'cafe',
-      'doctors',
-      'fast_food',
-      'restaurant',
-      'school',
-      'theatre',
-      'police',
-    ],
-    Student: ['fast_food', 'cafe', 'bar'],
-    Pensioner: ['doctors', 'theatre', 'bank', 'restaurant'],
-    // Dodaj inne role w miarę potrzeb
-  };
+  // Tutaj możesz umieścić kod obsługujący zmiany preferencji lub innych danych
+  // Wywołuje się za każdym razem, gdy selectedPreferencesShowPage zostanie zaktualizowane
+  const categoriesToShow = selectedPreferences.map((preference) => {
+    const formattedPreference = preference
+      .split('_')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
 
-  // Wybierz kategorie na podstawie wybranej roli
-  const categoriesToShow = roleCategories[selectedRole] || [];
-  selectedPreferences.forEach((preference) => {
-    if (!categoriesToShow.includes(preference)) {
-      categoriesToShow.push(preference);
-    }
+    return {
+      key: preference,
+      label: formattedPreference,
+    };
   });
+
+  // Tutaj możesz coś zrobić z categoriesToShow
 
   return (
     <div>
       <div className="showDataContainer">
         <div className="ShowDataPage">
           <div className="search-bar-container-show-data">
+            <button
+              onClick={handleToggleLeftSection}
+              className="toggleLeftSectionButton"
+              title="Show more information"
+            >
+              {<SlMenu />}
+            </button>
             <UserLocationButton
               onLocationUpdate={handleUserLocationUpdate}
               onEnterPress={handleEnterPress}
@@ -127,48 +127,133 @@ function ShowDataPage() {
               ref={buttonRef}
               address={input}
               addressId={addressIdShowPage}
-              selectedRole={selectedRoleShowPage}
               selectedPreferences={selectedPreferencesShowPage}
               selectedCoordinates={selectedCoordinatesShowPage}
             />
-            <button onClick={handleToggleRoles} className="toggleRolesButton">
+            <button
+              onClick={handleToggleRoles}
+              className="toggleRolesButton"
+              title="Choose your preferences"
+            >
               {isRolesVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
             </button>
           </div>
           {isRolesVisible && (
-            <div className="how-it-works-container">
+            <div>
               <Roles
-                onSelectRole={handleRoleSelect}
                 onSelectPreferences={handlePreferencesSelect}
-                selectedRoleFromShowPage={selectedRoleShowPage}
                 selectedPreferencesShowPage={selectedPreferencesShowPage}
               />
             </div>
           )}
           <div className="show-data-map">
-            <div className="left-section">
-              {categoriesToShow.map((category) => (
-                <div key={category} className="data-category">
-                  <h3>{category}</h3>
-                  <ul className="data-list">
-                    {places.osm.points_of_interest[category]?.map(
-                      (item, index) => (
-                        <li key={index} className="data-list-item">
-                          Distance: {item.distance}, Gmaps URL:{' '}
-                          <a href={item.gmaps_url}>{item.gmaps_url}</a>
-                        </li>
-                      ),
+            {isLeftSectionVisible && (
+              <div className="left-section">
+                {categoriesToShow.map((category) => (
+                  <div key={category.key} className="data-category">
+                    <h3>{category.label}</h3>
+                    {places.osm.points_of_interest[category.key] ? (
+                      <div className="no-info-container">
+                        <img
+                          src="https://cdn-icons-png.flaticon.com/128/4315/4315445.png"
+                          alt="Red Cross"
+                          className="centered-img-tick"
+                        />
+                      </div>
+                    ) : null}
+                    {places.osm.points_of_interest[category.key] &&
+                    places.osm.points_of_interest[category.key].length > 0 ? (
+                      <ul className="data-list">
+                        {places.osm.points_of_interest[category.key]?.map(
+                          (item, index) => (
+                            <li
+                              key={index}
+                              className="data-list-item"
+                              onClick={() =>
+                                handleDataCategoryClick(item.location)
+                              }
+                            >
+                              {item.name !== 'unknown' && (
+                                <>
+                                  <strong>Name:</strong> {item.name}
+                                  <br />
+                                </>
+                              )}
+                              {item.address.full && (
+                                <>
+                                  <strong>Address:</strong> {item.address.full}
+                                  <br />
+                                </>
+                              )}
+                              <strong>Distance:</strong>{' '}
+                              {item.distance < 1000
+                                ? `${item.distance.toFixed(0)}m`
+                                : `${(item.distance / 1000).toFixed(1)}km`}
+                              <br />
+                              {item.tags['contact:instagram'] && (
+                                <>
+                                  <strong>Instagram:</strong>{' '}
+                                  <a href={item.tags['contact:instagram']}>
+                                    {item.tags['contact:instagram']}
+                                  </a>
+                                  <br />
+                                </>
+                              )}
+                              {item.tags['contact:facebook'] && (
+                                <>
+                                  <strong>Facebook:</strong>{' '}
+                                  <a href={item.tags['contact:facebook']}>
+                                    {item.tags['contact:facebook']}
+                                  </a>
+                                  <br />
+                                </>
+                              )}
+                              {item.tags.mobile && (
+                                <>
+                                  <strong>Phone number:</strong>{' '}
+                                  {item.tags.mobile}
+                                  <br />
+                                </>
+                              )}
+                              {item.tags['website:menu'] && (
+                                <>
+                                  <strong>Menu:</strong>{' '}
+                                  <a href={item.tags['website:menu']}>
+                                    {item.tags['website:menu']}
+                                  </a>
+                                  <br />
+                                </>
+                              )}
+                            </li>
+                          ),
+                        )}
+                      </ul>
+                    ) : (
+                      <div className="no-info-container">
+                        <img
+                          src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
+                          alt="Red Cross"
+                          className="centered-img-cross"
+                        />
+                      </div>
                     )}
-                  </ul>
-                </div>
-              ))}
-            </div>
+                  </div>
+                ))}
+              </div>
+            )}
 
-            <div className="map-container right-section">
+            <div
+              className={`right-section map-container ${
+                isLeftSectionVisible ? '' : 'right-section-center'
+              }`}
+            >
               <Map
                 places={places.osm.points_of_interest}
-                categoriesToShow={categoriesToShow}
+                categoriesToShow={categoriesToShow.map(
+                  (category) => category.key,
+                )}
                 selectedCoordinatesShowPage={selectedCoordinates}
+                flyToLocation={flyToLocation}
               />
             </div>
           </div>

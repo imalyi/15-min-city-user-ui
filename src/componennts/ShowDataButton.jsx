@@ -4,16 +4,7 @@ import '../styles/ShowDataButton.css';
 import { FaSearch } from 'react-icons/fa';
 
 export const ShowDataButton = React.forwardRef(
-  (
-    {
-      address,
-      addressId,
-      selectedRole,
-      selectedPreferences,
-      selectedCoordinates,
-    },
-    ref,
-  ) => {
+  ({ address, addressId, selectedPreferences, selectedCoordinates }, ref) => {
     const navigate = useNavigate();
 
     const handleUserLocationClick = async () => {
@@ -31,11 +22,12 @@ export const ShowDataButton = React.forwardRef(
             address,
             addressId,
             places,
-            selectedRole,
             selectedPreferences,
             selectedCoordinates,
           },
         });
+        window.location.reload();
+        console.log(places);
       }
     };
 
@@ -65,7 +57,6 @@ export const ShowDataButton = React.forwardRef(
         }
       } catch (error) {
         console.error('Error getting places from addressId:', error);
-        throw error;
       }
     };
     return (
@@ -73,6 +64,7 @@ export const ShowDataButton = React.forwardRef(
         ref={ref}
         className="show-data-button"
         onClick={handleUserLocationClick}
+        title="Show results"
       >
         {<FaSearch id="search-icon" />}
       </button>
