@@ -6,6 +6,12 @@ import { useTranslation } from 'react-i18next';
 export const UserLocationButton = ({ onLocationUpdate, onEnterPress }) => {
   const { t } = useTranslation();
 
+  const showServerErrorAlert = () => {
+    alert(
+      'Oops! Something went wrong with our server. Please try searching for your location again later. We apologize for the inconvenience.',
+    );
+  };
+
   const handleUserLocationClick = async () => {
     try {
       const position = await getCurrentPosition();
@@ -61,7 +67,7 @@ export const UserLocationButton = ({ onLocationUpdate, onEnterPress }) => {
       }
     } catch (error) {
       console.error('Error getting address from coordinates:', error);
-      throw error;
+      showServerErrorAlert();
     }
   };
 

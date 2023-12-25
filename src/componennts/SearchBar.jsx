@@ -14,6 +14,12 @@ export const SearchBar = ({
   const delay = 500; // Ustaw opóźnienie (w milisekundach) zależnie od Twoich preferencji
   const fetchTimeoutRef = useRef(null);
 
+  const showServerErrorAlert = () => {
+    alert(
+      'Oops! Something went wrong with our server. Please try using the localization button again later. We apologize for the inconvenience.',
+    );
+  };
+
   const fetchData = useCallback(
     async (value) => {
       if (value === '') {
@@ -45,7 +51,7 @@ export const SearchBar = ({
         }
       } catch (error) {
         console.error('Error getting address from coordinates:', error);
-        throw error;
+        showServerErrorAlert();
       }
     },
     [setIsResultClicked, setResults],
