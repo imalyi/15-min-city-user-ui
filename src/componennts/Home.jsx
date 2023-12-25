@@ -27,7 +27,7 @@ function Home() {
   const handleLanguageChange = (lng) => {
     setSelectedLanguage(lng);
     i18n.changeLanguage(lng);
-    window.location.reload();
+    //window.location.reload();
   };
 
   //const howItWorksText = '***Description of page functions***';
@@ -36,8 +36,6 @@ function Home() {
 
   const handleEnterPress = () => {
     // Po naciśnięciu Enter, naciśnij przycisk ShowDataButton
-    console.log('aaaaaaaa');
-    console.log(buttonRef);
     if (buttonRef.current) {
       buttonRef.current.click();
     }

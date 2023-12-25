@@ -2,10 +2,12 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/ShowDataButton.css';
 import { FaSearch } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 
 export const ShowDataButton = React.forwardRef(
   ({ address, addressId, selectedPreferences, selectedCoordinates }, ref) => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const handleUserLocationClick = async () => {
       if (addressId === '' || address === '') {
@@ -64,7 +66,7 @@ export const ShowDataButton = React.forwardRef(
         ref={ref}
         className="show-data-button"
         onClick={handleUserLocationClick}
-        title="Show results"
+        title={t('Show results')}
       >
         {<FaSearch id="search-icon" />}
       </button>

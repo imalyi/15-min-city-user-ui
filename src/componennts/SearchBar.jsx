@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import '../styles/SearchBar.css';
+import { useTranslation } from 'react-i18next';
 
 export const SearchBar = ({
   setResults,
@@ -8,6 +9,7 @@ export const SearchBar = ({
   setIsResultClicked,
   onEnterPress,
 }) => {
+  const { t } = useTranslation();
   const [debouncedValue, setDebouncedValue] = useState(input);
   const delay = 500; // Ustaw opóźnienie (w milisekundach) zależnie od Twoich preferencji
   const fetchTimeoutRef = useRef(null);
@@ -93,7 +95,7 @@ export const SearchBar = ({
   return (
     <div className="input-wrapper">
       <input
-        placeholder="Type to search..."
+        placeholder={t('Type to search...')}
         value={input}
         onChange={(e) => handleChange(e.target.value)}
         onKeyPress={handleKeyPress}

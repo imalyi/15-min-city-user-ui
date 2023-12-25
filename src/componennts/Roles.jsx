@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import preferencesData from '../data/preferences.json';
 import '../styles/Roles.css';
+import { useTranslation } from 'react-i18next';
 
 const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
+  const { t } = useTranslation();
+
   const [selectedPreferences, setSelectedPreferences] = useState(
     selectedPreferencesShowPage,
   );
@@ -21,13 +24,13 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
     <div className="roles-container">
       <div>
         <div>
-          <h3 className="centered-header">Choose Your Preferences</h3>
+          <h3 className="centered-header">{t('Choose Your Preferences')}</h3>
         </div>
         <div className="preferences-column">
           {preferencesData.map((category) => (
             <div key={category.category_name}>
               <h4 className="centered-category-header">
-                {category.category_name}
+                {t(category.category_name)}
               </h4>
               <div className="preferences-checkbox">
                 {category.places.map((preference) => (
@@ -44,7 +47,7 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
                       />
                     }
                     className="role-option"
-                    label={preference.web_preference}
+                    label={t(preference.web_preference)}
                   />
                 ))}
               </div>
