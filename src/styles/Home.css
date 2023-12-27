@@ -54,7 +54,7 @@
 }
 
 .language-select-container {
-  /*  margin-left: auto; /* Push the language select to the right */
+  /*margin-left: auto; /* Push the language select to the right */
   margin-left: 20px;
   margin-top: 10px;
 }
@@ -65,4 +65,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.select-and-image {
+  display: flex;
 }

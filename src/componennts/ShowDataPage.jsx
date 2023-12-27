@@ -11,8 +11,6 @@ import { UserLocationButton } from './UserLocationButton';
 import ShowDataButton from './ShowDataButton';
 import Roles from './Roles';
 import { useTranslation } from 'react-i18next';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 
 function ShowDataPage() {
   const [isRolesVisible, setIsRolesVisible] = useState(false);
@@ -102,24 +100,18 @@ function ShowDataPage() {
     };
   });
 
-  // Tutaj możesz coś zrobić z categoriesToShow
-
   return (
     <div>
       <div className="showDataContainer">
         <div className="ShowDataPage">
-          <div className="language-select-container-show-data">
-            <Select
-              value={selectedLanguage}
-              onChange={(e) => handleLanguageChange(e.target.value)}
-            >
-              <MenuItem value="en">{t('English')}</MenuItem>
-              <MenuItem value="pl">{t('Polish')}</MenuItem>
-              <MenuItem value="de">{t('German')}</MenuItem>
-              {/* Add more languages as needed */}
-            </Select>
-          </div>
           <div className="search-bar-container-show-data">
+            <div>
+              <img
+                src={'/images/15minuteLogo.png'}
+                alt="Red Cross"
+                className="logo-home"
+              />
+            </div>
             <button
               onClick={handleToggleLeftSection}
               className="toggleLeftSectionButton"
@@ -160,6 +152,24 @@ function ShowDataPage() {
             >
               {isRolesVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
             </button>
+            <div className="language-select-container-show-data">
+              <select
+                value={selectedLanguage}
+                onChange={(e) => handleLanguageChange(e.target.value)}
+                style={{
+                  height: '3rem', // Ustaw tutaj odpowiednią wysokość
+                  borderRadius: '4px', // Ustaw tutaj odpowiednią zaokrąglenie
+                  borderColor: 'white', // Ustaw tutaj odpowiedni kolor obramowania
+                  boxShadow: '0px 0px 8px #ddd',
+                  backgroundColor: 'white', // Ustaw tutaj odpowiedni kolor tła
+                }}
+              >
+                <option value="en">{t('English')}</option>
+                <option value="pl">{t('Polish')}</option>
+                <option value="de">{t('German')}</option>
+                {/* Dodaj więcej opcji według potrzeb */}
+              </select>
+            </div>
           </div>
 
           {isRolesVisible && (

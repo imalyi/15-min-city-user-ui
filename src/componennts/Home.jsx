@@ -8,8 +8,6 @@ import { ShowDataButton } from './ShowDataButton';
 //import HowItWorks from './HowItWorks';
 import Roles from './Roles';
 import { useTranslation } from 'react-i18next';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 
 function Home() {
   const [results, setResults] = useState([]);
@@ -72,15 +70,22 @@ function Home() {
   return (
     <div className="home-container">
       <div className="language-select-container">
-        <Select
+        <select
           value={selectedLanguage}
           onChange={(e) => handleLanguageChange(e.target.value)}
+          style={{
+            height: '3rem', // Ustaw tutaj odpowiednią wysokość
+            borderRadius: '4px', // Ustaw tutaj odpowiednią zaokrąglenie
+            borderColor: 'white', // Ustaw tutaj odpowiedni kolor obramowania
+            boxShadow: '0px 0px 8px #A9A9A9',
+            backgroundColor: 'white', // Ustaw tutaj odpowiedni kolor tła
+          }}
         >
-          <MenuItem value="en">{t('English')}</MenuItem>
-          <MenuItem value="pl">{t('Polish')}</MenuItem>
-          <MenuItem value="de">{t('German')}</MenuItem>
-          {/* Add more languages as needed */}
-        </Select>
+          <option value="en">{t('English')}</option>
+          <option value="pl">{t('Polish')}</option>
+          <option value="de">{t('German')}</option>
+          {/* Dodaj więcej opcji według potrzeb */}
+        </select>
       </div>
       <div className="image-logo">
         <img
