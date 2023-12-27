@@ -9,7 +9,6 @@
 .search-bar-container {
   flex: 1;
   display: flex;
-  padding-top: 20vh;
   width: 78%;
   margin: auto;
   display: flex;
@@ -58,4 +57,12 @@
   /*  margin-left: auto; /* Push the language select to the right */
   margin-left: 20px;
   margin-top: 10px;
+}
+
+.image-logo {
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -82,6 +82,13 @@ function Home() {
           {/* Add more languages as needed */}
         </Select>
       </div>
+      <div className="image-logo">
+        <img
+          src={'/images/15minuteLogo.png'}
+          alt="Red Cross"
+          className="centered-img-cross"
+        />
+      </div>
       <div className="search-bar-container">
         <UserLocationButton
           onLocationUpdate={handleUserLocationUpdate}
