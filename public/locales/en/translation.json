@@ -12,7 +12,7 @@
   "Cafe": "Cafe",
   "Fast Food": "Fast Food",
   "Food Court": "Food Court",
-  "Ice Cream Shop": "Ice Cream Shop",
+  "Ice Cream": "Ice Cream Shop",
   "Pub": "Pub",
   "Restaurant": "Restaurant",
   "Education": "Education",
@@ -141,5 +141,10 @@
   "Public Bath": "Public Bath",
   "Public Building": "Public Building",
   "Refugee Site": "Refugee Site",
-  "Vending Machine": "Vending Machine"
+  "Vending Machine": "Vending Machine",
+  "Name": "Name",
+  "Address": "Address",
+  "Distance": "Distance",
+  "Show more information": "Show more information",
+  "Choose your preferences": "Choose your preferences"
 }

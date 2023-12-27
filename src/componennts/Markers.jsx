@@ -1,6 +1,7 @@
 import React from 'react';
 import { Marker, Popup } from 'react-leaflet';
 import '../styles/Map.css';
+import { useTranslation } from 'react-i18next';
 import {
   doctors,
   fast_food,
@@ -264,6 +265,7 @@ const Markers = ({ placeName, lat, lng, distance, address, name }) => {
   };
 
   const markerIcon = iconMapping[placeName];
+  const { t } = useTranslation();
 
   return (
     <Marker
@@ -278,7 +280,7 @@ const Markers = ({ placeName, lat, lng, distance, address, name }) => {
         </div>
         <div>{address}</div>
         <div>
-          <strong>Distance:</strong>{' '}
+          <strong>{t('Distance')}:</strong>{' '}
           {distance < 1000
             ? `${distance.toFixed(0)}m`
             : `${(distance / 1000).toFixed(1)}km`}

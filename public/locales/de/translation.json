@@ -12,7 +12,7 @@
   "Cafe": "Café",
   "Fast Food": "Schnellimbiss",
   "Food Court": "Food Court",
-  "Ice Cream Shop": "Eisdiele",
+  "Ice Cream": "Eisdiele",
   "Pub": "Pub",
   "Restaurant": "Restaurant",
   "Education": "Bildung",
@@ -141,5 +141,10 @@
   "Public Bath": "Öffentliches Bad",
   "Public Building": "Öffentliches Gebäude",
   "Refugee Site": "Flüchtlingslager",
-  "Vending Machine": "Verkaufsautomat"
+  "Vending Machine": "Verkaufsautomat",
+  "Name": "Name",
+  "Address": "Adresse",
+  "Distance": "Entfernung",
+  "Show more information": "Mehr Informationen anzeigen",
+  "Choose your preferences": "Wählen Sie Ihre Präferenzen"
 }

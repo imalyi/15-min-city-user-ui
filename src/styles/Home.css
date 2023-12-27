@@ -55,7 +55,7 @@
 }
 
 .language-select-container {
-  margin-left: auto; /* Push the language select to the right */
-  margin-right: 10px;
+  /*  margin-left: auto; /* Push the language select to the right */
+  margin-left: 20px;
   margin-top: 10px;
 }

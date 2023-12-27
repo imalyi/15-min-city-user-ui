@@ -10,6 +10,9 @@ import { SearchResultsList } from './SearchResultsList';
 import { UserLocationButton } from './UserLocationButton';
 import ShowDataButton from './ShowDataButton';
 import Roles from './Roles';
+import { useTranslation } from 'react-i18next';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 function ShowDataPage() {
   const [isRolesVisible, setIsRolesVisible] = useState(false);
@@ -34,6 +37,15 @@ function ShowDataPage() {
   const [flyToLocation, setFlyToLocation] = useState(null);
 
   const [isLeftSectionVisible, setIsLeftSectionVisible] = useState(false);
+
+  const { i18n, t } = useTranslation();
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+
+  const handleLanguageChange = (lng) => {
+    setSelectedLanguage(lng);
+    i18n.changeLanguage(lng);
+    //window.location.reload();
+  };
 
   const handleToggleLeftSection = () => {
     setIsLeftSectionVisible((prev) => !prev);
@@ -96,11 +108,22 @@ function ShowDataPage() {
     <div>
       <div className="showDataContainer">
         <div className="ShowDataPage">
+          <div className="language-select-container-show-data">
+            <Select
+              value={selectedLanguage}
+              onChange={(e) => handleLanguageChange(e.target.value)}
+            >
+              <MenuItem value="en">{t('English')}</MenuItem>
+              <MenuItem value="pl">{t('Polish')}</MenuItem>
+              <MenuItem value="de">{t('German')}</MenuItem>
+              {/* Add more languages as needed */}
+            </Select>
+          </div>
           <div className="search-bar-container-show-data">
             <button
               onClick={handleToggleLeftSection}
               className="toggleLeftSectionButton"
-              title="Show more information"
+              title={t('Show more information')}
             >
               {<SlMenu />}
             </button>
@@ -133,11 +156,12 @@ function ShowDataPage() {
             <button
               onClick={handleToggleRoles}
               className="toggleRolesButton"
-              title="Choose your preferences"
+              title={t('Choose your preferences')}
             >
               {isRolesVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
             </button>
           </div>
+
           {isRolesVisible && (
             <div>
               <Roles
@@ -151,7 +175,8 @@ function ShowDataPage() {
               <div className="left-section">
                 {categoriesToShow.map((category) => (
                   <div key={category.key} className="data-category">
-                    <h3>{category.label}</h3>
+                    <h3>{t(category.label)}</h3>
+                    {console.log(category.label)}
                     {places.osm.points_of_interest[category.key] ? (
                       <div className="no-info-container">
                         <img
@@ -175,17 +200,18 @@ function ShowDataPage() {
                             >
                               {item.name !== 'unknown' && (
                                 <>
-                                  <strong>Name:</strong> {item.name}
+                                  <strong>{t('Name')}:</strong> {item.name}
                                   <br />
                                 </>
                               )}
                               {item.address.full && (
                                 <>
-                                  <strong>Address:</strong> {item.address.full}
+                                  <strong>{t('Address')}:</strong>{' '}
+                                  {item.address.full}
                                   <br />
                                 </>
                               )}
-                              <strong>Distance:</strong>{' '}
+                              <strong>{t('Distance')}:</strong>{' '}
                               {item.distance < 1000
                                 ? `${item.distance.toFixed(0)}m`
                                 : `${(item.distance / 1000).toFixed(1)}km`}
