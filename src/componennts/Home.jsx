@@ -7,6 +7,9 @@ import { UserLocationButton } from './UserLocationButton';
 import { ShowDataButton } from './ShowDataButton';
 //import HowItWorks from './HowItWorks';
 import Roles from './Roles';
+import { useTranslation } from 'react-i18next';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 function Home() {
   const [results, setResults] = useState([]);
@@ -18,14 +21,21 @@ function Home() {
   const [selectedPreferences, setSelectedPreferences] = useState([]);
   const [selectedCoordinates, setSelectedCoordinates] = useState([]);
 
+  const { i18n, t } = useTranslation();
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+
+  const handleLanguageChange = (lng) => {
+    setSelectedLanguage(lng);
+    i18n.changeLanguage(lng);
+    //window.location.reload();
+  };
+
   //const howItWorksText = '***Description of page functions***';
 
   const buttonRef = useRef(null); // Dodaj ref do przycisku
 
   const handleEnterPress = () => {
     // Po naciśnięciu Enter, naciśnij przycisk ShowDataButton
-    console.log('aaaaaaaa');
-    console.log(buttonRef);
     if (buttonRef.current) {
       buttonRef.current.click();
     }
@@ -61,6 +71,17 @@ function Home() {
 
   return (
     <div className="home-container">
+      <div className="language-select-container">
+        <Select
+          value={selectedLanguage}
+          onChange={(e) => handleLanguageChange(e.target.value)}
+        >
+          <MenuItem value="en">{t('English')}</MenuItem>
+          <MenuItem value="pl">{t('Polish')}</MenuItem>
+          <MenuItem value="de">{t('German')}</MenuItem>
+          {/* Add more languages as needed */}
+        </Select>
+      </div>
       <div className="search-bar-container">
         <UserLocationButton
           onLocationUpdate={handleUserLocationUpdate}
