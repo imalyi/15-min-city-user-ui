@@ -11,6 +11,7 @@ import { UserLocationButton } from './UserLocationButton';
 import ShowDataButton from './ShowDataButton';
 import Roles from './Roles';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 function ShowDataPage() {
   const [isRolesVisible, setIsRolesVisible] = useState(false);
@@ -106,11 +107,13 @@ function ShowDataPage() {
         <div className="ShowDataPage">
           <div className="search-bar-container-show-data">
             <div>
-              <img
-                src={'/images/15minuteLogo.png'}
-                alt="Red Cross"
-                className="logo-home"
-              />
+              <Link to="/home">
+                <img
+                  src={'/images/15minuteLogo.png'}
+                  alt="Red Cross"
+                  className="logo-home"
+                />
+              </Link>
             </div>
             <button
               onClick={handleToggleLeftSection}
