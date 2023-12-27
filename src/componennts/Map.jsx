@@ -16,7 +16,7 @@ function Map({
 
   const locationIcon = new Icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/128/684/684908.png',
-    iconSize: [30, 30],
+    iconSize: [40, 40],
   });
 
   useEffect(() => {
@@ -25,13 +25,18 @@ function Map({
   }, [selectedCoordinatesShowPage]);
 
   return (
-    <MapContainer center={center} zoom={13} scrollWheelZoom={true}>
+    <MapContainer center={center} zoom={16} scrollWheelZoom={true}>
       <TileLayer
         attribution="Jawg.Dark"
         url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png"
       />
 
-      <Marker position={selectedCoordinatesShowPage} icon={locationIcon} />
+      <Marker
+        className="markerContainer-location"
+        zIndexOffset={200}
+        position={selectedCoordinatesShowPage}
+        icon={locationIcon}
+      />
       <FlyToMarker flyToLocation={flyToLocation} />
       {categoriesToShow.map((category) =>
         places[category]?.map((item, index) => (

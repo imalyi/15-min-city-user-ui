@@ -216,6 +216,18 @@
   max-height: 100%; /* Dostosuj wysokość obrazka według potrzeb */
   margin-bottom: 15px;
 }
+.img-facebook {
+  max-width: 10%; /* Dostosuj szerokość obrazka według potrzeb */
+  max-height: 20%; /* Dostosuj wysokość obrazka według potrzeb */
+}
+.img-instagram {
+  max-width: 12%; /* Dostosuj szerokość obrazka według potrzeb */
+  max-height: 20%; /* Dostosuj wysokość obrazka według potrzeb */
+}
+.img-distance {
+  max-width: 20%; /* Dostosuj szerokość obrazka według potrzeb */
+  max-height: 20%; /* Dostosuj wysokość obrazka według potrzeb */
+}
 
 .logo-home {
   height: 3rem;

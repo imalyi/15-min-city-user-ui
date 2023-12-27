@@ -35,7 +35,7 @@ function ShowDataPage() {
 
   const [flyToLocation, setFlyToLocation] = useState(null);
 
-  const [isLeftSectionVisible, setIsLeftSectionVisible] = useState(false);
+  const [isLeftSectionVisible, setIsLeftSectionVisible] = useState(true);
 
   const { i18n, t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
@@ -194,7 +194,7 @@ function ShowDataPage() {
                       <div className="no-info-container">
                         <img
                           src="https://cdn-icons-png.flaticon.com/128/4315/4315445.png"
-                          alt="Red Cross"
+                          alt="Green Tick"
                           className="centered-img-tick"
                         />
                       </div>
@@ -224,29 +224,19 @@ function ShowDataPage() {
                                   <br />
                                 </>
                               )}
-                              <strong>{t('Distance')}:</strong>{' '}
-                              {item.distance < 1000
-                                ? `${item.distance.toFixed(0)}m`
-                                : `${(item.distance / 1000).toFixed(1)}km`}
+                              <strong>
+                                <img
+                                  src="https://cdn-icons-png.flaticon.com/128/3272/3272603.png"
+                                  alt="distance-icon"
+                                  className="img-distance"
+                                />
+                              </strong>{' '}
+                              {item.distance === 0
+                                ? t('You are here')
+                                : item.distance < 1000
+                                  ? `${item.distance.toFixed(0)}m`
+                                  : `${(item.distance / 1000).toFixed(1)}km`}
                               <br />
-                              {item.tags['contact:instagram'] && (
-                                <>
-                                  <strong>Instagram:</strong>{' '}
-                                  <a href={item.tags['contact:instagram']}>
-                                    {item.tags['contact:instagram']}
-                                  </a>
-                                  <br />
-                                </>
-                              )}
-                              {item.tags['contact:facebook'] && (
-                                <>
-                                  <strong>Facebook:</strong>{' '}
-                                  <a href={item.tags['contact:facebook']}>
-                                    {item.tags['contact:facebook']}
-                                  </a>
-                                  <br />
-                                </>
-                              )}
                               {item.tags.mobile && (
                                 <>
                                   <strong>Phone number:</strong>{' '}
@@ -262,6 +252,24 @@ function ShowDataPage() {
                                   </a>
                                   <br />
                                 </>
+                              )}
+                              {item.tags['contact:instagram'] && (
+                                <a href={item.tags['contact:instagram']}>
+                                  <img
+                                    src="https://cdn-icons-png.flaticon.com/128/4138/4138124.png"
+                                    alt="Intsgram link"
+                                    className="img-instagram"
+                                  />
+                                </a>
+                              )}
+                              {item.tags['contact:facebook'] && (
+                                <a href={item.tags['contact:facebook']}>
+                                  <img
+                                    src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png"
+                                    alt="Facebook link"
+                                    className="img-facebook"
+                                  />
+                                </a>
                               )}
                             </li>
                           ),

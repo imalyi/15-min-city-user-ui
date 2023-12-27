@@ -11,6 +11,16 @@
   z-index: 2;
 }
 
+.markerContainer-location {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.markerContainer-location:hover {
+  z-index: 3;
+}
+
 .markerSquare {
   width: 30px;
   height: 30px;
