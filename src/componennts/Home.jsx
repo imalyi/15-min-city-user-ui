@@ -87,6 +87,7 @@ function Home() {
           {/* Dodaj więcej opcji według potrzeb */}
         </select>
       </div>
+      {/*
       <div className="image-logo">
         <img
           src={'/images/15minuteLogo.png'}
@@ -94,6 +95,7 @@ function Home() {
           className="centered-img-cross"
         />
       </div>
+      */}
       <div className="search-bar-container">
         <UserLocationButton
           onLocationUpdate={handleUserLocationUpdate}
