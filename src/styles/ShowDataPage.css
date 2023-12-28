@@ -57,8 +57,8 @@
 }
 
 .map-container {
-  margin-top: 2vh;
-  margin-left: 2vh;
+  margin-top: 1vh;
+  margin-left: 1vh;
   display: flex;
   overflow: hidden;
 }
@@ -124,10 +124,10 @@
 }
 
 .left-section {
-  margin-top: 2vh;
+  margin-top: 1vh;
   width: 36%; /* Adjust the width as needed */
   overflow-y: scroll;
-  height: 90vh;
+  height: 93vh;
   box-shadow: 0px 0px 8px #ddd;
 }
 
@@ -151,15 +151,17 @@
 
 .right-section {
   width: 64%; /* Adjust the width as needed */
-  height: 90vh;
+  height: 93vh;
 }
 .right-section-center {
+  margin-top: 1vh;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 78%;
+  width: 64%;
+  height: 94vh;
 }
 
 .data-category {

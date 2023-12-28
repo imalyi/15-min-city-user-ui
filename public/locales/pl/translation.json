@@ -1,7 +1,7 @@
 {
   "English": "Angielski",
   "Polish": "Polski",
-  "Deutsch": "Niemiecki",
+  "German": "Niemiecki",
   "Get your location": "Pobierz swoją lokalizację",
   "Show results": "Pokaż wyniki",
   "Type to search...": "Wpisz aby wyszukać...",
@@ -148,5 +148,6 @@
   "Distance": "Odległość",
   "Show more information": "Pokaż więcej informacji",
   "Choose your preferences": "Wybierz swoje preferencje",
-  "You are here": "Jesteś tutaj"
+  "You are here": "Jesteś tutaj",
+  "Back to home page": "Powrót do strony głównej"
 }

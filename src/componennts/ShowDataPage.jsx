@@ -101,6 +101,21 @@ function ShowDataPage() {
     };
   });
 
+  categoriesToShow.sort((a, b) => {
+    const hasPlacesA = !!places.osm.points_of_interest[a.key];
+    const hasPlacesB = !!places.osm.points_of_interest[b.key];
+
+    // Kategorie z miejscami będą na początku
+    if (hasPlacesA && !hasPlacesB) {
+      return -1;
+    } else if (!hasPlacesA && hasPlacesB) {
+      return 1;
+    } else {
+      // Pozostałe kategorie zachowają domyślne sortowanie
+      return 0;
+    }
+  });
+
   return (
     <div>
       <div className="showDataContainer">
@@ -112,6 +127,7 @@ function ShowDataPage() {
                   src={'/images/15minuteLogo.png'}
                   alt="Red Cross"
                   className="logo-home"
+                  title={t('Back to home page')}
                 />
               </Link>
             </div>
@@ -189,7 +205,6 @@ function ShowDataPage() {
                 {categoriesToShow.map((category) => (
                   <div key={category.key} className="data-category">
                     <h3>{t(category.label)}</h3>
-                    {console.log(category.label)}
                     {places.osm.points_of_interest[category.key] ? (
                       <div className="no-info-container">
                         <img
@@ -199,8 +214,7 @@ function ShowDataPage() {
                         />
                       </div>
                     ) : null}
-                    {places.osm.points_of_interest[category.key] &&
-                    places.osm.points_of_interest[category.key].length > 0 ? (
+                    {places.osm.points_of_interest[category.key] ? (
                       <ul className="data-list">
                         {places.osm.points_of_interest[category.key]?.map(
                           (item, index) => (

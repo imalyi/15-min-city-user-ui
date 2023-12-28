@@ -5,6 +5,7 @@ import '../styles/Map.css';
 import '../styles/Leaflet.css';
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
+import { useLeafletContext } from '@react-leaflet/core';
 
 function Map({
   places,
@@ -58,14 +59,15 @@ function Map({
 export default Map;
 
 function FlyToMarker({ flyToLocation }) {
-  const map = useMapEvents({
-    dblclick() {
-      if (flyToLocation) {
-        const [lng, lat] = flyToLocation;
-        map.flyTo([lat, lng], 18, {
-          duration: 1,
-        });
-      }
-    },
-  });
+  const { map } = useLeafletContext();
+  useEffect(() => {
+    if (flyToLocation) {
+      const [lng, lat] = flyToLocation;
+      map.flyTo([lat, lng], 18, {
+        duration: 1,
+      });
+    }
+  }, [flyToLocation, map]);
+
+  return null;
 }

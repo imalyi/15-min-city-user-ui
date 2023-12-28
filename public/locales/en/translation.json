@@ -1,7 +1,7 @@
 {
   "English": "English",
   "Polish": "Polish",
-  "Deutsch": "Deutsch",
+  "Deutsch": "German",
   "Get your location": "Get your location",
   "Show results": "Show results",
   "Type to search...": "Type to search...",
@@ -148,5 +148,6 @@
   "Distance": "Distance",
   "Show more information": "Show more information",
   "Choose your preferences": "Choose your preferences",
-  "You are here": "You are here"
+  "You are here": "You are here",
+  "Back to home page": "Back to home page"
 }
