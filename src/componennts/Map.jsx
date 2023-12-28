@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
+import React, { useEffect } from 'react';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import Markers from './Markers';
 import '../styles/Map.css';
 import '../styles/Leaflet.css';
@@ -13,20 +13,17 @@ function Map({
   selectedCoordinatesShowPage,
   flyToLocation,
 }) {
-  const [center, setCenter] = useState(selectedCoordinatesShowPage);
-
   const locationIcon = new Icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/128/684/684908.png',
     iconSize: [40, 40],
   });
 
-  useEffect(() => {
-    // Update center when selectedCoordinatesShowPage changes
-    setCenter(selectedCoordinatesShowPage);
-  }, [selectedCoordinatesShowPage]);
-
   return (
-    <MapContainer center={center} zoom={16} scrollWheelZoom={true}>
+    <MapContainer
+      center={selectedCoordinatesShowPage}
+      zoom={17}
+      scrollWheelZoom={true}
+    >
       <TileLayer
         attribution="Jawg.Dark"
         url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png"
