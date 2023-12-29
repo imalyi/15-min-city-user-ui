@@ -275,7 +275,7 @@ const Markers = ({ placeName, lat, lng, distance, address, name }) => {
       riseOnHover={true}
     >
       <Popup>
-        <div className="centerized">
+        <div>
           <strong>{name}</strong>
         </div>
         <div>{address}</div>

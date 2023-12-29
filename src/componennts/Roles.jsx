@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import preferencesData from '../data/preferences.json';
 import '../styles/Roles.css';
@@ -6,6 +6,13 @@ import { useTranslation } from 'react-i18next';
 
 const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
   const { t } = useTranslation();
+
+  const [isShowDataPage, setIsShowDataPage] = useState(false);
+
+  useEffect(() => {
+    // Sprawdzanie, czy obecna ścieżka to /showData
+    setIsShowDataPage(window.location.pathname === '/show-addresses');
+  }, []);
 
   const [selectedPreferences, setSelectedPreferences] = useState(
     selectedPreferencesShowPage,
@@ -21,7 +28,7 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
   };
 
   return (
-    <div className="roles-container">
+    <div className={`roles-container ${isShowDataPage ? '' : 'homeStyle'}`}>
       <div>
         <div>
           <h3 className="centered-header">{t('Choose Your Preferences')}</h3>
