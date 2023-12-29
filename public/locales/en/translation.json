@@ -1,7 +1,7 @@
 {
   "English": "English",
   "Polish": "Polish",
-  "Deutsch": "Deutsch",
+  "Deutsch": "German",
   "Get your location": "Get your location",
   "Show results": "Show results",
   "Type to search...": "Type to search...",
@@ -13,6 +13,7 @@
   "Fast Food": "Fast Food",
   "Food Court": "Food Court",
   "Ice Cream": "Ice Cream Shop",
+  "Ice Cream Shop": "Ice Cream Shop",
   "Pub": "Pub",
   "Restaurant": "Restaurant",
   "Education": "Education",
@@ -146,5 +147,7 @@
   "Address": "Address",
   "Distance": "Distance",
   "Show more information": "Show more information",
-  "Choose your preferences": "Choose your preferences"
+  "Choose your preferences": "Choose your preferences",
+  "You are here": "You are here",
+  "Back to home page": "Back to home page"
 }

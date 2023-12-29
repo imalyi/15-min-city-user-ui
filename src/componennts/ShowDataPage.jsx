@@ -11,8 +11,7 @@ import { UserLocationButton } from './UserLocationButton';
 import ShowDataButton from './ShowDataButton';
 import Roles from './Roles';
 import { useTranslation } from 'react-i18next';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import { Link } from 'react-router-dom';
 
 function ShowDataPage() {
   const [isRolesVisible, setIsRolesVisible] = useState(false);
@@ -36,7 +35,7 @@ function ShowDataPage() {
 
   const [flyToLocation, setFlyToLocation] = useState(null);
 
-  const [isLeftSectionVisible, setIsLeftSectionVisible] = useState(false);
+  const [isLeftSectionVisible, setIsLeftSectionVisible] = useState(true);
 
   const { i18n, t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
@@ -102,24 +101,36 @@ function ShowDataPage() {
     };
   });
 
-  // Tutaj możesz coś zrobić z categoriesToShow
+  categoriesToShow.sort((a, b) => {
+    const hasPlacesA = !!places.osm.points_of_interest[a.key];
+    const hasPlacesB = !!places.osm.points_of_interest[b.key];
+
+    // Kategorie z miejscami będą na początku
+    if (hasPlacesA && !hasPlacesB) {
+      return -1;
+    } else if (!hasPlacesA && hasPlacesB) {
+      return 1;
+    } else {
+      // Pozostałe kategorie zachowają domyślne sortowanie
+      return 0;
+    }
+  });
 
   return (
-    <div>
+    <div className="ShowData">
       <div className="showDataContainer">
         <div className="ShowDataPage">
-          <div className="language-select-container-show-data">
-            <Select
-              value={selectedLanguage}
-              onChange={(e) => handleLanguageChange(e.target.value)}
-            >
-              <MenuItem value="en">{t('English')}</MenuItem>
-              <MenuItem value="pl">{t('Polish')}</MenuItem>
-              <MenuItem value="de">{t('German')}</MenuItem>
-              {/* Add more languages as needed */}
-            </Select>
-          </div>
           <div className="search-bar-container-show-data">
+            <div>
+              <Link to="/home">
+                <img
+                  src={'/images/15minuteLogo.png'}
+                  alt="Red Cross"
+                  className="logo-home"
+                  title={t('Back to home page')}
+                />
+              </Link>
+            </div>
             <button
               onClick={handleToggleLeftSection}
               className="toggleLeftSectionButton"
@@ -160,6 +171,24 @@ function ShowDataPage() {
             >
               {isRolesVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
             </button>
+            <div className="language-select-container-show-data">
+              <select
+                value={selectedLanguage}
+                onChange={(e) => handleLanguageChange(e.target.value)}
+                style={{
+                  height: '3rem', // Ustaw tutaj odpowiednią wysokość
+                  borderRadius: '7px', // Ustaw tutaj odpowiednią zaokrąglenie
+                  borderColor: 'white', // Ustaw tutaj odpowiedni kolor obramowania
+                  boxShadow: '0px 0px 8px #666666',
+                  backgroundColor: 'white', // Ustaw tutaj odpowiedni kolor tła
+                }}
+              >
+                <option value="en">{t('English')}</option>
+                <option value="pl">{t('Polish')}</option>
+                <option value="de">{t('German')}</option>
+                {/* Dodaj więcej opcji według potrzeb */}
+              </select>
+            </div>
           </div>
 
           {isRolesVisible && (
@@ -176,18 +205,16 @@ function ShowDataPage() {
                 {categoriesToShow.map((category) => (
                   <div key={category.key} className="data-category">
                     <h3>{t(category.label)}</h3>
-                    {console.log(category.label)}
                     {places.osm.points_of_interest[category.key] ? (
                       <div className="no-info-container">
                         <img
                           src="https://cdn-icons-png.flaticon.com/128/4315/4315445.png"
-                          alt="Red Cross"
+                          alt="Green Tick"
                           className="centered-img-tick"
                         />
                       </div>
                     ) : null}
-                    {places.osm.points_of_interest[category.key] &&
-                    places.osm.points_of_interest[category.key].length > 0 ? (
+                    {places.osm.points_of_interest[category.key] ? (
                       <ul className="data-list">
                         {places.osm.points_of_interest[category.key]?.map(
                           (item, index) => (
@@ -199,41 +226,31 @@ function ShowDataPage() {
                               }
                             >
                               {item.name !== 'unknown' && (
-                                <>
-                                  <strong>{t('Name')}:</strong> {item.name}
+                                <div className="centerized name-style">
+                                  {item.name}
                                   <br />
-                                </>
+                                </div>
                               )}
                               {item.address.full && (
-                                <>
-                                  <strong>{t('Address')}:</strong>{' '}
+                                <div className="centerized">
                                   {item.address.full}
                                   <br />
-                                </>
+                                </div>
                               )}
-                              <strong>{t('Distance')}:</strong>{' '}
-                              {item.distance < 1000
-                                ? `${item.distance.toFixed(0)}m`
-                                : `${(item.distance / 1000).toFixed(1)}km`}
-                              <br />
-                              {item.tags['contact:instagram'] && (
-                                <>
-                                  <strong>Instagram:</strong>{' '}
-                                  <a href={item.tags['contact:instagram']}>
-                                    {item.tags['contact:instagram']}
-                                  </a>
-                                  <br />
-                                </>
-                              )}
-                              {item.tags['contact:facebook'] && (
-                                <>
-                                  <strong>Facebook:</strong>{' '}
-                                  <a href={item.tags['contact:facebook']}>
-                                    {item.tags['contact:facebook']}
-                                  </a>
-                                  <br />
-                                </>
-                              )}
+                              <div className="centerized">
+                                <img
+                                  src="https://cdn-icons-png.flaticon.com/128/3272/3272603.png"
+                                  alt="distance-icon"
+                                  className="img-distance"
+                                />{' '}
+                                {item.distance === 0
+                                  ? t('You are here')
+                                  : item.distance < 1000
+                                    ? `${item.distance.toFixed(0)}m`
+                                    : `${(item.distance / 1000).toFixed(1)}km`}
+                                <br />
+                              </div>
+                              {/*
                               {item.tags.mobile && (
                                 <>
                                   <strong>Phone number:</strong>{' '}
@@ -241,6 +258,7 @@ function ShowDataPage() {
                                   <br />
                                 </>
                               )}
+
                               {item.tags['website:menu'] && (
                                 <>
                                   <strong>Menu:</strong>{' '}
@@ -249,6 +267,29 @@ function ShowDataPage() {
                                   </a>
                                   <br />
                                 </>
+                              )}
+                              */}
+                              {item.tags['contact:instagram'] && (
+                                <div className="centerized">
+                                  <a href={item.tags['contact:instagram']}>
+                                    <img
+                                      src="https://cdn-icons-png.flaticon.com/128/4138/4138124.png"
+                                      alt="Intsgram link"
+                                      className="img-instagram"
+                                    />
+                                  </a>
+                                </div>
+                              )}
+                              {item.tags['contact:facebook'] && (
+                                <div className="centerized">
+                                  <a href={item.tags['contact:facebook']}>
+                                    <img
+                                      src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png"
+                                      alt="Facebook link"
+                                      className="img-facebook"
+                                    />
+                                  </a>
+                                </div>
                               )}
                             </li>
                           ),

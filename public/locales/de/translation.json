@@ -1,7 +1,7 @@
 {
   "English": "Englisch",
   "Polish": "Polnisch",
-  "Deutsch": "Deutsch",
+  "German": "Deutsch",
   "Get your location": "Holen Sie sich Ihren Standort",
   "Show results": "Ergebnisse anzeigen",
   "Type to search...": "Suche...",
@@ -13,6 +13,7 @@
   "Fast Food": "Schnellimbiss",
   "Food Court": "Food Court",
   "Ice Cream": "Eisdiele",
+  "Ice Cream Shop": "Eisdiele",
   "Pub": "Pub",
   "Restaurant": "Restaurant",
   "Education": "Bildung",
@@ -146,5 +147,7 @@
   "Address": "Adresse",
   "Distance": "Entfernung",
   "Show more information": "Mehr Informationen anzeigen",
-  "Choose your preferences": "Wählen Sie Ihre Präferenzen"
+  "Choose your preferences": "Wählen Sie Ihre Präferenzen",
+  "You are here": "Sie sind hier",
+  "Back to home page": "Zurück zur Startseite"
 }
