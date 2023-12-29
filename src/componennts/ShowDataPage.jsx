@@ -177,7 +177,7 @@ function ShowDataPage() {
                 onChange={(e) => handleLanguageChange(e.target.value)}
                 style={{
                   height: '3rem', // Ustaw tutaj odpowiednią wysokość
-                  borderRadius: '4px', // Ustaw tutaj odpowiednią zaokrąglenie
+                  borderRadius: '7px', // Ustaw tutaj odpowiednią zaokrąglenie
                   borderColor: 'white', // Ustaw tutaj odpowiedni kolor obramowania
                   boxShadow: '0px 0px 8px #666666',
                   backgroundColor: 'white', // Ustaw tutaj odpowiedni kolor tła
