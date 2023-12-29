@@ -226,31 +226,31 @@ function ShowDataPage() {
                               }
                             >
                               {item.name !== 'unknown' && (
-                                <>
-                                  <strong>{t('Name')}:</strong> {item.name}
+                                <div className="centerized name-style">
+                                  {item.name}
                                   <br />
-                                </>
+                                </div>
                               )}
                               {item.address.full && (
-                                <>
-                                  <strong>{t('Address')}:</strong>{' '}
+                                <div className="centerized">
                                   {item.address.full}
                                   <br />
-                                </>
+                                </div>
                               )}
-                              <strong>
+                              <div className="centerized">
                                 <img
                                   src="https://cdn-icons-png.flaticon.com/128/3272/3272603.png"
                                   alt="distance-icon"
                                   className="img-distance"
-                                />
-                              </strong>{' '}
-                              {item.distance === 0
-                                ? t('You are here')
-                                : item.distance < 1000
-                                  ? `${item.distance.toFixed(0)}m`
-                                  : `${(item.distance / 1000).toFixed(1)}km`}
-                              <br />
+                                />{' '}
+                                {item.distance === 0
+                                  ? t('You are here')
+                                  : item.distance < 1000
+                                    ? `${item.distance.toFixed(0)}m`
+                                    : `${(item.distance / 1000).toFixed(1)}km`}
+                                <br />
+                              </div>
+                              {/*
                               {item.tags.mobile && (
                                 <>
                                   <strong>Phone number:</strong>{' '}
@@ -258,6 +258,7 @@ function ShowDataPage() {
                                   <br />
                                 </>
                               )}
+
                               {item.tags['website:menu'] && (
                                 <>
                                   <strong>Menu:</strong>{' '}
@@ -267,23 +268,28 @@ function ShowDataPage() {
                                   <br />
                                 </>
                               )}
+                              */}
                               {item.tags['contact:instagram'] && (
-                                <a href={item.tags['contact:instagram']}>
-                                  <img
-                                    src="https://cdn-icons-png.flaticon.com/128/4138/4138124.png"
-                                    alt="Intsgram link"
-                                    className="img-instagram"
-                                  />
-                                </a>
+                                <div className="centerized">
+                                  <a href={item.tags['contact:instagram']}>
+                                    <img
+                                      src="https://cdn-icons-png.flaticon.com/128/4138/4138124.png"
+                                      alt="Intsgram link"
+                                      className="img-instagram"
+                                    />
+                                  </a>
+                                </div>
                               )}
                               {item.tags['contact:facebook'] && (
-                                <a href={item.tags['contact:facebook']}>
-                                  <img
-                                    src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png"
-                                    alt="Facebook link"
-                                    className="img-facebook"
-                                  />
-                                </a>
+                                <div className="centerized">
+                                  <a href={item.tags['contact:facebook']}>
+                                    <img
+                                      src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png"
+                                      alt="Facebook link"
+                                      className="img-facebook"
+                                    />
+                                  </a>
+                                </div>
                               )}
                             </li>
                           ),

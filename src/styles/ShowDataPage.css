@@ -237,7 +237,7 @@
   max-height: 20%; /* Dostosuj wysokość obrazka według potrzeb */
 }
 .img-distance {
-  max-width: 20%; /* Dostosuj szerokość obrazka według potrzeb */
+  max-width: 5%; /* Dostosuj szerokość obrazka według potrzeb */
   max-height: 20%; /* Dostosuj wysokość obrazka według potrzeb */
 }
 
@@ -254,4 +254,21 @@
 .language-select-container-show-data {
   margin-right: 5px;
   margin-left: 5px;
+}
+
+.centerized {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.name-style {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.address-style {
+  font-size: 12px;
+  font-weight: normal;
+  margin-top: 5px;
 }
