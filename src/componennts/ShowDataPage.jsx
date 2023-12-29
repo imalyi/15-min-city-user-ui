@@ -117,7 +117,7 @@ function ShowDataPage() {
   });
 
   return (
-    <div>
+    <div className="ShowData">
       <div className="showDataContainer">
         <div className="ShowDataPage">
           <div className="search-bar-container-show-data">
@@ -179,7 +179,7 @@ function ShowDataPage() {
                   height: '3rem', // Ustaw tutaj odpowiednią wysokość
                   borderRadius: '4px', // Ustaw tutaj odpowiednią zaokrąglenie
                   borderColor: 'white', // Ustaw tutaj odpowiedni kolor obramowania
-                  boxShadow: '0px 0px 8px #ddd',
+                  boxShadow: '0px 0px 8px #666666',
                   backgroundColor: 'white', // Ustaw tutaj odpowiedni kolor tła
                 }}
               >
