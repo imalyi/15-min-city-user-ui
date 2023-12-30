@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { SlLocationPin } from 'react-icons/sl';
 import '../styles/UserLocationButton.css';
 import { useTranslation } from 'react-i18next';
-import config from '../config';
+import api from '../config';
 
 export const UserLocationButton = ({ onLocationUpdate, onEnterPress }) => {
   const { t } = useTranslation();
@@ -46,7 +46,7 @@ export const UserLocationButton = ({ onLocationUpdate, onEnterPress }) => {
   const getAddressFromCoordinates = async (latitude, longitude) => {
     try {
       const response = await fetch(
-        `${config.APP_URL_USER_API}address/?lon=${longitude}&lat=${latitude}`,
+        `${api.APP_URL_USER_API}address/?lon=${longitude}&lat=${latitude}`,
         {
           method: 'GET',
           headers: {

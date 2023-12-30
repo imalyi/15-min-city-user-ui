@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import '../styles/SearchBar.css';
 import { useTranslation } from 'react-i18next';
-import config from '../config';
+import api from '../config';
 
 export const SearchBar = ({
   setResults,
@@ -30,7 +30,7 @@ export const SearchBar = ({
       console.log('przed response');
       try {
         const response = await fetch(
-          `${config.APP_URL_USER_API}address/?name=${value}`,
+          `${api.APP_URL_USER_API}address/?name=${value}`,
           {
             method: 'GET',
             headers: {
