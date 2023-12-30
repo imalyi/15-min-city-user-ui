@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/ShowDataButton.css';
 import { FaSearch } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
+import api from '../config';
 
 export const ShowDataButton = React.forwardRef(
   ({ address, addressId, selectedPreferences, selectedCoordinates }, ref) => {
@@ -37,7 +38,7 @@ export const ShowDataButton = React.forwardRef(
       try {
         console.log(addressId);
         const response = await fetch(
-          `${process.env.REACT_APP_URL_USER_API}report/?address_id=${addressId}`,
+          `${api.APP_URL_USER_API}report/?address_id=${addressId}`,
           {
             method: 'GET',
             headers: {
