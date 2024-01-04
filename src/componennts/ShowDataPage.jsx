@@ -110,10 +110,8 @@ function ShowDataPage() {
       return -1;
     } else if (!hasPlacesA && hasPlacesB) {
       return 1;
-    } else {
-      // Pozostałe kategorie zachowają domyślne sortowanie
-      return 0;
     }
+    return 0;
   });
 
   return (
@@ -175,13 +173,7 @@ function ShowDataPage() {
               <select
                 value={selectedLanguage}
                 onChange={(e) => handleLanguageChange(e.target.value)}
-                style={{
-                  height: '3rem', // Ustaw tutaj odpowiednią wysokość
-                  borderRadius: '7px', // Ustaw tutaj odpowiednią zaokrąglenie
-                  borderColor: 'white', // Ustaw tutaj odpowiedni kolor obramowania
-                  boxShadow: '0px 0px 8px #666666',
-                  backgroundColor: 'white', // Ustaw tutaj odpowiedni kolor tła
-                }}
+                className="language-select"
               >
                 <option value="en">{t('English')}</option>
                 <option value="pl">{t('Polish')}</option>
