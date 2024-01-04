@@ -74,3 +74,14 @@
 .select-and-image {
   display: flex;
 }
+.language-select {
+  height: 3rem; /* Ustaw tutaj odpowiednią wysokość */
+  border-radius: 4px; /* Ustaw tutaj odpowiednią zaokrąglenie */
+  border: 1px solid white; /* Ustaw tutaj odpowiedni kolor obramowania */
+  box-shadow: 0px 0px 8px #a9a9a9;
+  background-color: white; /* Ustaw tutaj odpowiedni kolor tła */
+}
+
+.language-select-container {
+  /* Dodaj dodatkowe style dla kontenera, jeśli są potrzebne */
+}

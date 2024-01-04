@@ -73,13 +73,7 @@ function Home() {
         <select
           value={selectedLanguage}
           onChange={(e) => handleLanguageChange(e.target.value)}
-          style={{
-            height: '3rem', // Ustaw tutaj odpowiednią wysokość
-            borderRadius: '4px', // Ustaw tutaj odpowiednią zaokrąglenie
-            borderColor: 'white', // Ustaw tutaj odpowiedni kolor obramowania
-            boxShadow: '0px 0px 8px #A9A9A9',
-            backgroundColor: 'white', // Ustaw tutaj odpowiedni kolor tła
-          }}
+          className="language-select"
         >
           <option value="en">{t('English')}</option>
           <option value="pl">{t('Polish')}</option>
