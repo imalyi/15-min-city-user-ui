@@ -40,6 +40,15 @@ function ShowDataPage() {
   const { i18n, t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
+  const [categoryVisibility, setCategoryVisibility] = useState({});
+
+  const handleCategoryLabelClick = (categoryKey) => {
+    setCategoryVisibility((prevVisibility) => ({
+      ...prevVisibility,
+      [categoryKey]: !prevVisibility[categoryKey],
+    }));
+  };
+
   const handleLanguageChange = (lng) => {
     setSelectedLanguage(lng);
     i18n.changeLanguage(lng);
@@ -196,53 +205,69 @@ function ShowDataPage() {
               <div className="left-section">
                 {categoriesToShow.map((category) => (
                   <div key={category.key} className="data-category">
-                    <h3>{t(category.label)}</h3>
+                    <div
+                      className="category-click"
+                      onClick={() => handleCategoryLabelClick(category.key)}
+                    >
+                      <h3>{t(category.label)}</h3>
+                    </div>
                     {places.osm.points_of_interest[category.key] ? (
-                      <div className="no-info-container">
+                      <div className="info-container">
                         <img
                           src="https://cdn-icons-png.flaticon.com/128/4315/4315445.png"
                           alt="Green Tick"
                           className="centered-img-tick"
                         />
                       </div>
-                    ) : null}
-                    {places.osm.points_of_interest[category.key] ? (
-                      <ul className="data-list">
-                        {places.osm.points_of_interest[category.key]?.map(
-                          (item, index) => (
-                            <li
-                              key={index}
-                              className="data-list-item"
-                              onClick={() =>
-                                handleDataCategoryClick(item.location)
-                              }
-                            >
-                              {item.name !== 'unknown' && (
-                                <div className="centerized name-style">
-                                  {item.name}
-                                  <br />
-                                </div>
-                              )}
-                              {item.address.full && (
+                    ) : (
+                      <div className="no-info-container">
+                        <img
+                          src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
+                          alt="Red Cross"
+                          className="centered-img-cross"
+                        />
+                      </div>
+                    )}
+                    {categoryVisibility[category.key] ? (
+                      <>
+                        <ul className="data-list">
+                          {places.osm.points_of_interest[category.key]?.map(
+                            (item, index) => (
+                              <li
+                                key={index}
+                                className="data-list-item"
+                                onClick={() =>
+                                  handleDataCategoryClick(item.location)
+                                }
+                              >
+                                {item.name !== 'unknown' && (
+                                  <div className="centerized name-style">
+                                    {item.name}
+                                    <br />
+                                  </div>
+                                )}
+                                {item.address.full && (
+                                  <div className="centerized">
+                                    {item.address.full}
+                                    <br />
+                                  </div>
+                                )}
                                 <div className="centerized">
-                                  {item.address.full}
+                                  <img
+                                    src="https://cdn-icons-png.flaticon.com/128/3272/3272603.png"
+                                    alt="distance-icon"
+                                    className="img-distance"
+                                  />{' '}
+                                  {item.distance === 0
+                                    ? t('You are here')
+                                    : item.distance < 1000
+                                      ? `${item.distance.toFixed(0)}m`
+                                      : `${(item.distance / 1000).toFixed(
+                                          1,
+                                        )}km`}
                                   <br />
                                 </div>
-                              )}
-                              <div className="centerized">
-                                <img
-                                  src="https://cdn-icons-png.flaticon.com/128/3272/3272603.png"
-                                  alt="distance-icon"
-                                  className="img-distance"
-                                />{' '}
-                                {item.distance === 0
-                                  ? t('You are here')
-                                  : item.distance < 1000
-                                    ? `${item.distance.toFixed(0)}m`
-                                    : `${(item.distance / 1000).toFixed(1)}km`}
-                                <br />
-                              </div>
-                              {/*
+                                {/*
                               {item.tags.mobile && (
                                 <>
                                   <strong>Phone number:</strong>{' '}
@@ -261,41 +286,34 @@ function ShowDataPage() {
                                 </>
                               )}
                               */}
-                              {item.tags['contact:instagram'] && (
-                                <div className="centerized">
-                                  <a href={item.tags['contact:instagram']}>
-                                    <img
-                                      src="https://cdn-icons-png.flaticon.com/128/4138/4138124.png"
-                                      alt="Intsgram link"
-                                      className="img-instagram"
-                                    />
-                                  </a>
-                                </div>
-                              )}
-                              {item.tags['contact:facebook'] && (
-                                <div className="centerized">
-                                  <a href={item.tags['contact:facebook']}>
-                                    <img
-                                      src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png"
-                                      alt="Facebook link"
-                                      className="img-facebook"
-                                    />
-                                  </a>
-                                </div>
-                              )}
-                            </li>
-                          ),
-                        )}
-                      </ul>
-                    ) : (
-                      <div className="no-info-container">
-                        <img
-                          src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
-                          alt="Red Cross"
-                          className="centered-img-cross"
-                        />
-                      </div>
-                    )}
+                                {item.tags['contact:instagram'] && (
+                                  <div className="centerized">
+                                    <a href={item.tags['contact:instagram']}>
+                                      <img
+                                        src="https://cdn-icons-png.flaticon.com/128/4138/4138124.png"
+                                        alt="Intsgram link"
+                                        className="img-instagram"
+                                      />
+                                    </a>
+                                  </div>
+                                )}
+                                {item.tags['contact:facebook'] && (
+                                  <div className="centerized">
+                                    <a href={item.tags['contact:facebook']}>
+                                      <img
+                                        src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png"
+                                        alt="Facebook link"
+                                        className="img-facebook"
+                                      />
+                                    </a>
+                                  </div>
+                                )}
+                              </li>
+                            ),
+                          )}
+                        </ul>
+                      </>
+                    ) : null}
                   </div>
                 ))}
               </div>
