@@ -208,6 +208,7 @@ function ShowDataPage() {
                     <div
                       className="category-click"
                       onClick={() => handleCategoryLabelClick(category.key)}
+                      title={t('Show more information')}
                     >
                       <h3>{t(category.label)}</h3>
                     </div>
