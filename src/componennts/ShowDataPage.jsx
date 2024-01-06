@@ -210,25 +210,31 @@ function ShowDataPage() {
                       onClick={() => handleCategoryLabelClick(category.key)}
                       title={t('Show more information')}
                     >
-                      <h3>{t(category.label)}</h3>
+                      {places.osm.points_of_interest[category.key] ? (
+                        <h3 className="green-category">{t(category.label)}</h3>
+                      ) : (
+                        <h3 className="red-category">{t(category.label)}</h3>
+                      )}
+
+                      {places.osm.points_of_interest[category.key] ? (
+                        <div className="info-container">
+                          {categoryVisibility[category.key] ? (
+                            <img
+                              src="https://cdn-icons-png.flaticon.com/128/271/271239.png"
+                              alt="Arrow Up"
+                              className="centered-img-tick"
+                            />
+                          ) : (
+                            <img
+                              src="https://cdn-icons-png.flaticon.com/128/32/32195.png"
+                              alt="Arrow Down"
+                              className="centered-img-tick"
+                            />
+                          )}
+                        </div>
+                      ) : null}
                     </div>
-                    {places.osm.points_of_interest[category.key] ? (
-                      <div className="info-container">
-                        <img
-                          src="https://cdn-icons-png.flaticon.com/128/4315/4315445.png"
-                          alt="Green Tick"
-                          className="centered-img-tick"
-                        />
-                      </div>
-                    ) : (
-                      <div className="no-info-container">
-                        <img
-                          src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
-                          alt="Red Cross"
-                          className="centered-img-cross"
-                        />
-                      </div>
-                    )}
+
                     {categoryVisibility[category.key] ? (
                       <>
                         <ul className="data-list">
