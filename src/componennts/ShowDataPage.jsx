@@ -293,8 +293,8 @@ function ShowDataPage() {
                                 </>
                               )}
                               */}
-                                {item.tags['contact:instagram'] && (
-                                  <div className="centerized">
+                                <div className="centerized">
+                                  {item.tags['contact:instagram'] && (
                                     <a href={item.tags['contact:instagram']}>
                                       <img
                                         src="https://cdn-icons-png.flaticon.com/128/4138/4138124.png"
@@ -302,10 +302,8 @@ function ShowDataPage() {
                                         className="img-instagram"
                                       />
                                     </a>
-                                  </div>
-                                )}
-                                {item.tags['contact:facebook'] && (
-                                  <div className="centerized">
+                                  )}
+                                  {item.tags['contact:facebook'] && (
                                     <a href={item.tags['contact:facebook']}>
                                       <img
                                         src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png"
@@ -313,8 +311,8 @@ function ShowDataPage() {
                                         className="img-facebook"
                                       />
                                     </a>
-                                  </div>
-                                )}
+                                  )}
+                                </div>
                               </li>
                             ),
                           )}
