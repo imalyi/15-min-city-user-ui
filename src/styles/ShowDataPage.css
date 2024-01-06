@@ -241,11 +241,11 @@
   margin-bottom: 10px;
 }
 .img-facebook {
-  max-width: 10%; /* Dostosuj szerokość obrazka według potrzeb */
+  max-width: 8%; /* Dostosuj szerokość obrazka według potrzeb */
   max-height: 20%; /* Dostosuj wysokość obrazka według potrzeb */
 }
 .img-instagram {
-  max-width: 12%; /* Dostosuj szerokość obrazka według potrzeb */
+  max-width: 9.5%; /* Dostosuj szerokość obrazka według potrzeb */
   max-height: 20%; /* Dostosuj wysokość obrazka według potrzeb */
 }
 .img-distance {
@@ -288,7 +288,7 @@
 .category-click {
   cursor: pointer;
   padding: 5px;
-  background-color: #f1fff6;
+  background-color: #deffe8;
   border-radius: 10px;
   box-shadow: 0px 0px 8px #00000092;
   margin-top: 15px;
