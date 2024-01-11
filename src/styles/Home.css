@@ -36,7 +36,7 @@
   flex-direction: column;
   min-height: 100vh;
   /**/
-  background-image: url('15minuteLogo4096.png'); /* Update with the correct path */
+  background-image: url('15minuteLogoJPG.jpg'); /* Update with the correct path */
   background-size: cover; /* Adjust as needed */
   background-position: center; /* Adjust as needed */
 }
@@ -59,8 +59,9 @@
 
 .language-select-container {
   /*margin-left: auto; /* Push the language select to the right */
-  margin-left: 20px;
+  margin-left: 1.5%;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .image-logo {

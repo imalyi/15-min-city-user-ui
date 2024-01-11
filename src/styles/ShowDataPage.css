@@ -1,6 +1,6 @@
 .ShowData {
   background-color: rgb(255, 255, 255);
-  background-image: url('15minuteLogo4096.png'); /* Update with the correct path */
+  background-image: url('15minuteLogoJPG.jpg'); /* Update with the correct path */
   background-size: cover; /* Adjust as needed */
   background-position: center; /* Adjust as needed */
 }
@@ -288,7 +288,7 @@
 .category-click {
   cursor: pointer;
   padding: 5px;
-  background-color: #deffe8;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0px 0px 8px #00000092;
   margin-top: 15px;
