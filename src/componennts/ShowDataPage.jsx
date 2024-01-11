@@ -131,7 +131,7 @@ function ShowDataPage() {
             <div>
               <Link to="/home">
                 <img
-                  src={'/images/15minuteLogo.png'}
+                  src={'/images/15minuteLogoJPG.jpg'}
                   alt="Red Cross"
                   className="logo-home"
                   title={t('Back to home page')}
