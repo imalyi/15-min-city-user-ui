@@ -1,7 +1,7 @@
 {
-  "English": "Angielski",
+  "English": "English",
   "Polish": "Polski",
-  "German": "Niemiecki",
+  "German": "Deutsch",
   "Get your location": "Pobierz swoją lokalizację",
   "Show results": "Pokaż wyniki",
   "Type to search...": "Wpisz aby wyszukać...",
@@ -9,6 +9,7 @@
   "Sustenance": "Wyżywienie",
   "Bar": "Bar",
   "Beer Garden": "Ogród Piwny",
+  "Biergarten": "Ogród Piwny",
   "Cafe": "Kawiarnia",
   "Fast Food": "Fast Food",
   "Food Court": "Food Court",
