@@ -1,7 +1,7 @@
 {
   "English": "English",
-  "Polish": "Polish",
-  "Deutsch": "German",
+  "Polish": "Polski",
+  "Deutsch": "Deutsch",
   "Get your location": "Get your location",
   "Show results": "Show results",
   "Type to search...": "Type to search...",
@@ -9,6 +9,7 @@
   "Sustenance": "Sustenance",
   "Bar": "Bar",
   "Beer Garden": "Beer Garden",
+  "Biergarten": "Beer Garden",
   "Cafe": "Cafe",
   "Fast Food": "Fast Food",
   "Food Court": "Food Court",
