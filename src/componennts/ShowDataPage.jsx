@@ -253,6 +253,12 @@ function ShowDataPage() {
                                     <br />
                                   </div>
                                 )}
+                                {item.name === 'unknown' && (
+                                  <div className="centerized name-style">
+                                    {category.label}
+                                    <br />
+                                  </div>
+                                )}
                                 {item.address.full && (
                                   <div className="centerized">
                                     {item.address.full}
