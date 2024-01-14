@@ -32,6 +32,7 @@ function ShowDataPage() {
   const [selectedPreferencesShowPage, setSelectedPreferencesShowPage] =
     useState(selectedPreferences);
   const buttonRef = useRef(null);
+  console.log(selectedPreferencesShowPage);
 
   const [flyToLocation, setFlyToLocation] = useState(null);
 
