@@ -98,12 +98,37 @@ function ShowDataPage() {
   };
 
   const countVisibleCategories = () => {
+    if (categoriesToShow.length === 0) {
+      return {
+        text: 'Choose preferences',
+        class: 'red-text',
+      };
+    }
     const visibleCategories = categoriesToShow.filter(
       (category) => places.osm.points_of_interest[category.key],
     );
+
     const percentage =
       (visibleCategories.length / categoriesToShow.length) * 100;
-    return `${percentage.toFixed(0)}%`;
+    // Ustal klasę tekstu w zależności od procentu
+    let textClass = '';
+
+    if (percentage <= 30) {
+      textClass = 'red-text';
+    } else if (percentage > 30 && percentage < 50) {
+      textClass = 'orange-text';
+    } else if (percentage > 50 && percentage < 70) {
+      textClass = 'yellow-text';
+    } else if (percentage > 70 && percentage < 90) {
+      textClass = 'light-green-text';
+    } else if (percentage > 90) {
+      textClass = 'green-text';
+    }
+
+    return {
+      text: `${percentage.toFixed(0)}%`,
+      class: textClass,
+    };
   };
 
   const categoriesToShow = selectedPreferences.map((preference) => {
@@ -211,8 +236,12 @@ function ShowDataPage() {
           <div className="show-data-map">
             {isLeftSectionVisible && (
               <div className="left-section">
-                <div className="category-counter">
-                  {countVisibleCategories()}
+                <div
+                  className={`category-counter ${
+                    countVisibleCategories().class
+                  }`}
+                >
+                  {countVisibleCategories().text}
                 </div>
                 {categoriesToShow.map((category) => (
                   <div key={category.key} className="data-category">

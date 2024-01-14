@@ -331,3 +331,19 @@
   text-align: center;
   font-weight: bold;
 }
+
+.red-text {
+  color: red;
+}
+.orange-text {
+  color: rgb(255, 119, 0);
+}
+.yellow-text {
+  color: rgb(225, 222, 49);
+}
+.light-green-text {
+  color: rgb(153, 221, 34);
+}
+.green-text {
+  color: green;
+}
