@@ -97,8 +97,6 @@ function ShowDataPage() {
     setSelectedPreferencesShowPage(preferences);
   };
 
-  // Tutaj możesz umieścić kod obsługujący zmiany preferencji lub innych danych
-  // Wywołuje się za każdym razem, gdy selectedPreferencesShowPage zostanie zaktualizowane
   const categoriesToShow = selectedPreferences.map((preference) => {
     const formattedPreference = preference
       .split('_')
