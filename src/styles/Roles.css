@@ -21,14 +21,18 @@
   color: #666666; /* Szary kolor dla eleganckiego wyglądu */
 }
 
-.centered-header {
+.centered-category-header {
   text-align: center;
 }
 
-.centered-category-header {
-  text-align: center;
-  font-size: 15px;
+.centered-header {
+  box-shadow: 0px 0px 8px #d3d3d3;
+  display: inline-block;
+  border-radius: 7px;
+  padding: 6px;
+  cursor: pointer;
 }
+
 .role-option {
   margin-top: 5px;
   /* Dodaj styl poniżej, aby dostosować wielkość tekstu w etykiecie */

@@ -41,16 +41,61 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
     onSelectPreferences(updatedPreferences);
   };
 
+  const handleCategoryToggle = (categoryName) => {
+    const allPreferencesInCategory = preferencesData[categoryName].map(
+      (preference) => preference.name,
+    );
+    const categoryIsSelected = allPreferencesInCategory.every((preference) =>
+      selectedPreferences.includes(preference),
+    );
+
+    const updatedPreferences = categoryIsSelected
+      ? selectedPreferences.filter(
+          (item) => !allPreferencesInCategory.includes(item),
+        )
+      : [...selectedPreferences, ...allPreferencesInCategory];
+
+    setSelectedPreferences(updatedPreferences);
+    onSelectPreferences(updatedPreferences);
+  };
+
+  const handleSelectAllPreferences = () => {
+    const allPreferences = Object.values(preferencesData).reduce(
+      (all, category) => {
+        return all.concat(category.map((preference) => preference.name));
+      },
+      [],
+    );
+
+    const allSelected = allPreferences.every((preference) =>
+      selectedPreferences.includes(preference),
+    );
+
+    const updatedPreferences = allSelected
+      ? selectedPreferences.filter((item) => !allPreferences.includes(item))
+      : [...allPreferences];
+
+    setSelectedPreferences(updatedPreferences);
+    onSelectPreferences(updatedPreferences);
+  };
+
   return (
     <div className={`roles-container ${isShowDataPage ? '' : 'homeStyle'}`}>
-      <div>
+      <div className="centered-category-header">
         <div>
-          <h3 className="centered-header">{t('Choose Your Preferences')}</h3>
+          <h3 className="centered-header" onClick={handleSelectAllPreferences}>
+            {t('Choose Your Preferences')}
+          </h3>
         </div>
         <div className="preferences-column">
           {Object.keys(preferencesData).map((categoryName) => (
-            <div key={categoryName}>
-              <h4 className="centered-category-header">{t(categoryName)}</h4>
+            <div key={categoryName} className="centered-category-header">
+              <h4
+                className="centered-header"
+                onClick={() => handleCategoryToggle(categoryName)}
+              >
+                {t(categoryName)}
+              </h4>
               <div className="preferences-checkbox">
                 {preferencesData[categoryName].map((preference) => (
                   <FormControlLabel
@@ -75,5 +120,4 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
     </div>
   );
 };
-
 export default Roles;

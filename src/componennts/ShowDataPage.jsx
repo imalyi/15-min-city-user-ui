@@ -128,7 +128,7 @@ function ShowDataPage() {
         <div className="ShowDataPage">
           <div className="search-bar-container-show-data">
             <div>
-              <Link to="/home">
+              <Link to="/">
                 <img
                   src={'/images/15minuteLogoJPG.jpg'}
                   alt="Red Cross"
