@@ -97,6 +97,15 @@ function ShowDataPage() {
     setSelectedPreferencesShowPage(preferences);
   };
 
+  const countVisibleCategories = () => {
+    const visibleCategories = categoriesToShow.filter(
+      (category) => places.osm.points_of_interest[category.key],
+    );
+    const percentage =
+      (visibleCategories.length / categoriesToShow.length) * 100;
+    return `${percentage.toFixed(0)}%`;
+  };
+
   const categoriesToShow = selectedPreferences.map((preference) => {
     const formattedPreference = preference
       .split('_')
@@ -202,6 +211,9 @@ function ShowDataPage() {
           <div className="show-data-map">
             {isLeftSectionVisible && (
               <div className="left-section">
+                <div className="category-counter">
+                  {countVisibleCategories()}
+                </div>
                 {categoriesToShow.map((category) => (
                   <div key={category.key} className="data-category">
                     <div
