@@ -16,20 +16,23 @@ export const ShowDataButton = React.forwardRef(
         );
       } else {
         const places = await getplacesFromCoordinates();
-
-        console.log(places);
-
-        navigate('/show-addresses', {
-          state: {
-            address,
-            addressId,
-            places,
-            selectedPreferences,
-            selectedCoordinates,
-          },
-        });
-        window.location.reload();
-        console.log(places);
+        if (places === undefined) {
+          alert(
+            'Oops! Something went wrong with our server. Please try using our application later. We apologize for the inconvenience.',
+          );
+        } else {
+          navigate('/show-addresses', {
+            state: {
+              address,
+              addressId,
+              places,
+              selectedPreferences,
+              selectedCoordinates,
+            },
+          });
+          window.location.reload();
+          console.log(places);
+        }
       }
     };
 
@@ -50,7 +53,7 @@ export const ShowDataButton = React.forwardRef(
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data.osm.points_of_interest);
+          console.log(data);
           return data;
         } else {
           console.error(
