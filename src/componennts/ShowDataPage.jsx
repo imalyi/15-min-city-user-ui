@@ -20,7 +20,6 @@ function ShowDataPage() {
   console.log(places);
   const address = location.state?.address || 'Unknown Address';
   const addressId = location.state?.addressId || 'Unknown Address';
-  const aboutInfo = 'Information from Show-Adresses Component';
   const selectedPreferences = location.state?.selectedPreferences || [];
   const selectedCoordinates = location.state?.selectedCoordinates || [90, 90];
   const [results, setResults] = useState([]);
@@ -388,7 +387,7 @@ function ShowDataPage() {
         </div>
       </div>
       <div>
-        <Footer additionalInfo={aboutInfo} />
+        <Footer />
       </div>
     </div>
   );

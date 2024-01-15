@@ -1,13 +1,29 @@
-// Footer.js
 import React from 'react';
 import '../styles/Footer.css';
 
-function Footer({ additionalInfo }) {
+function Footer() {
   return (
     <div className="footer bg-dark text-light p-3">
       <div className="container text-center">
-        <p>{additionalInfo}</p>
-        <p>© 15 minut city</p>
+        <p>
+          <a
+            href="https://www.openstreetmap.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            OpenStreetMap
+          </a>
+        </p>
+        <p>
+          <a
+            href="https://www.trojmiasto.pl/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Trojmiasto.pl
+          </a>
+        </p>
+        <p>©cityinminutes.me</p>
       </div>
     </div>
   );
