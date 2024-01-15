@@ -33,25 +33,29 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
   }, []);
 
   const handlePreferenceChange = (event) => {
-    const preference = event.target.value;
-    const updatedPreferences = selectedPreferences.includes(preference)
-      ? selectedPreferences.filter((item) => item !== preference)
-      : [...selectedPreferences, preference];
+    console.log(selectedPreferences);
+    const preferenceId = parseInt(event.target.value, 10);
+    const preferenceName = event.target.name;
+    const updatedPreferences = selectedPreferences.some(
+      (preference) => preference.id === preferenceId,
+    )
+      ? selectedPreferences.filter((item) => item.id !== preferenceId)
+      : [...selectedPreferences, { id: preferenceId, name: preferenceName }];
     setSelectedPreferences(updatedPreferences);
     onSelectPreferences(updatedPreferences);
   };
 
   const handleCategoryToggle = (categoryName) => {
     const allPreferencesInCategory = preferencesData[categoryName].map(
-      (preference) => preference.name,
+      (preference) => ({ id: preference.id, name: preference.name }),
     );
     const categoryIsSelected = allPreferencesInCategory.every((preference) =>
-      selectedPreferences.includes(preference),
+      selectedPreferences.some((p) => p.id === preference.id),
     );
 
     const updatedPreferences = categoryIsSelected
       ? selectedPreferences.filter(
-          (item) => !allPreferencesInCategory.includes(item),
+          (item) => !allPreferencesInCategory.some((p) => p.id === item.id),
         )
       : [...selectedPreferences, ...allPreferencesInCategory];
 
@@ -62,18 +66,25 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
   const handleSelectAllPreferences = () => {
     const allPreferences = Object.values(preferencesData).reduce(
       (all, category) => {
-        return all.concat(category.map((preference) => preference.name));
+        return all.concat(
+          category.map((preference) => ({
+            id: preference.id,
+            name: preference.name,
+          })),
+        );
       },
       [],
     );
 
     const allSelected = allPreferences.every((preference) =>
-      selectedPreferences.includes(preference),
+      selectedPreferences.some((p) => p.id === preference.id),
     );
 
     const updatedPreferences = allSelected
-      ? selectedPreferences.filter((item) => !allPreferences.includes(item))
-      : [...allPreferences];
+      ? selectedPreferences.filter(
+          (item) => !allPreferences.some((p) => p.id === item.id),
+        )
+      : [...selectedPreferences, ...allPreferences];
 
     setSelectedPreferences(updatedPreferences);
     onSelectPreferences(updatedPreferences);
@@ -102,8 +113,11 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
                     key={preference.id}
                     control={
                       <Checkbox
-                        value={preference.name}
-                        checked={selectedPreferences.includes(preference.name)}
+                        value={preference.id}
+                        name={preference.name}
+                        checked={selectedPreferences.some(
+                          (p) => p.id === preference.id,
+                        )}
                         onChange={handlePreferenceChange}
                         className="role-checkbox"
                       />

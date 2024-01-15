@@ -9,7 +9,6 @@ export const ShowDataButton = React.forwardRef(
   ({ address, addressId, selectedPreferences, selectedCoordinates }, ref) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
-
     const handleUserLocationClick = async () => {
       if (addressId === '' || address === '') {
         alert(
@@ -35,17 +34,19 @@ export const ShowDataButton = React.forwardRef(
     };
 
     const getplacesFromCoordinates = async () => {
+      const reportData = {
+        categories_ids: selectedPreferences,
+        address_id: addressId,
+      };
       try {
         console.log(addressId);
-        const response = await fetch(
-          `${api.APP_URL_USER_API}report/?address_id=${addressId}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
+        const response = await fetch(`${api.APP_URL_USER_API}report/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        );
+          body: JSON.stringify(reportData),
+        });
 
         if (response.ok) {
           const data = await response.json();

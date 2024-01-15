@@ -132,7 +132,7 @@ function ShowDataPage() {
   };
 
   const categoriesToShow = selectedPreferences.map((preference) => {
-    const formattedPreference = preference
+    const formattedPreference = preference.name
       .split('_')
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
