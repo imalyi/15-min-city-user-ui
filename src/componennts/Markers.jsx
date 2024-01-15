@@ -131,11 +131,12 @@ import {
   public_building,
   refugee_site,
   vending_machine,
+  universal_icon,
 } from './Icons';
 const Markers = ({ placeName, lat, lng, distance, address, name }) => {
   const iconMapping = {
     doctors: doctors,
-    fast_food: fast_food,
+    'fast food': fast_food,
     bank: bank,
     bar: bar,
     cafe: cafe,
@@ -264,7 +265,8 @@ const Markers = ({ placeName, lat, lng, distance, address, name }) => {
     vending_machine: vending_machine,
   };
 
-  const markerIcon = iconMapping[placeName];
+  const defaultIcon = universal_icon; // Ustaw swoją uniwersalną ikonę tutaj
+  const markerIcon = iconMapping[placeName] || defaultIcon;
   const { t } = useTranslation();
 
   return (
