@@ -14,7 +14,6 @@ function Home() {
   const [input, setInput] = useState('');
   const [addressId, setAddressId] = useState('');
   const [isResultClicked, setIsResultClicked] = useState(false);
-  const aboutInfo = 'Information from Home Component';
   const [selectedRole, setSelectedRole] = useState('without role');
   const [selectedPreferences, setSelectedPreferences] = useState([]);
   const [selectedCoordinates, setSelectedCoordinates] = useState([]);
@@ -127,7 +126,7 @@ function Home() {
           selectedPreferencesShowPage={selectedPreferences}
         />
       </div>
-      <Footer additionalInfo={aboutInfo} />
+      <Footer />
     </div>
   );
 }
