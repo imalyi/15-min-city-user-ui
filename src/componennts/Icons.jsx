@@ -527,3 +527,8 @@ export const vending_machine = new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/2329/2329338.png',
   iconSize: [30, 30],
 });
+
+export const universal_icon = new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/447/447031.png',
+  iconSize: [30, 30],
+});

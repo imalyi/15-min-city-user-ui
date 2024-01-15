@@ -131,14 +131,14 @@ function ShowDataPage() {
   };
 
   const categoriesToShow = selectedPreferences.map((preference) => {
-    const formattedPreference = preference.name
+    const formattedPreferenceLabel = preference.name
       .split('_')
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
 
     return {
-      key: preference,
-      label: formattedPreference,
+      key: preference.name,
+      label: formattedPreferenceLabel,
     };
   });
 
