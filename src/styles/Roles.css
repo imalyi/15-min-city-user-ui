@@ -11,7 +11,10 @@
 .homeStyle {
   background-color: rgba(255, 255, 255, 0.952);
 }
-
+.all-categories {
+  margin: 0px; /* Adjust the margin as needed */
+  margin-bottom: 10px;
+}
 .roles-header {
   display: flex;
   flex-direction: column;
@@ -26,11 +29,28 @@
 }
 
 .centered-header {
-  box-shadow: 0px 0px 8px #d3d3d3;
   display: inline-block;
   border-radius: 7px;
   padding: 6px;
   cursor: pointer;
+}
+
+.centered-category {
+  box-shadow: 0px 0px 8px #d3d3d3;
+  display: inline-block;
+  border-radius: 7px;
+  padding-top: 6px;
+  padding-left: 14px;
+  padding-bottom: 1px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.font-size-category {
+  font-size: 20px;
 }
 
 .role-option {

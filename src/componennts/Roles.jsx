@@ -11,6 +11,7 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
     selectedPreferencesShowPage,
   );
   const [preferencesData, setPreferencesData] = useState([]);
+
   useEffect(() => {
     // Sprawdzanie, czy obecna ścieżka to /showData
     setIsShowDataPage(window.location.pathname === '/show-addresses');
@@ -88,7 +89,13 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
 
     setSelectedPreferences(updatedPreferences);
     onSelectPreferences(updatedPreferences);
+    console.log(selectedPreferences);
   };
+
+  const totalPreferencesCount = Object.values(preferencesData).reduce(
+    (total, category) => total + category.length,
+    0,
+  );
 
   return (
     <div className={`roles-container ${isShowDataPage ? '' : 'homeStyle'}`}>
@@ -98,15 +105,45 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
             {t('Choose Your Preferences')}
           </h3>
         </div>
+        <div>
+          <h3 className="all-categories">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={selectedPreferences.length === totalPreferencesCount}
+                  onChange={handleSelectAllPreferences}
+                  className="centered-header"
+                />
+              }
+              label={
+                <span style={{ fontSize: '14px' }}>
+                  {t('Choose All Preferences')}
+                </span>
+              }
+            />
+          </h3>
+        </div>
         <div className="preferences-column">
           {Object.keys(preferencesData).map((categoryName) => (
-            <div key={categoryName} className="centered-category-header">
-              <h4
-                className="centered-header"
-                onClick={() => handleCategoryToggle(categoryName)}
-              >
-                {t(categoryName)}
-              </h4>
+            <div key={categoryName}>
+              <div className="centered-category">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={preferencesData[categoryName].every(
+                        (preference) =>
+                          selectedPreferences.some(
+                            (p) => p.id === preference.id,
+                          ),
+                      )}
+                      onChange={() => handleCategoryToggle(categoryName)}
+                    />
+                  }
+                  label={
+                    <span style={{ fontSize: '17px' }}>{t(categoryName)}</span>
+                  }
+                />
+              </div>
               <div className="preferences-checkbox">
                 {preferencesData[categoryName].map((preference) => (
                   <FormControlLabel
