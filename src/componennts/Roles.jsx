@@ -164,22 +164,26 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
               }`}
             >
               <div className="centered-category">
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={preferencesData[categoryName].every(
-                        (preference) =>
-                          selectedPreferences.some(
-                            (p) => p.id === preference.id,
-                          ),
-                      )}
-                      onChange={() => handleCategoryToggle(categoryName)}
-                    />
-                  }
-                  label={
-                    <span style={{ fontSize: '17px' }}>{t(categoryName)}</span>
-                  }
-                />
+                <div>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={preferencesData[categoryName].every(
+                          (preference) =>
+                            selectedPreferences.some(
+                              (p) => p.id === preference.id,
+                            ),
+                        )}
+                        onChange={() => handleCategoryToggle(categoryName)}
+                      />
+                    }
+                    label={
+                      <span style={{ fontSize: '17px' }}>
+                        {t(categoryName)}
+                      </span>
+                    }
+                  />
+                </div>
                 {isSmallScreen && (
                   <button
                     className="toggle-button-expanded"
