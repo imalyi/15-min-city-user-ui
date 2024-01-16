@@ -3,6 +3,7 @@ import { Checkbox, FormControlLabel } from '@mui/material';
 import '../styles/Roles.css';
 import { useTranslation } from 'react-i18next';
 import api from '../config';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
 const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
   const { t } = useTranslation();
@@ -11,6 +12,8 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
     selectedPreferencesShowPage,
   );
   const [preferencesData, setPreferencesData] = useState([]);
+  const [expandedCategories, setExpandedCategories] = useState([]);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
     // Sprawdzanie, czy obecna ścieżka to /showData
@@ -33,8 +36,24 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const checkScreenWidth = () => {
+      setIsSmallScreen(window.innerWidth <= 600);
+    };
+
+    // Sprawdź szerokość ekranu przy załadowaniu komponentu
+    checkScreenWidth();
+
+    // Dodaj nasłuchiwanie na zmiany szerokości ekranu
+    window.addEventListener('resize', checkScreenWidth);
+
+    // Usuń nasłuchiwanie przy odmontowywaniu komponentu
+    return () => {
+      window.removeEventListener('resize', checkScreenWidth);
+    };
+  }, []);
+
   const handlePreferenceChange = (event) => {
-    console.log(selectedPreferences);
     const preferenceId = parseInt(event.target.value, 10);
     const preferenceName = event.target.name;
     const updatedPreferences = selectedPreferences.some(
@@ -85,7 +104,7 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
       ? selectedPreferences.filter(
           (item) => !allPreferences.some((p) => p.id === item.id),
         )
-      : [...selectedPreferences, ...allPreferences];
+      : [...allPreferences];
 
     setSelectedPreferences(updatedPreferences);
     onSelectPreferences(updatedPreferences);
@@ -96,6 +115,16 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
     (total, category) => total + category.length,
     0,
   );
+
+  const toggleCategoryExpansion = (categoryName) => {
+    if (expandedCategories.includes(categoryName)) {
+      setExpandedCategories(
+        expandedCategories.filter((cat) => cat !== categoryName),
+      );
+    } else {
+      setExpandedCategories([...expandedCategories, categoryName]);
+    }
+  };
 
   return (
     <div className={`roles-container ${isShowDataPage ? '' : 'homeStyle'}`}>
@@ -122,10 +151,18 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
               }
             />
           </h3>
+          {console.log(selectedPreferences.length)}
         </div>
         <div className="preferences-column">
           {Object.keys(preferencesData).map((categoryName) => (
-            <div key={categoryName}>
+            <div
+              key={categoryName}
+              className={`${isSmallScreen ? 'expandable' : ''} ${
+                expandedCategories.includes(categoryName)
+                  ? 'expanded'
+                  : 'collapsed'
+              }`}
+            >
               <div className="centered-category">
                 <FormControlLabel
                   control={
@@ -143,8 +180,24 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
                     <span style={{ fontSize: '17px' }}>{t(categoryName)}</span>
                   }
                 />
+                {isSmallScreen && (
+                  <button
+                    className="toggle-button-expanded"
+                    onClick={() => toggleCategoryExpansion(categoryName)}
+                  >
+                    {expandedCategories.includes(categoryName) ? (
+                      <IoIosArrowUp />
+                    ) : (
+                      <IoIosArrowDown />
+                    )}
+                  </button>
+                )}
               </div>
-              <div className="preferences-checkbox">
+              <div
+                className={`preferences-checkbox ${
+                  isSmallScreen ? '' : 'expanded'
+                }`}
+              >
                 {preferencesData[categoryName].map((preference) => (
                   <FormControlLabel
                     key={preference.id}
@@ -171,4 +224,5 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
     </div>
   );
 };
+
 export default Roles;

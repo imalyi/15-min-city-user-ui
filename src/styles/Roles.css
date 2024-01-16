@@ -1,3 +1,10 @@
+/* Dla ekranów o szerokości do 600px (np. smartfony) */
+@media only screen and (max-width: 600px) {
+}
+
+/* Dla ekranów o szerokości powyżej 600px (np. komputery) */
+@media only screen and (min-width: 601px) {
+}
 .roles-container {
   width: 97%;
   margin: auto;
@@ -85,7 +92,36 @@
   display: flex;
   flex-direction: column;
   padding: 15px;
+  margin-bottom: 10px;
   border-radius: 10px;
   box-shadow: 0px 0px 8px #ddd;
   background-color: rgb(255, 255, 255);
+}
+
+/* Dodaj do arkusza stylów */
+.expandable .expand-icon {
+  display: block;
+}
+
+.expandable.collapsed .preferences-checkbox {
+  display: none;
+}
+
+.expandable.expanded .preferences-checkbox {
+  display: flex;
+}
+
+.expandable .expand-icon {
+  display: none;
+  cursor: pointer;
+}
+
+.toggle-button-expanded {
+  height: 3rem;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 0 8px;
+  cursor: pointer;
+  align-items: center;
 }
