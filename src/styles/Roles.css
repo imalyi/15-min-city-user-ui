@@ -120,9 +120,6 @@
 
 /* Dla ekranów o szerokości do 600px (np. smartfony) */
 @media only screen and (max-width: 600px) {
-  .centered-category {
-  }
-
   .preferences-column {
     display: block;
   }
