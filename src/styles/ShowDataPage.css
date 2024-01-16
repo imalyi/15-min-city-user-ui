@@ -137,7 +137,6 @@
 
 .left-section {
   margin-top: 1vh;
-  width: 26%; /* Adjust the width as needed */
   overflow-y: scroll;
   height: 94vh;
 }
@@ -161,7 +160,6 @@
 }
 
 .right-section {
-  width: 74%; /* Adjust the width as needed */
   height: 94vh;
 }
 .right-section-center {
@@ -170,7 +168,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 74%;
   height: 95vh;
 }
 
@@ -346,4 +343,28 @@
 }
 .green-text {
   color: green;
+}
+
+@media only screen and (max-width: 800px) {
+  .right-section {
+    width: 54%; /* Adjust the width as needed */
+  }
+  .right-section-center {
+    width: 74%;
+  }
+  .left-section {
+    width: 46%; /* Adjust the width as needed */
+  }
+}
+
+@media only screen and (min-width: 801px) {
+  .right-section {
+    width: 74%; /* Adjust the width as needed */
+  }
+  .right-section-center {
+    width: 74%;
+  }
+  .left-section {
+    width: 26%; /* Adjust the width as needed */
+  }
 }
