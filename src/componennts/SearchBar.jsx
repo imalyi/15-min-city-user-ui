@@ -17,7 +17,7 @@ export const SearchBar = ({
 
   const showServerErrorAlert = () => {
     alert(
-      'Oops! Something went wrong with our server. Please try using the localization button again later. We apologize for the inconvenience.',
+      'Oops! Something went wrong with our server. Please try using Search Bar again later. We apologize for the inconvenience.',
     );
   };
 

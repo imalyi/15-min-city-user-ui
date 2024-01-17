@@ -138,7 +138,6 @@
 .left-section {
   margin-top: 1vh;
   overflow-y: scroll;
-  height: 94vh;
 }
 
 /* Dodaj te style w swoim arkuszu stylów CSS */
@@ -159,16 +158,12 @@
   background-color: #8a8a8a; /* Kolor "kciuka" paska przewijania po najechaniu kursorem */
 }
 
-.right-section {
-  height: 94vh;
-}
 .right-section-center {
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 95vh;
 }
 
 .data-category {
@@ -348,23 +343,29 @@
 @media only screen and (max-width: 800px) {
   .right-section {
     width: 54%; /* Adjust the width as needed */
+    height: 86vh;
   }
   .right-section-center {
     width: 74%;
+    height: 87vh;
   }
   .left-section {
     width: 46%; /* Adjust the width as needed */
+    height: 86vh;
   }
 }
 
 @media only screen and (min-width: 801px) {
   .right-section {
     width: 74%; /* Adjust the width as needed */
+    height: 92vh;
   }
   .right-section-center {
     width: 74%;
+    height: 93vh;
   }
   .left-section {
     width: 26%; /* Adjust the width as needed */
+    height: 92vh;
   }
 }
