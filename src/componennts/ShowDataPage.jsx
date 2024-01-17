@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/ShowDataPage.css';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { SlMenu } from 'react-icons/sl';
@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 function ShowDataPage() {
+  const navigate = useNavigate();
   const [isRolesVisible, setIsRolesVisible] = useState(false);
   const location = useLocation();
   const places = location.state?.places || {};
@@ -154,6 +155,11 @@ function ShowDataPage() {
     }
     return 0;
   });
+
+  if (Object.keys(places).length === 0) {
+    navigate('/');
+    return null;
+  }
 
   return (
     <div className="ShowData">

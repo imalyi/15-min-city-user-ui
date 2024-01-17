@@ -217,7 +217,11 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
                       />
                     }
                     className="role-option"
-                    label={t(preference.name)}
+                    label={
+                      <span style={{ fontSize: '14px' }}>
+                        {t(preference.name)}
+                      </span>
+                    }
                   />
                 ))}
               </div>

@@ -532,3 +532,92 @@ export const universal_icon = new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/447/447031.png',
   iconSize: [30, 30],
 });
+
+export const Cukiernie_i_piekarnie = new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/3081/3081967.png',
+  iconSize: [30, 30],
+});
+
+export const sushi = new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/2159/2159742.png',
+  iconSize: [30, 30],
+});
+
+export const shop = new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/1170/1170576.png',
+  iconSize: [30, 30],
+});
+
+export const playground = new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/3229/3229890.png',
+  iconSize: [30, 30],
+});
+
+export const Kluby_bilardowe = new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/3425/3425948.png',
+  iconSize: [30, 30],
+});
+export const Gry_Planszowe = new Icon({
+  iconUrl: 'https://www.flaticon.com/free-icon/board-game_5190788',
+  iconSize: [30, 30],
+});
+
+export const fitness = new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/726/726911.png',
+  iconSize: [30, 30],
+});
+
+export const meditacja = new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/2647/2647625.png',
+  iconSize: [30, 30],
+});
+
+export const horseback_riding = new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/11792/11792757.png',
+  iconSize: [30, 30],
+});
+
+export const shooting_range = new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/3553/3553227.png',
+  iconSize: [30, 30],
+});
+
+export const depilation = new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/1005/1005727.png',
+  iconSize: [30, 30],
+});
+
+export const barber_shop = new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/4643/4643711.png',
+  iconSize: [30, 30],
+});
+
+export const hairdressers = new Icon({
+  iconUrl: 'https://www.flaticon.com/free-icon/barbershop_393164',
+  iconSize: [30, 30],
+});
+
+export const nails = new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/452/452757.png',
+  iconSize: [30, 30],
+});
+
+export const massage = new Icon({
+  iconUrl: 'https://www.flaticon.com/free-icon/massage_8119611',
+  iconSize: [30, 30],
+});
+
+export const model_making = new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/11792/11792642.png',
+  iconSize: [30, 30],
+});
+
+export const three_d_printers = new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/4228/4228862.png',
+  iconSize: [30, 30],
+});
+
+export const office = new Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/1599/1599859.png',
+  iconSize: [30, 30],
+});
