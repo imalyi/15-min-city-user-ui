@@ -1,0 +1,133 @@
+.roles-container {
+  width: 97%;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  box-shadow: 0px 0px 8px #666666;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.homeStyle {
+  background-color: rgba(255, 255, 255, 0.952);
+}
+.all-categories {
+  margin: 0px; /* Adjust the margin as needed */
+  margin-bottom: 10px;
+}
+.roles-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #666666; /* Szary kolor dla eleganckiego wyglądu */
+}
+
+.centered-category-header {
+  text-align: center;
+}
+
+.centered-header {
+  display: inline-block;
+  border-radius: 7px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.centered-category {
+  box-shadow: 0px 0px 8px #afafaf;
+  display: inline-block;
+  border-radius: 7px;
+  padding-top: 6px;
+  padding-left: 13px;
+  padding-right: 5px;
+  padding-bottom: 1px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.font-size-category {
+  font-size: 20px;
+}
+
+.role-option {
+  margin-top: 5px;
+  /* Dodaj styl poniżej, aby dostosować wielkość tekstu w etykiecie */
+  & .MuiFormControlLabel-label {
+    font-size: 11px; /* Wielkość tekstu w etykiecie */
+  }
+}
+
+.role-checkbox {
+  margin-left: 100px; /* Adjust the margin as needed */
+}
+
+.roles-section {
+  display: flex;
+  justify-content: space-around;
+  width: 100%; /* Dostosuj szerokość według potrzeb */
+}
+.roles-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Wyśrodkuj zawartość w kolumnie */
+}
+
+.preferences-column {
+  display: flex;
+  flex-wrap: wrap;
+}
+.preferences-checkbox {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px #c6c6c6;
+  background-color: rgb(255, 255, 255);
+}
+
+/* Dodaj do arkusza stylów */
+.expandable .expand-icon {
+  display: block;
+}
+
+.expandable.collapsed .preferences-checkbox {
+  display: none;
+}
+
+.expandable.expanded .preferences-checkbox {
+  display: flex;
+}
+
+.expandable .expand-icon {
+  display: none;
+  cursor: pointer;
+}
+
+.toggle-button-expanded {
+  background-color: rgba(255, 255, 255, 0.258);
+  border: none;
+  padding: 0 8px;
+  cursor: pointer;
+  align-items: center;
+  height: auto;
+}
+
+/* Dla ekranów o szerokości do 600px (np. smartfony) */
+@media only screen and (max-width: 600px) {
+  .preferences-column {
+    display: block;
+  }
+}
+
+/* Dla ekranów o szerokości powyżej 600px (np. komputery) */
+@media only screen and (min-width: 601px) {
+  .preferences-column {
+    justify-content: space-around;
+  }
+}

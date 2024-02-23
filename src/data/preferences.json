@@ -1,0 +1,492 @@
+[
+  {
+    "category_name": "Sustenance",
+    "places": [
+      { "id": 1, "preference": "restaurant", "web_preference": "Restaurant" },
+      { "id": 2, "preference": "cafe", "web_preference": "Cafe" },
+      { "id": 3, "preference": "pub", "web_preference": "Pub" },
+      { "id": 4, "preference": "bar", "web_preference": "Bar" },
+      { "id": 5, "preference": "food_court", "web_preference": "Food Court" },
+      { "id": 6, "preference": "fast_food", "web_preference": "Fast Food" },
+      { "id": 7, "preference": "biergarten", "web_preference": "Beer Garden" },
+      { "id": 8, "preference": "ice_cream", "web_preference": "Ice Cream Shop" }
+    ]
+  },
+  {
+    "category_name": "Education",
+    "places": [
+      {
+        "id": 9,
+        "preference": "university",
+        "web_preference": "University Campus"
+      },
+      { "id": 10, "preference": "college", "web_preference": "College" },
+      { "id": 11, "preference": "school", "web_preference": "School" },
+      {
+        "id": 12,
+        "preference": "language_school",
+        "web_preference": "Language School"
+      },
+      { "id": 13, "preference": "library", "web_preference": "Library" },
+      {
+        "id": 14,
+        "preference": "research_institute",
+        "web_preference": "Research Institute"
+      },
+      {
+        "id": 15,
+        "preference": "kindergarten",
+        "web_preference": "Kindergarten"
+      },
+      {
+        "id": 16,
+        "preference": "dancing_school",
+        "web_preference": "Dancing School"
+      },
+      {
+        "id": 17,
+        "preference": "driving_school",
+        "web_preference": "Driving School"
+      },
+      {
+        "id": 18,
+        "preference": "first_aid_school",
+        "web_preference": "First Aid School"
+      },
+      {
+        "id": 19,
+        "preference": "training",
+        "web_preference": "Training Center"
+      },
+      {
+        "id": 20,
+        "preference": "music_school",
+        "web_preference": "Music School"
+      },
+      {
+        "id": 21,
+        "preference": "surf_school",
+        "web_preference": "Surf School"
+      },
+      {
+        "id": 22,
+        "preference": "toy_library",
+        "web_preference": "Toy Library"
+      },
+      {
+        "id": 23,
+        "preference": "traffic_park",
+        "web_preference": "Traffic Park"
+      }
+    ]
+  },
+  {
+    "category_name": "Transportation",
+    "places": [
+      {
+        "id": 24,
+        "preference": "bicycle_parking",
+        "web_preference": "Bicycle Parking"
+      },
+      {
+        "id": 25,
+        "preference": "bicycle_repair_station",
+        "web_preference": "Bicycle Repair Station"
+      },
+      {
+        "id": 26,
+        "preference": "bicycle_rental",
+        "web_preference": "Bicycle Rental"
+      },
+      {
+        "id": 27,
+        "preference": "bicycle_wash",
+        "web_preference": "Bicycle Wash"
+      },
+      {
+        "id": 28,
+        "preference": "bus_station",
+        "web_preference": "Bus Station"
+      },
+      { "id": 29, "preference": "car_rental", "web_preference": "Car Rental" },
+      {
+        "id": 30,
+        "preference": "car_sharing",
+        "web_preference": "Car Sharing"
+      },
+      { "id": 31, "preference": "car_wash", "web_preference": "Car Wash" },
+      {
+        "id": 32,
+        "preference": "compressed_air",
+        "web_preference": "Compressed Air"
+      },
+      {
+        "id": 33,
+        "preference": "vehicle_inspection",
+        "web_preference": "Vehicle Inspection"
+      },
+      {
+        "id": 34,
+        "preference": "charging_station",
+        "web_preference": "Charging Station"
+      },
+      {
+        "id": 35,
+        "preference": "driver_training",
+        "web_preference": "Driver Training"
+      },
+      {
+        "id": 36,
+        "preference": "ferry_terminal",
+        "web_preference": "Ferry Terminal"
+      },
+      { "id": 37, "preference": "fuel", "web_preference": "Fuel Station" },
+      { "id": 38, "preference": "grit_bin", "web_preference": "Grit Bin" },
+      {
+        "id": 39,
+        "preference": "motorcycle_parking",
+        "web_preference": "Motorcycle Parking"
+      },
+      { "id": 40, "preference": "parking", "web_preference": "Car Park" },
+      {
+        "id": 41,
+        "preference": "parking_entrance",
+        "web_preference": "Parking Entrance"
+      },
+      {
+        "id": 42,
+        "preference": "parking_space",
+        "web_preference": "Parking Space"
+      },
+      { "id": 43, "preference": "taxi", "web_preference": "Taxi Stand" },
+      {
+        "id": 44,
+        "preference": "weighbridge",
+        "web_preference": "Weighbridge"
+      },
+      {
+        "id": 45,
+        "preference": "boat_rental",
+        "web_preference": "Boat Rental"
+      },
+      {
+        "id": 46,
+        "preference": "boat_sharing",
+        "web_preference": "Boat Sharing"
+      }
+    ]
+  },
+  {
+    "category_name": "Financial",
+    "places": [
+      { "id": 47, "preference": "bank", "web_preference": "Bank" },
+      { "id": 48, "preference": "atm", "web_preference": "ATM" },
+      {
+        "id": 49,
+        "preference": "payment_terminal",
+        "web_preference": "Payment Terminal"
+      },
+      {
+        "id": 50,
+        "preference": "bureau_de_change",
+        "web_preference": "Currency Exchange"
+      }
+    ]
+  },
+  {
+    "category_name": "Healthcare",
+    "places": [
+      { "id": 51, "preference": "hospital", "web_preference": "Hospital" },
+      { "id": 52, "preference": "clinic", "web_preference": "Medical Clinic" },
+      { "id": 53, "preference": "dentist", "web_preference": "Dentist" },
+      { "id": 54, "preference": "doctors", "web_preference": "Doctor" },
+      { "id": 55, "preference": "pharmacy", "web_preference": "Pharmacy" },
+      {
+        "id": 56,
+        "preference": "nursing_home",
+        "web_preference": "Nursing Home"
+      },
+      { "id": 57, "preference": "veterinary", "web_preference": "Veterinary" },
+      {
+        "id": 58,
+        "preference": "social_facility",
+        "web_preference": "Social Facility"
+      },
+      { "id": 59, "preference": "baby_hatch", "web_preference": "Baby Hatch" }
+    ]
+  },
+  {
+    "category_name": "Entertainment, Arts & Culture",
+    "places": [
+      { "id": 60, "preference": "theatre", "web_preference": "Theatre" },
+      { "id": 61, "preference": "cinema", "web_preference": "Cinema" },
+      {
+        "id": 62,
+        "preference": "music_venue",
+        "web_preference": "Music Venue"
+      },
+      {
+        "id": 63,
+        "preference": "events_venue",
+        "web_preference": "Events Venue"
+      },
+      {
+        "id": 64,
+        "preference": "exhibition_centre",
+        "web_preference": "Exhibition Centre"
+      },
+      { "id": 65, "preference": "casino", "web_preference": "Casino" },
+      {
+        "id": 66,
+        "preference": "arts_centre",
+        "web_preference": "Arts Centre"
+      },
+      { "id": 67, "preference": "nightclub", "web_preference": "Nightclub" },
+      {
+        "id": 68,
+        "preference": "community_centre",
+        "web_preference": "Community Centre"
+      },
+      {
+        "id": 69,
+        "preference": "planetarium",
+        "web_preference": "Planetarium"
+      },
+      {
+        "id": 70,
+        "preference": "conference_centre",
+        "web_preference": "Conference Centre"
+      },
+      {
+        "id": 71,
+        "preference": "public_bookcase",
+        "web_preference": "Public Bookcase"
+      },
+      {
+        "id": 72,
+        "preference": "social_centre",
+        "web_preference": "Social Centre"
+      },
+      { "id": 73, "preference": "studio", "web_preference": "Studio" },
+      { "id": 74, "preference": "fountain", "web_preference": "Fountain" }
+    ]
+  },
+  {
+    "category_name": "Public Service",
+    "places": [
+      { "id": 75, "preference": "courthouse", "web_preference": "Courthouse" },
+      {
+        "id": 76,
+        "preference": "fire_station",
+        "web_preference": "Fire Station"
+      },
+      { "id": 77, "preference": "police", "web_preference": "Police Station" },
+      { "id": 78, "preference": "post_box", "web_preference": "Post Box" },
+      { "id": 79, "preference": "post_depot", "web_preference": "Post Depot" },
+      {
+        "id": 80,
+        "preference": "post_office",
+        "web_preference": "Post Office"
+      },
+      { "id": 81, "preference": "prison", "web_preference": "Prison" },
+      {
+        "id": 82,
+        "preference": "ranger_station",
+        "web_preference": "Ranger Station"
+      },
+      { "id": 83, "preference": "townhall", "web_preference": "Town Hall" }
+    ]
+  },
+  {
+    "category_name": "Facilities",
+    "places": [
+      {
+        "id": 85,
+        "preference": "drinking_water",
+        "web_preference": "Drinking Water Station"
+      },
+      { "id": 86, "preference": "shelter", "web_preference": "Shelter" },
+      { "id": 87, "preference": "bench", "web_preference": "Bench" },
+      {
+        "id": 88,
+        "preference": "water_point",
+        "web_preference": "Water Point"
+      },
+      { "id": 89, "preference": "give_box", "web_preference": "Give Box" },
+      {
+        "id": 90,
+        "preference": "dog_toilet",
+        "web_preference": "Dog Toilet Area"
+      },
+      {
+        "id": 91,
+        "preference": "dressing_room",
+        "web_preference": "Dressing Room"
+      },
+      { "id": 92, "preference": "bbq", "web_preference": "BBQ Area" },
+      {
+        "id": 93,
+        "preference": "parcel_locker",
+        "web_preference": "Parcel Locker"
+      },
+      { "id": 94, "preference": "mailroom", "web_preference": "Mailroom" },
+      {
+        "id": 95,
+        "preference": "telephone",
+        "web_preference": "Public Telephone"
+      },
+      {
+        "id": 96,
+        "preference": "watering_place",
+        "web_preference": "Watering Place"
+      },
+      {
+        "id": 97,
+        "preference": "public_shower",
+        "web_preference": "Public Shower"
+      },
+      { "id": 84, "preference": "toilets", "web_preference": "Public Toilets" }
+    ]
+  },
+  {
+    "category_name": "Waste Management",
+    "places": [
+      {
+        "id": 98,
+        "preference": "waste_disposal",
+        "web_preference": "Waste Disposal Bin"
+      },
+      {
+        "id": 99,
+        "preference": "recycling",
+        "web_preference": "Recycling Facilities"
+      },
+      {
+        "id": 100,
+        "preference": "waste_basket",
+        "web_preference": "Waste Basket"
+      },
+      {
+        "id": 101,
+        "preference": "waste_transfer_station",
+        "web_preference": "Waste Transfer Station"
+      },
+      {
+        "id": 102,
+        "preference": "sanitary_dump_station",
+        "web_preference": "Sanitary Dump Station"
+      }
+    ]
+  },
+  {
+    "category_name": "Others",
+    "places": [
+      { "id": 104, "preference": "grave_yard", "web_preference": "Graveyard" },
+      {
+        "id": 105,
+        "preference": "marketplace",
+        "web_preference": "Marketplace"
+      },
+      {
+        "id": 106,
+        "preference": "internet_cafe",
+        "web_preference": "Internet Cafe"
+      },
+      {
+        "id": 107,
+        "preference": "public_building",
+        "web_preference": "Public Building"
+      },
+      { "id": 108, "preference": "kitchen", "web_preference": "Kitchen" },
+      {
+        "id": 109,
+        "preference": "photo_booth",
+        "web_preference": "Photo Booth"
+      },
+      {
+        "id": 110,
+        "preference": "dive_centre",
+        "web_preference": "Dive Centre"
+      },
+      {
+        "id": 111,
+        "preference": "vending_machine",
+        "web_preference": "Vending Machine"
+      },
+      { "id": 112, "preference": "lounger", "web_preference": "Lounger" },
+      {
+        "id": 113,
+        "preference": "funeral_hall",
+        "web_preference": "Funeral Hall"
+      },
+      {
+        "id": 114,
+        "preference": "public_bath",
+        "web_preference": "Public Bath"
+      },
+      {
+        "id": 115,
+        "preference": "kneipp_water_cure",
+        "web_preference": "Kneipp Water Cure"
+      },
+      {
+        "id": 116,
+        "preference": "place_of_mourning",
+        "web_preference": "Place of Mourning"
+      },
+      { "id": 117, "preference": "monastery", "web_preference": "Monastery" },
+      {
+        "id": 103,
+        "preference": "place_of_worship",
+        "web_preference": "Place of Worship"
+      },
+      {
+        "id": 118,
+        "preference": "animal_shelter",
+        "web_preference": "Animal Shelter"
+      },
+      {
+        "id": 119,
+        "preference": "refugee_site",
+        "web_preference": "Refugee Site"
+      },
+      { "id": 120, "preference": "clock", "web_preference": "Clock" },
+      {
+        "id": 121,
+        "preference": "crematorium",
+        "web_preference": "Crematorium"
+      },
+      {
+        "id": 122,
+        "preference": "hunting_stand",
+        "web_preference": "Hunting Stand"
+      },
+      {
+        "id": 123,
+        "preference": "waste_basket",
+        "web_preference": "Waste Basket"
+      },
+      {
+        "id": 124,
+        "preference": "drinking_water",
+        "web_preference": "Drinking Water Station"
+      },
+      {
+        "id": 125,
+        "preference": "recycling",
+        "web_preference": "Recycling Facilities"
+      },
+      {
+        "id": 126,
+        "preference": "sanitary_dump_station",
+        "web_preference": "Sanitary Dump Station"
+      },
+      {
+        "id": 127,
+        "preference": "dressing_room",
+        "web_preference": "Dressing Room"
+      },
+      { "id": 128, "preference": "baby_hatch", "web_preference": "Baby Hatch" }
+    ]
+  }
+]
