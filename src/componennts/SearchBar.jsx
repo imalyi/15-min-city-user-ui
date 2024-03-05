@@ -2,9 +2,12 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import '../styles/SearchBar.css';
 import { useTranslation } from 'react-i18next';
 import api from '../config';
-
+import { ShowDataButton } from './ShowDataButton';
 export const SearchBar = ({
   setResults,
+  showDataRef,
+  addressId,
+  selectedCoordinates,
   input,
   setInput,
   setIsResultClicked,
@@ -20,6 +23,7 @@ export const SearchBar = ({
       'Oops! Something went wrong with our server. Please try using Search Bar again later. We apologize for the inconvenience.',
     );
   };
+
 
   const fetchData = useCallback(
     async (value) => {
@@ -102,12 +106,18 @@ export const SearchBar = ({
   return (
     <div className="input-wrapper">
       <input
-        placeholder={t('Type to search...')}
+        placeholder={t('Enter address (street, city...)')}
         value={input}
         onChange={(e) => handleChange(e.target.value)}
         onKeyPress={handleKeyPress}
       />
       <button ref={buttonRef} style={{ display: 'none' }}></button>
+      <ShowDataButton
+          ref={showDataRef}
+          address={input}
+          addressId={addressId}
+          selectedCoordinates={selectedCoordinates}
+        />
     </div>
   );
 };

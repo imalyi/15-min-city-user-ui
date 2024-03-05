@@ -4,6 +4,7 @@ import '../styles/ShowDataButton.css';
 import { FaSearch } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 import api from '../config';
+import { Icon } from '@iconify/react';
 
 export const ShowDataButton = React.forwardRef(
   ({ address, addressId, selectedPreferences, selectedCoordinates }, ref) => {
@@ -74,7 +75,7 @@ export const ShowDataButton = React.forwardRef(
         onClick={handleUserLocationClick}
         title={t('Show results')}
       >
-        {<FaSearch id="search-icon" />}
+        {<Icon icon="carbon:search" id='search-icon'/>}
       </button>
     );
   },
