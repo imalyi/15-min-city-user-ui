@@ -55,6 +55,7 @@ export const SearchBar = ({
           throw new Error(response.statusText);
         }
       } catch (error) {
+        setResults(['test', 'test2']);
         console.error('Error getting address from coordinates:', error);
         showServerErrorAlert();
       }
