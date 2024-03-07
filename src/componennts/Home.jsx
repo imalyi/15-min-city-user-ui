@@ -3,11 +3,11 @@ import Footer from './Footer';
 import '../styles/Home.css';
 import { SearchBar } from './SearchBar';
 import { SearchResultsList } from './SearchResultsList';
-import { UserLocationButton } from './UserLocationButton';
 import { ShowDataButton } from './ShowDataButton';
 //import HowItWorks from './HowItWorks';
 import Roles from './Roles';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 function Home() {
   const [results, setResults] = useState([]);
@@ -50,14 +50,6 @@ function Home() {
     setIsResultClicked(false);
   };
 
-  const handleUserLocationUpdate = (address, lat, lng) => {
-    setInput(`${address[0].address}`);
-    setAddressId(`${address[0].id}`);
-    console.log(lat, lng);
-    setSelectedCoordinates([lat, lng]);
-    setIsResultClicked(true);
-  };
-
   const handleRoleSelect = (role) => {
     setSelectedRole(role);
   };
@@ -68,7 +60,19 @@ function Home() {
 
   return (
     <div className="home-container">
+      <div classname="logo">
+
+      </div>
       <div className="language-select-container">
+        <Link to="/">
+          <button
+            className="logo"
+            title={t('Search Page')}
+          >
+            logo
+          </button>
+        </Link>
+        {/* 
         <select
           value={selectedLanguage}
           onChange={(e) => handleLanguageChange(e.target.value)}
@@ -77,27 +81,17 @@ function Home() {
           <option value="en">{t('English')}</option>
           <option value="pl">{t('Polish')}</option>
           <option value="de">{t('German')}</option>
-          {/* Dodaj więcej opcji według potrzeb */}
         </select>
+        */}
       </div>
-      {/*
-      <div className="image-logo">
-        <img
-          src={'/images/15minuteLogo.png'}
-          alt="Red Cross"
-          className="centered-img-cross"
-        />
-      </div>
-      */}
       <div className="search-bar-container">
-        <UserLocationButton
-          onLocationUpdate={handleUserLocationUpdate}
-          onEnterPress={handleEnterPress}
-        />
         <div className="column search-bar-and-results results-container">
           <SearchBar
             setResults={setResults}
+            showDataRef={buttonRef}
             input={input}
+            addressId={addressId}
+            selectedCoordinates={selectedCoordinates}
             setInput={handleSearchBarChange}
             setIsResultClicked={setIsResultClicked}
             onEnterPress={handleEnterPress}
@@ -109,22 +103,6 @@ function Home() {
             />
           )}
         </div>
-        <ShowDataButton
-          ref={buttonRef}
-          address={input}
-          addressId={addressId}
-          selectedRole={selectedRole}
-          selectedPreferences={selectedPreferences}
-          selectedCoordinates={selectedCoordinates}
-        />
-      </div>
-      <div className="how-it-works-container">
-        <Roles
-          onSelectRole={handleRoleSelect}
-          onSelectPreferences={handlePreferencesSelect}
-          selectedRoleFromShowPage={selectedRole}
-          selectedPreferencesShowPage={selectedPreferences}
-        />
       </div>
       <Footer />
     </div>
