@@ -10,7 +10,7 @@
   border-top-right-radius: 0;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px; 
-  max-height: 500px;
+  max-height: 480px;
   overflow-y: auto;
   z-index: 999;
 }

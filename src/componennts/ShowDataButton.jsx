@@ -38,7 +38,7 @@ export const ShowDataButton = React.forwardRef(
     };
 
     const getplacesFromCoordinates = async () => {
-      const selectedPreferenceIds = selectedPreferences.map((pref) => pref.id);
+      const selectedPreferenceIds = []; //selectedPreferences.map((pref) => pref.id);
       const reportData = {
         categories_ids: selectedPreferenceIds,
         address_id: addressId,
