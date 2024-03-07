@@ -74,6 +74,7 @@
   height: 64px;
   background-color: #DCE6FA;
   border: none;
+  border-radius: 8px;
 }
 
 .select-and-image {

@@ -1,12 +1,9 @@
 .ShowData {
-  background-color: rgb(255, 255, 255);
-  background-image: url('15minuteLogoJPG.jpg'); /* Update with the correct path */
-  background-size: cover; /* Adjust as needed */
-  background-position: center; /* Adjust as needed */
+  background-color: #F0F8FF;
 }
 
 .ShowDataPage {
-  background-color: rgba(255, 255, 255, 0.924);
+  background-color: #F0F8FF;
   flex-direction: column;
   width: 100vw;
 }
@@ -69,8 +66,6 @@
 }
 
 .map-container {
-  margin-top: 1vh;
-  margin-left: 1vh;
   display: flex;
   overflow: hidden;
 }
@@ -245,6 +240,17 @@
   max-height: 20%; /* Dostosuj wysokość obrazka według potrzeb */
 }
 
+.logo {
+  margin-left: 40px;
+  margin-top: 32px;
+  width: 115px;
+  height: 64px;
+  background-color: #DCE6FA;
+  border: none;
+  border-radius: 8px;
+}
+
+
 .logo-home {
   height: 3rem;
   margin-left: 5px;
@@ -357,15 +363,52 @@
 
 @media only screen and (min-width: 801px) {
   .right-section {
-    width: 74%; /* Adjust the width as needed */
-    height: 92vh;
+    width: 50%; /* Adjust the width as needed */
+    height: 73vh;
+    flex-direction: column; /* Ustaw kolumnowy układ */
+    margin-right: 40px;
+
   }
   .right-section-center {
-    width: 74%;
-    height: 93vh;
+    width: 50%;
+    height: 74vh;
+    margin-right: 40px;
   }
   .left-section {
-    width: 26%; /* Adjust the width as needed */
-    height: 92vh;
+    width: 50%; /* Adjust the width as needed */
+    height: 73vh;
   }
+}
+
+.input-wrapper {
+  width: calc(100% - 24px);
+  height: 96px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0 24px;
+  background-color: #DCE6FA;
+  display: flex;
+  align-items: center;
+  margin-left: 24px;
+  margin-right: 40px;
+  margin-top: 15.81px;
+}
+
+.results-list {
+  position: absolute;
+  margin-left: 24px;
+  margin-top: 112px;
+  width: calc(100% - 24px);
+  background-color: #DCE6FA;
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px; 
+  max-height: 480px;
+  overflow-y: auto;
+  z-index: 999;
 }

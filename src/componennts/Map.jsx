@@ -23,6 +23,7 @@ function Map({
       center={selectedCoordinatesShowPage}
       zoom={17}
       scrollWheelZoom={true}
+      zoomControl={false}
     >
       <TileLayer
         attribution="Jawg.Dark"

@@ -20,7 +20,9 @@ function ShowDataPage() {
   const places = location.state?.places || {};
   console.log(places);
   const address = location.state?.address || 'Unknown Address';
+  console.log(address);
   const addressId = location.state?.addressId || 'Unknown Address';
+  console.log(addressId);
   const selectedPreferences = location.state?.selectedPreferences || [];
   const selectedCoordinates = location.state?.selectedCoordinates || [90, 90];
   const [results, setResults] = useState([]);
@@ -168,14 +170,15 @@ function ShowDataPage() {
           <div className="search-bar-container-show-data">
             <div>
               <Link to="/">
-                <img
-                  src={'/images/15minuteLogoJPG.jpg'}
-                  alt="Red Cross"
-                  className="logo-home"
-                  title={t('Back to home page')}
-                />
+                <button
+                  className="logo"
+                  title={t('Search Page')}
+                >
+                  logo
+                </button>
               </Link>
             </div>
+            {/*
             <button
               onClick={handleToggleLeftSection}
               className="toggleLeftSectionButton"
@@ -183,32 +186,12 @@ function ShowDataPage() {
             >
               {<SlMenu />}
             </button>
-            <UserLocationButton
-              onLocationUpdate={handleUserLocationUpdate}
-              onEnterPress={handleEnterPress}
-            />
-            <div className="column-show-data search-bar-and-results-show-data results-container-show-data">
-              <SearchBar
-                setResults={setResults}
-                input={input}
-                setInput={handleSearchBarChange}
-                setIsResultClicked={setIsResultClicked}
-                onEnterPress={handleEnterPress}
-              />
-              {results && results.length > 0 && !isResultClicked && (
-                <SearchResultsList
-                  results={results}
-                  onResultClick={handleResultClick}
-                />
-              )}
-            </div>
-            <ShowDataButton
-              ref={buttonRef}
-              address={input}
-              addressId={addressIdShowPage}
-              selectedPreferences={selectedPreferencesShowPage}
-              selectedCoordinates={selectedCoordinatesShowPage}
-            />
+            */}
+
+
+
+
+            {/*
             <button
               onClick={handleToggleRoles}
               className="toggleRolesButton"
@@ -216,6 +199,8 @@ function ShowDataPage() {
             >
               {isRolesVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
             </button>
+            */}
+            {/*
             <div className="language-select-container-show-data">
               <select
                 value={selectedLanguage}
@@ -225,9 +210,9 @@ function ShowDataPage() {
                 <option value="en">{t('English')}</option>
                 <option value="pl">{t('Polish')}</option>
                 <option value="de">{t('German')}</option>
-                {/* Dodaj więcej opcji według potrzeb */}
               </select>
             </div>
+            */}
           </div>
 
           {isRolesVisible && (
@@ -380,6 +365,24 @@ function ShowDataPage() {
                 isLeftSectionVisible ? '' : 'right-section-center'
               }`}
             >
+            <div className="column-show-data search-bar-and-results-show-data results-container-show-data">
+              <SearchBar
+              setResults={setResults}
+              showDataRef={buttonRef}
+              input={input}
+              addressId={addressId}
+              selectedCoordinates={selectedCoordinates}
+              setInput={handleSearchBarChange}
+              setIsResultClicked={setIsResultClicked}
+              onEnterPress={handleEnterPress}
+              />
+              {results && results.length > 0 && !isResultClicked && (
+                <SearchResultsList
+                  results={results}
+                  onResultClick={handleResultClick}
+                />
+              )}
+            </div>
               <Map
                 places={places.osm.points_of_interest}
                 categoriesToShow={categoriesToShow.map(
@@ -392,9 +395,7 @@ function ShowDataPage() {
           </div>
         </div>
       </div>
-      <div>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }
