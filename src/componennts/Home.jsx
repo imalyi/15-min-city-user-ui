@@ -101,6 +101,7 @@ function Home() {
             <SearchResultsList
               results={results}
               onResultClick={handleResultClick}
+              searchResultsListClassName="home-search-result-list"
             />
           )}
         </div>

@@ -381,6 +381,7 @@ function ShowDataPage() {
                 <SearchResultsList
                   results={results}
                   onResultClick={handleResultClick}
+                  searchResultsListClassName="show-data-page-search-result-list"
                 />
               )}
             </div>
