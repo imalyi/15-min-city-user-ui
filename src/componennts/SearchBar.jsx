@@ -12,6 +12,7 @@ export const SearchBar = ({
   setInput,
   setIsResultClicked,
   onEnterPress,
+  searchBarClassName,
 }) => {
   const { t } = useTranslation();
   const [debouncedValue, setDebouncedValue] = useState(input);
@@ -105,7 +106,7 @@ export const SearchBar = ({
   }, [debouncedValue, fetchData, delay]);
 
   return (
-    <div className="input-wrapper">
+    <div className={`input-wrapper ${searchBarClassName}`}>
       <input
         placeholder={t('Enter address (street, city...)')}
         value={input}

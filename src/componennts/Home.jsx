@@ -95,6 +95,7 @@ function Home() {
             setInput={handleSearchBarChange}
             setIsResultClicked={setIsResultClicked}
             onEnterPress={handleEnterPress}
+            searchBarClassName="home-search-bar"
           />
           {results && results.length > 0 && !isResultClicked && (
             <SearchResultsList

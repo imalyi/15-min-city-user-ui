@@ -91,3 +91,19 @@
 .search-button {
   float: right;
 }
+
+.home-search-bar {
+  width: calc(100% - 80px);
+  height: 96px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0; 
+  padding: 0 24px;
+  background-color: #DCE6FA;
+  display: flex;
+  align-items: center;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 32px;
+}

@@ -380,7 +380,7 @@
   }
 }
 
-.input-wrapper {
+.show-data-page-search-bar {
   width: calc(100% - 24px);
   height: 96px;
   border-top-left-radius: 8px;

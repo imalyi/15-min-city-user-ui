@@ -375,6 +375,7 @@ function ShowDataPage() {
               setInput={handleSearchBarChange}
               setIsResultClicked={setIsResultClicked}
               onEnterPress={handleEnterPress}
+              searchBarClassName="show-data-page-search-bar"
               />
               {results && results.length > 0 && !isResultClicked && (
                 <SearchResultsList
