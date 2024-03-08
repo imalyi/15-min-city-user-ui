@@ -118,6 +118,12 @@
   height: auto;
 }
 
+.search-bar-place{
+  height:88px;
+  width: 50%;
+  margin-top: 15.81px;
+}
+
 /* Dla ekranów o szerokości do 600px (np. smartfony) */
 @media only screen and (max-width: 600px) {
   .preferences-column {
@@ -131,3 +137,4 @@
     justify-content: space-around;
   }
 }
+

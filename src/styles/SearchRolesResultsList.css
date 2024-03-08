@@ -1,0 +1,17 @@
+.results-list {
+    position: absolute;
+    margin-left: 40px;
+    margin-top: 128px;
+    width: calc(100% - 80px);
+    background-color: #DCE6FA;
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px; 
+    max-height: 480px;
+    overflow-y: auto;
+    z-index: 999;
+  }
+  

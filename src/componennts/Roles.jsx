@@ -4,6 +4,8 @@ import '../styles/Roles.css';
 import { useTranslation } from 'react-i18next';
 import api from '../config';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { SearchRolesBar } from './SearchRolesBar';
+import { SearchRolesResultsList } from './SearchRolesResultsList';
 
 const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
   const { t } = useTranslation();
@@ -14,6 +16,22 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
   const [preferencesData, setPreferencesData] = useState([]);
   const [expandedCategories, setExpandedCategories] = useState([]);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [results, setResults] = useState([]);
+  const [input, setInput] = useState('');
+  const [isResultClicked, setIsResultClicked] = useState(false);
+  const [preferencesSearchData, setPreferencesSearchData] = useState([]);
+
+  const handleResultClick = (result) => {
+    setInput("");
+    setIsResultClicked(true);
+    setPreferencesSearchData([...preferencesSearchData, result]);
+    console.log(preferencesSearchData)
+  };
+
+  const handleSearchBarChange = (value) => {
+    setInput(value);
+    setIsResultClicked(false);
+  };
 
   useEffect(() => {
     // Sprawdzanie, czy obecna ścieżka to /showData
@@ -127,32 +145,27 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
   };
 
   return (
+    <div>
+      <div>
+      <SearchRolesBar
+      setResults={setResults}
+      input={input}
+      setInput={handleSearchBarChange}
+      setIsResultClicked={setIsResultClicked}
+      searchBarClassName="roles-search-bar"
+      />
+      {results && results.length > 0 && !isResultClicked && (
+        <SearchRolesResultsList
+          results={results}
+          onResultClick={handleResultClick}
+          searchResultsListClassName="show-data-page-search-result-list"
+        />
+      )}
+      </div>
     <div className={`roles-container ${isShowDataPage ? '' : 'homeStyle'}`}>
       <div className="centered-category-header">
-        <div>
-          <h3 className="centered-header" onClick={handleSelectAllPreferences}>
-            {t('Choose Your Preferences')}
-          </h3>
-        </div>
-        <div>
-          <h3 className="all-categories">
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={selectedPreferences.length === totalPreferencesCount}
-                  onChange={handleSelectAllPreferences}
-                  className="centered-header"
-                />
-              }
-              label={
-                <span style={{ fontSize: '14px' }}>
-                  {t('Choose All Preferences')}
-                </span>
-              }
-            />
-          </h3>
-          {console.log(selectedPreferences.length)}
-        </div>
+
+
         <div className="preferences-column">
           {Object.keys(preferencesData).map((categoryName) => (
             <div
@@ -229,6 +242,7 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
           ))}
         </div>
       </div>
+    </div>
     </div>
   );
 };

@@ -1,18 +1,11 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import '../styles/SearchBar.css';
+import '../styles/SearchRolesBar.css';
 import { useTranslation } from 'react-i18next';
 import api from '../config';
-import { ShowDataButton } from './ShowDataButton';
-export const SearchBar = ({
-  setResults,
-  showDataRef,
-  addressId,
-  selectedCoordinates,
-  input,
-  setInput,
-  setIsResultClicked,
-  onEnterPress,
-  searchBarClassName,
+import { Icon } from '@iconify/react';
+
+export const SearchRolesBar = ({
+    setResults, input, setInput, setIsResultClicked, onEnterPress, searchBarClassName
 }) => {
   const { t } = useTranslation();
   const [debouncedValue, setDebouncedValue] = useState(input);
@@ -47,7 +40,8 @@ export const SearchBar = ({
           const data = await response.json();
           console.log(data);
           const results = data;
-          setResults(results);
+          //setResults(results);
+          setResults(['test1', 'test2']);
         } else {
           console.error(
             'Error getting address from coordinates:',
@@ -56,6 +50,7 @@ export const SearchBar = ({
           throw new Error(response.statusText);
         }
       } catch (error) {
+        setResults(['test', 'test2']);
         console.error('Error getting address from coordinates:', error);
         showServerErrorAlert();
       }
@@ -67,12 +62,6 @@ export const SearchBar = ({
     setInput(value);
     if (value === '') {
       setIsResultClicked(true);
-    }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      onEnterPress(); // Wywołaj funkcję, którą przekazałeś jako prop (np. obsługę naciśnięcia przycisku ShowDataButton)
     }
   };
 
@@ -107,18 +96,16 @@ export const SearchBar = ({
   return (
     <div className={`input-wrapper ${searchBarClassName}`}>
       <input
-        placeholder={t('Enter address (street, city...)')}
+        placeholder={t('Search for an object by name...')}
         value={input}
         onChange={(e) => handleChange(e.target.value)}
-        onKeyPress={handleKeyPress}
       />
       <button ref={buttonRef} style={{ display: 'none' }}></button>
-      <ShowDataButton
-          ref={showDataRef}
-          address={input}
-          addressId={addressId}
-          selectedCoordinates={selectedCoordinates}
-        />
+      <button
+        className="show-data-button"
+      >
+        {<Icon icon="carbon:search" id='search-icon'/>}
+      </button>
     </div>
   );
 };

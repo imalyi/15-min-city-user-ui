@@ -226,6 +226,59 @@ function ShowDataPage() {
           <div className="show-data-map">
             {isLeftSectionVisible && (
               <div className="left-section">
+              <div>
+                <Roles
+                  onSelectPreferences={handlePreferencesSelect}
+                  selectedPreferencesShowPage={selectedPreferencesShowPage}
+                />
+              </div>
+              </div>
+            )}
+
+            <div
+              className={`right-section map-container ${
+                isLeftSectionVisible ? '' : 'right-section-center'
+              }`}
+            >
+            <div className="column-show-data search-bar-and-results-show-data results-container-show-data">
+              <SearchBar
+              setResults={setResults}
+              showDataRef={buttonRef}
+              input={input}
+              addressId={addressId}
+              selectedCoordinates={selectedCoordinates}
+              setInput={handleSearchBarChange}
+              setIsResultClicked={setIsResultClicked}
+              onEnterPress={handleEnterPress}
+              searchBarClassName="show-data-page-search-bar"
+              />
+              {results && results.length > 0 && !isResultClicked && (
+                <SearchResultsList
+                  results={results}
+                  onResultClick={handleResultClick}
+                  searchResultsListClassName="show-data-page-search-result-list"
+                />
+              )}
+            </div>
+              <Map
+                places={places.osm.points_of_interest}
+                categoriesToShow={categoriesToShow.map(
+                  (category) => category.key,
+                )}
+                selectedCoordinatesShowPage={selectedCoordinates}
+                flyToLocation={flyToLocation}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+export default ShowDataPage;
+{/*
                 <div
                   className={`category-counter ${
                     countVisibleCategories().class
@@ -310,96 +363,32 @@ function ShowDataPage() {
                                         )}km`}
                                   <br />
                                 </div>
-                                {/*
-                              {item.tags.mobile && (
-                                <>
-                                  <strong>Phone number:</strong>{' '}
-                                  {item.tags.mobile}
-                                  <br />
-                                </>
+                              <div className="centerized">
+                              {item.tags['contact:instagram'] && (
+                                <a href={item.tags['contact:instagram']}>
+                                  <img
+                                    src="https://cdn-icons-png.flaticon.com/128/4138/4138124.png"
+                                    alt="Intsgram link"
+                                    className="img-instagram"
+                                  />
+                                </a>
                               )}
-
-                              {item.tags['website:menu'] && (
-                                <>
-                                  <strong>Menu:</strong>{' '}
-                                  <a href={item.tags['website:menu']}>
-                                    {item.tags['website:menu']}
-                                  </a>
-                                  <br />
-                                </>
+                              {item.tags['contact:facebook'] && (
+                                <a href={item.tags['contact:facebook']}>
+                                  <img
+                                    src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png"
+                                    alt="Facebook link"
+                                    className="img-facebook"
+                                  />
+                                </a>
                               )}
-                              */}
-                                <div className="centerized">
-                                  {item.tags['contact:instagram'] && (
-                                    <a href={item.tags['contact:instagram']}>
-                                      <img
-                                        src="https://cdn-icons-png.flaticon.com/128/4138/4138124.png"
-                                        alt="Intsgram link"
-                                        className="img-instagram"
-                                      />
-                                    </a>
-                                  )}
-                                  {item.tags['contact:facebook'] && (
-                                    <a href={item.tags['contact:facebook']}>
-                                      <img
-                                        src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png"
-                                        alt="Facebook link"
-                                        className="img-facebook"
-                                      />
-                                    </a>
-                                  )}
-                                </div>
-                              </li>
-                            ),
-                          )}
-                        </ul>
-                      </>
-                    ) : null}
-                  </div>
-                ))}
+                            </div>
+                          </li>
+                        ),
+                      )}
+                    </ul>
+                  </>
+                ) : null}
               </div>
-            )}
-
-            <div
-              className={`right-section map-container ${
-                isLeftSectionVisible ? '' : 'right-section-center'
-              }`}
-            >
-            <div className="column-show-data search-bar-and-results-show-data results-container-show-data">
-              <SearchBar
-              setResults={setResults}
-              showDataRef={buttonRef}
-              input={input}
-              addressId={addressId}
-              selectedCoordinates={selectedCoordinates}
-              setInput={handleSearchBarChange}
-              setIsResultClicked={setIsResultClicked}
-              onEnterPress={handleEnterPress}
-              searchBarClassName="show-data-page-search-bar"
-              />
-              {results && results.length > 0 && !isResultClicked && (
-                <SearchResultsList
-                  results={results}
-                  onResultClick={handleResultClick}
-                  searchResultsListClassName="show-data-page-search-result-list"
-                />
-              )}
-            </div>
-              <Map
-                places={places.osm.points_of_interest}
-                categoriesToShow={categoriesToShow.map(
-                  (category) => category.key,
-                )}
-                selectedCoordinatesShowPage={selectedCoordinates}
-                flyToLocation={flyToLocation}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <Footer />
-    </div>
-  );
-}
-
-export default ShowDataPage;
+            ))}
+                              */}

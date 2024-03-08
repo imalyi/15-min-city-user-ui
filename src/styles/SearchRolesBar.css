@@ -1,0 +1,54 @@
+.roles-search-bar {
+    width: calc(100% - 40px);
+    height: 88px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0; 
+    padding: 0 24px;
+    background-color: #DCE6FA;
+    display: flex;
+    align-items: center;
+    margin-left: 40px;
+    margin-top: 15.81px;
+  }
+  
+  .roles-search-bar input::placeholder {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    color: #99A0A9;
+  }
+  
+  .roles-search-bar input {
+    font-family: 'Lato', sans-serif; 
+    font-weight: 400; 
+    font-size: 24px; 
+  }
+  
+  input {
+    background-color: transparent;
+    border: none;
+    height: 100%;
+    font-size: 1.25rem;
+    width: 100%;
+    margin-left: 5px;
+  }
+  
+  input:focus {
+    outline: none;
+  }
+  
+  .show-data-button {
+    background-color: #DCE6FA;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  #search-icon {
+    color: #F8718A;
+    height:32px;
+    width:32px;
+  }
+  
