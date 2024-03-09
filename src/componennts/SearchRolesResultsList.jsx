@@ -4,7 +4,7 @@ import '../styles/SearchRolesResultsList.css';
 
 export const SearchRolesResultsList = ({ results, onResultClick, searchResultsListClassName }) => {
   return (
-    <div className={`results-list ${searchResultsListClassName}`}>
+    <div className={`roles-search-result-list ${searchResultsListClassName}`}>
       {console.log(results)}
       {results.map((result) => {
         return (

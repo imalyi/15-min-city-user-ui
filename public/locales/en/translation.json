@@ -155,5 +155,7 @@
   "Enter address (street, city...)" : "Enter address (street, city...) :",
   "About us": "About us",
   "Contact": "Contact",
-  "Search for an object by name..." : "Search for an object by name..."
+  "Search for an object by name..." : "Search for an object by name...",
+  "Your filters": "Your filters",
+  "Clear all": "Clear all"
 }

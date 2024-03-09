@@ -1,8 +1,7 @@
-.results-list {
+.roles-search-result-list {
     position: absolute;
     margin-left: 40px;
-    margin-top: 128px;
-    width: calc(100% - 80px);
+    width: calc(50% - 64px);
     background-color: #DCE6FA;
     display: flex;
     flex-direction: column;

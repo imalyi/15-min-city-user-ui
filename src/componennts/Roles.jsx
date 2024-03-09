@@ -6,6 +6,7 @@ import api from '../config';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { SearchRolesBar } from './SearchRolesBar';
 import { SearchRolesResultsList } from './SearchRolesResultsList';
+import {Icon} from '@iconify/react';
 
 const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
   const { t } = useTranslation();
@@ -21,11 +22,21 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
   const [isResultClicked, setIsResultClicked] = useState(false);
   const [preferencesSearchData, setPreferencesSearchData] = useState([]);
 
+    console.log(selectedPreferences);
+
   const handleResultClick = (result) => {
     setInput("");
     setIsResultClicked(true);
-    setPreferencesSearchData([...preferencesSearchData, result]);
-    console.log(preferencesSearchData)
+    
+    // Sprawdzenie, czy result już istnieje w preferencesSearchData
+    if (!preferencesSearchData.some(item => item === result)) {
+      // Jeśli result nie istnieje, dodaj go do preferencesSearchData
+      setPreferencesSearchData([...preferencesSearchData, result]);
+    } else {
+      console.log("Result already exists in preferencesSearchData");
+    }
+    
+    console.log(preferencesSearchData);
   };
 
   const handleSearchBarChange = (value) => {
@@ -72,28 +83,27 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
   }, []);
 
   const handlePreferenceChange = (event) => {
-    const preferenceId = parseInt(event.target.value, 10);
     const preferenceName = event.target.name;
     const updatedPreferences = selectedPreferences.some(
-      (preference) => preference.id === preferenceId,
+      (preference) => preference.name === preferenceName,
     )
-      ? selectedPreferences.filter((item) => item.id !== preferenceId)
-      : [...selectedPreferences, { id: preferenceId, name: preferenceName }];
+      ? selectedPreferences.filter((item) => item.name !== preferenceName)
+      : [...selectedPreferences, {name: preferenceName }];
     setSelectedPreferences(updatedPreferences);
     onSelectPreferences(updatedPreferences);
   };
 
   const handleCategoryToggle = (categoryName) => {
     const allPreferencesInCategory = preferencesData[categoryName].map(
-      (preference) => ({ id: preference.id, name: preference.name }),
+      (preference) => ({name: preference.name }),
     );
     const categoryIsSelected = allPreferencesInCategory.every((preference) =>
-      selectedPreferences.some((p) => p.id === preference.id),
+      selectedPreferences.some((p) => p.name === preference.name),
     );
 
     const updatedPreferences = categoryIsSelected
       ? selectedPreferences.filter(
-          (item) => !allPreferencesInCategory.some((p) => p.id === item.id),
+          (item) => !allPreferencesInCategory.some((p) => p.name === item.name),
         )
       : [...selectedPreferences, ...allPreferencesInCategory];
 
@@ -106,7 +116,7 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
       (all, category) => {
         return all.concat(
           category.map((preference) => ({
-            id: preference.id,
+            id: preference.name,
             name: preference.name,
           })),
         );
@@ -115,12 +125,12 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
     );
 
     const allSelected = allPreferences.every((preference) =>
-      selectedPreferences.some((p) => p.id === preference.id),
+      selectedPreferences.some((p) => p.name === preference.name),
     );
 
     const updatedPreferences = allSelected
       ? selectedPreferences.filter(
-          (item) => !allPreferences.some((p) => p.id === item.id),
+          (item) => !allPreferences.some((p) => p.name === item.name),
         )
       : [...allPreferences];
 
@@ -147,102 +157,103 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
   return (
     <div>
       <div>
-      <SearchRolesBar
-      setResults={setResults}
-      input={input}
-      setInput={handleSearchBarChange}
-      setIsResultClicked={setIsResultClicked}
-      searchBarClassName="roles-search-bar"
-      />
-      {results && results.length > 0 && !isResultClicked && (
-        <SearchRolesResultsList
-          results={results}
-          onResultClick={handleResultClick}
-          searchResultsListClassName="show-data-page-search-result-list"
+        <SearchRolesBar
+          setResults={setResults}
+          input={input}
+          setInput={handleSearchBarChange}
+          setIsResultClicked={setIsResultClicked}
+          searchBarClassName="roles-search-bar"
         />
-      )}
+        {results && results.length > 0 && !isResultClicked && (
+          <SearchRolesResultsList
+            results={results}
+            onResultClick={handleResultClick}
+            searchResultsListClassName="roles-search-result-list"
+          />
+        )}
       </div>
-    <div className={`roles-container ${isShowDataPage ? '' : 'homeStyle'}`}>
-      <div className="centered-category-header">
-
-
-        <div className="preferences-column">
-          {Object.keys(preferencesData).map((categoryName) => (
-            <div
-              key={categoryName}
-              className={`${isSmallScreen ? 'expandable' : ''} ${
-                expandedCategories.includes(categoryName)
-                  ? 'expanded'
-                  : 'collapsed'
-              }`}
-            >
-              <div className="centered-category">
-                <div>
-                  <FormControlLabel
+      <div className='hr-place'>
+        <hr className='search-place-hr'/>
+      </div>
+      <div className={`roles-container ${isShowDataPage ? '' : 'homeStyle'}`}>
+        <div className="centered-category-header">
+          <div className="preferences-column">
+            {Object.keys(preferencesData).map((categoryName) => (
+              <div key={categoryName} className="category-container">
+                <div className="category-header">
+                <FormControlLabel
                     control={
-                      <Checkbox
-                        checked={preferencesData[categoryName].every(
-                          (preference) =>
-                            selectedPreferences.some(
-                              (p) => p.id === preference.id,
-                            ),
-                        )}
-                        onChange={() => handleCategoryToggle(categoryName)}
-                      />
+                      <div className="custom-checkbox">
+                        <Checkbox
+                          checked={preferencesData[categoryName].every(
+                            (preference) =>
+                              selectedPreferences.some(
+                                (p) => p.name === preference.name,
+                              ),
+                          )}
+                          onChange={() => handleCategoryToggle(categoryName)}
+                        />
+                      </div>
                     }
-                    label={
-                      <span style={{ fontSize: '17px' }}>
-                        {t(categoryName)}
-                      </span>
-                    }
+                    label={<span className="category-label">{t(categoryName)}</span>}
                   />
-                </div>
-                {isSmallScreen && (
+                <div className="expand-button-wrapper">
                   <button
-                    className="toggle-button-expanded"
+                    variant="outlined"
+                    size="small"
                     onClick={() => toggleCategoryExpansion(categoryName)}
+                    className="expand-button"
                   >
                     {expandedCategories.includes(categoryName) ? (
-                      <IoIosArrowUp />
+                      <IoIosArrowUp style={{ fontSize: '24px' }}/>
                     ) : (
-                      <IoIosArrowDown />
+                      <IoIosArrowDown style={{ fontSize: '24px' }}/>
                     )}
                   </button>
+                </div>
+                </div>
+                {expandedCategories.includes(categoryName) && (
+                  <div className="preferences-checkbox">
+                    {preferencesData[categoryName].map((preference) => (
+                      <FormControlLabel
+                        key={preference.name}
+                        control={
+                          <Checkbox
+                            value={preference.name}
+                            name={preference.name}
+                            checked={selectedPreferences.some(
+                              (p) => p.name === preference.name,
+                            )}
+                            onChange={handlePreferenceChange}
+                            className="role-checkbox"
+                          />
+                        }
+                        className="role-option"
+                        label={<span className="preferences-label">{t(preference.name)}</span>}
+                      />
+                    ))}
+                  </div>
                 )}
               </div>
-              <div
-                className={`preferences-checkbox ${
-                  isSmallScreen ? '' : 'expanded'
-                }`}
-              >
-                {preferencesData[categoryName].map((preference) => (
-                  <FormControlLabel
-                    key={preference.id}
-                    control={
-                      <Checkbox
-                        value={preference.id}
-                        name={preference.name}
-                        checked={selectedPreferences.some(
-                          (p) => p.id === preference.id,
-                        )}
-                        onChange={handlePreferenceChange}
-                        className="role-checkbox"
-                      />
-                    }
-                    className="role-option"
-                    label={
-                      <span style={{ fontSize: '14px' }}>
-                        {t(preference.name)}
-                      </span>
-                    }
-                  />
-                ))}
-              </div>
+            ))}
+          </div>
+        </div>
+        <label className="filters-label">{t("Your filters")}</label>
+
+      <div>
+        {preferencesSearchData.map((preference, index) => (
+          <div key={index} className="selected-search-preferences">
+            <div className="selected-search-preference">
+              <span className="selected-preference-label">{t(preference)}</span>
+              <Icon icon="material-symbols-light:close" className="close-icon" /> 
             </div>
-          ))}
+          </div>
+        ))}
         </div>
       </div>
-    </div>
+      <div className="delete-all">
+        <label className="clear-all">{t("Clear all")}</label>
+      </div>
     </div>
   );
 };

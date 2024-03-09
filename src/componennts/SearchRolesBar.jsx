@@ -41,7 +41,7 @@ export const SearchRolesBar = ({
           console.log(data);
           const results = data;
           //setResults(results);
-          setResults(['test1', 'test2']);
+          setResults(['McDonalds', 'KFC', "Burger King", "Pizza Hut", "Subway", "Starbucks", "Costa Coffee", "Pret A Manger", "Greggs", "Nando's", "Wagamama", "Yo! Sushi", "Wimpy", "Taco Bell", "Domino's Pizza", "Papa John's Pizza", "PizzaExpress", "Zizzi", "ASK Italian", "Bella Italia", "Cafe Rouge", "Carluccio's", "Giraffe", "Las Iguanas", "TGI Fridays", "Chiquito", "Frankie & Benny's", "Harvester", "Toby Carvery", "Beefeater", "Brewers Fayre", "Hungry Horse", "Marston's Inns and Taverns", "Sizzling Pubs", "Stonehouse Pizza & Carvery", "Vintage Inns", "All Bar One", "Browns", "Ember Inns", "Miller & Carter", "Nicholson's", "O'Neill's", "Owens", "Sizzling Pubs", "Toby Carvery", "Vintage Inns", "Zizzi", "ASK Italian", "Bella Italia", "Cafe Rouge", "Carluccio's", "Giraffe", "Las Iguanas", "TGI Fridays", "Chiquito", "Frankie & Benny's", "Harvester", "Toby Carvery", "Beefeater", "Brewers Fayre", "Hungry Horse", "Marston's Inns and Taverns", "Sizzling Pubs", "Stonehouse Pizza & Carvery", "Vintage Inns", "All Bar One", "Browns", "Ember Inns", "Miller & Carter", "Nicholson's", "O'Neill's", "Owens", "Sizzling Pubs", "Toby Carvery", "Vintage Inns", "Zizzi", "ASK Italian", "Bella Italia", "Cafe Rouge", "Carluccio's", "Giraffe", "Las Iguanas", "TGI Fridays", "Chiquito", "Frankie & Benny's", "Harvester", "Toby Carvery", "Beefeater", "Brewers Fayre", "Hungry Horse", "Marston's Inns and Taverns", "Sizzling Pubs", "Stonehouse Pizza &"])
         } else {
           console.error(
             'Error getting address from coordinates:',
@@ -50,7 +50,7 @@ export const SearchRolesBar = ({
           throw new Error(response.statusText);
         }
       } catch (error) {
-        setResults(['test', 'test2']);
+        
         console.error('Error getting address from coordinates:', error);
         showServerErrorAlert();
       }

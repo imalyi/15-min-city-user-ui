@@ -154,5 +154,7 @@
   "Enter address (street, city...)": "Adresse eingeben (Straße, Stadt...)",
   "About us": "Über uns",
   "Contact": "Kontakt",
-  "Search for an object by name..." : "Suche nach einem Objekt nach Namen..."
+  "Search for an object by name..." : "Suche nach einem Objekt nach Namen...",
+  "Your filters": "Ihre Filter",
+  "Clear all": "Alles löschen"
 }
