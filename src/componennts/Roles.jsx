@@ -24,6 +24,17 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
 
     console.log(selectedPreferences);
 
+  const handleRemoveAllPreferences = () => {
+    setPreferencesSearchData([]);
+    setSelectedPreferences([]);
+  }
+
+  const handleRemovePreference = (preferenceIndex) => {
+    const updatedPreferences = [...preferencesSearchData];
+    updatedPreferences.splice(preferenceIndex, 1);
+    setPreferencesSearchData(updatedPreferences);
+  };
+
   const handleResultClick = (result) => {
     setInput("");
     setIsResultClicked(true);
@@ -245,14 +256,21 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
           <div key={index} className="selected-search-preferences">
             <div className="selected-search-preference">
               <span className="selected-preference-label">{t(preference)}</span>
-              <Icon icon="material-symbols-light:close" className="close-icon" /> 
+              <Icon icon="material-symbols-light:close" className="close-icon" onClick={() => handleRemovePreference(index)}/> 
             </div>
           </div>
         ))}
         </div>
       </div>
+      <div className='hr-place'>
+        <hr className='search-place-hr'/>
+      </div>
       <div className="delete-all">
-        <label className="clear-all">{t("Clear all")}</label>
+        <label className="clear-all" onClick={() => handleRemoveAllPreferences()}>{t("Clear all")}</label>
+        <div className="toggle-left-section-wrapper">
+          <Icon icon="mdi-light:arrow-left" className="toggle-left-section-icon"/>
+          <label className="toggle-left-section">{t("Hide")}</label>
+        </div>
       </div>
     </div>
   );
