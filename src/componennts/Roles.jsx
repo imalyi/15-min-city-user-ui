@@ -8,7 +8,7 @@ import { SearchRolesBar } from './SearchRolesBar';
 import { SearchRolesResultsList } from './SearchRolesResultsList';
 import {Icon} from '@iconify/react';
 
-const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
+const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVisible }) => {
   const { t } = useTranslation();
   const [isShowDataPage, setIsShowDataPage] = useState(false);
   const [selectedPreferences, setSelectedPreferences] = useState(
@@ -22,7 +22,7 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
   const [isResultClicked, setIsResultClicked] = useState(false);
   const [preferencesSearchData, setPreferencesSearchData] = useState([]);
 
-    console.log(selectedPreferences);
+  console.log(selectedPreferences);
 
   const handleRemoveAllPreferences = () => {
     setPreferencesSearchData([]);
@@ -269,7 +269,7 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
         <label className="clear-all" onClick={() => handleRemoveAllPreferences()}>{t("Clear all")}</label>
         <div className="toggle-left-section-wrapper">
           <Icon icon="mdi-light:arrow-left" className="toggle-left-section-icon"/>
-          <label className="toggle-left-section">{t("Hide")}</label>
+          <label className="toggle-left-section" onClick={() => toggleRoleSVisible()} >{t("Hide")}</label>
         </div>
       </div>
     </div>

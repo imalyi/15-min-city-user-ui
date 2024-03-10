@@ -148,12 +148,50 @@
   background-color: #8a8a8a; /* Kolor "kciuka" paska przewijania po najechaniu kursorem */
 }
 
+.toggle-left-section-wrapper-show-data{
+  margin-top:15.81px;
+  height: 71vh;
+  margin-left: 40px;
+  background-color: #DCE6FA;
+  
+}
+.toggle-left-section-div{
+  margin-top: 60vh;
+
+}
+.toggle-left-section-icon-show-data{
+  width:32px;
+  height:32px;
+  color:#F8718A;
+  cursor: pointer;
+  position: absolute;
+  margin-top:15px;
+  margin-left: 25px;
+
+}
+
+.toggle-left-section-show-data{
+  margin-left: 13px;
+  margin-right:14px;
+  padding: 15px;
+  background-color: #DCE6FA;
+  color: #F0F8FF;
+  padding: 17px 8px;
+  padding-left: 43px;
+  padding-right: 22px;
+  font-family: Lato, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 8px;
+  background: var(--primary, #24254C);
+  cursor: pointer;
+}
+
 .right-section-center {
   margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+
 }
 
 .data-category {
@@ -365,8 +403,8 @@
 
   }
   .right-section-center {
-    width: 50%;
-    height: 74vh;
+    width: 80%;
+    height: 73vh;
     margin-right: 40px;
   }
   .left-section {

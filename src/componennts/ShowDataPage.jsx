@@ -12,6 +12,8 @@ import ShowDataButton from './ShowDataButton';
 import Roles from './Roles';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import {Icon} from '@iconify/react';
+
 
 function ShowDataPage() {
   const navigate = useNavigate();
@@ -214,27 +216,25 @@ function ShowDataPage() {
             </div>
             */}
           </div>
-
-          {isRolesVisible && (
-            <div>
-              <Roles
-                onSelectPreferences={handlePreferencesSelect}
-                selectedPreferencesShowPage={selectedPreferencesShowPage}
-              />
-            </div>
-          )}
           <div className="show-data-map">
-            {isLeftSectionVisible && (
+            {isLeftSectionVisible ? (
               <div className="left-section">
-              <div>
-                <Roles
-                  onSelectPreferences={handlePreferencesSelect}
-                  selectedPreferencesShowPage={selectedPreferencesShowPage}
-                />
+                <div>
+                  <Roles
+                    onSelectPreferences={handlePreferencesSelect}
+                    selectedPreferencesShowPage={selectedPreferencesShowPage}
+                    toggleRoleSVisible={handleToggleLeftSection}
+                  />
+                </div>
               </div>
+            ) : (
+              <div className="toggle-left-section-wrapper-show-data">
+                <div className='toggle-left-section-div'>
+                <Icon icon="mdi-light:arrow-right" className="toggle-left-section-icon-show-data"/>
+                <label className="toggle-left-section-show-data" onClick={() => handleToggleLeftSection()} >{t("Show")}</label>
+                </div>
               </div>
             )}
-
             <div
               className={`right-section map-container ${
                 isLeftSectionVisible ? '' : 'right-section-center'
