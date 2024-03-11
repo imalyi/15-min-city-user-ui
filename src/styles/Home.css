@@ -20,6 +20,8 @@
   flex-grow: 30;
 }
 
+
+
 .column {
   display: flex;
   flex-direction: column;
@@ -72,8 +74,8 @@
   margin-top: 32px;
   width: 115px;
   height: 64px;
-  background-color: #DCE6FA;
   border: none;
+  background-color: #F0F8FF;
   border-radius: 8px;
 }
 

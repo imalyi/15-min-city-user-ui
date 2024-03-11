@@ -69,7 +69,11 @@ function Home() {
             className="logo"
             title={t('Search Page')}
           >
-            logo
+          <img
+            src={'/images/15min_logo.svg'}
+            alt="Red Cross"
+            className="centered-img-cross"
+          />
           </button>
         </Link>
         {/* 

@@ -171,14 +171,18 @@ function ShowDataPage() {
         <div className="ShowDataPage">
           <div className="search-bar-container-show-data">
             <div>
-              <Link to="/">
-                <button
-                  className="logo"
-                  title={t('Search Page')}
-                >
-                  logo
-                </button>
-              </Link>
+            <Link to="/">
+              <button
+                className="logo"
+                title={t('Search Page')}
+              >
+              <img
+                src={'/images/15min_logo.svg'}
+                alt="Red Cross"
+                className="centered-img-cross"
+              />
+              </button>
+            </Link>
             </div>
             {/*
             <button
