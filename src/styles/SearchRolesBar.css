@@ -1,6 +1,6 @@
 .roles-search-bar {
     width: calc(100% - 40px);
-    height: 88px;
+    height: 11vh;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     border-bottom-left-radius: 0;
