@@ -1,6 +1,6 @@
 .input-wrapper {
-  width: calc(100% - 80px);
-  height: 96px;
+  width: calc(100% - 10vh);
+  height: 12vh;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   border-bottom-left-radius: 0;
@@ -9,9 +9,9 @@
   background-color: #DCE6FA;
   display: flex;
   align-items: center;
-  margin-left: 40px;
-  margin-right: 40px;
-  margin-top: 32px;
+  margin-left: 5vh;
+  margin-right: 5vh;
+  margin-top: 4vh;
 }
 
 .input-wrapper input::placeholder {

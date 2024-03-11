@@ -8,7 +8,7 @@ import { SearchRolesBar } from './SearchRolesBar';
 import { SearchRolesResultsList } from './SearchRolesResultsList';
 import {Icon} from '@iconify/react';
 
-const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVisible }) => {
+const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVisible, isLeftSectionVisible }) => {
   const { t } = useTranslation();
   const [isShowDataPage, setIsShowDataPage] = useState(false);
   const [selectedPreferences, setSelectedPreferences] = useState(
@@ -167,6 +167,8 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
 
   return (
     <div>
+    {isLeftSectionVisible ? (
+    <div>
       <div>
         <SearchRolesBar
           setResults={setResults}
@@ -272,6 +274,15 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
           <label className="toggle-left-section" onClick={() => toggleRoleSVisible()} >{t("Hide")}</label>
         </div>
       </div>
+    </div>
+      ) : (
+        <div className="toggle-left-section-wrapper-show-data left-section-center">
+          <div className='toggle-left-section-div'>
+            <Icon icon="mdi-light:arrow-right" className="toggle-left-section-icon-show-data"/>
+            <label className="toggle-left-section-show-data" onClick={() => toggleRoleSVisible()} >{t("Show")}</label>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

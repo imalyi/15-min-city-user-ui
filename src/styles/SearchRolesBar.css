@@ -1,5 +1,5 @@
 .roles-search-bar {
-    width: calc(100% - 40px);
+    width: calc(100% - 5vh);
     height: 11vh;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -9,8 +9,8 @@
     background-color: #DCE6FA;
     display: flex;
     align-items: center;
-    margin-left: 40px;
-    margin-top: 32px;
+    margin-left: 5vh;
+    margin-top: 4vh;
   }
   
   .roles-search-bar input::placeholder {

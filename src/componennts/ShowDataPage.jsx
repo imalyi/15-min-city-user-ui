@@ -221,24 +221,16 @@ function ShowDataPage() {
             */}
           </div>
           <div className="show-data-map">
-            {isLeftSectionVisible ? (
               <div className="left-section">
                 <div>
                   <Roles
                     onSelectPreferences={handlePreferencesSelect}
                     selectedPreferencesShowPage={selectedPreferencesShowPage}
                     toggleRoleSVisible={handleToggleLeftSection}
+                    isLeftSectionVisible={isLeftSectionVisible}
                   />
                 </div>
               </div>
-            ) : (
-              <div className="toggle-left-section-wrapper-show-data">
-                <div className='toggle-left-section-div'>
-                <Icon icon="mdi-light:arrow-right" className="toggle-left-section-icon-show-data"/>
-                <label className="toggle-left-section-show-data" onClick={() => handleToggleLeftSection()} >{t("Show")}</label>
-                </div>
-              </div>
-            )}
             <div
               className={`right-section map-container ${
                 isLeftSectionVisible ? '' : 'right-section-center'

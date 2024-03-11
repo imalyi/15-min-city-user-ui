@@ -2,9 +2,8 @@
 .leaflet-container {
   width: 100%;
   height: 100%;
-  margin-top: 32px;
-  margin-left: 24px;
-  margin-bottom: 6px;
+  margin-top: 4vh;
+  margin-left: 3vh;
 }
 /* Leaflet Map Tiles */
 .leaflet-tile {

@@ -3,8 +3,8 @@
   padding: 15px;
   background-color: #DCE6FA;
   overflow-y: scroll;
-  height: calc(50vh - 34px);
-  margin-left: 40px;
+  height: 46.5vh;
+  margin-left: 5vh;
 }
 /* Dodaj te style w swoim arkuszu stylów CSS */
 .roles-container::-webkit-scrollbar {
@@ -186,7 +186,7 @@
 
 .search-place-hr{
   margin-left:30px;
-  margin-right: 30px;
+  margin-right:30px;
   margin-top: 0px;
   margin-bottom: 0px;
   background-color:#CDCDCD;
@@ -194,13 +194,13 @@
 }
 
 .hr-place{
-  margin-left:40px;
+  margin-left:5vh;
   background-color: #DCE6FA;
 }
 
 .delete-all{
   height: 14vh;
-  margin-left: 40px;
+  margin-left: 5vh;
   margin-bottom: 10px;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
@@ -214,15 +214,16 @@
 
 
 .clear-all{
-  margin-left: 24px;
-  margin-top: 45px;
-  margin-bottom: 40px;
+  margin-left: 3vh;
   font-family: Lato, sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .close-icon{
