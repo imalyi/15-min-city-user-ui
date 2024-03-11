@@ -7,6 +7,8 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { SearchRolesBar } from './SearchRolesBar';
 import { SearchRolesResultsList } from './SearchRolesResultsList';
 import {Icon} from '@iconify/react';
+import { motion, AnimatePresence } from "framer-motion"
+import {LeftSectionSlide, LeftSectionSlideHide} from "./anim.js"
 
 const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVisible, isLeftSectionVisible }) => {
   const { t } = useTranslation();
@@ -122,6 +124,8 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
     onSelectPreferences(updatedPreferences);
   };
 
+
+  
   const handleSelectAllPreferences = () => {
     const allPreferences = Object.values(preferencesData).reduce(
       (all, category) => {
@@ -166,9 +170,18 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
   };
 
   return (
+
     <div>
-    {isLeftSectionVisible ? (
-    <div>
+    <AnimatePresence mode='wait'>
+
+    {isLeftSectionVisible && (
+      <motion.div
+      variants={LeftSectionSlide}
+      animate="enter"
+      exit="exit"
+      initial="initial"
+      >
+      <div  style={{position: "absolute"}}>
       <div>
         <SearchRolesBar
           setResults={setResults}
@@ -274,16 +287,31 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
           <label className="toggle-left-section" onClick={() => toggleRoleSVisible()} >{t("Hide")}</label>
         </div>
       </div>
-    </div>
-      ) : (
-        <div className="toggle-left-section-wrapper-show-data left-section-center">
-          <div className='toggle-left-section-div'>
-            <Icon icon="mdi-light:arrow-right" className="toggle-left-section-icon-show-data"/>
-            <label className="toggle-left-section-show-data" onClick={() => toggleRoleSVisible()} >{t("Show")}</label>
-          </div>
-        </div>
+      </div>
+      </motion.div>
       )}
+      </AnimatePresence>
+
+      <AnimatePresence mode='wait'>
+      {!isLeftSectionVisible && (
+      <motion.div
+        variants={LeftSectionSlideHide}
+        animate="enter"
+        exit="exit"
+        initial="initial"
+      >
+        
+      <div className="toggle-left-section-wrapper-show-data left-section-center" style={{position: "absolute"}}>
+        <div className='toggle-left-section-div'>
+          <Icon icon="mdi-light:arrow-right" className="toggle-left-section-icon-show-data"/>
+          <label className="toggle-left-section-show-data" onClick={() => toggleRoleSVisible()} >{t("Show")}</label>
+        </div>
+      </div>
+      </motion.div>
+      )}
+      </AnimatePresence>
     </div>
+
   );
 };
 

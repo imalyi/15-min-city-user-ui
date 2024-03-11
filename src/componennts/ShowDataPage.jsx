@@ -13,7 +13,8 @@ import Roles from './Roles';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import {Icon} from '@iconify/react';
-
+import { motion, AnimatePresence } from "framer-motion"
+import {RightSectionSlide} from "./anim.js"
 
 function ShowDataPage() {
   const navigate = useNavigate();
@@ -231,12 +232,19 @@ function ShowDataPage() {
                   />
                 </div>
               </div>
+
             <div
               className={`right-section map-container ${
                 isLeftSectionVisible ? '' : 'right-section-center'
               }`}
             >
             <div className="column-show-data search-bar-and-results-show-data results-container-show-data">
+            <motion.div
+              variants={RightSectionSlide}
+              animate="enter"
+              exit="exit"
+              initial="initial"
+            >
               <SearchBar
               setResults={setResults}
               showDataRef={buttonRef}
@@ -255,6 +263,8 @@ function ShowDataPage() {
                   searchResultsListClassName="show-data-page-search-result-list"
                 />
               )}
+            </motion.div>
+
             </div>
               <Map
                 places={places.osm.points_of_interest}

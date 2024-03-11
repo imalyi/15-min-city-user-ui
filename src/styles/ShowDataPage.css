@@ -398,20 +398,22 @@
 
 @media only screen and (min-width: 801px) {
   .right-section {
-    width: 50%; /* Adjust the width as needed */
+    width: 60%; /* Adjust the width as needed */
     height: 76vh;
     flex-direction: column; /* Ustaw kolumnowy układ */
     margin-right: 40px;
 
   }
   .right-section-center {
-    width: 120%;
+    width: 150%;
     height: 76vh;
     margin-right: 40px;
+
   }
   .left-section {
-    width: 50%; /* Adjust the width as needed */
+    width: 40%; /* Adjust the width as needed */
     height: 76vh;
+
   }
   .left-section-center {
     width:min-content; /* Adjust the width as needed */
