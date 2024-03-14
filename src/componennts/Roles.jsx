@@ -24,7 +24,7 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
   const [isResultClicked, setIsResultClicked] = useState(false);
   const [preferencesSearchData, setPreferencesSearchData] = useState([]);
 
-  console.log(selectedPreferences);
+  console.log(preferencesData);
 
   const handleRemoveAllPreferences = () => {
     setPreferencesSearchData([]);
@@ -68,8 +68,9 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
       try {
         const response = await fetch(`${api.APP_URL_USER_API}categories/`);
         const data = await response.json();
+        console.log(data);
         // Assuming the data structure is an array with a single object
-        setPreferencesData(data[0]);
+        setPreferencesData(data);
       } catch (error) {
         console.error('Error fetching preferences data:', error);
       }
@@ -154,10 +155,6 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
     console.log(selectedPreferences);
   };
 
-  const totalPreferencesCount = Object.values(preferencesData).reduce(
-    (total, category) => total + category.length,
-    0,
-  );
 
   const toggleCategoryExpansion = (categoryName) => {
     if (expandedCategories.includes(categoryName)) {
@@ -181,7 +178,7 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
       exit="exit"
       initial="initial"
       >
-      <div  style={{position: "absolute"}}>
+      <div  style={{position: "absolute", width: "100%"}}>
       <div>
         <SearchRolesBar
           setResults={setResults}

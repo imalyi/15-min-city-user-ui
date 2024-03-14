@@ -40,7 +40,7 @@ export const LeftSectionSlideHide = {
     },
     exit: {
         x: "-100%",
-        transition: {duration: 2},
+        transition: {duration: 0.6},
         opacity: 0
 
     }

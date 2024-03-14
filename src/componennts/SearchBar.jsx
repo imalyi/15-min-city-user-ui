@@ -7,7 +7,6 @@ export const SearchBar = ({
   setResults,
   showDataRef,
   addressId,
-  selectedCoordinates,
   input,
   setInput,
   setIsResultClicked,
@@ -32,7 +31,7 @@ export const SearchBar = ({
         setIsResultClicked(true);
         return;
       }
-      console.log('przed response');
+      console.log('przed response', `${api.APP_URL_USER_API}address/?name=${value}`);
       try {
         const response = await fetch(
           `${api.APP_URL_USER_API}address/?name=${value}`,
@@ -50,7 +49,7 @@ export const SearchBar = ({
           setResults(results);
         } else {
           console.error(
-            'Error getting address from coordinates:',
+            'Error getting address from coordinatessss:',
             response.statusText,
           );
           throw new Error(response.statusText);
@@ -117,7 +116,6 @@ export const SearchBar = ({
           ref={showDataRef}
           address={input}
           addressId={addressId}
-          selectedCoordinates={selectedCoordinates}
         />
     </div>
   );

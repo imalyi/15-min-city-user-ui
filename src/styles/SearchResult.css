@@ -1,5 +1,5 @@
-.search-result {
-  padding: 4,27vh 3vh;
+.home-search-list {
+  padding: 3.77vh 3vh;
   font-family: 'Lato', sans-serif;
   font-size: 24px;
   font-style: normal;
@@ -7,6 +7,6 @@
   line-height: normal;
 }
 
-.search-result:hover {
+.home-search-list:hover {
   background-color: #BCC6DA;
 }

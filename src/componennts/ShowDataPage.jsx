@@ -27,7 +27,7 @@ function ShowDataPage() {
   const addressId = location.state?.addressId || 'Unknown Address';
   console.log(addressId);
   const selectedPreferences = location.state?.selectedPreferences || [];
-  const selectedCoordinates = location.state?.selectedCoordinates || [90, 90];
+  const selectedCoordinates = [location.state?.places.request.location[1], location.state?.places.request.location[0]];
   const [results, setResults] = useState([]);
   const [input, setInput] = useState(address);
   const [addressIdShowPage, setAddressIdShowPage] = useState(addressId);

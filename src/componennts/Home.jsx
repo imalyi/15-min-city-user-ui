@@ -16,7 +16,6 @@ function Home() {
   const [isResultClicked, setIsResultClicked] = useState(false);
   const [selectedRole, setSelectedRole] = useState('without role');
   const [selectedPreferences, setSelectedPreferences] = useState([]);
-  const [selectedCoordinates, setSelectedCoordinates] = useState([]);
 
   const { i18n, t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
@@ -39,9 +38,9 @@ function Home() {
   };
 
   const handleResultClick = (result) => {
-    setInput(result.address);
-    setAddressId(result.id);
-    setSelectedCoordinates([result.location[1], result.location[0]]);
+    console.log(result)
+    setInput(result);
+    setAddressId(result);
     setIsResultClicked(true);
   };
 
@@ -95,7 +94,6 @@ function Home() {
             showDataRef={buttonRef}
             input={input}
             addressId={addressId}
-            selectedCoordinates={selectedCoordinates}
             setInput={handleSearchBarChange}
             setIsResultClicked={setIsResultClicked}
             onEnterPress={handleEnterPress}
@@ -106,6 +104,7 @@ function Home() {
               results={results}
               onResultClick={handleResultClick}
               searchResultsListClassName="home-search-result-list"
+              searchResultsClassName="home-search-list"
             />
           )}
         </div>

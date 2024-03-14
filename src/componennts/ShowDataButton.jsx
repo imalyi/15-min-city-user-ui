@@ -7,7 +7,7 @@ import api from '../config';
 import { Icon } from '@iconify/react';
 
 export const ShowDataButton = React.forwardRef(
-  ({ address, addressId, selectedPreferences, selectedCoordinates }, ref) => {
+  ({ address, addressId, selectedPreferences }, ref) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const handleUserLocationClick = async () => {
@@ -28,10 +28,8 @@ export const ShowDataButton = React.forwardRef(
               addressId,
               places,
               selectedPreferences,
-              selectedCoordinates,
             },
           });
-          window.location.reload();
           console.log(places);
         }
       }
@@ -44,13 +42,12 @@ export const ShowDataButton = React.forwardRef(
         address_id: addressId,
       };
       try {
-        console.log(addressId);
-        const response = await fetch(`${api.APP_URL_USER_API}report/`, {
-          method: 'POST',
+        console.log('przed response', `${api.APP_URL_USER_API}report/?address=${address}&cat=${[]}`);
+        const response = await fetch(`${api.APP_URL_USER_API}report/?address=${address}&cat=${["Fast Food"]}`, {
+          method: 'Get',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(reportData),
         });
 
         if (response.ok) {

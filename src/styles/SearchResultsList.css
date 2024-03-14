@@ -1,7 +1,7 @@
 .results-list {
   position: absolute;
   margin-left: 5vh;
-  margin-top: 16vh;
+  margin-top: 15vh;
   width: calc(100% - 10vh);
   background-color: #DCE6FA;
   display: flex;
