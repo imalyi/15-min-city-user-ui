@@ -98,6 +98,7 @@ function Home() {
             setIsResultClicked={setIsResultClicked}
             onEnterPress={handleEnterPress}
             searchBarClassName="home-search-bar"
+            selectedPreferences={selectedPreferences}
           />
           {results && results.length > 0 && !isResultClicked && (
             <SearchResultsList

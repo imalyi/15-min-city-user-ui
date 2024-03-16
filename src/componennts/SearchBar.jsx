@@ -12,6 +12,7 @@ export const SearchBar = ({
   setIsResultClicked,
   onEnterPress,
   searchBarClassName,
+  selectedPreferences,
 }) => {
   const { t } = useTranslation();
   const [debouncedValue, setDebouncedValue] = useState(input);
@@ -116,6 +117,7 @@ export const SearchBar = ({
           ref={showDataRef}
           address={input}
           addressId={addressId}
+          selectedPreferences={selectedPreferences}
         />
     </div>
   );

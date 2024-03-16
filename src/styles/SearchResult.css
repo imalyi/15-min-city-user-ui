@@ -10,3 +10,16 @@
 .home-search-list:hover {
   background-color: #BCC6DA;
 }
+
+.show-data-page-search-list{
+  padding: 3.77vh 3vh;
+  font-family: 'Lato', sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.show-data-page-search-list:hover {
+  background-color: #BCC6DA;
+}

@@ -158,5 +158,10 @@
   "Your filters": "Ihre Filter",
   "Clear all": "Alles löschen",
   "Hide": "Verbergen",
-  "Show": "Anzeigen"
+  "Show": "Anzeigen",
+  "See match": "Siehe Übereinstimmung",
+  "Select your criteria in the menu on the left to see a match": "Wählen Sie Ihre Kriterien im Menü links, um eine Übereinstimmung zu sehen",
+  "Matching": "Übereinstimmung:",
+  "Expand on details": "Details erweitern",
+  "Collapse details": "Details reduzieren"
 }

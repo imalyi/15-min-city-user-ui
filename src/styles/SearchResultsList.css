@@ -14,3 +14,20 @@
   overflow-y: auto;
   z-index: 999;
 }
+
+.show-data-page-search-result-list{
+  position: absolute;
+  margin-left: 5vh;
+  margin-top: 15vh;
+  width: calc(100% - 10vh);
+  background-color: #DCE6FA;
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px; 
+  max-height: 61vh;
+  overflow-y: auto;
+  z-index: 999;
+}

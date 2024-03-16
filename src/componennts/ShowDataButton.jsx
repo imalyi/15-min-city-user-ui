@@ -9,6 +9,7 @@ import { Icon } from '@iconify/react';
 export const ShowDataButton = React.forwardRef(
   ({ address, addressId, selectedPreferences }, ref) => {
     const navigate = useNavigate();
+    console.log(selectedPreferences)
     const { t } = useTranslation();
     const handleUserLocationClick = async () => {
       if (addressId === '' || address === '') {
@@ -36,14 +37,15 @@ export const ShowDataButton = React.forwardRef(
     };
 
     const getplacesFromCoordinates = async () => {
-      const selectedPreferenceIds = []; //selectedPreferences.map((pref) => pref.id);
-      const reportData = {
-        categories_ids: selectedPreferenceIds,
-        address_id: addressId,
-      };
+      let preferenceNames = selectedPreferences.map(preference => `cat=${preference.name}`).join('&');
+      console.log(preferenceNames)
+      if (preferenceNames === '') {
+        preferenceNames = 'cat=Fast%20Food';
+      }
+      console.log('przed response', `${api.APP_URL_USER_API}report/?address=${address}&${preferenceNames}`);
       try {
-        console.log('przed response', `${api.APP_URL_USER_API}report/?address=${address}&cat=${[]}`);
-        const response = await fetch(`${api.APP_URL_USER_API}report/?address=${address}&cat=${["Fast Food"]}`, {
+        console.log('przed response', `${api.APP_URL_USER_API}report/?address=${address}&${preferenceNames}`);
+        const response = await fetch(`${api.APP_URL_USER_API}report/?address=${address}&${preferenceNames}`, {
           method: 'Get',
           headers: {
             'Content-Type': 'application/json',

@@ -3,7 +3,8 @@ import '../styles/SearchResult.css';
 
 export const SearchResult = ({ result, onResultClick, searchResultsClassName }) => {
   return (
-    <div className={`home-search-list ${searchResultsClassName}`} onClick={() => onResultClick(result)}>
+    <div className={`search-list ${searchResultsClassName}`} onClick={() => onResultClick(result)}>
+      {console.log(result)}
       {result}
     </div>
   );

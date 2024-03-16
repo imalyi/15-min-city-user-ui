@@ -159,5 +159,10 @@
   "Your filters": "Twoje filtry",
   "Clear all": "Wyczyść wszystko",
   "Hide": "Schowaj",
-  "Show": "Pokaż"
+  "Show": "Pokaż",
+  "See match": "Zobacz dopasowanie",
+  "Select your criteria in the menu on the left to see a match": "Wybierz swoje kryteria w menu po lewej stronie, aby zobaczyć dopasowanie",
+  "Matching": "Dopasowanie:",
+  "Expand on details": "Rozwiń szczegóły",
+  "Collapse details": "Zwiń szczegóły"
 }

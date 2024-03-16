@@ -71,11 +71,13 @@
 }
 
 .search-bar-container-show-data {
-  width: 100%;
-  margin: auto;
+  width:100%;
   display: flex;
-  min-width: 200px;
+  justify-content: space-between;
+  position: relative;
+  z-index: 9999;
 }
+
 
 .show-data-map {
   width: 100%;
@@ -279,6 +281,182 @@
   background-color: #F0F8FF;
   border: none;
   border-radius: 8px;
+}
+
+.widthReportSection{
+  max-width: 70%;
+}
+
+.position{
+  position: relative;
+
+}
+
+.matchVidible{
+  width: 100%;
+
+  position: absolute;
+  z-index: 100;
+}
+
+
+.toggleReportSection{
+  margin-right: 5vh;
+  margin-top: 4vh;
+  height: 8vh;
+  background-color: #DCE6FA;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.toggleReportSectionisMatchVisibleClass{
+  margin-right: 5vh;
+  margin-top: 4vh;
+  height: 8vh;
+  background-color: #DCE6FA;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0; 
+}
+
+.toggleReportSection-label{
+  font-family: Lato, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  padding-left: 3vh;
+  padding-right: 3.5vh;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+.toggleReportSectionLabelisMatchVisibleClass{
+  font-family: Lato, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  padding-left: 40vh;
+  padding-right: 3.5vh;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+.toggleReportSection-icon{
+  width: 6vh;
+  height: 10vh;
+  padding-right: 3vh;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+}
+
+
+
+.selectyourCriteria{
+  width: calc(100% - 5vh);
+  display: flex;
+  text-align: center;
+  height: 10vh;
+  background-color: #DCE6FA;
+  font-family: Lato;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-left: 3vh;
+  padding-right: 3vh;
+  padding-top: 4vh;
+}
+
+
+
+.show-data-search-place-hr{
+  margin-left:4vh;
+  margin-right:5vh;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  background-color:#C6D0E4;
+  height:1px;
+}
+
+.show-data-hr-place{
+  margin-right:5vh;
+  background-color: #DCE6FA;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+
+.matchContainer {
+  width: 50%;
+  position: relative;
+  height: 2vh; /* Wysokość kontenera */
+  margin-top: 1vh;
+  margin-left: 6vh;
+}
+
+.matchBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #FED7E2; /* Jasno różowy kolor */
+  border-radius: 8px;
+  z-index: 101;
+}
+
+.matchReactangle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.5s ease;
+  background-color: #F8718A;
+  z-index: 102;
+}
+
+.toggle-match-details-div{
+  width: calc(100% - 5vh);
+  display: flex;
+  text-align: center;
+  height: 10vh;
+  background-color: #DCE6FA;
+  font-family: Lato;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-left: 3vh;
+  padding-right: 3vh;
+  padding-bottom: 2vh;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0; 
+}
+
+
+.toggle-match-details{
+  color: #F0F8FF;
+  padding: 2.125vh 2vh;
+  font-family: Lato, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background: var(--primary, #24254C);
+  cursor: pointer;
+  border-radius: 16px;
 }
 
 .centered-img-cross {

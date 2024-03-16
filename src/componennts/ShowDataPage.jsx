@@ -18,7 +18,9 @@ import {RightSectionSlide} from "./anim.js"
 
 function ShowDataPage() {
   const navigate = useNavigate();
-  const [isRolesVisible, setIsRolesVisible] = useState(false);
+  const [isMatchVisible, setIsMatchVisible] = useState(false);
+  const [isMatchDetailsVisible, setisMatchDetailsVisible] = useState(false);
+
   const location = useLocation();
   const places = location.state?.places || {};
   console.log(places);
@@ -27,7 +29,9 @@ function ShowDataPage() {
   const addressId = location.state?.addressId || 'Unknown Address';
   console.log(addressId);
   const selectedPreferences = location.state?.selectedPreferences || [];
-  const selectedCoordinates = [location.state?.places.request.location[1], location.state?.places.request.location[0]];
+  console.log(selectedPreferences);
+
+  const selectedCoordinates = [location.state?.places.location[1], location.state?.places.location[0]];
   const [results, setResults] = useState([]);
   const [input, setInput] = useState(address);
   const [addressIdShowPage, setAddressIdShowPage] = useState(addressId);
@@ -76,9 +80,8 @@ function ShowDataPage() {
   };
 
   const handleResultClick = (result) => {
-    setInput(result.address);
-    setAddressIdShowPage(result.id);
-    setSelectedCoordinatesShowPage([result.location[1], result.location[0]]);
+    setInput(result);
+    setAddressIdShowPage(result);
     setIsResultClicked(true);
   };
 
@@ -94,8 +97,12 @@ function ShowDataPage() {
     setIsResultClicked(true);
   };
 
-  const handleToggleRoles = () => {
-    setIsRolesVisible((prev) => !prev);
+  const handleToggleMatch = () => {
+    setIsMatchVisible((prev) => !prev);
+  };
+
+  const handleToggleMatchDetails = () => {
+    setisMatchDetailsVisible((prev) => !prev);
   };
 
   const handlePreferencesSelect = (preferences) => {
@@ -105,14 +112,17 @@ function ShowDataPage() {
   const countVisibleCategories = () => {
     if (categoriesToShow.length === 0) {
       return {
-        text: 'Choose preferences',
+        text: '',
         class: 'red-text',
       };
     }
-    const visibleCategories = categoriesToShow.filter(
-      (category) => places.osm.points_of_interest[category.key],
-    );
-
+    const visibleCategories = categoriesToShow.filter(category => {
+      return Object.keys(places.points_of_interest).some(interestKey => {
+        const interests = places.points_of_interest[interestKey];
+        return interests.hasOwnProperty(category.label);
+      });
+    });
+    console.log(visibleCategories);
     const percentage =
       (visibleCategories.length / categoriesToShow.length) * 100;
     // Ustal klasę tekstu w zależności od procentu
@@ -133,6 +143,7 @@ function ShowDataPage() {
     return {
       text: `${percentage.toFixed(0)}%`,
       class: textClass,
+      percentage: percentage,
     };
   };
 
@@ -148,9 +159,11 @@ function ShowDataPage() {
     };
   });
 
+  console.log(categoriesToShow);
+/*
   categoriesToShow.sort((a, b) => {
-    const hasPlacesA = !!places.osm.points_of_interest[a.key];
-    const hasPlacesB = !!places.osm.points_of_interest[b.key];
+    const hasPlacesA = !!places.points_of_interest[a.key];
+    const hasPlacesB = !!places.points_of_interest[b.key];
 
     // Kategorie z miejscami będą na początku
     if (hasPlacesA && !hasPlacesB) {
@@ -160,6 +173,7 @@ function ShowDataPage() {
     }
     return 0;
   });
+*/
 
   if (Object.keys(places).length === 0) {
     navigate('/');
@@ -185,41 +199,63 @@ function ShowDataPage() {
               </button>
             </Link>
             </div>
-            {/*
-            <button
-              onClick={handleToggleLeftSection}
-              className="toggleLeftSectionButton"
-              title={t('Show more information')}
-            >
-              {<SlMenu />}
-            </button>
-            */}
-
-
-
-
-            {/*
-            <button
-              onClick={handleToggleRoles}
-              className="toggleRolesButton"
-              title={t('Choose your preferences')}
-            >
-              {isRolesVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
-            </button>
-            */}
-            {/*
-            <div className="language-select-container-show-data">
-              <select
-                value={selectedLanguage}
-                onChange={(e) => handleLanguageChange(e.target.value)}
-                className="language-select"
-              >
-                <option value="en">{t('English')}</option>
-                <option value="pl">{t('Polish')}</option>
-                <option value="de">{t('German')}</option>
-              </select>
+            <div className='widthReportSection'>
+              <div className='position'>
+                <button
+                  className={isMatchVisible ? "toggleReportSectionisMatchVisibleClass" : "toggleReportSection"}
+                  title={t('Search Page')}
+                  onClick={handleToggleMatch}
+                >
+                <label className={isMatchVisible ? "toggleReportSectionLabelisMatchVisibleClass" : "toggleReportSection-label"}>{t("See match")}</label>
+                {isMatchVisible ? (                 
+                  <IoIosArrowUp className="toggleReportSection-icon"/>
+                ) : (
+                  <IoIosArrowDown className="toggleReportSection-icon"/>
+                )}
+                </button>
+                
+                {isMatchVisible && (
+                <div className='matchVidible'>
+                  <div className='show-data-hr-place'>
+                    <hr className='show-data-search-place-hr'/>
+                  </div>
+                  <div>
+                    {(selectedPreferencesShowPage.length === 0) ? (
+                      <label className='selectyourCriteria' style={{paddingBottom: '9vh'}}>{t("Select your criteria in the menu on the left to see a match")}</label>
+                    ) : (
+                      <div>
+                      {isMatchDetailsVisible ? (                 
+                        <div>
+                          <div className='selectyourCriteria' >{t("Matching")} {countVisibleCategories().text} 
+                            <div className='matchContainer'>
+                              <div className='matchBackground'></div>
+                              <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%",   backgroundColor: "#F8718A"}}></div>
+                            </div>
+                          </div>
+                          <div className='toggle-match-details-div' style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                              <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("Collapse details")}</div>
+                          </div>
+                        </div>  
+                      ) : (
+                        <div>
+                          <div className='selectyourCriteria' >{t("Matching")} {countVisibleCategories().text} 
+                            <div className='matchContainer'>
+                              <div className='matchBackground'></div>
+                              <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%",   backgroundColor: "#F8718A"}}></div>
+                            </div>
+                          </div>
+                          <div className='toggle-match-details-div' style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                              <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("Expand on details")}</div>
+                          </div>
+                        </div>  
+                      )}   
+                      </div>       
+                    )}
+                  </div>
+                </div>
+                )}
+              </div>
             </div>
-            */}
           </div>
           <div className="show-data-map">
               <div className="left-section">
@@ -250,24 +286,25 @@ function ShowDataPage() {
               showDataRef={buttonRef}
               input={input}
               addressId={addressId}
-              selectedCoordinates={selectedCoordinates}
               setInput={handleSearchBarChange}
               setIsResultClicked={setIsResultClicked}
               onEnterPress={handleEnterPress}
               searchBarClassName="show-data-page-search-bar"
+              selectedPreferences={selectedPreferencesShowPage}
               />
+            </motion.div>
               {results && results.length > 0 && !isResultClicked && (
                 <SearchResultsList
                   results={results}
                   onResultClick={handleResultClick}
                   searchResultsListClassName="show-data-page-search-result-list"
+                  searchResultsClassName="show-data-page-search-list"
                 />
               )}
-            </motion.div>
 
             </div>
               <Map
-                places={places.osm.points_of_interest}
+                places={places.points_of_interest}
                 categoriesToShow={categoriesToShow.map(
                   (category) => category.key,
                 )}
