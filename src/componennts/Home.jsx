@@ -8,6 +8,8 @@ import { ShowDataButton } from './ShowDataButton';
 import Roles from './Roles';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { motion } from "framer-motion"
+import {icon} from "./anim.js"
 
 function Home() {
   const [results, setResults] = useState([]);
@@ -64,16 +66,19 @@ function Home() {
       </div>
       <div className="language-select-container">
         <Link to="/">
-          <button
+          <motion.button
             className="logo"
             title={t('Search Page')}
+            whileHover={{ scale: 1 }} // Przykładowa animacja przy najechaniu
+            whileTap={{ scale: 1 }} // Przykładowa animacja przy kliknięciu
           >
           <img
             src={'/images/15min_logo.svg'}
             alt="Red Cross"
             className="centered-img-cross"
-          />
-          </button>
+          >
+          </img>
+          </motion.button>
         </Link>
         {/* 
         <select
