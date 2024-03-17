@@ -290,7 +290,11 @@ function ShowDataPage() {
                               </div>
                             </div>
                           ))}
-                          <div className='toggle-match-details-div' style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                          <div className='show-data-hr-place'>
+                            <hr className='show-data-search-place-hr'/>
+                          </div>
+                          <div className='toggle-match-details-div' style={{ justifyContent: 'space-between' }}>
+                              <div className="seeMoreDetails">{t("See full report")}</div>
                               <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("Collapse details")}</div>
                           </div>
                         </div>  

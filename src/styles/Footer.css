@@ -5,6 +5,8 @@
 
 
 .footer-hr{
+  border-top: 0px;
+
   width:95%;
   box-align:center; 
   background-color:rgba(128, 128, 128, 0.277);

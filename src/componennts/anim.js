@@ -5,12 +5,12 @@ export const LeftSectionSlide = {
     },
     enter: {
         x: "0%",
-        transition: {duration: 0.6},
+        transition: {duration: 0.4},
         opacity: 1,
     },
     exit: {
         x: "-100%",
-        transition: {duration: 0.6},
+        transition: {duration: 0.4},
         opacity: 0,
     }
 }
@@ -21,7 +21,7 @@ export const RightSectionSlide = {
     },
     enter: {
         x: "0%",
-        transition: {duration: 0.6}
+        transition: {duration: 0.4}
     },
     exit: {
         x: "100%"
@@ -35,12 +35,12 @@ export const LeftSectionSlideHide = {
     },
     enter: {
         x: "0%",
-        transition: {duration: 0.6},
+        transition: {duration: 0.4},
         opacity: 1
     },
     exit: {
         x: "-100%",
-        transition: {duration: 0.6},
+        transition: {duration: 0.4},
         opacity: 0
 
     }
