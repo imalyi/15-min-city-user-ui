@@ -42,6 +42,8 @@ function ShowDataPage() {
     useState(selectedPreferences);
   const buttonRef = useRef(null);
   console.log(selectedPreferencesShowPage);
+  const [preferencesData, setPreferencesData] = useState([]);
+
 
   const [flyToLocation, setFlyToLocation] = useState(null);
 
@@ -51,6 +53,13 @@ function ShowDataPage() {
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
   const [categoryVisibility, setCategoryVisibility] = useState({});
+
+
+
+  const handlePreferencesData = (data) => {
+    setPreferencesData(data)
+  };
+  console.log(preferencesData)
 
   const handleCategoryLabelClick = (categoryKey) => {
     setCategoryVisibility((prevVisibility) => ({
@@ -119,6 +128,7 @@ function ShowDataPage() {
     const visibleCategories = categoriesToShow.filter(category => {
       return Object.keys(places.points_of_interest).some(interestKey => {
         const interests = places.points_of_interest[interestKey];
+        console.log(interestKey);
         return interests.hasOwnProperty(category.label);
       });
     });
@@ -145,6 +155,43 @@ function ShowDataPage() {
       class: textClass,
       percentage: percentage,
     };
+  };
+
+
+
+  const mainCategoriesToShow = Object.keys(places.points_of_interest);
+  console.log(mainCategoriesToShow);
+
+  const filteredPreferencesData = Object.keys(preferencesData).reduce((acc, key) => {
+  // Filtruj preferencje w danej kategorii
+  const filteredPreferences = preferencesData[key].filter(preference => {
+    return selectedPreferences.some(selectedPreference => selectedPreference.name === preference.name);
+  });
+  
+  // Jeśli istnieją jakieś pasujące preferencje, dodaj je do wynikowej tablicy
+  if (filteredPreferences.length > 0) {
+    acc[key] = filteredPreferences;
+  }
+  
+  return acc;
+  }, {});
+
+  console.log(filteredPreferencesData);
+
+  const calculatePercentageInCategory = (category) => {
+    const allPreferencesInCategory = places.points_of_interest[category];
+    
+    const filteredPreferencesInCategory = filteredPreferencesData[category];
+    
+    const categories = Object.keys(allPreferencesInCategory);
+  
+    const numberOfCategories = categories.length;
+
+    const filteredPreferencesCount = filteredPreferencesInCategory ? filteredPreferencesInCategory.length : 0;
+    
+    const percentage = (numberOfCategories / filteredPreferencesCount) * 100;
+    console.log(filteredPreferencesCount)
+    return `${percentage.toFixed(0)}%`;
   };
 
   const categoriesToShow = selectedPreferences.map((preference) => {
@@ -226,19 +273,30 @@ function ShowDataPage() {
                       <div>
                       {isMatchDetailsVisible ? (                 
                         <div>
-                          <div className='selectyourCriteria' >{t("Matching")} {countVisibleCategories().text} 
+                          <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
                             <div className='matchContainer'>
                               <div className='matchBackground'></div>
-                              <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%",   backgroundColor: "#F8718A"}}></div>
+                              <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%"}}></div>
                             </div>
                           </div>
+                          <div className='show-data-hr-place'>
+                            <hr className='show-data-search-place-hr'/>
+                          </div>
+                          {mainCategoriesToShow.map((category, index) => (
+                            <div key={index} className='selectyourCriteria' ><div className='matchingName'>{category} {calculatePercentageInCategory(category)} </div>
+                              <div className='matchContainer'>
+                                <div className='matchBackground'></div>
+                                <div className='matchReactangle' style={{ width: `calc(${calculatePercentageInCategory(category)})`}}></div>
+                              </div>
+                            </div>
+                          ))}
                           <div className='toggle-match-details-div' style={{ display: 'flex', justifyContent: 'flex-end' }}>
                               <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("Collapse details")}</div>
                           </div>
                         </div>  
                       ) : (
                         <div>
-                          <div className='selectyourCriteria' >{t("Matching")} {countVisibleCategories().text} 
+                          <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
                             <div className='matchContainer'>
                               <div className='matchBackground'></div>
                               <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%",   backgroundColor: "#F8718A"}}></div>
@@ -265,6 +323,7 @@ function ShowDataPage() {
                     selectedPreferencesShowPage={selectedPreferencesShowPage}
                     toggleRoleSVisible={handleToggleLeftSection}
                     isLeftSectionVisible={isLeftSectionVisible}
+                    setPreferencedDataShowPage={handlePreferencesData}
                   />
                 </div>
               </div>

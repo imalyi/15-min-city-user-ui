@@ -10,7 +10,7 @@ import {Icon} from '@iconify/react';
 import { motion, AnimatePresence } from "framer-motion"
 import {LeftSectionSlide, LeftSectionSlideHide} from "./anim.js"
 
-const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVisible, isLeftSectionVisible }) => {
+const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVisible, isLeftSectionVisible, setPreferencedDataShowPage }) => {
   const { t } = useTranslation();
   const [isShowDataPage, setIsShowDataPage] = useState(false);
   const [selectedPreferences, setSelectedPreferences] = useState(
@@ -71,6 +71,7 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
         console.log(data);
         // Assuming the data structure is an array with a single object
         setPreferencesData(data);
+        setPreferencedDataShowPage(data);
       } catch (error) {
         console.error('Error fetching preferences data:', error);
       }
