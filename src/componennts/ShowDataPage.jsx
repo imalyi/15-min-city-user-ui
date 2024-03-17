@@ -14,7 +14,8 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import {Icon} from '@iconify/react';
 import { motion, AnimatePresence } from "framer-motion"
-import {RightSectionSlide} from "./anim.js"
+import {RightSectionSlide, MatchSectionSlide} from "./anim.js"
+
 
 function ShowDataPage() {
   const navigate = useNavigate();
@@ -260,8 +261,12 @@ function ShowDataPage() {
                   <IoIosArrowDown className="toggleReportSection-icon"/>
                 )}
                 </button>
-                
                 {isMatchVisible && (
+                <motion.div
+                variants={MatchSectionSlide}
+                animate="enter"
+                initial="initial"
+                >
                 <div className='matchVidible'>
                   <div className='show-data-hr-place'>
                     <hr className='show-data-search-place-hr'/>
@@ -315,6 +320,7 @@ function ShowDataPage() {
                     )}
                   </div>
                 </div>
+                </motion.div>
                 )}
               </div>
             </div>
@@ -368,6 +374,7 @@ function ShowDataPage() {
             </div>
               <Map
                 places={places.points_of_interest}
+                mainCategoriesToShow={mainCategoriesToShow}
                 categoriesToShow={categoriesToShow.map(
                   (category) => category.key,
                 )}

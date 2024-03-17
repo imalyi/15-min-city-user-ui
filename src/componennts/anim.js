@@ -45,3 +45,28 @@ export const LeftSectionSlideHide = {
 
     }
 }
+
+export const MatchSectionSlide = {
+    initial: {
+        y: "-10vh",
+        opacity: 0
+    },
+    enter: {
+        y: "0vh",
+        transition: {duration: 0.2},
+        opacity: 1
+    },
+}
+
+
+export const PreferencesSectionSlide = {
+    initial: {
+        y: "-3vh",
+        opacity: 0,
+    },
+    enter: {
+        y: "0vh",
+        transition: {duration: 0.2},
+        opacity: 1,
+    },
+}

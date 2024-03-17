@@ -410,14 +410,16 @@ const Markers = ({ placeName, lat, lng, distance, address, name }) => {
   const defaultIcon = universal_icon; // Ustaw swoją uniwersalną ikonę tutaj
   const markerIcon = iconMapping[placeName] || defaultIcon;
   const { t } = useTranslation();
-
   return (
+  
     <Marker
       className="markerContainer markerSquare"
       position={[Number(lat), Number(lng)]}
       icon={markerIcon}
       riseOnHover={true}
     >
+      {console.log( address)}
+
       <Popup>
         <div>
           <strong>{name}</strong>
