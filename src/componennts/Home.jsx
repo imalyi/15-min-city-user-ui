@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Footer from './Footer';
 import '../styles/Home.css';
 import { SearchBar } from './SearchBar';
@@ -44,7 +44,9 @@ function Home() {
     setInput(result);
     setAddressId(result);
     setIsResultClicked(true);
+    setTimeout(handleEnterPress, 50);
   };
+
 
   const handleSearchBarChange = (value) => {
     setInput(value);

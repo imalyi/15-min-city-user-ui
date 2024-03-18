@@ -93,6 +93,8 @@ function ShowDataPage() {
     setInput(result);
     setAddressIdShowPage(result);
     setIsResultClicked(true);
+    setTimeout(handleEnterPress, 50);
+
   };
 
   const handleSearchBarChange = (value) => {
