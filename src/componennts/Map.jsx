@@ -12,17 +12,23 @@ function Map({
   categoriesToShow,
   selectedCoordinatesShowPage,
   flyToLocation,
+  mainCategoriesToShow
 }) {
   const locationIcon = new Icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/128/684/684908.png',
     iconSize: [40, 40],
   });
+  console.log('Map -> selectedCoordinatesShowPage', places);
+  console.log('Map -> selectedCoordinatesShowPage', categoriesToShow);
+  console.log('Map -> selectedCoordinatesShowPage', mainCategoriesToShow);
+
 
   return (
     <MapContainer
       center={selectedCoordinatesShowPage}
       zoom={17}
       scrollWheelZoom={true}
+      zoomControl={false}
     >
       <TileLayer
         attribution="Jawg.Dark"
@@ -36,19 +42,23 @@ function Map({
         icon={locationIcon}
       />
       <FlyToMarker flyToLocation={flyToLocation} />
-      {categoriesToShow.map((category) =>
-        places[category]?.map((item, index) => (
-          <Markers
-            key={`${category}-${index}`}
-            placeName={category}
-            lat={item.location[1]}
-            lng={item.location[0]}
-            distance={item.distance}
-            address={item.address.full}
-            name={item.name}
-          />
-        )),
-      )}
+      {mainCategoriesToShow.map(category => {
+        return Object.values(places[category]).map((preference, index) => {
+          return preference.map((item, index) => {
+            return (
+              <Markers
+                key={`${category}-${index}`}
+                placeName={category}
+                lat={item.location[1]}
+                lng={item.location[0]}
+                distance={item.distance}
+                address={item.address.full}
+                name={item.name}
+              />
+            );
+          });
+        });
+      })}
     </MapContainer>
   );
 }

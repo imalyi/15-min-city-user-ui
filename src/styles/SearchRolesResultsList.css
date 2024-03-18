@@ -1,0 +1,25 @@
+.roles-search-result-list {
+    position: absolute;
+    margin-left: 40px;
+    width: calc(100% - 5vh);
+    background-color: #DCE6FA;
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px; 
+    max-height: 480px;
+    overflow-y: auto;
+    z-index: 999;
+  }
+  
+
+  .roles-search-result-list::-webkit-scrollbar {
+    width: 8px; /* Szerokość paska przewijania */
+    height: 112px;
+  }
+  
+  .roles-search-result-list::-webkit-scrollbar-thumb {
+    background-color: #A1ABBF; /* Kolor "kciuka" paska przewijania */
+  }

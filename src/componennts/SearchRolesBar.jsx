@@ -1,18 +1,11 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import '../styles/SearchBar.css';
+import '../styles/SearchRolesBar.css';
 import { useTranslation } from 'react-i18next';
 import api from '../config';
-import { ShowDataButton } from './ShowDataButton';
-export const SearchBar = ({
-  setResults,
-  showDataRef,
-  addressId,
-  input,
-  setInput,
-  setIsResultClicked,
-  onEnterPress,
-  searchBarClassName,
-  selectedPreferences,
+import { Icon } from '@iconify/react';
+
+export const SearchRolesBar = ({
+    setResults, input, setInput, setIsResultClicked, onEnterPress, searchBarClassName
 }) => {
   const { t } = useTranslation();
   const [debouncedValue, setDebouncedValue] = useState(input);
@@ -32,7 +25,7 @@ export const SearchBar = ({
         setIsResultClicked(true);
         return;
       }
-      console.log('przed response', `${api.APP_URL_USER_API}address/?name=${value}`);
+      console.log('przed response');
       try {
         const response = await fetch(
           `${api.APP_URL_USER_API}address/?name=${value}`,
@@ -47,17 +40,18 @@ export const SearchBar = ({
           const data = await response.json();
           console.log(data);
           const results = data;
-          setResults(results);
+          //setResults(results);
+          setResults(['McDonalds', 'KFC', "Burger King", "Pizza Hut", "Subway", "Starbucks", "Costa Coffee", "Pret A Manger", "Greggs", "Nando's", "Wagamama", "Yo! Sushi", "Wimpy", "Taco Bell", "Domino's Pizza", "Papa John's Pizza", "PizzaExpress", "Zizzi", "ASK Italian", "Bella Italia", "Cafe Rouge", "Carluccio's", "Giraffe", "Las Iguanas", "TGI Fridays", "Chiquito", "Frankie & Benny's", "Harvester", "Toby Carvery", "Beefeater", "Brewers Fayre", "Hungry Horse", "Marston's Inns and Taverns", "Sizzling Pubs", "Stonehouse Pizza & Carvery", "Vintage Inns", "All Bar One", "Browns", "Ember Inns", "Miller & Carter", "Nicholson's", "O'Neill's", "Owens", "Sizzling Pubs", "Toby Carvery", "Vintage Inns", "Zizzi", "ASK Italian", "Bella Italia", "Cafe Rouge", "Carluccio's", "Giraffe", "Las Iguanas", "TGI Fridays", "Chiquito", "Frankie & Benny's", "Harvester", "Toby Carvery", "Beefeater", "Brewers Fayre", "Hungry Horse", "Marston's Inns and Taverns", "Sizzling Pubs", "Stonehouse Pizza & Carvery", "Vintage Inns", "All Bar One", "Browns", "Ember Inns", "Miller & Carter", "Nicholson's", "O'Neill's", "Owens", "Sizzling Pubs", "Toby Carvery", "Vintage Inns", "Zizzi", "ASK Italian", "Bella Italia", "Cafe Rouge", "Carluccio's", "Giraffe", "Las Iguanas", "TGI Fridays", "Chiquito", "Frankie & Benny's", "Harvester", "Toby Carvery", "Beefeater", "Brewers Fayre", "Hungry Horse", "Marston's Inns and Taverns", "Sizzling Pubs", "Stonehouse Pizza &"])
         } else {
           console.error(
-            'Error getting address from coordinatessss:',
+            'Error getting address from coordinates:',
             response.statusText,
           );
           throw new Error(response.statusText);
         }
       } catch (error) {
+        
         console.error('Error getting address from coordinates:', error);
-        showServerErrorAlert();
       }
     },
     [setIsResultClicked, setResults],
@@ -67,12 +61,6 @@ export const SearchBar = ({
     setInput(value);
     if (value === '') {
       setIsResultClicked(true);
-    }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      onEnterPress(); // Wywołaj funkcję, którą przekazałeś jako prop (np. obsługę naciśnięcia przycisku ShowDataButton)
     }
   };
 
@@ -107,18 +95,16 @@ export const SearchBar = ({
   return (
     <div className={`input-wrapper ${searchBarClassName}`}>
       <input
-        placeholder={t('Enter address (street, city...)')}
+        placeholder={t('Search for an object by name...')}
         value={input}
         onChange={(e) => handleChange(e.target.value)}
-        onKeyPress={handleKeyPress}
       />
       <button ref={buttonRef} style={{ display: 'none' }}></button>
-      <ShowDataButton
-          ref={showDataRef}
-          address={input}
-          addressId={addressId}
-          selectedPreferences={selectedPreferences}
-        />
+      <button
+        className="show-data-button"
+      >
+        {<Icon icon="carbon:search" id='search-icon'/>}
+      </button>
     </div>
   );
 };

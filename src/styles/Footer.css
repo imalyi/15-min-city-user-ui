@@ -1,8 +1,24 @@
 /* Footer.css */
 .footer {
-  width: 100%;
-  color: #000000; /* Use the desired text color */
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.924);
-  padding-top: 2vh;
+}
+
+
+.footer-hr{
+  border-top: 0px;
+
+  width:95%;
+  box-align:center; 
+  background-color:rgba(128, 128, 128, 0.277);
+  height: 1px;
+}
+
+.button-footer{
+  border:none;
+  margin-left:2.5%;
+  font-family: 'Lato', sans-serif; 
+  font-weight: 500; 
+  font-size: 24px; 
+  background-color: #F0F8FF;
+  margin-bottom: 2rem;
 }

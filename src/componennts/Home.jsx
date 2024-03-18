@@ -3,11 +3,13 @@ import Footer from './Footer';
 import '../styles/Home.css';
 import { SearchBar } from './SearchBar';
 import { SearchResultsList } from './SearchResultsList';
-import { UserLocationButton } from './UserLocationButton';
 import { ShowDataButton } from './ShowDataButton';
 //import HowItWorks from './HowItWorks';
 import Roles from './Roles';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { motion } from "framer-motion"
+import {icon} from "./anim.js"
 
 function Home() {
   const [results, setResults] = useState([]);
@@ -16,7 +18,6 @@ function Home() {
   const [isResultClicked, setIsResultClicked] = useState(false);
   const [selectedRole, setSelectedRole] = useState('without role');
   const [selectedPreferences, setSelectedPreferences] = useState([]);
-  const [selectedCoordinates, setSelectedCoordinates] = useState([]);
 
   const { i18n, t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
@@ -39,23 +40,15 @@ function Home() {
   };
 
   const handleResultClick = (result) => {
-    setInput(result.address);
-    setAddressId(result.id);
-    setSelectedCoordinates([result.location[1], result.location[0]]);
+    console.log(result)
+    setInput(result);
+    setAddressId(result);
     setIsResultClicked(true);
   };
 
   const handleSearchBarChange = (value) => {
     setInput(value);
     setIsResultClicked(false);
-  };
-
-  const handleUserLocationUpdate = (address, lat, lng) => {
-    setInput(`${address[0].address}`);
-    setAddressId(`${address[0].id}`);
-    console.log(lat, lng);
-    setSelectedCoordinates([lat, lng]);
-    setIsResultClicked(true);
   };
 
   const handleRoleSelect = (role) => {
@@ -68,7 +61,26 @@ function Home() {
 
   return (
     <div className="home-container">
+      <div classname="logo">
+
+      </div>
       <div className="language-select-container">
+        <Link to="/">
+          <motion.button
+            className="logo"
+            title={t('Search Page')}
+            whileHover={{ scale: 1 }} // Przykładowa animacja przy najechaniu
+            whileTap={{ scale: 1 }} // Przykładowa animacja przy kliknięciu
+          >
+          <img
+            src={'/images/15min_logo.svg'}
+            alt="Red Cross"
+            className="centered-img-cross"
+          >
+          </img>
+          </motion.button>
+        </Link>
+        {/* 
         <select
           value={selectedLanguage}
           onChange={(e) => handleLanguageChange(e.target.value)}
@@ -77,54 +89,31 @@ function Home() {
           <option value="en">{t('English')}</option>
           <option value="pl">{t('Polish')}</option>
           <option value="de">{t('German')}</option>
-          {/* Dodaj więcej opcji według potrzeb */}
         </select>
+        */}
       </div>
-      {/*
-      <div className="image-logo">
-        <img
-          src={'/images/15minuteLogo.png'}
-          alt="Red Cross"
-          className="centered-img-cross"
-        />
-      </div>
-      */}
       <div className="search-bar-container">
-        <UserLocationButton
-          onLocationUpdate={handleUserLocationUpdate}
-          onEnterPress={handleEnterPress}
-        />
         <div className="column search-bar-and-results results-container">
           <SearchBar
             setResults={setResults}
+            showDataRef={buttonRef}
             input={input}
+            addressId={addressId}
             setInput={handleSearchBarChange}
             setIsResultClicked={setIsResultClicked}
             onEnterPress={handleEnterPress}
+            searchBarClassName="home-search-bar"
+            selectedPreferences={selectedPreferences}
           />
           {results && results.length > 0 && !isResultClicked && (
             <SearchResultsList
               results={results}
               onResultClick={handleResultClick}
+              searchResultsListClassName="home-search-result-list"
+              searchResultsClassName="home-search-list"
             />
           )}
         </div>
-        <ShowDataButton
-          ref={buttonRef}
-          address={input}
-          addressId={addressId}
-          selectedRole={selectedRole}
-          selectedPreferences={selectedPreferences}
-          selectedCoordinates={selectedCoordinates}
-        />
-      </div>
-      <div className="how-it-works-container">
-        <Roles
-          onSelectRole={handleRoleSelect}
-          onSelectPreferences={handlePreferencesSelect}
-          selectedRoleFromShowPage={selectedRole}
-          selectedPreferencesShowPage={selectedPreferences}
-        />
       </div>
       <Footer />
     </div>

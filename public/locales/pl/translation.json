@@ -151,5 +151,19 @@
   "Choose your preferences": "Wybierz swoje preferencje",
   "You are here": "Jesteś tutaj",
   "Back to home page": "Powrót do strony głównej",
-  "Choose All Preferences": "Wybierz Wszystkie Preferencje"
+  "Choose All Preferences": "Wybierz Wszystkie Preferencje",
+  "Enter address (street, city...)": "Wpisz adres (ulica, miasto...)",
+  "About us": "O nas",
+  "Contact": "Kontakt",
+  "Search for an object by name..." : "Wyszukaj obiekt po nazwie...",
+  "Your filters": "Twoje filtry",
+  "Clear all": "Wyczyść wszystko",
+  "Hide": "Schowaj",
+  "Show": "Pokaż",
+  "See match": "Zobacz dopasowanie",
+  "Select your criteria in the menu on the left to see a match": "Wybierz swoje kryteria w menu po lewej stronie, aby zobaczyć dopasowanie",
+  "Matching": "Dopasowanie:",
+  "Expand on details": "Rozwiń szczegóły",
+  "Collapse details": "Zwiń szczegóły",
+  "See full report": "Zobacz pełny raport"
 }

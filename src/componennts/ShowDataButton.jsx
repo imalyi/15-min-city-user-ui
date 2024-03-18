@@ -4,10 +4,12 @@ import '../styles/ShowDataButton.css';
 import { FaSearch } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 import api from '../config';
+import { Icon } from '@iconify/react';
 
 export const ShowDataButton = React.forwardRef(
-  ({ address, addressId, selectedPreferences, selectedCoordinates }, ref) => {
+  ({ address, addressId, selectedPreferences }, ref) => {
     const navigate = useNavigate();
+    console.log(selectedPreferences)
     const { t } = useTranslation();
     const handleUserLocationClick = async () => {
       if (addressId === '' || address === '') {
@@ -27,29 +29,27 @@ export const ShowDataButton = React.forwardRef(
               addressId,
               places,
               selectedPreferences,
-              selectedCoordinates,
             },
           });
-          window.location.reload();
           console.log(places);
         }
       }
     };
 
     const getplacesFromCoordinates = async () => {
-      const selectedPreferenceIds = selectedPreferences.map((pref) => pref.id);
-      const reportData = {
-        categories_ids: selectedPreferenceIds,
-        address_id: addressId,
-      };
+      let preferenceNames = selectedPreferences.map(preference => `cat=${preference.name}`).join('&');
+      console.log(preferenceNames)
+      if (preferenceNames === '') {
+        preferenceNames = 'cat=Fast%20Food';
+      }
+      console.log('przed response', `${api.APP_URL_USER_API}report/?address=${address}&${preferenceNames}`);
       try {
-        console.log(addressId);
-        const response = await fetch(`${api.APP_URL_USER_API}report/`, {
-          method: 'POST',
+        console.log('przed response', `${api.APP_URL_USER_API}report/?address=${address}&${preferenceNames}`);
+        const response = await fetch(`${api.APP_URL_USER_API}report/?address=${address}&${preferenceNames}`, {
+          method: 'Get',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(reportData),
         });
 
         if (response.ok) {
@@ -74,7 +74,7 @@ export const ShowDataButton = React.forwardRef(
         onClick={handleUserLocationClick}
         title={t('Show results')}
       >
-        {<FaSearch id="search-icon" />}
+        {<Icon icon="carbon:search" id='search-icon'/>}
       </button>
     );
   },

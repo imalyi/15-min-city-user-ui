@@ -151,5 +151,19 @@
   "Choose your preferences": "Choose your preferences",
   "You are here": "You are here",
   "Back to home page": "Back to home page",
-  "Choose All Preferences": "Choose All Preferences"
+  "Choose All Preferences": "Choose All Preferences",
+  "Enter address (street, city...)" : "Enter address (street, city...) :",
+  "About us": "About us",
+  "Contact": "Contact",
+  "Search for an object by name..." : "Search for an object by name...",
+  "Your filters": "Your filters",
+  "Clear all": "Clear all",
+  "Hide": "Hide",
+  "Show": "Show",
+  "See match": "See match",
+  "Select your criteria in the menu on the left to see a match": "Select your criteria in the menu on the left to see a match",
+  "Matching": "Matching:",
+  "Expand on details": "Expand on details",
+  "Collapse details": "Collapse details",
+  "See full report": "See full report"
 }

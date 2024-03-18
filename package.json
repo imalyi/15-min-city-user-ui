@@ -12,6 +12,7 @@
     "axios": "^1.6.2",
     "bootstrap": "^3.4.1",
     "dotenv": "^16.3.1",
+    "framer-motion": "^11.0.8",
     "google-map-react": "^2.2.1",
     "i18next": "^23.7.11",
     "i18next-browser-languagedetector": "^7.2.0",
@@ -53,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@iconify/react": "^4.1.1",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
     "prettier": "^3.1.1"

@@ -4,8 +4,13 @@ import '../styles/Roles.css';
 import { useTranslation } from 'react-i18next';
 import api from '../config';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { SearchRolesBar } from './SearchRolesBar';
+import { SearchRolesResultsList } from './SearchRolesResultsList';
+import {Icon} from '@iconify/react';
+import { motion, AnimatePresence } from "framer-motion"
+import {LeftSectionSlide, LeftSectionSlideHide} from "./anim.js"
 
-const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
+const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVisible, isLeftSectionVisible, setPreferencedDataShowPage }) => {
   const { t } = useTranslation();
   const [isShowDataPage, setIsShowDataPage] = useState(false);
   const [selectedPreferences, setSelectedPreferences] = useState(
@@ -14,6 +19,43 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
   const [preferencesData, setPreferencesData] = useState([]);
   const [expandedCategories, setExpandedCategories] = useState([]);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [results, setResults] = useState([]);
+  const [input, setInput] = useState('');
+  const [isResultClicked, setIsResultClicked] = useState(false);
+  const [preferencesSearchData, setPreferencesSearchData] = useState([]);
+
+  console.log(preferencesData);
+
+  const handleRemoveAllPreferences = () => {
+    setPreferencesSearchData([]);
+    setSelectedPreferences([]);
+  }
+
+  const handleRemovePreference = (preferenceIndex) => {
+    const updatedPreferences = [...preferencesSearchData];
+    updatedPreferences.splice(preferenceIndex, 1);
+    setPreferencesSearchData(updatedPreferences);
+  };
+
+  const handleResultClick = (result) => {
+    setInput("");
+    setIsResultClicked(true);
+    
+    // Sprawdzenie, czy result już istnieje w preferencesSearchData
+    if (!preferencesSearchData.some(item => item === result)) {
+      // Jeśli result nie istnieje, dodaj go do preferencesSearchData
+      setPreferencesSearchData([...preferencesSearchData, result]);
+    } else {
+      console.log("Result already exists in preferencesSearchData");
+    }
+    
+    console.log(preferencesSearchData);
+  };
+
+  const handleSearchBarChange = (value) => {
+    setInput(value);
+    setIsResultClicked(false);
+  };
 
   useEffect(() => {
     // Sprawdzanie, czy obecna ścieżka to /showData
@@ -26,8 +68,10 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
       try {
         const response = await fetch(`${api.APP_URL_USER_API}categories/`);
         const data = await response.json();
+        console.log(data);
         // Assuming the data structure is an array with a single object
-        setPreferencesData(data[0]);
+        setPreferencesData(data);
+        setPreferencedDataShowPage(data);
       } catch (error) {
         console.error('Error fetching preferences data:', error);
       }
@@ -54,28 +98,27 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
   }, []);
 
   const handlePreferenceChange = (event) => {
-    const preferenceId = parseInt(event.target.value, 10);
     const preferenceName = event.target.name;
     const updatedPreferences = selectedPreferences.some(
-      (preference) => preference.id === preferenceId,
+      (preference) => preference.name === preferenceName,
     )
-      ? selectedPreferences.filter((item) => item.id !== preferenceId)
-      : [...selectedPreferences, { id: preferenceId, name: preferenceName }];
+      ? selectedPreferences.filter((item) => item.name !== preferenceName)
+      : [...selectedPreferences, {name: preferenceName }];
     setSelectedPreferences(updatedPreferences);
     onSelectPreferences(updatedPreferences);
   };
 
   const handleCategoryToggle = (categoryName) => {
     const allPreferencesInCategory = preferencesData[categoryName].map(
-      (preference) => ({ id: preference.id, name: preference.name }),
+      (preference) => ({name: preference.name }),
     );
     const categoryIsSelected = allPreferencesInCategory.every((preference) =>
-      selectedPreferences.some((p) => p.id === preference.id),
+      selectedPreferences.some((p) => p.name === preference.name),
     );
 
     const updatedPreferences = categoryIsSelected
       ? selectedPreferences.filter(
-          (item) => !allPreferencesInCategory.some((p) => p.id === item.id),
+          (item) => !allPreferencesInCategory.some((p) => p.name === item.name),
         )
       : [...selectedPreferences, ...allPreferencesInCategory];
 
@@ -83,12 +126,14 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
     onSelectPreferences(updatedPreferences);
   };
 
+
+  
   const handleSelectAllPreferences = () => {
     const allPreferences = Object.values(preferencesData).reduce(
       (all, category) => {
         return all.concat(
           category.map((preference) => ({
-            id: preference.id,
+            id: preference.name,
             name: preference.name,
           })),
         );
@@ -97,12 +142,12 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
     );
 
     const allSelected = allPreferences.every((preference) =>
-      selectedPreferences.some((p) => p.id === preference.id),
+      selectedPreferences.some((p) => p.name === preference.name),
     );
 
     const updatedPreferences = allSelected
       ? selectedPreferences.filter(
-          (item) => !allPreferences.some((p) => p.id === item.id),
+          (item) => !allPreferences.some((p) => p.name === item.name),
         )
       : [...allPreferences];
 
@@ -111,10 +156,6 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
     console.log(selectedPreferences);
   };
 
-  const totalPreferencesCount = Object.values(preferencesData).reduce(
-    (total, category) => total + category.length,
-    0,
-  );
 
   const toggleCategoryExpansion = (categoryName) => {
     if (expandedCategories.includes(categoryName)) {
@@ -127,109 +168,148 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage }) => {
   };
 
   return (
-    <div className={`roles-container ${isShowDataPage ? '' : 'homeStyle'}`}>
-      <div className="centered-category-header">
-        <div>
-          <h3 className="centered-header" onClick={handleSelectAllPreferences}>
-            {t('Choose Your Preferences')}
-          </h3>
-        </div>
-        <div>
-          <h3 className="all-categories">
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={selectedPreferences.length === totalPreferencesCount}
-                  onChange={handleSelectAllPreferences}
-                  className="centered-header"
-                />
-              }
-              label={
-                <span style={{ fontSize: '14px' }}>
-                  {t('Choose All Preferences')}
-                </span>
-              }
-            />
-          </h3>
-          {console.log(selectedPreferences.length)}
-        </div>
-        <div className="preferences-column">
-          {Object.keys(preferencesData).map((categoryName) => (
-            <div
-              key={categoryName}
-              className={`${isSmallScreen ? 'expandable' : ''} ${
-                expandedCategories.includes(categoryName)
-                  ? 'expanded'
-                  : 'collapsed'
-              }`}
-            >
-              <div className="centered-category">
-                <div>
-                  <FormControlLabel
+
+    <div>
+    <AnimatePresence mode='wait'>
+
+    {isLeftSectionVisible && (
+      <motion.div
+      variants={LeftSectionSlide}
+      animate="enter"
+      exit="exit"
+      initial="initial"
+      >
+      <div  style={{position: "absolute", width: "100%"}}>
+      <div>
+        <SearchRolesBar
+          setResults={setResults}
+          input={input}
+          setInput={handleSearchBarChange}
+          setIsResultClicked={setIsResultClicked}
+          searchBarClassName="roles-search-bar"
+        />
+        {results && results.length > 0 && !isResultClicked && (
+          <SearchRolesResultsList
+            results={results}
+            onResultClick={handleResultClick}
+            searchResultsListClassName="roles-search-result-list"
+          />
+        )}
+      </div>
+      <div className='hr-place'>
+        <hr className='search-place-hr'/>
+      </div>
+      <div className={`roles-container ${isShowDataPage ? '' : 'homeStyle'}`}>
+        <div className="centered-category-header">
+          <div className="preferences-column">
+            {Object.keys(preferencesData).map((categoryName) => (
+              <div key={categoryName} className="category-container">
+                <div className="category-header">
+                <FormControlLabel
                     control={
-                      <Checkbox
-                        checked={preferencesData[categoryName].every(
-                          (preference) =>
-                            selectedPreferences.some(
-                              (p) => p.id === preference.id,
-                            ),
-                        )}
-                        onChange={() => handleCategoryToggle(categoryName)}
-                      />
+                      <div className="custom-checkbox">
+                        <Checkbox
+                          checked={preferencesData[categoryName].every(
+                            (preference) =>
+                              selectedPreferences.some(
+                                (p) => p.name === preference.name,
+                              ),
+                          )}
+                          onChange={() => handleCategoryToggle(categoryName)}
+                        />
+                      </div>
                     }
-                    label={
-                      <span style={{ fontSize: '17px' }}>
-                        {t(categoryName)}
-                      </span>
-                    }
+                    label={<span className="category-label">{t(categoryName)}</span>}
                   />
-                </div>
-                {isSmallScreen && (
+                <div className="expand-button-wrapper">
                   <button
-                    className="toggle-button-expanded"
+                    variant="outlined"
+                    size="small"
                     onClick={() => toggleCategoryExpansion(categoryName)}
+                    className="expand-button"
                   >
                     {expandedCategories.includes(categoryName) ? (
-                      <IoIosArrowUp />
+                      <IoIosArrowUp style={{ fontSize: '24px' }}/>
                     ) : (
-                      <IoIosArrowDown />
+                      <IoIosArrowDown style={{ fontSize: '24px' }}/>
                     )}
                   </button>
+                </div>
+                </div>
+                {expandedCategories.includes(categoryName) && (
+                  <div className="preferences-checkbox">
+                    {preferencesData[categoryName].map((preference) => (
+                      <FormControlLabel
+                        key={preference.name}
+                        control={
+                          <Checkbox
+                            value={preference.name}
+                            name={preference.name}
+                            checked={selectedPreferences.some(
+                              (p) => p.name === preference.name,
+                            )}
+                            onChange={handlePreferenceChange}
+                            className="role-checkbox"
+                          />
+                        }
+                        className="role-option"
+                        label={<span className="preferences-label">{t(preference.name)}</span>}
+                      />
+                    ))}
+                  </div>
                 )}
               </div>
-              <div
-                className={`preferences-checkbox ${
-                  isSmallScreen ? '' : 'expanded'
-                }`}
-              >
-                {preferencesData[categoryName].map((preference) => (
-                  <FormControlLabel
-                    key={preference.id}
-                    control={
-                      <Checkbox
-                        value={preference.id}
-                        name={preference.name}
-                        checked={selectedPreferences.some(
-                          (p) => p.id === preference.id,
-                        )}
-                        onChange={handlePreferenceChange}
-                        className="role-checkbox"
-                      />
-                    }
-                    className="role-option"
-                    label={
-                      <span style={{ fontSize: '14px' }}>
-                        {t(preference.name)}
-                      </span>
-                    }
-                  />
-                ))}
-              </div>
+            ))}
+          </div>
+        </div>
+        <label className="filters-label">{t("Your filters")}</label>
+
+      <div>
+        {preferencesSearchData.map((preference, index) => (
+          <div key={index} className="selected-search-preferences">
+            <div className="selected-search-preference">
+              <span className="selected-preference-label">{t(preference)}</span>
+              <Icon icon="material-symbols-light:close" className="close-icon" onClick={() => handleRemovePreference(index)}/> 
             </div>
-          ))}
+          </div>
+        ))}
         </div>
       </div>
+      <div className='hr-place'>
+        <hr className='search-place-hr'/>
+      </div>
+      <div className="delete-all">
+        <label className="clear-all" onClick={() => handleRemoveAllPreferences()}>{t("Clear all")}</label>
+        <div className="toggle-left-section-wrapper">
+          <Icon icon="mdi-light:arrow-left" className="toggle-left-section-icon"/>
+          <label className="toggle-left-section" onClick={() => toggleRoleSVisible()} >{t("Hide")}</label>
+        </div>
+      </div>
+      </div>
+      </motion.div>
+      )}
+      </AnimatePresence>
+
+      <AnimatePresence mode='wait'>
+      {!isLeftSectionVisible && (
+      <motion.div
+        variants={LeftSectionSlideHide}
+        animate="enter"
+        exit="exit"
+        initial="initial"
+      >
+        
+      <div className="toggle-left-section-wrapper-show-data left-section-center" style={{position: "absolute"}}>
+        <div className='toggle-left-section-div'>
+          <Icon icon="mdi-light:arrow-right" className="toggle-left-section-icon-show-data"/>
+          <label className="toggle-left-section-show-data" onClick={() => toggleRoleSVisible()} >{t("Show")}</label>
+        </div>
+      </div>
+      </motion.div>
+      )}
+      </AnimatePresence>
     </div>
+
   );
 };
 
