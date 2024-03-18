@@ -364,7 +364,7 @@
   width: calc(100% - 5vh);
   display: flex;
   text-align: center;
-  height: 10vh;
+  height: 7vh;
   background-color: #DCE6FA;
   font-family: Lato;
   font-size: 24px;
@@ -373,7 +373,7 @@
   line-height: normal;
   padding-left: 3vh;
   padding-right: 3vh;
-  padding-top: 4vh;
+  padding-top: 1.5vh;
 }
 
 
@@ -602,14 +602,14 @@
 @media only screen and (min-width: 801px) {
   .right-section {
     width: 60%; /* Adjust the width as needed */
-    height: 76vh;
+    height: 75.8vh;
     flex-direction: column; /* Ustaw kolumnowy układ */
     margin-right: 40px;
     transition: cubic-bezier(1, 1, 1, 1) 0.4s;
   }
   .right-section-center {
     width: 150%;
-    height: 76vh;
+    height: 75.8vh;
     margin-right: 40px;
     transition: cubic-bezier(1, 1, 1, 1) 0.4s;
   }

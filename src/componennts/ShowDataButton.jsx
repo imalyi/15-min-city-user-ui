@@ -12,7 +12,7 @@ export const ShowDataButton = React.forwardRef(
     console.log(selectedPreferences)
     const { t } = useTranslation();
     const handleUserLocationClick = async () => {
-      if (addressId === '' || address === '') {
+      if (address === '') {
         alert(
           'Please, choose an address from the prompts or localization button',
         );
