@@ -418,8 +418,6 @@ const Markers = ({ placeName, lat, lng, distance, address, name }) => {
       icon={markerIcon}
       riseOnHover={true}
     >
-      {console.log( address)}
-
       <Popup>
         <div>
           <strong>{name}</strong>

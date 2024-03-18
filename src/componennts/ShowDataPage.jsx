@@ -130,7 +130,7 @@ function ShowDataPage() {
       return Object.keys(places.points_of_interest).some(interestKey => {
         const interests = places.points_of_interest[interestKey];
         console.log(interestKey);
-        return interests.hasOwnProperty(category.label);
+        return Array.isArray(interests[category.key]) && interests[category.key].length > 0;
       });
     });
     console.log(visibleCategories);
@@ -184,14 +184,16 @@ function ShowDataPage() {
     
     const filteredPreferencesInCategory = filteredPreferencesData[category];
     
-    const categories = Object.keys(allPreferencesInCategory);
+    const categories = Object.keys(allPreferencesInCategory).filter(
+      key => Array.isArray(allPreferencesInCategory[key]) && allPreferencesInCategory[key].length > 0
+    );
   
     const numberOfCategories = categories.length;
 
     const filteredPreferencesCount = filteredPreferencesInCategory ? filteredPreferencesInCategory.length : 0;
     
     const percentage = (numberOfCategories / filteredPreferencesCount) * 100;
-    console.log(filteredPreferencesCount)
+    console.log(categories)
     return `${percentage.toFixed(0)}%`;
   };
 
