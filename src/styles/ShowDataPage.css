@@ -293,6 +293,7 @@
 }
 
 .matchVidible{
+
   width: 100%;
 
   position: absolute;
@@ -312,6 +313,7 @@
 }
 
 .toggleReportSectionisMatchVisibleClass{
+  color: #DCE6FA;
   margin-right: 5vh;
   margin-top: 4vh;
   height: 8vh;
@@ -351,6 +353,7 @@
 }
 
 .toggleReportSection-icon{
+  color: black;
   width: 6vh;
   height: 10vh;
   padding-right: 3vh;
@@ -361,6 +364,22 @@
 
 
 .selectyourCriteria{
+  width: calc(100%);
+  display: flex;
+  text-align: center;
+  height: 7vh;
+  background-color: #DCE6FA;
+  font-family: Lato;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-left: 3vh;
+  padding-right: 3vh;
+  padding-top: 1.5vh;
+}
+
+.selectyourCriteriaWithoutCategories{
   width: calc(100% - 5vh);
   display: flex;
   text-align: center;
@@ -376,8 +395,6 @@
   padding-top: 1.5vh;
 }
 
-
-
 .show-data-search-place-hr{
   border-top: 0px;
   margin-left:4vh;
@@ -388,12 +405,19 @@
   height:1px;
 }
 
-.show-data-hr-place{
-  margin-right:5vh;
+.show-data-hr-place-top{
+  margin-right: 5vh;
   background-color: #DCE6FA;
   margin-top: 0px;
   margin-bottom: 0px;
 }
+
+.show-data-hr-place{
+  background-color: #DCE6FA;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 
 
 .matchContainer {
@@ -427,8 +451,15 @@
   z-index: 102;
 }
 
-.toggle-match-details-div{
+.matchShadow{
+  box-shadow: 0px 9px 30px 0px rgba(46, 54, 61, 0.15);
   width: calc(100% - 5vh);
+
+}
+
+.toggle-match-details-div{
+
+  width: calc(100%);
   display: flex;
   text-align: center;
   height: 13vh;
@@ -605,7 +636,7 @@
     height: 75.8vh;
     flex-direction: column; /* Ustaw kolumnowy układ */
     margin-right: 40px;
-    transition: cubic-bezier(1, 1, 1, 1) 0.4s;
+    transition: cubic-bezier(1, 1, 1, 1) 0.7s;
   }
   .right-section-center {
     width: 150%;
@@ -626,21 +657,25 @@
 
 .show-data-page-search-bar {
   width: calc(100% - 24px);
-  height: 96px;
+  height: 11vh;
   border-radius:8px;
-  padding: 0 24px;
+  padding: 0 3vh;
   background-color: #DCE6FA;
   display: flex;
   align-items: center;
   margin-left: 3vh;
   margin-right: 5vh;
   margin-top: 4vh;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0; 
 }
 
 .show-data-page-search-result-list {
   position: absolute;
-  margin-left: 24px;
-  margin-top: 112px;
+  margin-left: 3vh;
+  margin-top: 15vh;
   width: calc(100% - 24px);
   background-color: #DCE6FA;
   display: flex;

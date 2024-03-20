@@ -44,7 +44,7 @@ function Home() {
     setInput(result);
     setAddressId(result);
     setIsResultClicked(true);
-    setTimeout(handleEnterPress, 50);
+    setTimeout(handleEnterPress, 20);
   };
 
 

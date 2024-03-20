@@ -272,14 +272,14 @@ function ShowDataPage() {
                 initial="initial"
                 >
                 <div className='matchVidible'>
-                  <div className='show-data-hr-place'>
+                  <div className='show-data-hr-place-top'>
                     <hr className='show-data-search-place-hr'/>
                   </div>
                   <div>
                     {(selectedPreferencesShowPage.length === 0) ? (
-                      <label className='selectyourCriteria' style={{paddingBottom: '9vh'}}>{t("Select your criteria in the menu on the left to see a match")}</label>
+                      <label className='selectyourCriteriaWithoutCategories' style={{paddingBottom: '9vh'}}>{t("Select your criteria in the menu on the left to see a match")}</label>
                     ) : (
-                      <div>
+                      <div className="matchShadow">
                       {isMatchDetailsVisible ? (                 
                         <div>
                           <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
