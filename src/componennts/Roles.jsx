@@ -300,9 +300,8 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
       >
         
       <div className="toggle-left-section-wrapper-show-data left-section-center" style={{position: "absolute"}}>
-        <div className='toggle-left-section-div'>
+        <div className='toggle-left-section-div'onClick={() => toggleRoleSVisible()}>
           <Icon icon="mdi-light:arrow-right" className="toggle-left-section-icon-show-data"/>
-          <label className="toggle-left-section-show-data" onClick={() => toggleRoleSVisible()} >{t("Show")}</label>
         </div>
       </div>
       </motion.div>

@@ -5,6 +5,8 @@
   overflow-y: scroll;
   height: 46.5vh;
   margin-left: 5vh;
+  overflow-x: hidden;
+
 }
 /* Dodaj te style w swoim arkuszu stylów CSS */
 .roles-container::-webkit-scrollbar {
