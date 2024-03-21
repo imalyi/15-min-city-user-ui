@@ -32,14 +32,65 @@
   flex-grow: 1; /* Ustawia flex-grow na 1, aby zajmować dostępną przestrzeń */
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar {
+  width: 1.5vh; /* Szerokość paska przewijania */
+  height: 112px;
+}
+html::-webkit-scrollbar-thumb {
+  background-color: #A1ABBF; /* Kolor "kciuka" paska przewijania */
+}
+
 .home-container {
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 200vh;
   /**/
   background-color: #F0F8FF;
   background-size: cover; /* Adjust as needed */
   background-position: center; /* Adjust as needed */
+}
+
+.home-description-title{
+  max-width: 100vh;
+  margin-top: 21vh;
+  margin-left: 5.5vh;
+  font-family: 'Lato', sans-serif;
+  font-size: 5vh;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--primary, #24254C);
+
+}
+
+.home-description-second-title{
+  width: 80vh;
+  margin-top: 4vh;
+  margin-left: 5.5vh;
+  font-family: 'Lato', sans-serif;
+  font-size: 3vh;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: var(--primary, #24254C);
+}
+
+.home-description-third-title{
+  width: 70vh;
+  margin-top:30vh;
+  margin-left: 5.5vh;
+  color: var(--primary, #24254C);
+  font-family: 'Lato', sans-serif;
+  font-size: 3vh;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+
 }
 
 .text {
@@ -59,21 +110,24 @@
 }
 
 .language-select-container {
+  position:fixed;
+  z-index:100;
   /*margin-left: auto; /* Push the language select to the right */
   margin-left: 1.5%;
   margin-top: 10px;
   margin-bottom: 10px;
   margin: auto;
   display: flex;
-  width: 100%;
-
+  width: 200%;
+  height: 13vh;
+  background-color: #F0F8FF;
 }
 
 .logo {
-  margin-left: 40px;
-  margin-top: 32px;
+  margin-left: 5vh;
+  margin-top: 4vh;
   width: 115px;
-  height: 64px;
+  height: 8vh;
   border: none;
   background-color: #F0F8FF;
   border-radius: 8px;
