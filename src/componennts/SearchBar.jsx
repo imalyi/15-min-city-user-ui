@@ -3,6 +3,7 @@ import '../styles/SearchBar.css';
 import { useTranslation } from 'react-i18next';
 import api from '../config';
 import { ShowDataButton } from './ShowDataButton';
+import { use } from 'i18next';
 export const SearchBar = ({
   setResults,
   showDataRef,
@@ -13,7 +14,7 @@ export const SearchBar = ({
   onEnterPress,
   searchBarClassName,
   selectedPreferences,
-  preferencesSearchData
+  preferencesSearchData,
 }) => {
   const { t } = useTranslation();
   const [debouncedValue, setDebouncedValue] = useState(input);
@@ -26,7 +27,7 @@ export const SearchBar = ({
     );
   };
 
-
+  console.log(selectedPreferences);
   const fetchData = useCallback(
     async (value) => {
       if (value === '') {

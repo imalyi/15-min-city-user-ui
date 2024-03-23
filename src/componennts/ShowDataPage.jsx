@@ -153,7 +153,7 @@ function ShowDataPage() {
     };
   };
 
-  console.log(preferencesSearchDataShowPage)
+  console.log(selectedPreferencesShowPage)
 
 
   const mainCategoriesToShow = Object.keys(places.points_of_interest);
@@ -161,7 +161,7 @@ function ShowDataPage() {
   const filteredPreferencesData = Object.keys(preferencesData).reduce((acc, key) => {
   // Filtruj preferencje w danej kategorii
   const filteredPreferences = preferencesData[key].filter(preference => {
-    return selectedPreferences.some(selectedPreference => selectedPreference.name === preference.name);
+    return selectedPreferencesShowPage.some(selectedPreference => selectedPreference.name === preference.name);
   });
   
   // Jeśli istnieją jakieś pasujące preferencje, dodaj je do wynikowej tablicy
@@ -190,7 +190,7 @@ function ShowDataPage() {
     return `${percentage.toFixed(0)}%`;
   };
 
-  const categoriesToShow = selectedPreferences.map((preference) => {
+  const categoriesToShow = selectedPreferencesShowPage.map((preference) => {
     const formattedPreferenceLabel = preference.name
       .split('_')
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -329,6 +329,7 @@ function ShowDataPage() {
                     isLeftSectionVisible={isLeftSectionVisible}
                     setPreferencedDataShowPage={handlePreferencesData}
                     setPreferencesSearchDataShowPage={setPreferencesSearchDataShowPage}
+                    handleSearch={handleEnterPress}
                   />
                 </div>
               </div>

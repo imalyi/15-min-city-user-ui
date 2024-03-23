@@ -10,7 +10,7 @@ import {Icon} from '@iconify/react';
 import { motion, AnimatePresence } from "framer-motion"
 import {LeftSectionSlide, LeftSectionSlideHide} from "./anim.js"
 
-const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVisible, isLeftSectionVisible, setPreferencedDataShowPage, setPreferencesSearchDataShowPage }) => {
+const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVisible, isLeftSectionVisible, setPreferencedDataShowPage, setPreferencesSearchDataShowPage, handleSearch }) => {
   const { t } = useTranslation();
   const [isShowDataPage, setIsShowDataPage] = useState(false);
   const [selectedPreferences, setSelectedPreferences] = useState(
@@ -25,16 +25,21 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
   const [isResultClicked, setIsResultClicked] = useState(false);
   const [preferencesSearchData, setPreferencesSearchData] = useState([]);
 
-
   const handleRemoveAllPreferences = () => {
     setPreferencesSearchData([]);
     setSelectedPreferences([]);
+    onSelectPreferences([]);
+    setPreferencesSearchDataShowPage([]);
+    setTimeout(handleSearch(), 50);
+
   }
 
   const handleRemovePreference = (preferenceIndex) => {
     const updatedPreferences = [...preferencesSearchData];
     updatedPreferences.splice(preferenceIndex, 1);
     setPreferencesSearchData(updatedPreferences);
+    setTimeout(handleSearch(), 50);
+
   };
 
   const handleResultClick = (result) => {
@@ -55,6 +60,7 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
       // Jeśli result nie istnieje, dodaj go do preferencesSearchData
       setPreferencesSearchData([...preferencesSearchData, result]);
       setPreferencesSearchDataShowPage([...preferencesSearchData, result]);
+      setTimeout(handleSearch(), 50);
       console.log(preferencesSearchData);
     } else {
       console.log("Result already exists in preferencesSearchData");
@@ -116,6 +122,8 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
       : [...selectedPreferences, {name: preferenceName }];
     setSelectedPreferences(updatedPreferences);
     onSelectPreferences(updatedPreferences);
+    setTimeout(handleSearch(), 50);
+
   };
 
   const handleCategoryToggle = (categoryName) => {
@@ -134,6 +142,8 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
 
     setSelectedPreferences(updatedPreferences);
     onSelectPreferences(updatedPreferences);
+    setTimeout(handleSearch(), 50);
+
   };
 
 
@@ -174,6 +184,8 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
     } else {
       setExpandedCategories([...expandedCategories, categoryName]);
     }
+    setTimeout(handleSearch(), 50);
+    
   };
 
   return (

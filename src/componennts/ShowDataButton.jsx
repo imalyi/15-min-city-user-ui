@@ -30,6 +30,7 @@ export const ShowDataButton = React.forwardRef(
               selectedPreferences,
             },
           });
+          console.log(places);
         }
       }
     };
