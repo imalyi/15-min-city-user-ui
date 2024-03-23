@@ -38,6 +38,7 @@ function Map({
         position={selectedCoordinatesShowPage}
         icon={locationIcon}
       />
+      <FlyToMarkerReverse flyToLocation={selectedCoordinatesShowPage} />
       <FlyToMarker flyToLocation={flyToLocation} />
       {mainCategoriesToShow.map(category => {
         return Object.values(places[category]).map((preference, index) => {
@@ -69,6 +70,20 @@ function FlyToMarker({ flyToLocation }) {
       const [lng, lat] = flyToLocation;
       map.flyTo([lat, lng], 18, {
         duration: 1,
+      });
+    }
+  }, [flyToLocation, map]);
+
+  return null;
+}
+
+function FlyToMarkerReverse({ flyToLocation }) {
+  const { map } = useLeafletContext();
+  useEffect(() => {
+    if (flyToLocation) {
+      const [lat, lng] = flyToLocation;
+      map.flyTo([lat, lng], 13, {
+        duration: 0.5,
       });
     }
   }, [flyToLocation, map]);
