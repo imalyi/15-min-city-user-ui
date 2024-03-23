@@ -7,9 +7,8 @@ import api from '../config';
 import { Icon } from '@iconify/react';
 
 export const ShowDataButton = React.forwardRef(
-  ({ address, addressId, selectedPreferences }, ref) => {
+  ({ address, addressId, selectedPreferences, preferencesSearchData }, ref) => {
     const navigate = useNavigate();
-    console.log(selectedPreferences)
     const { t } = useTranslation();
     const handleUserLocationClick = async () => {
       if (address === '') {
@@ -31,40 +30,49 @@ export const ShowDataButton = React.forwardRef(
               selectedPreferences,
             },
           });
-          console.log(places);
         }
       }
     };
 
     const getplacesFromCoordinates = async () => {
-      let preferenceNames = selectedPreferences.map(preference => `cat=${preference.name}`).join('&');
-      console.log(preferenceNames)
-      if (preferenceNames === '') {
-        preferenceNames = 'cat=Fast%20Food';
-      }
-      console.log('przed response', `${api.APP_URL_USER_API}report/?address=${address}&${preferenceNames}`);
       try {
-        console.log('przed response', `${api.APP_URL_USER_API}report/?address=${address}&${preferenceNames}`);
-        const response = await fetch(`${api.APP_URL_USER_API}report/?address=${address}&${preferenceNames}`, {
-          method: 'Get',
+        let custom_names = [];
+        let custom_addresses = [];
+        console.log(preferencesSearchData);
+        if (preferencesSearchData) {
+          preferencesSearchData.forEach(item => {
+            if (typeof item === 'object') {
+              custom_names.push(item);
+            } else if (typeof item === 'string') {
+              custom_addresses.push(item);
+            }
+          });
+        }
+        const requestBody = {
+          address: address,
+          cat: selectedPreferences.map(preference => preference.name),
+          custom_names: custom_names,
+          custom_addresses: custom_addresses
+        };
+        console.log(requestBody);
+        const response = await fetch(`${api.APP_URL_USER_API}report/`, {
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
+          body: JSON.stringify(requestBody),
         });
-
+    
         if (response.ok) {
           const data = await response.json();
           console.log(data);
           return data;
         } else {
-          console.error(
-            'Error getting places from addressId:',
-            response.statusText,
-          );
+          console.error('Error getting report:', response.statusText);
           throw new Error(response.statusText);
         }
       } catch (error) {
-        console.error('Error getting places from addressId:', error);
+        console.error('Error getting report:', error);
       }
     };
     return (

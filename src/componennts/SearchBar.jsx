@@ -13,6 +13,7 @@ export const SearchBar = ({
   onEnterPress,
   searchBarClassName,
   selectedPreferences,
+  preferencesSearchData
 }) => {
   const { t } = useTranslation();
   const [debouncedValue, setDebouncedValue] = useState(input);
@@ -32,7 +33,6 @@ export const SearchBar = ({
         setIsResultClicked(true);
         return;
       }
-      console.log('przed response', `${api.APP_URL_USER_API}address/?name=${value}`);
       try {
         const response = await fetch(
           `${api.APP_URL_USER_API}address/?name=${value}`,
@@ -45,7 +45,6 @@ export const SearchBar = ({
         );
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           const results = data;
           setResults(results);
         } else {
@@ -118,6 +117,7 @@ export const SearchBar = ({
           address={input}
           addressId={addressId}
           selectedPreferences={selectedPreferences}
+          preferencesSearchData={preferencesSearchData}
         />
     </div>
   );

@@ -5,7 +5,7 @@ import api from '../config';
 import { Icon } from '@iconify/react';
 
 export const SearchRolesBar = ({
-    setResults, input, setInput, setIsResultClicked, onEnterPress, searchBarClassName
+  setCustomAddress, setCustomObject, input, setInput, setIsResultClicked, onEnterPress, searchBarClassName
 }) => {
   const { t } = useTranslation();
   const [debouncedValue, setDebouncedValue] = useState(input);
@@ -25,10 +25,9 @@ export const SearchRolesBar = ({
         setIsResultClicked(true);
         return;
       }
-      console.log('przed response');
       try {
         const response = await fetch(
-          `${api.APP_URL_USER_API}address/?name=${value}`,
+          `${api.APP_URL_USER_API}object/?partial_name=${value}`,
           {
             method: 'GET',
             headers: {
@@ -38,10 +37,9 @@ export const SearchRolesBar = ({
         );
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           const results = data;
-          //setResults(results);
-          setResults(['McDonalds', 'KFC', "Burger King", "Pizza Hut", "Subway", "Starbucks", "Costa Coffee", "Pret A Manger", "Greggs", "Nando's", "Wagamama", "Yo! Sushi", "Wimpy", "Taco Bell", "Domino's Pizza", "Papa John's Pizza", "PizzaExpress", "Zizzi", "ASK Italian", "Bella Italia", "Cafe Rouge", "Carluccio's", "Giraffe", "Las Iguanas", "TGI Fridays", "Chiquito", "Frankie & Benny's", "Harvester", "Toby Carvery", "Beefeater", "Brewers Fayre", "Hungry Horse", "Marston's Inns and Taverns", "Sizzling Pubs", "Stonehouse Pizza & Carvery", "Vintage Inns", "All Bar One", "Browns", "Ember Inns", "Miller & Carter", "Nicholson's", "O'Neill's", "Owens", "Sizzling Pubs", "Toby Carvery", "Vintage Inns", "Zizzi", "ASK Italian", "Bella Italia", "Cafe Rouge", "Carluccio's", "Giraffe", "Las Iguanas", "TGI Fridays", "Chiquito", "Frankie & Benny's", "Harvester", "Toby Carvery", "Beefeater", "Brewers Fayre", "Hungry Horse", "Marston's Inns and Taverns", "Sizzling Pubs", "Stonehouse Pizza & Carvery", "Vintage Inns", "All Bar One", "Browns", "Ember Inns", "Miller & Carter", "Nicholson's", "O'Neill's", "Owens", "Sizzling Pubs", "Toby Carvery", "Vintage Inns", "Zizzi", "ASK Italian", "Bella Italia", "Cafe Rouge", "Carluccio's", "Giraffe", "Las Iguanas", "TGI Fridays", "Chiquito", "Frankie & Benny's", "Harvester", "Toby Carvery", "Beefeater", "Brewers Fayre", "Hungry Horse", "Marston's Inns and Taverns", "Sizzling Pubs", "Stonehouse Pizza &"])
+          setCustomAddress(results.addresses);
+          setCustomObject(results.objects);
         } else {
           console.error(
             'Error getting address from coordinates:',
@@ -54,7 +52,7 @@ export const SearchRolesBar = ({
         console.error('Error getting address from coordinates:', error);
       }
     },
-    [setIsResultClicked, setResults],
+    [setIsResultClicked, setCustomAddress, setCustomObject],
   );
 
   const handleChange = (value) => {

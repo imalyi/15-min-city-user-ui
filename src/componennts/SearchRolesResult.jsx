@@ -4,7 +4,7 @@ import '../styles/SearchRolesResult.css';
 export const SearchRolesResult = ({ result, onResultClick }) => {
   return (
     <div className="search-result" onClick={() => onResultClick(result)}>
-      {result}
+      {result.name ? result.name : result}
     </div>
   );
 };

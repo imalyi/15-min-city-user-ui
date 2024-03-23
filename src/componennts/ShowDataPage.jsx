@@ -24,13 +24,9 @@ function ShowDataPage() {
 
   const location = useLocation();
   const places = location.state?.places || {};
-  console.log(places);
   const address = location.state?.address || 'Unknown Address';
-  console.log(address);
   const addressId = location.state?.addressId || 'Unknown Address';
-  console.log(addressId);
   const selectedPreferences = location.state?.selectedPreferences || [];
-  console.log(selectedPreferences);
 
   const selectedCoordinates = [location.state?.places.location[1], location.state?.places.location[0]];
   const [results, setResults] = useState([]);
@@ -42,7 +38,6 @@ function ShowDataPage() {
   const [selectedPreferencesShowPage, setSelectedPreferencesShowPage] =
     useState(selectedPreferences);
   const buttonRef = useRef(null);
-  console.log(selectedPreferencesShowPage);
   const [preferencesData, setPreferencesData] = useState([]);
 
 
@@ -55,12 +50,12 @@ function ShowDataPage() {
 
   const [categoryVisibility, setCategoryVisibility] = useState({});
 
+  const [preferencesSearchDataShowPage, setPreferencesSearchDataShowPage] = useState([]);
 
 
   const handlePreferencesData = (data) => {
     setPreferencesData(data)
   };
-  console.log(preferencesData)
 
   const handleCategoryLabelClick = (categoryKey) => {
     setCategoryVisibility((prevVisibility) => ({
@@ -131,11 +126,9 @@ function ShowDataPage() {
     const visibleCategories = categoriesToShow.filter(category => {
       return Object.keys(places.points_of_interest).some(interestKey => {
         const interests = places.points_of_interest[interestKey];
-        console.log(interestKey);
         return Array.isArray(interests[category.key]) && interests[category.key].length > 0;
       });
     });
-    console.log(visibleCategories);
     const percentage =
       (visibleCategories.length / categoriesToShow.length) * 100;
     // Ustal klasę tekstu w zależności od procentu
@@ -160,10 +153,10 @@ function ShowDataPage() {
     };
   };
 
+  console.log(preferencesSearchDataShowPage)
 
 
   const mainCategoriesToShow = Object.keys(places.points_of_interest);
-  console.log(mainCategoriesToShow);
 
   const filteredPreferencesData = Object.keys(preferencesData).reduce((acc, key) => {
   // Filtruj preferencje w danej kategorii
@@ -179,7 +172,6 @@ function ShowDataPage() {
   return acc;
   }, {});
 
-  console.log(filteredPreferencesData);
 
   const calculatePercentageInCategory = (category) => {
     const allPreferencesInCategory = places.points_of_interest[category];
@@ -195,7 +187,6 @@ function ShowDataPage() {
     const filteredPreferencesCount = filteredPreferencesInCategory ? filteredPreferencesInCategory.length : 0;
     
     const percentage = (numberOfCategories / filteredPreferencesCount) * 100;
-    console.log(categories)
     return `${percentage.toFixed(0)}%`;
   };
 
@@ -211,7 +202,6 @@ function ShowDataPage() {
     };
   });
 
-  console.log(categoriesToShow);
 /*
   categoriesToShow.sort((a, b) => {
     const hasPlacesA = !!places.points_of_interest[a.key];
@@ -338,6 +328,7 @@ function ShowDataPage() {
                     toggleRoleSVisible={handleToggleLeftSection}
                     isLeftSectionVisible={isLeftSectionVisible}
                     setPreferencedDataShowPage={handlePreferencesData}
+                    setPreferencesSearchDataShowPage={setPreferencesSearchDataShowPage}
                   />
                 </div>
               </div>
@@ -364,6 +355,7 @@ function ShowDataPage() {
               onEnterPress={handleEnterPress}
               searchBarClassName="show-data-page-search-bar"
               selectedPreferences={selectedPreferencesShowPage}
+              preferencesSearchData={preferencesSearchDataShowPage}
               />
             </motion.div>
               {results && results.length > 0 && !isResultClicked && (

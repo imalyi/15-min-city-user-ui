@@ -18,9 +18,6 @@ function Map({
     iconUrl: 'https://cdn-icons-png.flaticon.com/128/684/684908.png',
     iconSize: [40, 40],
   });
-  console.log('Map -> selectedCoordinatesShowPage', places);
-  console.log('Map -> selectedCoordinatesShowPage', categoriesToShow);
-  console.log('Map -> selectedCoordinatesShowPage', mainCategoriesToShow);
 
 
   return (

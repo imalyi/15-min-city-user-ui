@@ -41,7 +41,6 @@ function Home() {
   };
 
   const handleResultClick = (result) => {
-    console.log(result)
     setInput(result);
     setAddressId(result);
     setIsResultClicked(true);
