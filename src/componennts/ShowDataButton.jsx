@@ -10,7 +10,10 @@ export const ShowDataButton = React.forwardRef(
   ({ address, addressId, selectedPreferences, preferencesSearchData }, ref) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
+    console.log(selectedPreferences)
     const handleUserLocationClick = async () => {
+      console.log(selectedPreferences)
+
       if (address === '') {
         alert(
           'Please, choose an address from the prompts or localization button',
@@ -36,6 +39,8 @@ export const ShowDataButton = React.forwardRef(
     };
 
     const getplacesFromCoordinates = async () => {
+      console.log(selectedPreferences)
+
       try {
         let custom_names = [];
         let custom_addresses = [];
@@ -49,6 +54,7 @@ export const ShowDataButton = React.forwardRef(
             }
           });
         }
+
         const requestBody = {
           address: address,
           cat: selectedPreferences.map(preference => preference.name),

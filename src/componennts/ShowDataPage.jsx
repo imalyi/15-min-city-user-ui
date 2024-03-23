@@ -80,16 +80,18 @@ function ShowDataPage() {
 
   const handleEnterPress = () => {
     if (buttonRef.current) {
-      buttonRef.current.click();
+      setTimeout(() => {
+        buttonRef.current.click();
+      }, 10); // Czas w milisekundach (tutaj 100000ms = 100s)
     }
   };
+  
 
   const handleResultClick = (result) => {
     setInput(result);
     setAddressIdShowPage(result);
     setIsResultClicked(true);
-    setTimeout(handleEnterPress, 50);
-
+    handleEnterPress();
   };
 
   const handleSearchBarChange = (value) => {
@@ -187,7 +189,13 @@ function ShowDataPage() {
     const filteredPreferencesCount = filteredPreferencesInCategory ? filteredPreferencesInCategory.length : 0;
     
     const percentage = (numberOfCategories / filteredPreferencesCount) * 100;
-    return `${percentage.toFixed(0)}%`;
+    
+    if (filteredPreferencesCount > 0) {
+      const percentage = (numberOfCategories / filteredPreferencesCount) * 100;
+      return `${percentage.toFixed(0)}%`;
+    } else {
+      return '0%';
+    }
   };
 
   const categoriesToShow = selectedPreferencesShowPage.map((preference) => {
