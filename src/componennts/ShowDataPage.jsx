@@ -140,6 +140,13 @@ function ShowDataPage() {
     if (categoriesToShow.length === 0 && preferencesSearchDataShowPage.length != 0) {
       const percentage =
       ((custom_names.length) / (totalPlacesCount)) * 100;
+      if (percentage > 100 || isNaN(percentage || percentage < 0)) {
+        return {
+          text: '0%',
+          class: 'red-text',
+          percentage: 0,
+        };
+      }
       return {
         text: `${percentage.toFixed(0)}%`,
         class: 'red-text',
