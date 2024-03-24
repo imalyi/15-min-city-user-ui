@@ -12,7 +12,9 @@ function Map({
   categoriesToShow,
   selectedCoordinatesShowPage,
   flyToLocation,
-  mainCategoriesToShow
+  mainCategoriesToShow,
+  preferencesSearchDataShowPage,
+  custom_names,
 }) {
   const locationIcon = new Icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/128/684/684908.png',
@@ -47,6 +49,23 @@ function Map({
               <Markers
                 key={`${category}-${index}`}
                 placeName={category}
+                lat={item.location[1]}
+                lng={item.location[0]}
+                distance={item.distance}
+                address={item.address.full}
+                name={item.name}
+              />
+            );
+          });
+        });
+      })}
+      {Object.values(custom_names).map((categoryList, index1) => {
+        return Object.values(categoryList).map((subcategory, index2) => {
+          return subcategory.map((item, index3) => {
+            return (
+              <Markers
+                key={`${categoryList}-${index1}-${index2}-${index3}`}
+                placeName={item.name} // Załóżmy, że subcategory zawiera informacje o kategorii
                 lat={item.location[1]}
                 lng={item.location[0]}
                 distance={item.distance}

@@ -119,19 +119,6 @@ function ShowDataPage() {
   };
 
   const countVisibleCategories = () => {
-    if (categoriesToShow.length === 0) {
-      return {
-        text: '',
-        class: 'red-text',
-      };
-    }
-    if (places.points_of_interest === undefined) {
-      return {
-        text: '0%',
-        class: 'red-text',
-        percentage: 0,
-      };
-    }
     let custom_names = [];
     if (preferencesSearchDataShowPage) {
       preferencesSearchDataShowPage.forEach(item => {
@@ -149,6 +136,28 @@ function ShowDataPage() {
           totalPlacesCount += preferences.length;
         });
       });
+    }
+    if (categoriesToShow.length === 0 && preferencesSearchDataShowPage.length != 0) {
+      const percentage =
+      ((custom_names.length) / (totalPlacesCount)) * 100;
+      return {
+        text: `${percentage.toFixed(0)}%`,
+        class: 'red-text',
+        percentage: percentage,
+      };
+    }
+    if (categoriesToShow.length === 0) {
+      return {
+        text: '',
+        class: 'red-text',
+      };
+    }
+    if (places.points_of_interest === undefined) {
+      return {
+        text: '0%',
+        class: 'red-text',
+        percentage: 0,
+      };
     }
     
 
@@ -336,8 +345,40 @@ function ShowDataPage() {
                     <hr className='show-data-search-place-hr'/>
                   </div>
                   <div>
-                    {(selectedPreferencesShowPage.length === 0) ? (
+                    {(selectedPreferencesShowPage.length === 0 && preferencesSearchDataShowPage.length === 0) ? (
                       <label className='selectyourCriteriaWithoutCategories' style={{paddingBottom: '9vh'}}>{t("Select your criteria in the menu on the left to see a match")}</label>
+                    ) : (preferencesSearchDataShowPage.length != 0 && selectedPreferencesShowPage.length === 0) ? (
+                      <div className="matchShadow">
+                        {isMatchDetailsVisible ? (   
+                          <div>
+                          <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
+                            <div className='matchContainer'>
+                              <div className='matchBackground'></div>
+                              <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%"}}></div>
+                            </div>
+                          </div>
+                          <div className='show-data-hr-place'>
+                              <hr className='show-data-search-place-hr'/>
+                            </div>
+                            <div className='toggle-match-details-div' style={{ justifyContent: 'space-between' }}>
+                                <div className="seeMoreDetails">{t("See full report")}</div>
+                                <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("Collapse details")}</div>
+                          </div>
+                          </div>
+                          ) : (
+                            <div>
+                              <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
+                                <div className='matchContainer'>
+                                  <div className='matchBackground'></div>
+                                  <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%",   backgroundColor: "#F8718A"}}></div>
+                                </div>
+                              </div>
+                              <div className='toggle-match-details-div' style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                  <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("Expand on details")}</div>
+                              </div>
+                            </div>  
+                          )}
+                      </div>
                     ) : (
                       <div className="matchShadow">
                       {isMatchDetailsVisible ? (                 
@@ -447,6 +488,8 @@ function ShowDataPage() {
                 )}
                 selectedCoordinatesShowPage={selectedCoordinates}
                 flyToLocation={flyToLocation}
+                custom_names={places.custom_objects}
+                preferencesSearchDataShowPage={preferencesSearchDataShowPage}
               />
             </div>
           </div>
