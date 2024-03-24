@@ -38,6 +38,7 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
     const updatedPreferences = [...preferencesSearchData];
     updatedPreferences.splice(preferenceIndex, 1);
     setPreferencesSearchData(updatedPreferences);
+    setPreferencesSearchDataShowPage(updatedPreferences);
     setTimeout(handleSearch(), 50);
 
   };

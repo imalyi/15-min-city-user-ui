@@ -44,6 +44,7 @@ export const ShowDataButton = React.forwardRef(
       try {
         let custom_names = [];
         let custom_addresses = [];
+        const customNamesArray = [];
         console.log(preferencesSearchData);
         if (preferencesSearchData) {
           preferencesSearchData.forEach(item => {
@@ -55,11 +56,21 @@ export const ShowDataButton = React.forwardRef(
           });
         }
 
+        custom_names.forEach(item => {
+          customNamesArray.push({
+            name: item.name,
+            main_category: item.category,
+            category: item.sub_category
+          });
+        });
+        
+        console.log(customNamesArray);
+
         const requestBody = {
           address: address,
-          cat: selectedPreferences.map(preference => preference.name),
-          custom_names: custom_names,
-          custom_addresses: custom_addresses
+          categories: selectedPreferences,
+          requested_objects: customNamesArray,
+          requested_addresses: custom_addresses
         };
         console.log(requestBody);
         const response = await fetch(`${api.APP_URL_USER_API}report/`, {

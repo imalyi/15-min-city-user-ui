@@ -40,7 +40,7 @@ function Map({
       />
       <FlyToMarkerReverse flyToLocation={selectedCoordinatesShowPage} />
       <FlyToMarker flyToLocation={flyToLocation} />
-      {mainCategoriesToShow.map(category => {
+      {mainCategoriesToShow && mainCategoriesToShow.map(category => {
         return Object.values(places[category]).map((preference, index) => {
           return preference.map((item, index) => {
             return (

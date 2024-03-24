@@ -125,14 +125,44 @@ function ShowDataPage() {
         class: 'red-text',
       };
     }
+    if (places.points_of_interest === undefined) {
+      return {
+        text: '0%',
+        class: 'red-text',
+        percentage: 0,
+      };
+    }
+    let custom_names = [];
+    if (preferencesSearchDataShowPage) {
+      preferencesSearchDataShowPage.forEach(item => {
+        if (typeof item === 'object') {
+          custom_names.push(item);
+        }
+      });
+    }
+
+    let totalPlacesCount = 0;
+
+    if (places.custom_objects) {
+      Object.values(places.custom_objects).forEach(category => {
+        Object.values(category).forEach(preferences => {
+          totalPlacesCount += preferences.length;
+        });
+      });
+    }
+    
+
     const visibleCategories = categoriesToShow.filter(category => {
       return Object.keys(places.points_of_interest).some(interestKey => {
         const interests = places.points_of_interest[interestKey];
         return Array.isArray(interests[category.key]) && interests[category.key].length > 0;
       });
     });
+    console.log(visibleCategories.length)
+    console.log(totalPlacesCount)
+
     const percentage =
-      (visibleCategories.length / categoriesToShow.length) * 100;
+      ((visibleCategories.length + custom_names.length) / (categoriesToShow.length + totalPlacesCount)) * 100;
     // Ustal klasę tekstu w zależności od procentu
     let textClass = '';
 
@@ -147,7 +177,7 @@ function ShowDataPage() {
     } else if (percentage > 90) {
       textClass = 'green-text';
     }
-
+    console.log(percentage)
     return {
       text: `${percentage.toFixed(0)}%`,
       class: textClass,
@@ -155,16 +185,16 @@ function ShowDataPage() {
     };
   };
 
-  console.log(selectedPreferencesShowPage)
 
 
-  const mainCategoriesToShow = Object.keys(places.points_of_interest);
+  const mainCategoriesToShow = places.points_of_interest ? Object.keys(places.points_of_interest) : null;
 
   const filteredPreferencesData = Object.keys(preferencesData).reduce((acc, key) => {
   // Filtruj preferencje w danej kategorii
   const filteredPreferences = preferencesData[key].filter(preference => {
     return selectedPreferencesShowPage.some(selectedPreference => selectedPreference.name === preference.name);
   });
+
   
   // Jeśli istnieją jakieś pasujące preferencje, dodaj je do wynikowej tablicy
   if (filteredPreferences.length > 0) {
@@ -176,6 +206,30 @@ function ShowDataPage() {
 
 
   const calculatePercentageInCategory = (category) => {
+
+    
+    const placesCounts = {};
+
+    if (places.custom_objects) {
+      Object.keys(places.custom_objects).forEach(category => {
+        placesCounts[category] = Object.values(places.custom_objects[category]).reduce((total, preferences) => {
+          return total + preferences.length;
+        }, 0);
+      });
+    }
+
+    const placesCategoryCount = placesCounts[category] || 0;
+    
+    let custom_names = [];
+    if (preferencesSearchDataShowPage) {
+      preferencesSearchDataShowPage.forEach(item => {
+        if (typeof item === 'object') {
+          custom_names.push(item);
+        }
+      });
+    }
+    const preferencesCategory = custom_names.filter(item => item.main_category === category);
+
     const allPreferencesInCategory = places.points_of_interest[category];
     
     const filteredPreferencesInCategory = filteredPreferencesData[category];
@@ -188,27 +242,35 @@ function ShowDataPage() {
 
     const filteredPreferencesCount = filteredPreferencesInCategory ? filteredPreferencesInCategory.length : 0;
     
-    const percentage = (numberOfCategories / filteredPreferencesCount) * 100;
+    const percentage = ((numberOfCategories + placesCategoryCount) / (filteredPreferencesCount + preferencesCategory.length)) * 100;
     
-    if (filteredPreferencesCount > 0) {
+    if (percentage > 100) {
+      return '100%';
+    } else if (filteredPreferencesCount > 0){
       const percentage = (numberOfCategories / filteredPreferencesCount) * 100;
       return `${percentage.toFixed(0)}%`;
     } else {
       return '0%';
+
     }
   };
 
   const categoriesToShow = selectedPreferencesShowPage.map((preference) => {
-    const formattedPreferenceLabel = preference.name
-      .split('_')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+
 
     return {
       key: preference.name,
-      label: formattedPreferenceLabel,
+      label: preference.name,
     };
   });
+
+  const transformedPreferences = Object.entries(filteredPreferencesData).reduce((acc, [mainCategory, subCategories]) => {
+    subCategories.forEach(subCategory => {
+      acc.push({ main_category: mainCategory, category: subCategory.name });
+    });
+    return acc;
+  }, []);
+
 
 /*
   categoriesToShow.sort((a, b) => {
@@ -289,7 +351,7 @@ function ShowDataPage() {
                           <div className='show-data-hr-place'>
                             <hr className='show-data-search-place-hr'/>
                           </div>
-                          {mainCategoriesToShow.map((category, index) => (
+                          {mainCategoriesToShow && mainCategoriesToShow.map((category, index) => (
                             <div key={index} className='selectyourCriteria' ><div className='matchingName'>{category} {calculatePercentageInCategory(category)} </div>
                               <div className='matchContainer'>
                                 <div className='matchBackground'></div>
@@ -363,7 +425,7 @@ function ShowDataPage() {
               setIsResultClicked={setIsResultClicked}
               onEnterPress={handleEnterPress}
               searchBarClassName="show-data-page-search-bar"
-              selectedPreferences={selectedPreferencesShowPage}
+              selectedPreferences={transformedPreferences}
               preferencesSearchData={preferencesSearchDataShowPage}
               />
             </motion.div>
