@@ -15,6 +15,7 @@ function Map({
   mainCategoriesToShow,
   preferencesSearchDataShowPage,
   custom_names,
+  custom_addresses,
 }) {
   const locationIcon = new Icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/128/684/684908.png',
@@ -75,6 +76,19 @@ function Map({
             );
           });
         });
+      })}
+      {Object.values(custom_addresses).map((address, index1) => {
+            return (
+              <Markers
+                key={`${address}`}
+                placeName={address.address.full} // Załóżmy, że subcategory zawiera informacje o kategorii
+                lat={address.location[1]}
+                lng={address.location[0]}
+                distance={address.commute_time.bike}
+                address={""}
+                name={address.address.full}
+              />
+            );
       })}
     </MapContainer>
   );

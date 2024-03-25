@@ -496,6 +496,7 @@ function ShowDataPage() {
                 selectedCoordinatesShowPage={selectedCoordinates}
                 flyToLocation={flyToLocation}
                 custom_names={places.custom_objects}
+                custom_addresses={places.custom_addresses}
                 preferencesSearchDataShowPage={preferencesSearchDataShowPage}
               />
             </div>
