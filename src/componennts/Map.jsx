@@ -84,7 +84,7 @@ function Map({
                 placeName={address.address.full} // Załóżmy, że subcategory zawiera informacje o kategorii
                 lat={address.location[1]}
                 lng={address.location[0]}
-                distance={address.commute_time.bike}
+                distance={address.commute_time.walk.distance}
                 address={""}
                 name={address.address.full}
               />
