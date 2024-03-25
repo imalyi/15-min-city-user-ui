@@ -3,6 +3,7 @@ import '../styles/SearchBar.css';
 import { useTranslation } from 'react-i18next';
 import api from '../config';
 import { ShowDataButton } from './ShowDataButton';
+import { use } from 'i18next';
 export const SearchBar = ({
   setResults,
   showDataRef,
@@ -13,6 +14,7 @@ export const SearchBar = ({
   onEnterPress,
   searchBarClassName,
   selectedPreferences,
+  preferencesSearchData,
 }) => {
   const { t } = useTranslation();
   const [debouncedValue, setDebouncedValue] = useState(input);
@@ -25,14 +27,13 @@ export const SearchBar = ({
     );
   };
 
-
+  console.log(selectedPreferences);
   const fetchData = useCallback(
     async (value) => {
       if (value === '') {
         setIsResultClicked(true);
         return;
       }
-      console.log('przed response', `${api.APP_URL_USER_API}address/?name=${value}`);
       try {
         const response = await fetch(
           `${api.APP_URL_USER_API}address/?name=${value}`,
@@ -45,7 +46,6 @@ export const SearchBar = ({
         );
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           const results = data;
           setResults(results);
         } else {
@@ -118,6 +118,7 @@ export const SearchBar = ({
           address={input}
           addressId={addressId}
           selectedPreferences={selectedPreferences}
+          preferencesSearchData={preferencesSearchData}
         />
     </div>
   );

@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion"
 import {icon} from "./anim.js"
+import { animateScroll as scroll } from 'react-scroll';
 
 function Home() {
   const [results, setResults] = useState([]);
@@ -18,7 +19,7 @@ function Home() {
   const [isResultClicked, setIsResultClicked] = useState(false);
   const [selectedRole, setSelectedRole] = useState('without role');
   const [selectedPreferences, setSelectedPreferences] = useState([]);
-
+  const [isScrollingDown, setIsScrollingDown] = useState(false);
   const { i18n, t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
@@ -40,11 +41,10 @@ function Home() {
   };
 
   const handleResultClick = (result) => {
-    console.log(result)
     setInput(result);
     setAddressId(result);
     setIsResultClicked(true);
-    setTimeout(handleEnterPress, 50);
+    setTimeout(handleEnterPress, 20);
   };
 
 
@@ -61,11 +61,33 @@ function Home() {
     setSelectedPreferences(preferences);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrollingDown(window.scrollY > 0); // Ustawia wartość na true, jeśli użytkownik zaczął scrollować w dół
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const scrollToBottom = () => {
+    scroll.scrollToBottom({
+      duration: 2000, // czas trwania animacji w milisekundach
+      smooth: true, // płynne przewijanie
+    });
+  };
+
+  useEffect(() => {
+    if (isScrollingDown) {
+      scrollToBottom();
+    }
+  }, [isScrollingDown]);
+
   return (
     <div className="home-container">
-      <div classname="logo">
-
-      </div>
       <div className="language-select-container">
         <Link to="/">
           <motion.button
@@ -96,6 +118,9 @@ function Home() {
       </div>
       <div className="search-bar-container">
         <div className="column search-bar-and-results results-container">
+          <h1 className="home-description-title">{t('Imagine that getting to the points in the city that are important to you requires only a short walk.')}</h1>
+          <h2 className="home-description-second-title">{t('The idea of a 15-minute city is just such a vision - a life of convenience and proximity, where you will do your daily errands without long journeys, enjoying greater freedom.')}</h2>
+          <h2 className="home-description-third-title">{t('Enter the address of your choice, indicate the facilities you are using and make sure you have everything at hand where you are staying.')}</h2>
           <SearchBar
             setResults={setResults}
             showDataRef={buttonRef}

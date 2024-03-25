@@ -24,13 +24,9 @@ function ShowDataPage() {
 
   const location = useLocation();
   const places = location.state?.places || {};
-  console.log(places);
   const address = location.state?.address || 'Unknown Address';
-  console.log(address);
   const addressId = location.state?.addressId || 'Unknown Address';
-  console.log(addressId);
   const selectedPreferences = location.state?.selectedPreferences || [];
-  console.log(selectedPreferences);
 
   const selectedCoordinates = [location.state?.places.location[1], location.state?.places.location[0]];
   const [results, setResults] = useState([]);
@@ -42,7 +38,6 @@ function ShowDataPage() {
   const [selectedPreferencesShowPage, setSelectedPreferencesShowPage] =
     useState(selectedPreferences);
   const buttonRef = useRef(null);
-  console.log(selectedPreferencesShowPage);
   const [preferencesData, setPreferencesData] = useState([]);
 
 
@@ -55,12 +50,12 @@ function ShowDataPage() {
 
   const [categoryVisibility, setCategoryVisibility] = useState({});
 
+  const [preferencesSearchDataShowPage, setPreferencesSearchDataShowPage] = useState([]);
 
 
   const handlePreferencesData = (data) => {
     setPreferencesData(data)
   };
-  console.log(preferencesData)
 
   const handleCategoryLabelClick = (categoryKey) => {
     setCategoryVisibility((prevVisibility) => ({
@@ -85,16 +80,18 @@ function ShowDataPage() {
 
   const handleEnterPress = () => {
     if (buttonRef.current) {
-      buttonRef.current.click();
+      setTimeout(() => {
+        buttonRef.current.click();
+      }, 10); // Czas w milisekundach (tutaj 100000ms = 100s)
     }
   };
+  
 
   const handleResultClick = (result) => {
     setInput(result);
     setAddressIdShowPage(result);
     setIsResultClicked(true);
-    setTimeout(handleEnterPress, 50);
-
+    handleEnterPress();
   };
 
   const handleSearchBarChange = (value) => {
@@ -122,22 +119,66 @@ function ShowDataPage() {
   };
 
   const countVisibleCategories = () => {
+    let custom_names = [];
+    if (preferencesSearchDataShowPage) {
+      preferencesSearchDataShowPage.forEach(item => {
+        if (typeof item === 'object') {
+          custom_names.push(item);
+        }
+      });
+    }
+
+    let totalPlacesCount = 0;
+
+    if (places.custom_objects) {
+      Object.values(places.custom_objects).forEach(category => {
+        Object.values(category).forEach(preferences => {
+          totalPlacesCount += preferences.length;
+        });
+      });
+    }
+    if (categoriesToShow.length === 0 && preferencesSearchDataShowPage.length != 0) {
+      const percentage =
+      ((custom_names.length) / (totalPlacesCount)) * 100;
+      if (percentage > 100 || isNaN(percentage || percentage < 0)) {
+        return {
+          text: '0%',
+          class: 'red-text',
+          percentage: 0,
+        };
+      }
+      return {
+        text: `${percentage.toFixed(0)}%`,
+        class: 'red-text',
+        percentage: percentage,
+      };
+    }
     if (categoriesToShow.length === 0) {
       return {
         text: '',
         class: 'red-text',
       };
     }
+    if (places.points_of_interest === undefined) {
+      return {
+        text: '0%',
+        class: 'red-text',
+        percentage: 0,
+      };
+    }
+    
+
     const visibleCategories = categoriesToShow.filter(category => {
       return Object.keys(places.points_of_interest).some(interestKey => {
         const interests = places.points_of_interest[interestKey];
-        console.log(interestKey);
         return Array.isArray(interests[category.key]) && interests[category.key].length > 0;
       });
     });
-    console.log(visibleCategories);
+    console.log(visibleCategories.length)
+    console.log(totalPlacesCount)
+
     const percentage =
-      (visibleCategories.length / categoriesToShow.length) * 100;
+      ((visibleCategories.length + custom_names.length) / (categoriesToShow.length + totalPlacesCount)) * 100;
     // Ustal klasę tekstu w zależności od procentu
     let textClass = '';
 
@@ -152,7 +193,7 @@ function ShowDataPage() {
     } else if (percentage > 90) {
       textClass = 'green-text';
     }
-
+    console.log(percentage)
     return {
       text: `${percentage.toFixed(0)}%`,
       class: textClass,
@@ -162,14 +203,14 @@ function ShowDataPage() {
 
 
 
-  const mainCategoriesToShow = Object.keys(places.points_of_interest);
-  console.log(mainCategoriesToShow);
+  const mainCategoriesToShow = places.points_of_interest ? Object.keys(places.points_of_interest) : null;
 
   const filteredPreferencesData = Object.keys(preferencesData).reduce((acc, key) => {
   // Filtruj preferencje w danej kategorii
   const filteredPreferences = preferencesData[key].filter(preference => {
-    return selectedPreferences.some(selectedPreference => selectedPreference.name === preference.name);
+    return selectedPreferencesShowPage.some(selectedPreference => selectedPreference.name === preference.name);
   });
+
   
   // Jeśli istnieją jakieś pasujące preferencje, dodaj je do wynikowej tablicy
   if (filteredPreferences.length > 0) {
@@ -179,9 +220,32 @@ function ShowDataPage() {
   return acc;
   }, {});
 
-  console.log(filteredPreferencesData);
 
   const calculatePercentageInCategory = (category) => {
+
+    
+    const placesCounts = {};
+
+    if (places.custom_objects) {
+      Object.keys(places.custom_objects).forEach(category => {
+        placesCounts[category] = Object.values(places.custom_objects[category]).reduce((total, preferences) => {
+          return total + preferences.length;
+        }, 0);
+      });
+    }
+
+    const placesCategoryCount = placesCounts[category] || 0;
+    
+    let custom_names = [];
+    if (preferencesSearchDataShowPage) {
+      preferencesSearchDataShowPage.forEach(item => {
+        if (typeof item === 'object') {
+          custom_names.push(item);
+        }
+      });
+    }
+    const preferencesCategory = custom_names.filter(item => item.main_category === category);
+
     const allPreferencesInCategory = places.points_of_interest[category];
     
     const filteredPreferencesInCategory = filteredPreferencesData[category];
@@ -194,24 +258,36 @@ function ShowDataPage() {
 
     const filteredPreferencesCount = filteredPreferencesInCategory ? filteredPreferencesInCategory.length : 0;
     
-    const percentage = (numberOfCategories / filteredPreferencesCount) * 100;
-    console.log(categories)
-    return `${percentage.toFixed(0)}%`;
+    const percentage = ((numberOfCategories + placesCategoryCount) / (filteredPreferencesCount + preferencesCategory.length)) * 100;
+    
+    if (percentage > 100) {
+      return '100%';
+    } else if (filteredPreferencesCount > 0){
+      const percentage = (numberOfCategories / filteredPreferencesCount) * 100;
+      return `${percentage.toFixed(0)}%`;
+    } else {
+      return '0%';
+
+    }
   };
 
-  const categoriesToShow = selectedPreferences.map((preference) => {
-    const formattedPreferenceLabel = preference.name
-      .split('_')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+  const categoriesToShow = selectedPreferencesShowPage.map((preference) => {
+
 
     return {
       key: preference.name,
-      label: formattedPreferenceLabel,
+      label: preference.name,
     };
   });
 
-  console.log(categoriesToShow);
+  const transformedPreferences = Object.entries(filteredPreferencesData).reduce((acc, [mainCategory, subCategories]) => {
+    subCategories.forEach(subCategory => {
+      acc.push({ main_category: mainCategory, category: subCategory.name });
+    });
+    return acc;
+  }, []);
+
+
 /*
   categoriesToShow.sort((a, b) => {
     const hasPlacesA = !!places.points_of_interest[a.key];
@@ -272,14 +348,46 @@ function ShowDataPage() {
                 initial="initial"
                 >
                 <div className='matchVidible'>
-                  <div className='show-data-hr-place'>
+                  <div className='show-data-hr-place-top'>
                     <hr className='show-data-search-place-hr'/>
                   </div>
                   <div>
-                    {(selectedPreferencesShowPage.length === 0) ? (
-                      <label className='selectyourCriteria' style={{paddingBottom: '9vh'}}>{t("Select your criteria in the menu on the left to see a match")}</label>
+                    {(selectedPreferencesShowPage.length === 0 && preferencesSearchDataShowPage.length === 0) ? (
+                      <label className='selectyourCriteriaWithoutCategories' style={{paddingBottom: '9vh'}}>{t("Select your criteria in the menu on the left to see a match")}</label>
+                    ) : (preferencesSearchDataShowPage.length != 0 && selectedPreferencesShowPage.length === 0) ? (
+                      <div className="matchShadow">
+                        {isMatchDetailsVisible ? (   
+                          <div>
+                          <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
+                            <div className='matchContainer'>
+                              <div className='matchBackground'></div>
+                              <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%"}}></div>
+                            </div>
+                          </div>
+                          <div className='show-data-hr-place'>
+                              <hr className='show-data-search-place-hr'/>
+                            </div>
+                            <div className='toggle-match-details-div' style={{ justifyContent: 'space-between' }}>
+                                <div className="seeMoreDetails">{t("See full report")}</div>
+                                <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("Collapse details")}</div>
+                          </div>
+                          </div>
+                          ) : (
+                            <div>
+                              <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
+                                <div className='matchContainer'>
+                                  <div className='matchBackground'></div>
+                                  <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%",   backgroundColor: "#F8718A"}}></div>
+                                </div>
+                              </div>
+                              <div className='toggle-match-details-div' style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                  <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("Expand on details")}</div>
+                              </div>
+                            </div>  
+                          )}
+                      </div>
                     ) : (
-                      <div>
+                      <div className="matchShadow">
                       {isMatchDetailsVisible ? (                 
                         <div>
                           <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
@@ -291,7 +399,7 @@ function ShowDataPage() {
                           <div className='show-data-hr-place'>
                             <hr className='show-data-search-place-hr'/>
                           </div>
-                          {mainCategoriesToShow.map((category, index) => (
+                          {mainCategoriesToShow && mainCategoriesToShow.map((category, index) => (
                             <div key={index} className='selectyourCriteria' ><div className='matchingName'>{category} {calculatePercentageInCategory(category)} </div>
                               <div className='matchContainer'>
                                 <div className='matchBackground'></div>
@@ -338,6 +446,8 @@ function ShowDataPage() {
                     toggleRoleSVisible={handleToggleLeftSection}
                     isLeftSectionVisible={isLeftSectionVisible}
                     setPreferencedDataShowPage={handlePreferencesData}
+                    setPreferencesSearchDataShowPage={setPreferencesSearchDataShowPage}
+                    handleSearch={handleEnterPress}
                   />
                 </div>
               </div>
@@ -363,7 +473,8 @@ function ShowDataPage() {
               setIsResultClicked={setIsResultClicked}
               onEnterPress={handleEnterPress}
               searchBarClassName="show-data-page-search-bar"
-              selectedPreferences={selectedPreferencesShowPage}
+              selectedPreferences={transformedPreferences}
+              preferencesSearchData={preferencesSearchDataShowPage}
               />
             </motion.div>
               {results && results.length > 0 && !isResultClicked && (
@@ -384,6 +495,9 @@ function ShowDataPage() {
                 )}
                 selectedCoordinatesShowPage={selectedCoordinates}
                 flyToLocation={flyToLocation}
+                custom_names={places.custom_objects}
+                custom_addresses={places.custom_addresses}
+                preferencesSearchDataShowPage={preferencesSearchDataShowPage}
               />
             </div>
           </div>

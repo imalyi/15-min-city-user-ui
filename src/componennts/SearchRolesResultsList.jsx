@@ -2,15 +2,23 @@ import React from 'react';
 import { SearchRolesResult } from './SearchRolesResult';
 import '../styles/SearchRolesResultsList.css';
 
-export const SearchRolesResultsList = ({ results, onResultClick, searchResultsListClassName }) => {
+export const SearchRolesResultsList = ({ customAddress, customObject, onResultClick, searchResultsListClassName }) => {
   return (
     <div className={`roles-search-result-list ${searchResultsListClassName}`}>
-      {console.log(results)}
-      {results.map((result) => {
+      {customObject.map((object) => {
         return (
           <SearchRolesResult
-            key={result}
-            result={result}
+            key={object}
+            result={object}
+            onResultClick={onResultClick}
+          />
+        );
+      })}
+      {customAddress.map((address) => {
+        return (
+          <SearchRolesResult
+            key={address}
+            result={address}
             onResultClick={onResultClick}
           />
         );

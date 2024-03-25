@@ -10,7 +10,7 @@ import {Icon} from '@iconify/react';
 import { motion, AnimatePresence } from "framer-motion"
 import {LeftSectionSlide, LeftSectionSlideHide} from "./anim.js"
 
-const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVisible, isLeftSectionVisible, setPreferencedDataShowPage }) => {
+const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVisible, isLeftSectionVisible, setPreferencedDataShowPage, setPreferencesSearchDataShowPage, handleSearch }) => {
   const { t } = useTranslation();
   const [isShowDataPage, setIsShowDataPage] = useState(false);
   const [selectedPreferences, setSelectedPreferences] = useState(
@@ -19,38 +19,56 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
   const [preferencesData, setPreferencesData] = useState([]);
   const [expandedCategories, setExpandedCategories] = useState([]);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const [results, setResults] = useState([]);
+  const [customAddress, setCustomAddress] = useState([]);
+  const [customObject, setCustomObject] = useState([]);
   const [input, setInput] = useState('');
   const [isResultClicked, setIsResultClicked] = useState(false);
   const [preferencesSearchData, setPreferencesSearchData] = useState([]);
 
-  console.log(preferencesData);
-
   const handleRemoveAllPreferences = () => {
     setPreferencesSearchData([]);
     setSelectedPreferences([]);
+    onSelectPreferences([]);
+    setPreferencesSearchDataShowPage([]);
+    setTimeout(handleSearch(), 50);
+
   }
 
   const handleRemovePreference = (preferenceIndex) => {
     const updatedPreferences = [...preferencesSearchData];
     updatedPreferences.splice(preferenceIndex, 1);
     setPreferencesSearchData(updatedPreferences);
+    setPreferencesSearchDataShowPage(updatedPreferences);
+    setTimeout(handleSearch(), 50);
+
   };
 
   const handleResultClick = (result) => {
     setInput("");
     setIsResultClicked(true);
-    
+    console.log(result);
+  
     // Sprawdzenie, czy result już istnieje w preferencesSearchData
-    if (!preferencesSearchData.some(item => item === result)) {
+    const resultExists = preferencesSearchData.some(item => {
+      if (typeof item === 'object' && typeof result === 'object') {
+        return item.name === result.name;
+      } else {
+        return item === result;
+      }
+    });
+  
+    if (!resultExists) {
       // Jeśli result nie istnieje, dodaj go do preferencesSearchData
       setPreferencesSearchData([...preferencesSearchData, result]);
+      setPreferencesSearchDataShowPage([...preferencesSearchData, result]);
+      setTimeout(handleSearch(), 50);
+      console.log(preferencesSearchData);
     } else {
       console.log("Result already exists in preferencesSearchData");
     }
-    
-    console.log(preferencesSearchData);
+
   };
+  
 
   const handleSearchBarChange = (value) => {
     setInput(value);
@@ -68,7 +86,6 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
       try {
         const response = await fetch(`${api.APP_URL_USER_API}categories/`);
         const data = await response.json();
-        console.log(data);
         // Assuming the data structure is an array with a single object
         setPreferencesData(data);
         setPreferencedDataShowPage(data);
@@ -106,6 +123,8 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
       : [...selectedPreferences, {name: preferenceName }];
     setSelectedPreferences(updatedPreferences);
     onSelectPreferences(updatedPreferences);
+    setTimeout(handleSearch(), 50);
+
   };
 
   const handleCategoryToggle = (categoryName) => {
@@ -124,6 +143,8 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
 
     setSelectedPreferences(updatedPreferences);
     onSelectPreferences(updatedPreferences);
+    setTimeout(handleSearch(), 50);
+
   };
 
 
@@ -153,7 +174,6 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
 
     setSelectedPreferences(updatedPreferences);
     onSelectPreferences(updatedPreferences);
-    console.log(selectedPreferences);
   };
 
 
@@ -165,6 +185,8 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
     } else {
       setExpandedCategories([...expandedCategories, categoryName]);
     }
+    setTimeout(handleSearch(), 50);
+    
   };
 
   return (
@@ -182,15 +204,17 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
       <div  style={{position: "absolute", width: "100%"}}>
       <div>
         <SearchRolesBar
-          setResults={setResults}
+          setCustomAddress={setCustomAddress}
+          setCustomObject={setCustomObject}
           input={input}
           setInput={handleSearchBarChange}
           setIsResultClicked={setIsResultClicked}
           searchBarClassName="roles-search-bar"
         />
-        {results && results.length > 0 && !isResultClicked && (
+        {customAddress && customObject && customAddress.length > 0 && customObject.length > 0 && !isResultClicked && (
           <SearchRolesResultsList
-            results={results}
+            customAddress={customAddress}
+            customObject={customObject}
             onResultClick={handleResultClick}
             searchResultsListClassName="roles-search-result-list"
           />
@@ -268,7 +292,7 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
         {preferencesSearchData.map((preference, index) => (
           <div key={index} className="selected-search-preferences">
             <div className="selected-search-preference">
-              <span className="selected-preference-label">{t(preference)}</span>
+              <span className="selected-preference-label">{t(preference.name ? preference.name : preference)}</span>
               <Icon icon="material-symbols-light:close" className="close-icon" onClick={() => handleRemovePreference(index)}/> 
             </div>
           </div>
@@ -300,9 +324,8 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
       >
         
       <div className="toggle-left-section-wrapper-show-data left-section-center" style={{position: "absolute"}}>
-        <div className='toggle-left-section-div'>
+        <div className='toggle-left-section-div'onClick={() => toggleRoleSVisible()}>
           <Icon icon="mdi-light:arrow-right" className="toggle-left-section-icon-show-data"/>
-          <label className="toggle-left-section-show-data" onClick={() => toggleRoleSVisible()} >{t("Show")}</label>
         </div>
       </div>
       </motion.div>
