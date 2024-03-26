@@ -120,15 +120,20 @@ function ShowDataPage() {
 
   const countVisibleCategories = () => {
     let custom_names = [];
+    let custom_addresses = [];
     if (preferencesSearchDataShowPage) {
       preferencesSearchDataShowPage.forEach(item => {
         if (typeof item === 'object') {
           custom_names.push(item);
+        } else if (typeof item === 'string') {
+          custom_addresses.push(item);
         }
       });
     }
 
+
     let totalPlacesCount = 0;
+    let totalAddressesCount = 0;
 
     if (places.custom_objects) {
       Object.values(places.custom_objects).forEach(category => {
@@ -136,10 +141,19 @@ function ShowDataPage() {
           totalPlacesCount += preferences.length;
         });
       });
+    } 
+    if (places.custom_addresses) {
+      Object.values(places.custom_addresses).forEach(address => {
+        if (address.commute_time && address.commute_time.walk && address.commute_time.walk.distance < 3000) {
+          totalAddressesCount += 1;
+        }
+      });
     }
-    if (categoriesToShow.length === 0 && preferencesSearchDataShowPage.length != 0) {
+    console.log(categoriesToShow.length, totalAddressesCount)
+
+    if (categoriesToShow.length === 0 && (preferencesSearchDataShowPage.length != 0 || custom_addresses.length != 0)) {
       const percentage =
-      ((custom_names.length) / (totalPlacesCount)) * 100;
+      ((totalPlacesCount + totalAddressesCount) / (custom_names.length + custom_addresses.length)) * 100;
       if (percentage > 100 || isNaN(percentage || percentage < 0)) {
         return {
           text: '0%',
@@ -153,12 +167,7 @@ function ShowDataPage() {
         percentage: percentage,
       };
     }
-    if (categoriesToShow.length === 0) {
-      return {
-        text: '',
-        class: 'red-text',
-      };
-    }
+
     if (places.points_of_interest === undefined) {
       return {
         text: '0%',
@@ -175,13 +184,13 @@ function ShowDataPage() {
       });
     });
     console.log(visibleCategories.length)
-    console.log(totalPlacesCount)
+    console.log(custom_addresses.length)
 
     const percentage =
-      ((visibleCategories.length + custom_names.length) / (categoriesToShow.length + totalPlacesCount)) * 100;
+      ((visibleCategories.length + totalPlacesCount + totalAddressesCount) / (categoriesToShow.length + custom_names.length + custom_addresses.length)) * 100;
     // Ustal klasę tekstu w zależności od procentu
     let textClass = '';
-
+    console.log(visibleCategories.length, totalPlacesCount, totalAddressesCount, categoriesToShow.length, custom_names.length, custom_addresses.length)
     if (percentage <= 30) {
       textClass = 'red-text';
     } else if (percentage > 30 && percentage < 50) {
