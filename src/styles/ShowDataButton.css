@@ -5,8 +5,22 @@
   display: flex;
   align-items: center;
 }
-#search-icon {
-  color: #F8718A;
-  height:32px;
-  width:32px;
+
+
+@media only screen and (max-width: 850px) {
+  #search-icon-button {
+    color: #F8718A;
+    height:3vh;
+    width:3vh;
+  }
+  
+}
+
+@media only screen and (min-width: 851px) {
+  #search-icon-button {
+    color: #F8718A;
+    height:4vh;
+    width:4vh;
+  }
+  
 }

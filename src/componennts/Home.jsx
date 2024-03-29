@@ -10,7 +10,6 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion"
 import {icon} from "./anim.js"
-import { animateScroll as scroll } from 'react-scroll';
 
 function Home() {
   const [results, setResults] = useState([]);
@@ -19,7 +18,6 @@ function Home() {
   const [isResultClicked, setIsResultClicked] = useState(false);
   const [selectedRole, setSelectedRole] = useState('without role');
   const [selectedPreferences, setSelectedPreferences] = useState([]);
-  const [isScrollingDown, setIsScrollingDown] = useState(false);
   const { i18n, t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
@@ -61,37 +59,13 @@ function Home() {
     setSelectedPreferences(preferences);
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrollingDown(window.scrollY > 0); // Ustawia wartość na true, jeśli użytkownik zaczął scrollować w dół
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  const scrollToBottom = () => {
-    scroll.scrollToBottom({
-      duration: 2000, // czas trwania animacji w milisekundach
-      smooth: true, // płynne przewijanie
-    });
-  };
-
-  useEffect(() => {
-    if (isScrollingDown) {
-      scrollToBottom();
-    }
-  }, [isScrollingDown]);
 
   return (
     <div className="home-container">
       <div className="language-select-container">
         <Link to="/">
           <motion.button
-            className="logo"
+            className="logo_home"
             title={t('Search Page')}
             whileHover={{ scale: 1 }} // Przykładowa animacja przy najechaniu
             whileTap={{ scale: 1 }} // Przykładowa animacja przy kliknięciu
@@ -132,7 +106,10 @@ function Home() {
             searchBarClassName="home-search-bar"
             selectedPreferences={selectedPreferences}
           />
+          <div className='relative'>
+
           {results && results.length > 0 && !isResultClicked && (
+            
             <SearchResultsList
               results={results}
               onResultClick={handleResultClick}
@@ -140,6 +117,7 @@ function Home() {
               searchResultsClassName="home-search-list"
             />
           )}
+          </div>
         </div>
       </div>
       <Footer />
