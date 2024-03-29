@@ -44,12 +44,14 @@ function Map({
       <FlyToMarkerReverse flyToLocation={selectedCoordinatesShowPage} />
       <FlyToMarker flyToLocation={flyToLocation} />
       {mainCategoriesToShow && mainCategoriesToShow.map(category => {
-        return Object.values(places[category]).map((preference, index) => {
+      const categoryData = places[category];
+      if (categoryData) {
+        return Object.entries(categoryData).map(([preferenceName, preference], index) => {
           return preference.map((item, index) => {
             return (
               <Markers
                 key={`${category}-${index}`}
-                placeName={category}
+                placeName={preferenceName}
                 lat={item.location[1]}
                 lng={item.location[0]}
                 distance={item.distance}
@@ -59,14 +61,16 @@ function Map({
             );
           });
         });
-      })}
-      {Object.values(custom_names).map((categoryList, index1) => {
-        return Object.values(categoryList).map((subcategory, index2) => {
+      }
+      return null; // Jeśli categoryData jest niezdefiniowane lub puste, zwracamy null
+    })}
+      {Object.entries(custom_names).map(([categoryName, categoryList], index1) => {
+        return Object.entries(categoryList).map(([subcategoryName, subcategory], index2) => {
           return subcategory.map((item, index3) => {
             return (
               <Markers
-                key={`${categoryList}-${index1}-${index2}-${index3}`}
-                placeName={item.name} // Załóżmy, że subcategory zawiera informacje o kategorii
+                key={`${subcategoryName}-${index1}-${index2}-${index3}`}
+                placeName={subcategoryName} // Użycie nazwy subkategorii jako placeName
                 lat={item.location[1]}
                 lng={item.location[0]}
                 distance={item.distance}
