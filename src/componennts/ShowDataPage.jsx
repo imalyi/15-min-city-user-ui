@@ -512,7 +512,7 @@ function ShowDataPage() {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer useMargin={false}/>
     </div>
   );
 }

@@ -120,7 +120,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer useMargin={true}/>
     </div>
   );
 }
