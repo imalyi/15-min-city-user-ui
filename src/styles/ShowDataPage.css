@@ -643,7 +643,7 @@
 
 @media only screen and (min-width: 801px) {
   .right-section {
-    width: 60%; /* Adjust the width as needed */
+    width: 70%; /* Adjust the width as needed */
     height: 75.8vh;
     flex-direction: column; /* Ustaw kolumnowy układ */
     margin-right: 40px;
@@ -656,7 +656,7 @@
     transition: cubic-bezier(1, 1, 1, 1) 0.4s;
   }
   .left-section {
-    width: 40%; /* Adjust the width as needed */
+    width: 30%; /* Adjust the width as needed */
     height: 76vh;
 
   }

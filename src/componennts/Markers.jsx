@@ -282,7 +282,6 @@ const Markers = ({ placeName, lat, lng, distance, address, name }) => {
     bank: bank,
     bar: bar,
     cafe: cafe,
-    Restauracje: restaurant,
     school: school,
     theatre: theatre,
     police: police,
