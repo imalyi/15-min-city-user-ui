@@ -253,9 +253,9 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
                     className="expand-button"
                   >
                     {expandedCategories.includes(categoryName) ? (
-                      <IoIosArrowUp style={{ fontSize: '24px' }}/>
+                      <IoIosArrowUp className='expand-icon'/>
                     ) : (
-                      <IoIosArrowDown style={{ fontSize: '24px' }}/>
+                      <IoIosArrowDown className='expand-icon'/>
                     )}
                   </button>
                 </div>
