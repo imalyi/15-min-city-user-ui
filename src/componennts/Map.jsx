@@ -119,7 +119,11 @@ function FlyToMarkerReverse({ flyToLocation }) {
   useEffect(() => {
     if (flyToLocation) {
       const [lat, lng] = flyToLocation;
-      map.flyTo([lat, lng], 13, {
+      let zoomLevel = 13;
+      if (window.innerWidth < 800) {
+        zoomLevel = 12;
+      }
+      map.flyTo([lat, lng], zoomLevel, {
         duration: 0.5,
       });
     }
