@@ -1,4 +1,5 @@
-import api from './config';
-export const APP_ENV = api.LOG_LEVEL;
+export const APP_ENV = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
-export const LOG_LEVEL = APP_ENV === 'production' ? 'prod' : 'dev';
+console.log('APP_ENV:', process.env);
+
+export const LOG_LEVEL = APP_ENV === 'production' ? 'warn' : 'log';
