@@ -71,7 +71,7 @@ export const kindergarten = new Icon({
   iconSize: [30, 30],
 });
 export const library = new Icon({
-  iconUrl: '/icons/pet-shop.png',
+  iconUrl: '/icons/stack-of-books.png',
   iconSize: [30, 30],
 });
 
@@ -104,7 +104,7 @@ export const post_box = new Icon({
   iconSize: [30, 30],
 });
 export const post_office = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/128/2519/2519000.png',
+  iconUrl: '/icons/post-office.png',
   iconSize: [30, 30],
 });
 export const recycling = new Icon({
@@ -355,7 +355,7 @@ export const music_venue = new Icon({
   iconSize: [30, 30],
 });
 export const nightclub = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/128/2564/2564874.png',
+  iconUrl: '/icons/disco-ball.png',
   iconSize: [30, 30],
 });
 export const planetarium = new Icon({
