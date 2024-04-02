@@ -1,12 +1,12 @@
 import { Icon } from 'leaflet';
 
 export const doctors = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/128/3304/3304567.png',
+  iconUrl: '/icons/doctor.png',
   iconSize: [30, 30],
 });
 
 export const fast_food = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/128/1037/1037762.png',
+  iconUrl: '/icons/fast-food.png',
   iconSize: [30, 30],
 });
 export const bank = new Icon({
@@ -14,7 +14,7 @@ export const bank = new Icon({
   iconSize: [30, 30],
 });
 export const bar = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/128/3187/3187914.png',
+  iconUrl: '/icons/beer.png',
   iconSize: [30, 30],
 });
 export const cafe = new Icon({
@@ -22,11 +22,11 @@ export const cafe = new Icon({
   iconSize: [30, 30],
 });
 export const restaurant = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/128/3170/3170733.png',
+  iconUrl: '/icons/restaurant.png',
   iconSize: [30, 30],
 });
 export const school = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/256/9285/9285616.png',
+  iconUrl: '/icons/school.png',
   iconSize: [30, 30],
 });
 export const theatre = new Icon({
@@ -51,7 +51,7 @@ export const charging_station = new Icon({
   iconSize: [30, 30],
 });
 export const clinic = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/128/169/169869.png',
+  iconUrl: '/icons/clinic.png',
   iconSize: [30, 30],
 });
 export const dentist = new Icon({
@@ -67,19 +67,35 @@ export const kick_scooter_parking = new Icon({
   iconSize: [30, 30],
 });
 export const kindergarten = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/128/2387/2387553.png',
+  iconUrl: '/icons/pacifier.png',
   iconSize: [30, 30],
 });
 export const library = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/128/8074/8074804.png',
+  iconUrl: '/icons/stack-of-books.png',
   iconSize: [30, 30],
 });
+
+export const entertainment_centers = new Icon({
+  iconUrl: '/icons/basketball-game.png',
+  iconSize: [30, 30],
+});
+
+export const shop_for_animal = new Icon({
+  iconUrl: '/icons/pet.png',
+  iconSize: [30, 30],
+});
+
 export const payment_centre = new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/726/726488.png',
   iconSize: [30, 30],
 });
 export const pharmacy = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/128/3140/3140343.png',
+  iconUrl: '/icons/drugs.png',
+  iconSize: [30, 30],
+});
+
+export const cosmetics = new Icon({
+  iconUrl: '/icons/cosmetics.png',
   iconSize: [30, 30],
 });
 
@@ -88,7 +104,7 @@ export const post_box = new Icon({
   iconSize: [30, 30],
 });
 export const post_office = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/128/2519/2519000.png',
+  iconUrl: '/icons/post-office.png',
   iconSize: [30, 30],
 });
 export const recycling = new Icon({
@@ -117,7 +133,7 @@ export const biergarten = new Icon({
 });
 
 export const food_court = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/128/12711/12711787.png',
+  iconUrl: '/icons/food-stand.png',
   iconSize: [30, 30],
 });
 export const ice_cream = new Icon({
@@ -182,9 +198,19 @@ export const bicycle_repair_station = new Icon({
   iconSize: [30, 30],
 });
 export const bicycle_rental = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/128/5320/5320274.png',
+  iconUrl: '/icons/bike.png',
   iconSize: [30, 30],
 });
+export const bike = new Icon({
+  iconUrl: '/icons/bike.png',
+  iconSize: [30, 30],
+});
+
+export const station = new Icon({
+  iconUrl: '/icons/bus-stop.png',
+  iconSize: [30, 30],
+});
+
 export const bicycle_wash = new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/2000/2000192.png',
   iconSize: [30, 30],
@@ -292,6 +318,17 @@ export const cinema = new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/3033/3033235.png',
   iconSize: [30, 30],
 });
+
+export const cinema_theateres_operas = new Icon({
+  iconUrl: '/icons/cinema.png',
+  iconSize: [30, 30],
+});
+
+export const game_room = new Icon({
+  iconUrl: '/icons/game-controller.png',
+  iconSize: [30, 30],
+});
+
 export const community_centre = new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/7829/7829198.png',
   iconSize: [30, 30],
@@ -318,7 +355,7 @@ export const music_venue = new Icon({
   iconSize: [30, 30],
 });
 export const nightclub = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/128/2564/2564874.png',
+  iconUrl: '/icons/disco-ball.png',
   iconSize: [30, 30],
 });
 export const planetarium = new Icon({
@@ -444,6 +481,23 @@ export const animal_training = new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/3900/3900369.png',
   iconSize: [30, 30],
 });
+
+export const healthcare = new Icon({
+  iconUrl: '/icons/healthcare.png',
+  iconSize: [30, 30],
+});
+
+export const family_doctor = new Icon({
+  iconUrl: '/icons/family_doctor.png',
+  iconSize: [30, 30],
+});
+
+
+export const copy_machine = new Icon({
+  iconUrl: '/icons/copy_machine.png',
+  iconSize: [30, 30],
+});
+
 export const baking_oven = new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/4363/4363676.png',
   iconSize: [30, 30],
@@ -539,14 +593,21 @@ export const Cukiernie_i_piekarnie = new Icon({
 });
 
 export const sushi = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/128/2159/2159742.png',
+  iconUrl: '/icons/maki.png',
   iconSize: [30, 30],
 });
 
 export const shop = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/128/1170/1170576.png',
+  iconUrl: '/icons/grocery-cart.png',
   iconSize: [30, 30],
 });
+
+export const butcher = new Icon({
+  iconUrl: '/icons/butcher.png',
+  iconSize: [30, 30],
+});
+
+
 
 export const playground = new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/3229/3229890.png',
@@ -566,6 +627,22 @@ export const fitness = new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/726/726911.png',
   iconSize: [30, 30],
 });
+
+export const gym = new Icon({
+  iconUrl: '/icons/gym.png',
+  iconSize: [30, 30],
+});
+
+export const mindfulness = new Icon({
+  iconUrl: '/icons/mindful.png',
+  iconSize: [30, 30],
+});
+
+export const swimming_pool = new Icon({
+  iconUrl: '/icons/swimming.png',
+  iconSize: [30, 30],
+});
+
 
 export const meditacja = new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/2647/2647625.png',
@@ -593,7 +670,12 @@ export const barber_shop = new Icon({
 });
 
 export const hairdressers = new Icon({
-  iconUrl: 'https://www.flaticon.com/free-icon/barbershop_393164',
+  iconUrl: '/icons/barbershop.png',
+  iconSize: [30, 30],
+});
+
+export const travel = new Icon({
+  iconUrl: '/icons/travel.png',
   iconSize: [30, 30],
 });
 
@@ -603,7 +685,7 @@ export const nails = new Icon({
 });
 
 export const massage = new Icon({
-  iconUrl: 'https://www.flaticon.com/free-icon/massage_8119611',
+  iconUrl: '/icons/facial_treatment.png',
   iconSize: [30, 30],
 });
 
@@ -612,6 +694,13 @@ export const model_making = new Icon({
   iconSize: [30, 30],
 });
 
+export const open_space = new Icon({
+  iconUrl: '/icons/park.png',
+  iconSize: [30, 30],
+});
+
+
+
 export const three_d_printers = new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/4228/4228862.png',
   iconSize: [30, 30],
@@ -619,5 +708,15 @@ export const three_d_printers = new Icon({
 
 export const office = new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/1599/1599859.png',
+  iconSize: [30, 30],
+});
+
+export const pizza = new Icon({
+  iconUrl: '/icons/pizza.png',
+  iconSize: [30, 30],
+});
+
+export const shoppingBag = new Icon({
+  iconUrl: '/icons/shopping-bag.png',
   iconSize: [30, 30],
 });
