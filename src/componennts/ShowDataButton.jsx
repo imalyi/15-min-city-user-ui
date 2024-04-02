@@ -16,14 +16,12 @@ export const ShowDataButton = React.forwardRef(
 
       if (address === '') {
         alert(
-          'Please, choose an address from the prompts or localization button',
+          'Please enter an address and select it from the options provided',
         );
       } else {
         const places = await getplacesFromCoordinates();
         if (places === undefined) {
-          alert(
-            'Oops! Something went wrong with our server. Please try using our application later. We apologize for the inconvenience.',
-          );
+          console.log('No places found')
         } else {
           navigate('/show-addresses', {
             state: {

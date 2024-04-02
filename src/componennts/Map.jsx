@@ -18,7 +18,7 @@ function Map({
   custom_addresses,
 }) {
   const locationIcon = new Icon({
-    iconUrl: 'https://cdn-icons-png.flaticon.com/128/684/684908.png',
+    iconUrl: '/icons/location-pin.png',
     iconSize: [40, 40],
   });
 
