@@ -2,6 +2,8 @@ import React from 'react';
 import { Marker, Popup } from 'react-leaflet';
 import '../styles/Map.css';
 import { useTranslation } from 'react-i18next';
+import { logger } from '../logger';
+
 import {
   doctors,
   fast_food,

@@ -6,6 +6,7 @@ import '../styles/Leaflet.css';
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
 import { useLeafletContext } from '@react-leaflet/core';
+import { logger } from '../logger';
 
 function Map({
   places,

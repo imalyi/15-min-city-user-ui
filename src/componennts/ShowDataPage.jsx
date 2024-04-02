@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 import {Icon} from '@iconify/react';
 import { motion, AnimatePresence } from "framer-motion"
 import {RightSectionSlide, MatchSectionSlide} from "./anim.js"
+import { logger } from '../logger';
 
 
 function ShowDataPage() {
@@ -149,7 +150,7 @@ function ShowDataPage() {
         }
       });
     }
-    console.log(categoriesToShow.length, totalAddressesCount)
+    logger.log(categoriesToShow.length, totalAddressesCount)
 
     if (categoriesToShow.length === 0 && (preferencesSearchDataShowPage.length != 0 || custom_addresses.length != 0)) {
       const percentage =
@@ -183,14 +184,14 @@ function ShowDataPage() {
         return Array.isArray(interests[category.key]) && interests[category.key].length > 0;
       });
     });
-    console.log(visibleCategories.length)
-    console.log(custom_addresses.length)
+    logger.log(visibleCategories.length)
+    logger.log(custom_addresses.length)
 
     const percentage =
       ((visibleCategories.length + totalPlacesCount + totalAddressesCount) / (categoriesToShow.length + custom_names.length + custom_addresses.length)) * 100;
     // Ustal klasę tekstu w zależności od procentu
     let textClass = '';
-    console.log(visibleCategories.length, totalPlacesCount, totalAddressesCount, categoriesToShow.length, custom_names.length, custom_addresses.length)
+    logger.log(visibleCategories.length, totalPlacesCount, totalAddressesCount, categoriesToShow.length, custom_names.length, custom_addresses.length)
     if (percentage <= 30) {
       textClass = 'red-text';
     } else if (percentage > 30 && percentage < 50) {
@@ -202,7 +203,7 @@ function ShowDataPage() {
     } else if (percentage > 90) {
       textClass = 'green-text';
     }
-    console.log(percentage)
+    logger.log(percentage)
     return {
       text: `${percentage.toFixed(0)}%`,
       class: textClass,
@@ -228,7 +229,6 @@ function ShowDataPage() {
   
   return acc;
   }, {});
-
 
   const calculatePercentageInCategory = (category) => {
 

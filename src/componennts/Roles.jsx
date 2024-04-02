@@ -9,6 +9,8 @@ import { SearchRolesResultsList } from './SearchRolesResultsList';
 import {Icon} from '@iconify/react';
 import { motion, AnimatePresence } from "framer-motion"
 import {LeftSectionSlide, LeftSectionSlideHide} from "./anim.js"
+import { logger } from '../logger';
+
 
 const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVisible, isLeftSectionVisible, setPreferencedDataShowPage, setPreferencesSearchDataShowPage, handleSearch }) => {
   const { t } = useTranslation();
@@ -46,7 +48,6 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
   const handleResultClick = (result) => {
     setInput("");
     setIsResultClicked(true);
-    console.log(result);
   
     // Sprawdzenie, czy result już istnieje w preferencesSearchData
     const resultExists = preferencesSearchData.some(item => {
@@ -62,9 +63,9 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
       setPreferencesSearchData([...preferencesSearchData, result]);
       setPreferencesSearchDataShowPage([...preferencesSearchData, result]);
       setTimeout(handleSearch(), 50);
-      console.log(preferencesSearchData);
+      logger.log(preferencesSearchData);
     } else {
-      console.log("Result already exists in preferencesSearchData");
+      logger.warn("Result already exists in preferencesSearchData");
     }
 
   };
