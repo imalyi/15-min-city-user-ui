@@ -1,6 +1,8 @@
 import React from 'react';
 import '../styles/Footer.css';
 import { useTranslation } from 'react-i18next';
+import { logger } from '../logger';
+
 function Footer({ useMargin })  {
   const { t } = useTranslation();
   const footerClass = useMargin ? 'margin-footer' : '';

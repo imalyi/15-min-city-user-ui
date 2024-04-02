@@ -1,6 +1,7 @@
 // Komponent HowItWorks.jsx
 import React from 'react';
 import '../styles/HowItWorks.css';
+import { logger } from '../logger';
 
 const HowItWorks = ({ howItWorksText }) => {
   return (

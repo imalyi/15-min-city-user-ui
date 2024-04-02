@@ -1,4 +1,5 @@
 import { Icon } from 'leaflet';
+import { logger } from '../logger';
 
 export const doctors = new Icon({
   iconUrl: '/icons/doctor.png',

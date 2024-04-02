@@ -1,6 +1,7 @@
 // About.jsx
 import React from 'react';
 import Footer from './Footer';
+import { logger } from '../logger';
 
 function About() {
   const aboutInfo = 'Information from About Component';

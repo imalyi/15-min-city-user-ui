@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import api from '../config';
 import { ShowDataButton } from './ShowDataButton';
 import { use } from 'i18next';
+import { logger } from '../logger';
+
 export const SearchBar = ({
   setResults,
   showDataRef,
@@ -27,7 +29,7 @@ export const SearchBar = ({
     );
   };
 
-  console.log(selectedPreferences);
+  logger.log(selectedPreferences);
   const fetchData = useCallback(
     async (value) => {
       if (value === '') {

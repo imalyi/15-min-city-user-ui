@@ -3,6 +3,7 @@ import '../styles/SearchRolesBar.css';
 import { useTranslation } from 'react-i18next';
 import api from '../config';
 import { Icon } from '@iconify/react';
+import { logger } from '../logger';
 
 export const SearchRolesBar = ({
   setCustomAddress, setCustomObject, input, setInput, setIsResultClicked, onEnterPress, searchBarClassName

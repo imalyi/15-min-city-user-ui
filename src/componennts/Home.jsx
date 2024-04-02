@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion"
 import {icon} from "./anim.js"
+import { logger } from '../logger';
 
 function Home() {
   const [results, setResults] = useState([]);

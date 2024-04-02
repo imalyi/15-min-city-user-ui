@@ -3,6 +3,7 @@ import { SlLocationPin } from 'react-icons/sl';
 import '../styles/UserLocationButton.css';
 import { useTranslation } from 'react-i18next';
 import api from '../config';
+import { logger } from '../logger';
 
 export const UserLocationButton = ({ onLocationUpdate, onEnterPress }) => {
   const { t } = useTranslation();
@@ -57,7 +58,7 @@ export const UserLocationButton = ({ onLocationUpdate, onEnterPress }) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        logger.log(data);
         return data;
       } else {
         console.error(

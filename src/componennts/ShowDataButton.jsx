@@ -5,15 +5,13 @@ import { FaSearch } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 import api from '../config';
 import { Icon } from '@iconify/react';
+import { logger } from '../logger';
 
 export const ShowDataButton = React.forwardRef(
   ({ address, addressId, selectedPreferences, preferencesSearchData }, ref) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
-    console.log(selectedPreferences)
     const handleUserLocationClick = async () => {
-      console.log(selectedPreferences)
-
       if (address === '') {
         alert(
           'Please enter an address and select it from the options provided',
@@ -21,7 +19,7 @@ export const ShowDataButton = React.forwardRef(
       } else {
         const places = await getplacesFromCoordinates();
         if (places === undefined) {
-          console.log('No places found')
+          logger.error('No places found')
         } else {
           navigate('/show-addresses', {
             state: {
@@ -31,19 +29,19 @@ export const ShowDataButton = React.forwardRef(
               selectedPreferences,
             },
           });
-          console.log(places);
+          logger.log(places);
         }
       }
     };
 
     const getplacesFromCoordinates = async () => {
-      console.log(selectedPreferences)
+      logger.log(selectedPreferences)
 
       try {
         let custom_names = [];
         let custom_addresses = [];
         const customNamesArray = [];
-        console.log(preferencesSearchData);
+        logger.log(preferencesSearchData);
         if (preferencesSearchData) {
           preferencesSearchData.forEach(item => {
             if (typeof item === 'object') {
@@ -62,7 +60,7 @@ export const ShowDataButton = React.forwardRef(
           });
         });
         
-        console.log(customNamesArray);
+        logger.log(customNamesArray);
 
         const requestBody = {
           address: address,
@@ -70,7 +68,7 @@ export const ShowDataButton = React.forwardRef(
           requested_objects: customNamesArray,
           requested_addresses: custom_addresses
         };
-        console.log(requestBody);
+        logger.log(requestBody);
         const response = await fetch(`${api.APP_URL_USER_API}report/`, {
           method: 'POST',
           headers: {
@@ -81,7 +79,7 @@ export const ShowDataButton = React.forwardRef(
     
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
+          logger.log(data);
           return data;
         } else {
           console.error('Error getting report:', response.statusText);

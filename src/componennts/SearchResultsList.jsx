@@ -1,11 +1,12 @@
 import React from 'react';
 import { SearchResult } from './SearchResult';
 import '../styles/SearchResultsList.css';
+import { logger } from '../logger';
 
 export const SearchResultsList = ({ results, onResultClick, searchResultsListClassName, searchResultsClassName }) => {
   return (
     <div className={`results-list ${searchResultsListClassName}`}>
-      {console.log(results)}
+      {logger.log(results)}
       {results.map((result) => {
         return (
           <SearchResult
