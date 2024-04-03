@@ -525,7 +525,7 @@ html{
 }
 
 .matchingName{
-  width: 100%;
+  width: 40%;
   text-align: left;
   margin-left: 2%;
 }
@@ -739,7 +739,7 @@ html{
     height: 7vh;
     background-color: #DCE6FA;
     font-family: Lato;
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;

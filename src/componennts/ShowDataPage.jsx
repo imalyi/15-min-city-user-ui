@@ -417,7 +417,7 @@ function ShowDataPage() {
                             <hr className='show-data-search-place-hr'/>
                           </div>
                           {mainCategoriesToShow && mainCategoriesToShow.map((category, index) => (
-                            <div key={index} className='selectyourCriteria' ><div className='matchingName'>{category} {calculatePercentageInCategory(category)} </div>
+                            <div key={index} className='selectyourCriteria' ><div className='matchingName'>{category + ":"} {calculatePercentageInCategory(category)} </div>
                               <div className='matchContainer'>
                                 <div className='matchBackground'></div>
                                 <div className='matchReactangle' style={{ width: `calc(${calculatePercentageInCategory(category)})`}}></div>
