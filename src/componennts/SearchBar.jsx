@@ -48,8 +48,9 @@ export const SearchBar = ({
         );
         if (response.ok) {
           const data = await response.json();
-          const results = data;
+          const results = data.slice(0, 3);
           setResults(results);
+          logger.log(results);
         } else {
           console.error(
             'Error getting address from coordinatessss:',

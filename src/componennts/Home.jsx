@@ -95,7 +95,6 @@ function Home() {
         <div className="column search-bar-and-results results-container">
           <h1 className="home-description-title">{t('Imagine that getting to the points in the city that are important to you requires only a short walk.')}</h1>
           <h2 className="home-description-second-title">{t('The idea of a 15-minute city is just such a vision - a life of convenience and proximity, where you will do your daily errands without long journeys, enjoying greater freedom.')}</h2>
-          <h2 className="home-description-third-title">{t('Enter the address of your choice, indicate the facilities you are using and make sure you have everything at hand where you are staying.')}</h2>
           <SearchBar
             setResults={setResults}
             showDataRef={buttonRef}
@@ -104,7 +103,11 @@ function Home() {
             setInput={handleSearchBarChange}
             setIsResultClicked={setIsResultClicked}
             onEnterPress={handleEnterPress}
-            searchBarClassName="home-search-bar"
+            searchBarClassName={
+              results && results.length > 0 && !isResultClicked
+                ? "border-bottom home-searchBar"
+                : "home-searchBar"
+            }
             selectedPreferences={selectedPreferences}
           />
           <div className='relative'>
@@ -118,6 +121,7 @@ function Home() {
               searchResultsClassName="home-search-list"
             />
           )}
+          <h2 className="home-description-third-title">{t('Enter the address of your choice, indicate the facilities you are using and make sure you have everything at hand where you are staying.')}</h2>
           </div>
         </div>
       </div>

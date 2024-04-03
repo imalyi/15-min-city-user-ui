@@ -481,7 +481,11 @@ function ShowDataPage() {
               setInput={handleSearchBarChange}
               setIsResultClicked={setIsResultClicked}
               onEnterPress={handleEnterPress}
-              searchBarClassName="show-data-page-search-bar"
+              searchBarClassName={
+                results && results.length > 0 && !isResultClicked
+                  ? "border-bottom show-data-page-search-bar"
+                  : "show-data-page-search-bar"
+              }
               selectedPreferences={transformedPreferences}
               preferencesSearchData={preferencesSearchDataShowPage}
               />
