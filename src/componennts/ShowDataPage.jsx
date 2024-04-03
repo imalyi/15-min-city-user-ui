@@ -155,7 +155,7 @@ function ShowDataPage() {
     if (categoriesToShow.length === 0 && (preferencesSearchDataShowPage.length != 0 || custom_addresses.length != 0)) {
       const percentage =
       ((totalPlacesCount + totalAddressesCount) / (custom_names.length + custom_addresses.length)) * 100;
-      if (percentage > 100 || isNaN(percentage || percentage < 0)) {
+      if (percentage > 100 || isNaN(percentage) || percentage < 0) {
         return {
           text: '0%',
           class: 'red-text',
@@ -202,6 +202,14 @@ function ShowDataPage() {
       textClass = 'light-green-text';
     } else if (percentage > 90) {
       textClass = 'green-text';
+    }
+    logger.log(percentage)
+    if (percentage > 100 || isNaN(percentage) || percentage < 0) {
+      return {
+        text: '0%',
+        class: 'red-text',
+        percentage: 0,
+      };
     }
     logger.log(percentage)
     return {
@@ -343,7 +351,7 @@ function ShowDataPage() {
                   title={t('Search Page')}
                   onClick={handleToggleMatch}
                 >
-                <label className={isMatchVisible ? "toggleReportSectionLabelisMatchVisibleClass" : "toggleReportSection-label"}>{t("See match")}</label>
+                <label className={isMatchVisible ? "toggleReportSectionLabelisMatchVisibleClass" : "toggleReportSection-label"}><div>{t("Matching")} {countVisibleCategories().text}</div></label>
                 {isMatchVisible ? (                 
                   <IoIosArrowUp className="toggleReportSection-icon"/>
                 ) : (
@@ -409,7 +417,7 @@ function ShowDataPage() {
                             <hr className='show-data-search-place-hr'/>
                           </div>
                           {mainCategoriesToShow && mainCategoriesToShow.map((category, index) => (
-                            <div key={index} className='selectyourCriteria' ><div className='matchingName'>{category} {calculatePercentageInCategory(category)} </div>
+                            <div key={index} className='selectyourCriteria' ><div className='matchingName'>{category + ":"} {calculatePercentageInCategory(category)} </div>
                               <div className='matchContainer'>
                                 <div className='matchBackground'></div>
                                 <div className='matchReactangle' style={{ width: `calc(${calculatePercentageInCategory(category)})`}}></div>
@@ -481,7 +489,11 @@ function ShowDataPage() {
               setInput={handleSearchBarChange}
               setIsResultClicked={setIsResultClicked}
               onEnterPress={handleEnterPress}
-              searchBarClassName="show-data-page-search-bar"
+              searchBarClassName={
+                results && results.length > 0 && !isResultClicked
+                  ? "border-bottom show-data-page-search-bar"
+                  : "show-data-page-search-bar"
+              }
               selectedPreferences={transformedPreferences}
               preferencesSearchData={preferencesSearchDataShowPage}
               />

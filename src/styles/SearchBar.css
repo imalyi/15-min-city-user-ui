@@ -6,6 +6,13 @@
   color: #99A0A9;
 }
 
+.border-bottom{
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
 input {
   background-color: transparent;
   border: none;
@@ -25,8 +32,8 @@ input:focus {
     height: 7vh;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
     padding: 0 24px;
     background-color: #DCE6FA;
     display: flex;
@@ -44,27 +51,40 @@ input:focus {
     font-weight: 400; 
     font-size: 2vh; 
   }
+  .border-bottom{
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
 }
 
 @media only screen and (min-width: 851px) {
-  .input-wrapper {
+  .home-searchBar {
     width: calc(100% - 10vh);
-    height: 11vh;
+    height: 9vh;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0; 
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px; 
     padding: 0 24px;
     background-color: #DCE6FA;
     display: flex;
     align-items: center;
     margin-left: 5vh;
     margin-right: 5vh;
-    margin-top: 18vh;
+    margin-top: 6vh;
   }
+
   .input-wrapper input {
     font-family: 'Lato', sans-serif; 
     font-weight: 400; 
-    font-size: 24px; 
+    font-size: 3vh; 
+  }
+  .border-bottom{
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
   }
 }
