@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import Markers from './Markers';
 import '../styles/Map.css';
 import '../styles/Leaflet.css';
@@ -19,8 +19,8 @@ function Map({
   custom_addresses,
 }) {
   const locationIcon = new Icon({
-    iconUrl: '/icons/location-pin.png',
-    iconSize: [40, 40],
+    iconUrl: '/icons/gps.png',
+    iconSize: [50, 50],
   });
 
 
@@ -41,7 +41,14 @@ function Map({
         zIndexOffset={200}
         position={selectedCoordinatesShowPage}
         icon={locationIcon}
-      />
+        
+      >
+      <Popup>
+        <div>
+          <strong>Your address</strong>
+        </div>
+      </Popup>
+      </Marker>
       <FlyToMarkerReverse flyToLocation={selectedCoordinatesShowPage} />
       <FlyToMarker flyToLocation={flyToLocation} />
       {mainCategoriesToShow && mainCategoriesToShow.map(category => {
