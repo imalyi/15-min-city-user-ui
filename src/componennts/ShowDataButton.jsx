@@ -8,7 +8,7 @@ import { Icon } from '@iconify/react';
 import { logger } from '../logger';
 
 export const ShowDataButton = React.forwardRef(
-  ({ address, addressId, selectedPreferences, preferencesSearchData }, ref) => {
+  ({ address, addressId, selectedPreferences, transformedPreferences, preferencesSearchData }, ref) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const handleUserLocationClick = async () => {
@@ -29,13 +29,14 @@ export const ShowDataButton = React.forwardRef(
               selectedPreferences,
             },
           });
-          logger.log(places);
+          logger.log(selectedPreferences);
         }
       }
     };
 
     const getplacesFromCoordinates = async () => {
       logger.log(selectedPreferences)
+      logger.log(transformedPreferences)
 
       try {
         let custom_names = [];
@@ -64,7 +65,7 @@ export const ShowDataButton = React.forwardRef(
 
         const requestBody = {
           address: address,
-          categories: selectedPreferences,
+          categories: transformedPreferences,
           requested_objects: customNamesArray,
           requested_addresses: custom_addresses
         };

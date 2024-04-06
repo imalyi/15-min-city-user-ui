@@ -109,6 +109,7 @@ function Home() {
                 : "home-searchBar"
             }
             selectedPreferences={selectedPreferences}
+            transformedPreferences={[]}
           />
           <div className='relative'>
 

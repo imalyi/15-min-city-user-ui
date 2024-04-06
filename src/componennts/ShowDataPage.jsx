@@ -40,7 +40,7 @@ function ShowDataPage() {
     useState(selectedPreferences);
   const buttonRef = useRef(null);
   const [preferencesData, setPreferencesData] = useState([]);
-
+  logger.log(selectedPreferencesShowPage)
 
   const [flyToLocation, setFlyToLocation] = useState(null);
 
@@ -185,7 +185,7 @@ function ShowDataPage() {
       });
     });
     logger.log(visibleCategories.length)
-    logger.log(custom_addresses.length)
+    logger.log(categoriesToShow)
 
     const percentage =
       ((visibleCategories.length + totalPlacesCount + totalAddressesCount) / (categoriesToShow.length + custom_names.length + custom_addresses.length)) * 100;
@@ -303,7 +303,7 @@ function ShowDataPage() {
     });
     return acc;
   }, []);
-
+  logger.log(transformedPreferences)
 
 /*
   categoriesToShow.sort((a, b) => {
@@ -373,7 +373,6 @@ function ShowDataPage() {
                       <label className='selectyourCriteriaWithoutCategories' style={{paddingBottom: '9vh'}}>{t("Select your criteria in the menu on the left to see a match")}</label>
                     ) : (preferencesSearchDataShowPage.length != 0 && selectedPreferencesShowPage.length === 0) ? (
                       <div className="matchShadow">
-                        {isMatchDetailsVisible ? (   
                           <div>
                           <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
                             <div className='matchContainer'>
@@ -384,28 +383,13 @@ function ShowDataPage() {
                           <div className='show-data-hr-place'>
                               <hr className='show-data-search-place-hr'/>
                             </div>
-                            <div className='toggle-match-details-div' style={{ justifyContent: 'space-between' }}>
-                                <div className="seeMoreDetails">{t("See full report")}</div>
-                                <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("Collapse details")}</div>
+                            <div className='toggle-match-details-div' style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("See full report")}</div>
                           </div>
                           </div>
-                          ) : (
-                            <div>
-                              <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
-                                <div className='matchContainer'>
-                                  <div className='matchBackground'></div>
-                                  <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%",   backgroundColor: "#F8718A"}}></div>
-                                </div>
-                              </div>
-                              <div className='toggle-match-details-div' style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                  <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("Expand on details")}</div>
-                              </div>
-                            </div>  
-                          )}
                       </div>
                     ) : (
                       <div className="matchShadow">
-                      {isMatchDetailsVisible ? (                 
                         <div>
                           <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
                             <div className='matchContainer'>
@@ -427,24 +411,10 @@ function ShowDataPage() {
                           <div className='show-data-hr-place'>
                             <hr className='show-data-search-place-hr'/>
                           </div>
-                          <div className='toggle-match-details-div' style={{ justifyContent: 'space-between' }}>
-                              <div className="seeMoreDetails">{t("See full report")}</div>
-                              <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("Collapse details")}</div>
-                          </div>
-                        </div>  
-                      ) : (
-                        <div>
-                          <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
-                            <div className='matchContainer'>
-                              <div className='matchBackground'></div>
-                              <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%",   backgroundColor: "#F8718A"}}></div>
-                            </div>
-                          </div>
                           <div className='toggle-match-details-div' style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                              <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("Expand on details")}</div>
+                              <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("See full report")}</div>
                           </div>
                         </div>  
-                      )}   
                       </div>       
                     )}
                   </div>
@@ -494,7 +464,8 @@ function ShowDataPage() {
                   ? "border-bottom show-data-page-search-bar"
                   : "show-data-page-search-bar"
               }
-              selectedPreferences={transformedPreferences}
+              selectedPreferences={selectedPreferencesShowPage}
+              transformedPreferences={transformedPreferences}
               preferencesSearchData={preferencesSearchDataShowPage}
               />
             </motion.div>
