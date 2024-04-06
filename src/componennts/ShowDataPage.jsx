@@ -368,24 +368,24 @@ function ShowDataPage() {
                   <div className='show-data-hr-place-top'>
                     <hr className='show-data-search-place-hr'/>
                   </div>
-                  <div>
+                  <div className=''>
                     {(selectedPreferencesShowPage.length === 0 && preferencesSearchDataShowPage.length === 0) ? (
                       <label className='selectyourCriteriaWithoutCategories' style={{paddingBottom: '9vh'}}>{t("Select your criteria in the menu on the left to see a match")}</label>
                     ) : (preferencesSearchDataShowPage.length != 0 && selectedPreferencesShowPage.length === 0) ? (
                       <div className="matchShadow">
                           <div>
-                          <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
-                            <div className='matchContainer'>
-                              <div className='matchBackground'></div>
-                              <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%"}}></div>
-                            </div>
-                          </div>
-                          <div className='show-data-hr-place'>
-                              <hr className='show-data-search-place-hr'/>
+                              <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
+                                <div className='matchContainer'>
+                                  <div className='matchBackground'></div>
+                                  <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%"}}></div>
+                                </div>
+                              </div>
+                            <div className='show-data-hr-place'>
+                                <hr className='show-data-search-place-hr'/>
                             </div>
                             <div className='toggle-match-details-div' style={{ display: 'flex', justifyContent: 'flex-end' }}>
                                 <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("See full report")}</div>
-                          </div>
+                            </div>
                           </div>
                       </div>
                     ) : (
@@ -400,14 +400,16 @@ function ShowDataPage() {
                           <div className='show-data-hr-place'>
                             <hr className='show-data-search-place-hr'/>
                           </div>
-                          {mainCategoriesToShow && mainCategoriesToShow.map((category, index) => (
-                            <div key={index} className='selectyourCriteria' ><div className='matchingName'>{category + ":"} {calculatePercentageInCategory(category)} </div>
-                              <div className='matchContainer'>
-                                <div className='matchBackground'></div>
-                                <div className='matchReactangle' style={{ width: `calc(${calculatePercentageInCategory(category)})`}}></div>
+                          <div className="maxCriteriaLength">
+                            {mainCategoriesToShow && mainCategoriesToShow.map((category, index) => (
+                              <div key={index} className='selectyourCriteria' ><div className='matchingName'>{category + ":"} {calculatePercentageInCategory(category)} </div>
+                                <div className='matchContainer'>
+                                  <div className='matchBackground'></div>
+                                  <div className='matchReactangle' style={{ width: `calc(${calculatePercentageInCategory(category)})`}}></div>
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            ))}
+                          </div>
                           <div className='show-data-hr-place'>
                             <hr className='show-data-search-place-hr'/>
                           </div>
