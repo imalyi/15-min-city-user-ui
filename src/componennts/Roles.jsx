@@ -212,7 +212,7 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
           setIsResultClicked={setIsResultClicked}
           searchBarClassName="roles-search-bar"
         />
-        {customAddress && customObject && customAddress.length > 0 && customObject.length > 0 && !isResultClicked && (
+        {(customAddress || customObject) && (customAddress.length > 0 || customObject.length > 0) && !isResultClicked && (
           <SearchRolesResultsList
             customAddress={customAddress}
             customObject={customObject}
