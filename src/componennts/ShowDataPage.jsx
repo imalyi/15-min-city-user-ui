@@ -53,6 +53,15 @@ function ShowDataPage() {
 
   const [preferencesSearchDataShowPage, setPreferencesSearchDataShowPage] = useState([]);
 
+  const handleUserReportClick = async () => {
+    navigate('/report', {
+      state: {
+        address,
+        places,
+      },
+    });
+}
+
 
   const handlePreferencesData = (data) => {
     setPreferencesData(data)
@@ -70,6 +79,7 @@ function ShowDataPage() {
     i18n.changeLanguage(lng);
     //window.location.reload();
   };
+
 
   const handleToggleLeftSection = () => {
     setIsLeftSectionVisible((prev) => !prev);
@@ -384,7 +394,7 @@ function ShowDataPage() {
                                 <hr className='show-data-search-place-hr'/>
                             </div>
                             <div className='toggle-match-details-div' style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("See full report")}</div>
+                                <div className="toggle-match-details" onClick={() => handleUserReportClick()}>{t("See full report")}</div>
                             </div>
                           </div>
                       </div>
@@ -414,7 +424,7 @@ function ShowDataPage() {
                             <hr className='show-data-search-place-hr'/>
                           </div>
                           <div className='toggle-match-details-div' style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                              <div className="toggle-match-details" onClick={() => handleToggleMatchDetails()}>{t("See full report")}</div>
+                              <div className="toggle-match-details" onClick={() => handleUserReportClick()}>{t("See full report")}</div>
                           </div>
                         </div>  
                       </div>       
