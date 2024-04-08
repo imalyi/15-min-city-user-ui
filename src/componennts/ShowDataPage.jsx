@@ -53,6 +53,8 @@ function ShowDataPage() {
 
   const [preferencesSearchDataShowPage, setPreferencesSearchDataShowPage] = useState([]);
 
+  logger.warn("To production")
+
   const handleUserReportClick = async () => {
     navigate('/report', {
       state: {

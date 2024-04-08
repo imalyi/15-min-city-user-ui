@@ -10,7 +10,7 @@ export class ConsoleLogger {
     this.log = console.log.bind(console);
 
 
-    if (level === 'prod') {
+    if (level === 'warn') {
       this.log = NO_OP;
       return;
     }
