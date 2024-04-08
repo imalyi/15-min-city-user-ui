@@ -16,6 +16,7 @@ export const SearchBar = ({
   onEnterPress,
   searchBarClassName,
   selectedPreferences,
+  transformedPreferences,
   preferencesSearchData,
 }) => {
   const { t } = useTranslation();
@@ -121,6 +122,7 @@ export const SearchBar = ({
           address={input}
           addressId={addressId}
           selectedPreferences={selectedPreferences}
+          transformedPreferences={transformedPreferences}
           preferencesSearchData={preferencesSearchData}
         />
     </div>

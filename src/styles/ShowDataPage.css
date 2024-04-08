@@ -354,7 +354,7 @@ html{
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  padding-left: 40vh;
+  padding-left: 45vh;
   padding-right: 3.5vh;
   padding-top: 2vh;
   padding-bottom: 2vh;
@@ -507,6 +507,20 @@ html{
   border-radius: 16px;
   margin-top:3vh;
 }
+.maxCriteriaLength{
+  max-height: 60vh;
+  overflow-y: scroll;
+  background-color: #DCE6FA; /* Kolor "kciuka" paska przewijania */
+
+}
+.maxCriteriaLength::-webkit-scrollbar {
+  width: 8px; /* Szerokość paska przewijania */
+  height: 112px;
+}
+
+.maxCriteriaLength::-webkit-scrollbar-thumb {
+  background-color: #A1ABBF; /* Kolor "kciuka" paska przewijania */
+}
 
 .seeMoreDetails{
   color: #101720;
@@ -525,7 +539,7 @@ html{
 }
 
 .matchingName{
-  width: 40%;
+  width: 50%;
   text-align: left;
   margin-left: 2%;
 }
