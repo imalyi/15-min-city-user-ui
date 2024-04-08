@@ -41,12 +41,11 @@
 
 .leftReport{
     background-color: #DCE6FA;
-    height:73vh;
-    width: 23vw;
+    height:71.5vh;
+    width: 25vw;
     border-radius: 16px;
     margin-left: 2vw;
     margin-top: 3vh;
-    margin-right: 2vw;
     overflow-y: scroll;
     overflow-x: hidden;
 
@@ -63,12 +62,11 @@
 
   .leftReport-short{
     background-color: #DCE6FA;
-    height:73vh;
-    width: 23vw;
+    height:71.5vh;
+    width: 25vw;
     border-radius: 16px;
     margin-left: 2vw;
     margin-top: 3vh;
-    margin-right: 2vw;
     overflow-y: scroll;
 }
 
@@ -83,7 +81,7 @@
 
 .rightReport{
     background-color: #DCE6FA;
-    height:73vh;
+    height:71.5vh;
     width: 70vw;
     border-radius: 16px;
     margin-right: 2vw;
