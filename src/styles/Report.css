@@ -42,7 +42,7 @@
 .leftReport{
     background-color: #DCE6FA;
     height:73vh;
-    width: 24vw;
+    width: 23vw;
     border-radius: 16px;
     margin-left: 2vw;
     margin-top: 3vh;
@@ -64,7 +64,7 @@
   .leftReport-short{
     background-color: #DCE6FA;
     height:73vh;
-    width: 24vw;
+    width: 23vw;
     border-radius: 16px;
     margin-left: 2vw;
     margin-top: 3vh;
@@ -165,6 +165,39 @@
     margin-top: 3vh;
     color: #99A0A9;
   }
+
+  .selected-category-container {
+    position: relative;
+    overflow: hidden; /* Upewnij się, że elementy z zewnątrz nie będą wyświetlane */
+}
+
+.selected-category-container::before,
+.selected-category-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 4vw; /* Szerokość obszaru do rozmazania */
+    height: 110%;
+    z-index: 1;
+    pointer-events: none; /* Wyłączamy interakcję z tymi elementami */
+}
+
+.selected-category-container::before {
+    margin-top: 1vh;
+    left: 0;
+    background: linear-gradient(to left, rgba(220, 230, 250, 0), rgba(220, 230, 250, 1)); /* Gradient do rozmazania po lewej stronie */
+    border-radius: 8px;
+
+}
+
+.selected-category-container::after {
+    margin-top: 1vh;
+    right: 0;
+    background: linear-gradient(to right, rgba(220, 230, 250, 0), rgba(220, 230, 250, 1)); /* Gradient do rozmazania po prawej stronie */
+    border-radius: 8px;
+
+}
+
   .preferenceName{
     display: flex;
     text-align: center;
@@ -199,20 +232,52 @@
   }
   .selected-category-label {
     margin-top: 2vh;
-    margin-left: 3vh;
-    margin-right: 3vh;
     display: flex;
     overflow-x: auto;
     white-space: nowrap;
-    position: relative;;
   }
   .selected-category-label::-webkit-scrollbar {
     width: 0px; /* Szerokość paska przewijania */
     height: 0px;
   }
+
+  .preferencesNames{
+    z-index: 2;
+  }
   
   .leftReport::-webkit-scrollbar-thumb {
     background-color: #A1ABBF; /* Kolor "kciuka" paska przewijania */
+  }
+  .scrollButtonLeft{
+    position: absolute;
+    height: 4vh;
+    margin-top:1.2vh;
+    z-index: 2; /* Zwiększenie wartości z-index */
+    align-items: center;
+    display: flex;
+  }
+  .scrollButtonRight{
+    position: absolute;
+    height: 4vh;
+    margin-top:1.2vh;
+    margin-left:65.5vw;
+    z-index: 2; /* Zwiększenie wartości z-index */
+    align-items: center;
+    display: flex;
+  }
+  #expand-left {
+    color:#24254C;
+    height: 6vh;
+    width: 4vw;
+    z-index: 10;
+  }
+  
+  #expand-right {
+    color:#24254C;
+    height: 6vh;
+    width: 4vw;
+    z-index: 10;
+
   }
 
   .preferenceItem{
@@ -221,7 +286,7 @@
     border-radius: 8px;
     border: 1px solid #DCE6FA;
     padding: 2.5vh;
-    margin-right: 3vh;
+    margin-right: 2vh;
     margin-top: 2vh;
     margin-left:3vh;
     margin-bottom: 1vh;
@@ -297,7 +362,7 @@
   }
 
   .preferenceItems::-webkit-scrollbar {
-    width: 6px; /* Szerokość paska przewijania */
+    width: 8px; /* Szerokość paska przewijania */
     height: 50px;
   }
   

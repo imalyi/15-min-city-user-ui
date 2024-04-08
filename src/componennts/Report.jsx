@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { logger } from '../logger';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import anime from 'animejs';
 
 
 function Report() {
@@ -49,6 +50,27 @@ function Report() {
             return preference;
         }));
     };
+
+    const scrollToRight = () => {
+        const scrollContainer = document.querySelector('.selected-category-label');
+        anime({
+            targets: scrollContainer,
+            scrollLeft: '+=500',
+            duration: 500, // Czas trwania animacji w milisekundach
+            easing: 'easeInOutQuad' // Rodzaj interpolacji animacji
+        });
+    };
+    
+    const scrollToLeft = () => {
+        const scrollContainer = document.querySelector('.selected-category-label');
+        anime({
+            targets: scrollContainer,
+            scrollLeft: '-=500',
+            duration: 500, // Czas trwania animacji w milisekundach
+            easing: 'easeInOutQuad' // Rodzaj interpolacji animacji
+        });
+    };
+
     return(
         <div className="report">
             <div className="reportContainer">
@@ -89,18 +111,28 @@ function Report() {
                     <div className='rightReport'>
                         {selectedCategoryPreferences ? (
                             <>
-                            <div className="selected-category-label">
-                            {Object.keys(selectedCategoryPreferences).map((category, index) => {
-                                    const preference = allPreferences.find(pref => pref.key === category);
-                                    const className = preference && preference.value === true ? 'preferenceName' : 'preferenceNameDisabled';
-                                    return (
-                                        <div className={className} key={index} onClick={() => handlePreferencesClick(category)}>
-                                        <label className='preferenceLabel'>
-                                            {category}
-                                        </label>
-                                        </div>
-                                    );
-                                })}
+                            <div className='selected-category-container'>
+                                <div className="selected-category-label">
+                                    <div className="scrollButtonLeft" onClick={scrollToLeft}>                                        
+                                        {<Icon icon="lets-icons:expand-left" id='expand-left'/>}
+                                    </div>
+                                    <div style={{marginLeft: '4vw'}}></div>
+                                    {Object.keys(selectedCategoryPreferences).map((category, index) => {
+                                        const preference = allPreferences.find(pref => pref.key === category);
+                                        const className = preference && preference.value === true ? 'preferenceName' : 'preferenceNameDisabled';
+                                        return (
+                                            <div className={className} key={index} onClick={() => handlePreferencesClick(category)}>
+                                                <label className='preferenceLabel'>
+                                                    {category}
+                                                </label>
+                                            </div>
+                                        );
+                                    })}
+                                    <div style={{marginRight: '4vw'}}></div>
+                                    <div className="scrollButtonRight" onClick={scrollToRight}>
+                                        {<Icon icon="lets-icons:expand-right" id='expand-right'/>}
+                                    </div>
+                                </div>
                             </div>
                             <div className='preferenceItems'>
                             {Object.keys(selectedCategoryPreferences).map((category, index) => {
