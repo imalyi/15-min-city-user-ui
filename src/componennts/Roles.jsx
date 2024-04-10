@@ -12,7 +12,7 @@ import {LeftSectionSlide, LeftSectionSlideHide} from "./anim.js"
 import { logger } from '../logger';
 
 
-const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVisible, isLeftSectionVisible, setPreferencedDataShowPage, setPreferencesSearchDataShowPage, handleSearch }) => {
+const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVisible, isLeftSectionVisible, setPreferencedDataShowPage, setPreferencesSearchDataShowPage, handleSearch, onAddressClick }) => {
   const { t } = useTranslation();
   const [isShowDataPage, setIsShowDataPage] = useState(false);
   const [selectedPreferences, setSelectedPreferences] = useState(
@@ -292,7 +292,8 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
       <div>
         {preferencesSearchData.map((preference, index) => (
           <div key={index} className="selected-search-preferences">
-            <div className="selected-search-preference">
+            <div className="selected-search-preference" onClick={() => onAddressClick(preference)}>
+              {logger.log(preferencesSearchData)}
               <span className="selected-preference-label">{t(preference.name ? preference.name : preference)}</span>
               <Icon icon="material-symbols-light:close" className="close-icon" onClick={() => handleRemovePreference(index)}/> 
             </div>
