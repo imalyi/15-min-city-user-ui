@@ -95,11 +95,10 @@ function ShowDataPage() {
       // Jeśli tak, pobierz lokalizację z obiektu places.custom_addresses
       location = places.custom_addresses[address].location;
       logger.log('Lokalizacja dla adresu:', location);
+      setFlyToLocation(location);
     } else {
-      logger.log('Adres nie został znaleziony w places.custom_addresses');
+      logger.warn('Adres nie został znaleziony w places.custom_addresses lub ten adres jest twoim adresem wyszukiwania');
     }
-    logger.log(location)
-    setFlyToLocation(location);
   };
 
   const handleEnterPress = () => {

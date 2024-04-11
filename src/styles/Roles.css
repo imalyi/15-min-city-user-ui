@@ -170,6 +170,7 @@
 }
 
 .selected-search-preference{
+  cursor: pointer;
   display: inline-flex;
   margin:5px;
   padding: 13px 12px;

@@ -100,9 +100,12 @@
     line-height: normal;
     text-align: left;
     border-radius: 16px;
+    cursor:pointer;
+
   }
 
   .categoryNameSelected{
+    cursor:pointer;
     text-align: center;
     align-items: center;
     height: 8vh;
@@ -197,6 +200,7 @@
 }
 
   .preferenceName{
+    cursor: pointer;
     display: flex;
     text-align: center;
     align-items: center;
@@ -210,6 +214,7 @@
   }
 
   .preferenceNameDisabled{
+    cursor: pointer;
     display: flex;
     text-align: center;
     align-items: center;
@@ -221,6 +226,7 @@
     margin-right: 0.5vw;
   }
   .preferenceLabel{
+    cursor: pointer;
     margin-top: 0.2vh;
     font-family: Lato;
     font-size: 3vh;
@@ -264,6 +270,7 @@
     display: flex;
   }
   #expand-left {
+    cursor: pointer;
     color:#24254C;
     height: 6vh;
     width: 4vw;
@@ -271,6 +278,7 @@
   }
   
   #expand-right {
+    cursor: pointer;
     color:#24254C;
     height: 6vh;
     width: 4vw;
