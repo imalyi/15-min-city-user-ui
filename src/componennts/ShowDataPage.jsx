@@ -40,7 +40,6 @@ function ShowDataPage() {
     useState(selectedPreferences);
   const buttonRef = useRef(null);
   const [preferencesData, setPreferencesData] = useState([]);
-  logger.log(selectedPreferencesShowPage)
 
   const [flyToLocation, setFlyToLocation] = useState(null);
 
@@ -52,6 +51,7 @@ function ShowDataPage() {
   const [categoryVisibility, setCategoryVisibility] = useState({});
 
   const [preferencesSearchDataShowPage, setPreferencesSearchDataShowPage] = useState([]);
+  logger.log(places)
 
   logger.warn("To production")
 
@@ -87,8 +87,18 @@ function ShowDataPage() {
     setIsLeftSectionVisible((prev) => !prev);
   };
 
-  const handleDataCategoryClick = (location) => {
-    setFlyToLocation(location);
+  const handleDataCategoryClick = (address) => {
+    let location = []
+
+// Sprawdź, czy adres istnieje w places.custom_addresses
+    if (places.custom_addresses.hasOwnProperty(address)) {
+      // Jeśli tak, pobierz lokalizację z obiektu places.custom_addresses
+      location = places.custom_addresses[address].location;
+      logger.log('Lokalizacja dla adresu:', location);
+      setFlyToLocation(location);
+    } else {
+      logger.warn('Adres nie został znaleziony w places.custom_addresses lub ten adres jest twoim adresem wyszukiwania');
+    }
   };
 
   const handleEnterPress = () => {
@@ -449,6 +459,7 @@ function ShowDataPage() {
                     setPreferencedDataShowPage={handlePreferencesData}
                     setPreferencesSearchDataShowPage={setPreferencesSearchDataShowPage}
                     handleSearch={handleEnterPress}
+                    onAddressClick={handleDataCategoryClick}
                   />
                 </div>
               </div>

@@ -65,7 +65,7 @@
   display: inline-block;
   cursor: pointer;
   margin-left: 3px;
-  margin-right: 40px;
+  margin-right: 30px;
 }
 
 .expand-button{
@@ -151,7 +151,6 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  margin-left: 34px;
 
 }
 
@@ -171,6 +170,7 @@
 }
 
 .selected-search-preference{
+  cursor: pointer;
   display: inline-flex;
   margin:5px;
   padding: 13px 12px;
@@ -311,6 +311,46 @@
   font-size: 24px;
 }
 
+.category-checkbox-off{
+  width: 3vh; /* szerokość i wysokość SVG */
+  height: 3vh;
+  border-color: #24254C;
+  border:2px;
+  border-style: solid;
+  border-radius: 3px;
+  margin-left: 2vh;
+  margin-top: 0.3vh;
+}
+
+.category-checkbox-on{
+  width: 3vh; /* szerokość i wysokość SVG */
+  height: 3vh;
+  background-color: #24254C;
+  border: 2px solid #24254C; 
+  border-style: solid;
+  border-radius: 3px;
+  margin-left: 2vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.3vh;
+
+}
+
+.category-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('Check-Thin--Streamline-Nova.svg');
+  width: 1.8vh;
+  height: 1.8vh;
+  background-size: cover;
+  filter: invert(100%);
+  margin: 0 auto; /* Dodałem marginesy poziome */
+  margin-top: 0.3vh;
+}
+
+
 /* Dla ekranów o szerokości do 600px (np. smartfony) */
 @media only screen and (max-width: 600px) {
   .preferences-column {
@@ -339,9 +379,49 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    margin-left: 24px;
   
   }
+
+  .category-checkbox-off{
+    width: 2.2vh; /* szerokość i wysokość SVG */
+    height: 2.2vh;
+    border-color: #24254C;
+    border:2px;
+    border-style: solid;
+    border-radius: 3px;
+    margin-left: 2vh;
+    margin-top: 0.3vh;
+  }
+  
+  .category-checkbox-on{
+    width: 2.2vh; /* szerokość i wysokość SVG */
+    height: 2.2vh; 
+    background-color: #24254C;
+    border: 2px solid #24254C; 
+    border-style: solid;
+    border-radius: 3px;
+    margin-left: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.3vh;
+  
+  }
+  
+  .category-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('Check-Thin--Streamline-Nova.svg');
+    width: 1.6vh;
+    height: 1.6vh;
+    background-size: cover;
+    filter: invert(100%);
+    margin: 0 auto; /* Dodałem marginesy poziome */
+    margin-top: 0.2vh;
+  }
+  
+
   .clear-all{
     margin-left: 3vh;
     font-family: Lato, sans-serif;
@@ -460,8 +540,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    margin-left: 14px;
-  
+    margin-left: 0px;
   }
   .preferences-checkbox {
     display: flex;
@@ -505,7 +584,45 @@
   .category-container {
     margin-bottom: 20px;
   }
-
+  .category-checkbox-off{
+    width: 2vh; /* szerokość i wysokość SVG */
+    height: 2vh;
+    border-color: #24254C;
+    border:2px;
+    border-style: solid;
+    border-radius: 3px;
+    margin-left: 2vh;
+    margin-top: 0vh;
+  }
+  
+  .category-checkbox-on{
+    width: 2vh; /* szerokość i wysokość SVG */
+    height: 2vh; 
+    background-color: #24254C;
+    border: 2px solid #24254C; 
+    border-style: solid;
+    border-radius: 3px;
+    margin-left: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0vh;
+  
+  }
+  
+  .category-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('Check-Thin--Streamline-Nova.svg');
+    width: 1.2vh;
+    height: 1.2vh;
+    background-size: cover;
+    filter: invert(100%);
+    margin: 0 auto; /* Dodałem marginesy poziome */
+    margin-top: 0.2vh;
+  }
+  
 }
 
 @media only screen and (max-width: 600px) {
@@ -579,6 +696,8 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    margin-left: 0.9vh;
+
   }
   .preferences-label{
     font-family: Lato, sans-serif;
@@ -642,6 +761,46 @@
   }
   .expand-icon{
     font-size: 12px;
+  }
+  .category-checkbox-off{
+    width: 2vh; /* szerokość i wysokość SVG */
+    height: 2vh;
+    border-color: #24254C;
+    border:2px;
+    border-style: solid;
+    border-radius: 3px;
+    margin-left: 2vh;
+    margin-top: 0vh;
+    margin-bottom: 0.2vh;
+
+  }
+  
+  .category-checkbox-on{
+    width: 2vh; /* szerokość i wysokość SVG */
+    height: 2vh; 
+    background-color: #24254C;
+    border: 2px solid #24254C; 
+    border-style: solid;
+    border-radius: 3px;
+    margin-left: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0vh;
+  
+  }
+  
+  .category-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('Check-Thin--Streamline-Nova.svg');
+    width: 1.2vh;
+    height: 1.2vh;
+    background-size: cover;
+    filter: invert(100%);
+    margin: 0 auto; /* Dodałem marginesy poziome */
+    margin-top: 0.2vh;
   }
   
 }
