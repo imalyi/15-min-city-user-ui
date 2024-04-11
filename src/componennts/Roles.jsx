@@ -115,17 +115,15 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
     };
   }, []);
 
-  const handlePreferenceChange = (event) => {
-    const preferenceName = event.target.name;
+  const handlePreferenceChange = (preferenceName) => {
     const updatedPreferences = selectedPreferences.some(
       (preference) => preference.name === preferenceName,
     )
       ? selectedPreferences.filter((item) => item.name !== preferenceName)
-      : [...selectedPreferences, {name: preferenceName }];
+      : [...selectedPreferences, { name: preferenceName }];
     setSelectedPreferences(updatedPreferences);
     onSelectPreferences(updatedPreferences);
     setTimeout(handleSearch(), 50);
-
   };
 
   const handleCategoryToggle = (categoryName) => {
@@ -233,18 +231,25 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
                 <FormControlLabel
                     control={
                       <div className="custom-checkbox">
-                        <Checkbox
-                          checked={preferencesData[categoryName].every(
-                            (preference) =>
-                              selectedPreferences.some(
-                                (p) => p.name === preference.name,
-                              ),
-                          )}
-                          onChange={() => handleCategoryToggle(categoryName)}
-                        />
+                        <div className="category-checkbox-off" style={{ display: preferencesData[categoryName].every(
+                          (preference) =>
+                            selectedPreferences.some(
+                              (p) => p.name === preference.name,
+                            ),
+                        ) ? 'none' : 'block'}}>
+                        </div>
+                        <div className="category-checkbox-on" style={{ display: preferencesData[categoryName].every(
+                          (preference) =>
+                            selectedPreferences.some(
+                              (p) => p.name === preference.name,
+                            ),
+                          ) ? 'block' : 'none'}}>
+                          <div className='category-check'></div>
+                        </div>
                       </div>
                     }
                     label={<span className="category-label">{t(categoryName)}</span>}
+                    onClick={() => handleCategoryToggle(categoryName)}
                   />
                 <div className="expand-button-wrapper">
                   <button
@@ -263,24 +268,27 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
                 </div>
                 {expandedCategories.includes(categoryName) && (
                   <div className="preferences-checkbox">
-                    {preferencesData[categoryName].map((preference) => (
-                      <FormControlLabel
-                        key={preference.name}
-                        control={
-                          <Checkbox
-                            value={preference.name}
-                            name={preference.name}
-                            checked={selectedPreferences.some(
-                              (p) => p.name === preference.name,
-                            )}
-                            onChange={handlePreferenceChange}
-                            className="role-checkbox"
-                          />
-                        }
-                        className="role-option"
-                        label={<span className="preferences-label">{t(preference.name)}</span>}
-                      />
-                    ))}
+                  {preferencesData[categoryName].map((preference) => (
+                    <FormControlLabel
+                      key={preference.name}
+                      control={
+                        <div className="custom-checkbox">
+                          <div className="category-checkbox-off" style={{ marginTop: '0vh', display: selectedPreferences.some(
+                            (p) => p.name === preference.name
+                          ) ? 'none' : 'block' }}>
+                          </div>
+                          <div className="category-checkbox-on" style={{ marginTop: '0vh', display: selectedPreferences.some(
+                            (p) => p.name === preference.name
+                          ) ? 'block' : 'none' }}>
+                            <div className='category-check'></div>
+                          </div>
+                        </div>
+                      }
+                      label={<span className="preferences-label">{t(preference.name)}</span>}
+                      className="role-option"
+                      onClick={() => handlePreferenceChange(preference.name)}
+                    />
+                  ))}
                   </div>
                 )}
               </div>
