@@ -110,11 +110,12 @@ export default Map;
 
 function FlyToMarker({ flyToLocation }) {
   const { map } = useLeafletContext();
+  logger.log('FlyToMarker', flyToLocation);
   useEffect(() => {
     if (flyToLocation) {
       const [lng, lat] = flyToLocation;
-      map.flyTo([lat, lng], 18, {
-        duration: 1,
+      map.flyTo([lat, lng], 16, {
+        duration: 1.5,
       });
     }
   }, [flyToLocation, map]);
@@ -132,7 +133,7 @@ function FlyToMarkerReverse({ flyToLocation }) {
         zoomLevel = 12;
       }
       map.flyTo([lat, lng], zoomLevel, {
-        duration: 0.5,
+        duration: 0.7,
       });
     }
   }, [flyToLocation, map]);
