@@ -99,7 +99,7 @@ function Report() {
                     {categories && categories.map((category, index) => (
                         <div>
                             <div key={index} className={category === selectedCategory ? 'categoryNameSelected' : 'categoryName'} onClick={() => handleCategoryClick(category)}>
-                                <label className='categoryLabel'>{category}</label>
+                                <label className='categoryLabel'>{t(category)}</label>
                             </div>
                             <div className={category === selectedCategory ? 'show-data-hr-place-selected' : 'show-data-hr-place'}>
                                 <hr className='show-data-search-place-hr'/>
@@ -123,7 +123,7 @@ function Report() {
                                         return (
                                             <div className={className} key={index} onClick={() => handlePreferencesClick(category)}>
                                                 <label className='preferenceLabel'>
-                                                    {category}
+                                                    {t(category)}
                                                 </label>
                                             </div>
                                         );
