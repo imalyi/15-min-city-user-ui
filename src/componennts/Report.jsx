@@ -169,13 +169,12 @@ function Report() {
                             </>
                         ) : (
                             <>
-                                <div className="emptyRaport-labelFirst">{t("There is nothing here at the moment....")}</div>
-                                <div className='emptyRaport-labelSecond'>{t("Select a category on the left to view the report")}</div>
+                                <div className='emptyRaport-labelFirst'>{t("Select a category on the left to view the report")}</div>
                             </>
                         )}
                     </div>
                 </div>
-                <Footer useMargin={false}/>
+                <Footer useMargin={true}/>
             </div>
         </div>
     );
