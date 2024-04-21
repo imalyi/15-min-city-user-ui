@@ -27,6 +27,8 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
   const [isResultClicked, setIsResultClicked] = useState(false);
   const [preferencesSearchData, setPreferencesSearchData] = useState([]);
 
+  logger.log(preferencesData)
+
   const handleRemoveAllPreferences = () => {
     setPreferencesSearchData([]);
     setSelectedPreferences([]);

@@ -99,7 +99,7 @@ function Report() {
                     {categories && categories.map((category, index) => (
                         <div>
                             <div key={index} className={category === selectedCategory ? 'categoryNameSelected' : 'categoryName'} onClick={() => handleCategoryClick(category)}>
-                                <label className='categoryLabel'>{category}</label>
+                                <label className='categoryLabel'>{t(category)}</label>
                             </div>
                             <div className={category === selectedCategory ? 'show-data-hr-place-selected' : 'show-data-hr-place'}>
                                 <hr className='show-data-search-place-hr'/>
@@ -123,7 +123,7 @@ function Report() {
                                         return (
                                             <div className={className} key={index} onClick={() => handlePreferencesClick(category)}>
                                                 <label className='preferenceLabel'>
-                                                    {category}
+                                                    {t(category)}
                                                 </label>
                                             </div>
                                         );
@@ -169,13 +169,12 @@ function Report() {
                             </>
                         ) : (
                             <>
-                                <div className="emptyRaport-labelFirst">{t("There is nothing here at the moment....")}</div>
-                                <div className='emptyRaport-labelSecond'>{t("Select a category on the left to view the report")}</div>
+                                <div className='emptyRaport-labelFirst'>{t("Select a category on the left to view the report")}</div>
                             </>
                         )}
                     </div>
                 </div>
-                <Footer useMargin={false}/>
+                <Footer useMargin={true}/>
             </div>
         </div>
     );
