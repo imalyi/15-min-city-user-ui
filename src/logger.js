@@ -1,4 +1,4 @@
-import { LOG_LEVEL } from "./environment";
+import { LOG_LEVEL } from './environment';
 export const NO_OP = (message, ...optionalParams) => {};
 /** Logger which outputs to the browser console */
 export class ConsoleLogger {
@@ -9,12 +9,10 @@ export class ConsoleLogger {
     this.warn = console.warn.bind(console);
     this.log = console.log.bind(console);
 
-
     if (level === 'warn') {
       this.log = NO_OP;
       return;
     }
-
   }
 }
 

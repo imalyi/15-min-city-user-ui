@@ -1,26 +1,23 @@
 .show-data-button {
-  background-color: #DCE6FA;
+  background-color: #dce6fa;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
 }
 
-
 @media only screen and (max-width: 850px) {
   #search-icon-button {
-    color: #F8718A;
-    height:3vh;
-    width:3vh;
+    color: #f8718a;
+    height: 3vh;
+    width: 3vh;
   }
-  
 }
 
 @media only screen and (min-width: 851px) {
   #search-icon-button {
-    color: #F8718A;
-    height:4vh;
-    width:4vh;
+    color: #f8718a;
+    height: 4vh;
+    width: 4vh;
   }
-  
 }

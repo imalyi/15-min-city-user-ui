@@ -1,98 +1,98 @@
 .roles-search-bar {
-    width: calc(100% - 5vh);
-    height: 11vh;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0; 
-    padding: 0 24px;
-    background-color: #DCE6FA;
-    display: flex;
-    align-items: center;
-    margin-left: 5vh;
-    margin-top: 4vh;
-  }
-  
+  width: calc(100% - 5vh);
+  height: 11vh;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0 24px;
+  background-color: #dce6fa;
+  display: flex;
+  align-items: center;
+  margin-left: 5vh;
+  margin-top: 4vh;
+}
+
+.roles-search-bar input::placeholder {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  color: #99a0a9;
+}
+
+.roles-search-bar input {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+}
+
+input {
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  font-size: 1.25rem;
+  width: 100%;
+  margin-left: 5px;
+}
+
+input:focus {
+  outline: none;
+}
+
+.show-data-button {
+  background-color: #dce6fa;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+#search-icon {
+  color: #f8718a;
+  height: 32px;
+  width: 32px;
+}
+
+@media only screen and (max-width: 1300px) {
   .roles-search-bar input::placeholder {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
-    font-size: 24px;
-    color: #99A0A9;
+    font-size: 16px;
+    color: #99a0a9;
   }
-  
+
   .roles-search-bar input {
-    font-family: 'Lato', sans-serif; 
-    font-weight: 400; 
-    font-size: 24px; 
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
   }
-  
   input {
     background-color: transparent;
     border: none;
     height: 100%;
-    font-size: 1.25rem;
+    font-size: 16px;
     width: 100%;
     margin-left: 5px;
   }
-  
-  input:focus {
-    outline: none;
+  #search-icon {
+    color: #f8718a;
+    height: 3vh;
+    width: 3vh;
   }
-  
-  .show-data-button {
-    background-color: #DCE6FA;
-    border: none;
-    cursor: pointer;
+  .roles-search-bar {
+    width: calc(100% - 2vh);
+    height: 11vh;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 0 24px;
+    background-color: #dce6fa;
     display: flex;
     align-items: center;
+    margin-left: 2vh;
+    margin-top: 2vh;
   }
-  #search-icon {
-    color: #F8718A;
-    height:32px;
-    width:32px;
-  }
-  
-  @media only screen and (max-width: 1300px) {
-    .roles-search-bar input::placeholder {
-      font-family: 'Lato', sans-serif;
-      font-weight: 400;
-      font-size: 16px;
-      color: #99A0A9;
-    }
-    
-    .roles-search-bar input {
-      font-family: 'Lato', sans-serif; 
-      font-weight: 400; 
-      font-size: 16px; 
-    }
-    input {
-      background-color: transparent;
-      border: none;
-      height: 100%;
-      font-size: 16px;
-      width: 100%;
-      margin-left: 5px;
-    }
-    #search-icon {
-      color: #F8718A;
-      height:3vh;
-      width:3vh;
-    }
-    .roles-search-bar {
-      width: calc(100% - 2vh);
-      height: 11vh;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 8px;
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0; 
-      padding: 0 24px;
-      background-color: #DCE6FA;
-      display: flex;
-      align-items: center;
-      margin-left: 2vh;
-      margin-top: 2vh;
-    }
-  }
+}
 @media only screen and (max-width: 800px) {
   .roles-search-bar {
     width: calc(100% - 1vh);
@@ -100,9 +100,9 @@
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0; 
+    border-bottom-right-radius: 0;
     padding: 0 12px;
-    background-color: #DCE6FA;
+    background-color: #dce6fa;
     display: flex;
     align-items: center;
     margin-left: 1vh;
@@ -115,13 +115,13 @@
     font-family: 'Lato', sans-serif;
     font-weight: 400;
     font-size: 12px;
-    color: #99A0A9;
+    color: #99a0a9;
   }
-  
+
   .roles-search-bar input {
-    font-family: 'Lato', sans-serif; 
-    font-weight: 400; 
-    font-size: 2vh; 
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 2vh;
   }
   input {
     background-color: transparent;
@@ -132,9 +132,9 @@
     margin-left: 3px;
   }
   #search-icon {
-    color: #F8718A;
-    height:2vh;
-    width:2vh;
+    color: #f8718a;
+    height: 2vh;
+    width: 2vh;
   }
   .roles-search-bar {
     width: calc(100% - 1vh);
@@ -142,9 +142,9 @@
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0; 
+    border-bottom-right-radius: 0;
     padding: 0 8px;
-    background-color: #DCE6FA;
+    background-color: #dce6fa;
     display: flex;
     align-items: center;
     margin-left: 1vh;
@@ -157,13 +157,13 @@
     font-family: 'Lato', sans-serif;
     font-weight: 400;
     font-size: 1vh;
-    color: #99A0A9;
+    color: #99a0a9;
   }
-  
+
   .roles-search-bar input {
-    font-family: 'Lato', sans-serif; 
-    font-weight: 400; 
-    font-size: 1.5vh; 
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 1.5vh;
   }
   input {
     background-color: transparent;

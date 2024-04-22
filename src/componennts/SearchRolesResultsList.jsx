@@ -3,7 +3,12 @@ import { SearchRolesResult } from './SearchRolesResult';
 import '../styles/SearchRolesResultsList.css';
 import { logger } from '../logger';
 
-export const SearchRolesResultsList = ({ customAddress, customObject, onResultClick, searchResultsListClassName }) => {
+export const SearchRolesResultsList = ({
+  customAddress,
+  customObject,
+  onResultClick,
+  searchResultsListClassName,
+}) => {
   return (
     <div className={`roles-search-result-list ${searchResultsListClassName}`}>
       {logger.log(customAddress)}

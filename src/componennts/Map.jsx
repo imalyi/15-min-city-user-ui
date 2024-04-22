@@ -23,7 +23,6 @@ function Map({
     iconSize: [50, 50],
   });
 
-
   return (
     <MapContainer
       center={selectedCoordinatesShowPage}
@@ -41,66 +40,72 @@ function Map({
         zIndexOffset={200}
         position={selectedCoordinatesShowPage}
         icon={locationIcon}
-        
       >
-      <Popup>
-        <div>
-          <strong>Your address</strong>
-        </div>
-      </Popup>
+        <Popup>
+          <div>
+            <strong>Your address</strong>
+          </div>
+        </Popup>
       </Marker>
       <FlyToMarkerReverse flyToLocation={selectedCoordinatesShowPage} />
       <FlyToMarker flyToLocation={flyToLocation} />
-      {mainCategoriesToShow && mainCategoriesToShow.map(category => {
-      const categoryData = places[category];
-      if (categoryData) {
-        return Object.entries(categoryData).map(([preferenceName, preference], index) => {
-          return preference.map((item, index) => {
-            return (
-              <Markers
-                key={`${category}-${index}`}
-                placeName={preferenceName}
-                lat={item.location[1]}
-                lng={item.location[0]}
-                distance={item.distance}
-                address={item.address.full}
-                name={item.name}
-              />
+      {mainCategoriesToShow &&
+        mainCategoriesToShow.map((category) => {
+          const categoryData = places[category];
+          if (categoryData) {
+            return Object.entries(categoryData).map(
+              ([preferenceName, preference], index) => {
+                return preference.map((item, index) => {
+                  return (
+                    <Markers
+                      key={`${category}-${index}`}
+                      placeName={preferenceName}
+                      lat={item.location[1]}
+                      lng={item.location[0]}
+                      distance={item.distance}
+                      address={item.address.full}
+                      name={item.name}
+                    />
+                  );
+                });
+              },
             );
-          });
-        });
-      }
-      return null; // Jeśli categoryData jest niezdefiniowane lub puste, zwracamy null
-    })}
-      {Object.entries(custom_names).map(([categoryName, categoryList], index1) => {
-        return Object.entries(categoryList).map(([subcategoryName, subcategory], index2) => {
-          return subcategory.map((item, index3) => {
-            return (
-              <Markers
-                key={`${subcategoryName}-${index1}-${index2}-${index3}`}
-                placeName={subcategoryName} // Użycie nazwy subkategorii jako placeName
-                lat={item.location[1]}
-                lng={item.location[0]}
-                distance={item.distance}
-                address={item.address.full}
-                name={item.name}
-              />
-            );
-          });
-        });
-      })}
+          }
+          return null; // Jeśli categoryData jest niezdefiniowane lub puste, zwracamy null
+        })}
+      {Object.entries(custom_names).map(
+        ([categoryName, categoryList], index1) => {
+          return Object.entries(categoryList).map(
+            ([subcategoryName, subcategory], index2) => {
+              return subcategory.map((item, index3) => {
+                return (
+                  <Markers
+                    key={`${subcategoryName}-${index1}-${index2}-${index3}`}
+                    placeName={subcategoryName} // Użycie nazwy subkategorii jako placeName
+                    lat={item.location[1]}
+                    lng={item.location[0]}
+                    distance={item.distance}
+                    address={item.address.full}
+                    name={item.name}
+                  />
+                );
+              });
+            },
+          );
+        },
+      )}
       {Object.values(custom_addresses).map((address, index1) => {
-            return (
-              <Markers
-                key={`${address}`}
-                placeName={address.address.full} // Załóżmy, że subcategory zawiera informacje o kategorii
-                lat={address.location[1]}
-                lng={address.location[0]}
-                distance={address.commute_time.walk.distance}
-                address={""}
-                name={address.address.full}
-              />
-            );
+        return (
+          <Markers
+            key={`${address}`}
+            placeName={address.address.full} // Załóżmy, że subcategory zawiera informacje o kategorii
+            lat={address.location[1]}
+            lng={address.location[0]}
+            distance={address.commute_time.walk.distance}
+            address={''}
+            name={address.address.full}
+          />
+        );
       })}
     </MapContainer>
   );

@@ -1,12 +1,11 @@
-
 .input-wrapper input::placeholder {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   font-size: 24px;
-  color: #99A0A9;
+  color: #99a0a9;
 }
 
-.border-bottom{
+.border-bottom {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   border-bottom-left-radius: 0px;
@@ -35,23 +34,23 @@ input:focus {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     padding: 0 24px;
-    background-color: #DCE6FA;
+    background-color: #dce6fa;
     display: flex;
     align-items: center;
     margin-left: 3vh;
     margin-top: 5vh;
   }
   .input-wrapper input {
-    font-family: 'Lato', sans-serif; 
-    font-weight: 400; 
-    font-size: 2vh; 
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 2vh;
   }
   .input-wrapper input::placeholder {
-    font-family: 'Lato', sans-serif; 
-    font-weight: 400; 
-    font-size: 2vh; 
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 2vh;
   }
-  .border-bottom{
+  .border-bottom {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     border-bottom-left-radius: 0px;
@@ -66,9 +65,9 @@ input:focus {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px; 
+    border-bottom-right-radius: 8px;
     padding: 0 24px;
-    background-color: #DCE6FA;
+    background-color: #dce6fa;
     display: flex;
     align-items: center;
     margin-left: 5vh;
@@ -77,11 +76,11 @@ input:focus {
   }
 
   .input-wrapper input {
-    font-family: 'Lato', sans-serif; 
-    font-weight: 400; 
-    font-size: 3vh; 
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 3vh;
   }
-  .border-bottom{
+  .border-bottom {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     border-bottom-left-radius: 0px;

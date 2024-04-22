@@ -70,12 +70,12 @@
     font-family: Arial, sans-serif;
     font-size: 12px;
   }
-  
+
   .leaflet-popup-content {
     margin-bottom: 5px;
     text-align: center;
   }
-  
+
   .leaflet-popup-close-button {
     position: absolute;
     top: 5px;

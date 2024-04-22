@@ -493,7 +493,6 @@ export const family_doctor = new Icon({
   iconSize: [30, 30],
 });
 
-
 export const copy_machine = new Icon({
   iconUrl: '/icons/copy_machine.png',
   iconSize: [30, 30],
@@ -608,8 +607,6 @@ export const butcher = new Icon({
   iconSize: [30, 30],
 });
 
-
-
 export const playground = new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/3229/3229890.png',
   iconSize: [30, 30],
@@ -643,7 +640,6 @@ export const swimming_pool = new Icon({
   iconUrl: '/icons/swimming.png',
   iconSize: [30, 30],
 });
-
 
 export const meditacja = new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/2647/2647625.png',
@@ -699,8 +695,6 @@ export const open_space = new Icon({
   iconUrl: '/icons/park.png',
   iconSize: [30, 30],
 });
-
-
 
 export const three_d_printers = new Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/4228/4228862.png',

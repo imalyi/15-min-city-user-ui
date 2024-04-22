@@ -6,7 +6,13 @@ import { Icon } from '@iconify/react';
 import { logger } from '../logger';
 
 export const SearchRolesBar = ({
-  setCustomAddress, setCustomObject, input, setInput, setIsResultClicked, onEnterPress, searchBarClassName
+  setCustomAddress,
+  setCustomObject,
+  input,
+  setInput,
+  setIsResultClicked,
+  onEnterPress,
+  searchBarClassName,
 }) => {
   const { t } = useTranslation();
   const [debouncedValue, setDebouncedValue] = useState(input);
@@ -18,7 +24,6 @@ export const SearchRolesBar = ({
       'Oops! Something went wrong with our server. Please try using Search Bar again later. We apologize for the inconvenience.',
     );
   };
-
 
   const fetchData = useCallback(
     async (value) => {
@@ -50,7 +55,6 @@ export const SearchRolesBar = ({
           throw new Error(response.statusText);
         }
       } catch (error) {
-        
         console.error('Error getting address from coordinates:', error);
       }
     },
@@ -100,10 +104,8 @@ export const SearchRolesBar = ({
         onChange={(e) => handleChange(e.target.value)}
       />
       <button ref={buttonRef} style={{ display: 'none' }}></button>
-      <button
-        className="show-data-button"
-      >
-        {<Icon icon="carbon:search" id='search-icon'/>}
+      <button className="show-data-button">
+        {<Icon icon="carbon:search" id="search-icon" />}
       </button>
     </div>
   );
