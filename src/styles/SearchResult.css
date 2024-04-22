@@ -8,10 +8,10 @@
 }
 
 .home-search-list:hover {
-  background-color: #BCC6DA;
+  background-color: #bcc6da;
 }
 
-.show-data-page-search-list{
+.show-data-page-search-list {
   padding: 3.77vh 3vh;
   font-family: 'Lato', sans-serif;
   font-size: 24px;
@@ -21,14 +21,14 @@
 }
 
 .show-data-page-search-list:hover {
-  background-color: #BCC6DA;
+  background-color: #bcc6da;
 }
 
 @media only screen and (max-width: 850px) {
   .home-search-list {
     padding: 2.5vh 3vh;
     font-family: 'Lato', sans-serif;
-    font-size: 2vh; 
+    font-size: 2vh;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -47,7 +47,7 @@
 }
 
 @media only screen and (max-width: 800px) {
-  .show-data-page-search-list{
+  .show-data-page-search-list {
     padding: 1.7vh 2vh;
     font-family: 'Lato', sans-serif;
     font-size: 2vh;
@@ -55,6 +55,4 @@
     font-weight: 400;
     line-height: normal;
   }
-  
 }
-

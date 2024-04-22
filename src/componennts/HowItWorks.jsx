@@ -3,9 +3,6 @@ import React from 'react';
 import '../styles/HowItWorks.css';
 import { logger } from '../logger';
 
-
-
-
 //check
 
 const HowItWorks = ({ howItWorksText }) => {

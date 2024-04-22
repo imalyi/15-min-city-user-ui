@@ -12,11 +12,10 @@ import ShowDataButton from './ShowDataButton';
 import Roles from './Roles';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import {Icon} from '@iconify/react';
-import { motion, AnimatePresence } from "framer-motion"
-import {RightSectionSlide, MatchSectionSlide} from "./anim.js"
+import { Icon } from '@iconify/react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { RightSectionSlide, MatchSectionSlide } from './anim.js';
 import { logger } from '../logger';
-
 
 function ShowDataPage() {
   const navigate = useNavigate();
@@ -30,7 +29,10 @@ function ShowDataPage() {
   const selectedPreferences = location.state?.selectedPreferences || [];
   const preferencesSearchData = location.state?.preferencesSearchData || [];
 
-  const selectedCoordinates = [location.state?.places.location[1], location.state?.places.location[0]];
+  const selectedCoordinates = [
+    location.state?.places.location[1],
+    location.state?.places.location[0],
+  ];
   const [results, setResults] = useState([]);
   const [input, setInput] = useState(address);
   const [addressIdShowPage, setAddressIdShowPage] = useState(addressId);
@@ -51,12 +53,13 @@ function ShowDataPage() {
 
   const [categoryVisibility, setCategoryVisibility] = useState({});
 
-  const [preferencesSearchDataShowPage, setPreferencesSearchDataShowPage] = useState(preferencesSearchData);
-  logger.log(places)
-  logger.log(preferencesSearchDataShowPage)
-  logger.log(preferencesSearchDataShowPage)
+  const [preferencesSearchDataShowPage, setPreferencesSearchDataShowPage] =
+    useState(preferencesSearchData);
+  logger.log(places);
+  logger.log(preferencesSearchDataShowPage);
+  logger.log(preferencesSearchDataShowPage);
 
-  logger.warn("To production")
+  logger.warn('To production');
 
   const handleUserReportClick = async () => {
     navigate('/report', {
@@ -65,11 +68,10 @@ function ShowDataPage() {
         places,
       },
     });
-}
-
+  };
 
   const handlePreferencesData = (data) => {
-    setPreferencesData(data)
+    setPreferencesData(data);
   };
 
   const handleCategoryLabelClick = (categoryKey) => {
@@ -85,7 +87,6 @@ function ShowDataPage() {
     //window.location.reload();
   };
 
-
   const handleToggleLeftSection = () => {
     setIsLeftSectionVisible((prev) => !prev);
   };
@@ -93,14 +94,16 @@ function ShowDataPage() {
   const handleDataCategoryClick = (address) => {
     let location = [];
 
-// Sprawdź, czy adres istnieje w places.custom_addresses
+    // Sprawdź, czy adres istnieje w places.custom_addresses
     if (places.custom_addresses.hasOwnProperty(address)) {
       // Jeśli tak, pobierz lokalizację z obiektu places.custom_addresses
       location = places.custom_addresses[address].location;
       logger.log('Lokalizacja dla adresu:', location);
       setFlyToLocation(location);
     } else {
-      logger.warn('Adres nie został znaleziony w places.custom_addresses lub ten adres jest twoim adresem wyszukiwania');
+      logger.warn(
+        'Adres nie został znaleziony w places.custom_addresses lub ten adres jest twoim adresem wyszukiwania',
+      );
     }
   };
 
@@ -111,7 +114,6 @@ function ShowDataPage() {
       }, 10); // Czas w milisekundach (tutaj 100000ms = 100s)
     }
   };
-  
 
   const handleResultClick = (result) => {
     setInput(result);
@@ -152,7 +154,7 @@ function ShowDataPage() {
     let custom_names = [];
     let custom_addresses = [];
     if (preferencesSearchDataShowPage) {
-      preferencesSearchDataShowPage.forEach(item => {
+      preferencesSearchDataShowPage.forEach((item) => {
         if (typeof item === 'object') {
           custom_names.push(item);
         } else if (typeof item === 'string') {
@@ -161,29 +163,38 @@ function ShowDataPage() {
       });
     }
 
-
     let totalPlacesCount = 0;
     let totalAddressesCount = 0;
 
     if (places.custom_objects) {
-      Object.values(places.custom_objects).forEach(category => {
-        Object.values(category).forEach(preferences => {
+      Object.values(places.custom_objects).forEach((category) => {
+        Object.values(category).forEach((preferences) => {
           totalPlacesCount += preferences.length;
         });
       });
-    } 
+    }
     if (places.custom_addresses) {
-      Object.values(places.custom_addresses).forEach(address => {
-        if (address.commute_time && address.commute_time.walk && address.commute_time.walk.distance < 3000) {
+      Object.values(places.custom_addresses).forEach((address) => {
+        if (
+          address.commute_time &&
+          address.commute_time.walk &&
+          address.commute_time.walk.distance < 3000
+        ) {
           totalAddressesCount += 1;
         }
       });
     }
-    logger.log(categoriesToShow.length, totalAddressesCount)
+    logger.log(categoriesToShow.length, totalAddressesCount);
 
-    if (categoriesToShow.length === 0 && (preferencesSearchDataShowPage.length != 0 || custom_addresses.length != 0)) {
+    if (
+      categoriesToShow.length === 0 &&
+      (preferencesSearchDataShowPage.length != 0 ||
+        custom_addresses.length != 0)
+    ) {
       const percentage =
-      ((totalPlacesCount + totalAddressesCount) / (custom_names.length + custom_addresses.length)) * 100;
+        ((totalPlacesCount + totalAddressesCount) /
+          (custom_names.length + custom_addresses.length)) *
+        100;
       if (percentage > 100) {
         return {
           text: '0%',
@@ -212,22 +223,35 @@ function ShowDataPage() {
         percentage: 0,
       };
     }
-    
 
-    const visibleCategories = categoriesToShow.filter(category => {
-      return Object.keys(places.points_of_interest).some(interestKey => {
+    const visibleCategories = categoriesToShow.filter((category) => {
+      return Object.keys(places.points_of_interest).some((interestKey) => {
         const interests = places.points_of_interest[interestKey];
-        return Array.isArray(interests[category.key]) && interests[category.key].length > 0;
+        return (
+          Array.isArray(interests[category.key]) &&
+          interests[category.key].length > 0
+        );
       });
     });
-    logger.log(visibleCategories.length)
-    logger.log(categoriesToShow)
+    logger.log(visibleCategories.length);
+    logger.log(categoriesToShow);
 
     const percentage =
-      ((visibleCategories.length + totalPlacesCount + totalAddressesCount) / (categoriesToShow.length + custom_names.length + custom_addresses.length)) * 100;
+      ((visibleCategories.length + totalPlacesCount + totalAddressesCount) /
+        (categoriesToShow.length +
+          custom_names.length +
+          custom_addresses.length)) *
+      100;
     // Ustal klasę tekstu w zależności od procentu
     let textClass = '';
-    logger.log(visibleCategories.length, totalPlacesCount, totalAddressesCount, categoriesToShow.length, custom_names.length, custom_addresses.length)
+    logger.log(
+      visibleCategories.length,
+      totalPlacesCount,
+      totalAddressesCount,
+      categoriesToShow.length,
+      custom_names.length,
+      custom_addresses.length,
+    );
     if (percentage <= 30) {
       textClass = 'red-text';
     } else if (percentage > 30 && percentage < 50) {
@@ -239,7 +263,7 @@ function ShowDataPage() {
     } else if (percentage > 90) {
       textClass = 'green-text';
     }
-    logger.log(percentage)
+    logger.log(percentage);
     if (percentage > 100) {
       return {
         text: '100%',
@@ -254,7 +278,7 @@ function ShowDataPage() {
         percentage: 0,
       };
     }
-    logger.log(percentage)
+    logger.log(percentage);
     return {
       text: `${percentage.toFixed(0)}%`,
       class: textClass,
@@ -262,93 +286,106 @@ function ShowDataPage() {
     };
   };
 
+  const mainCategoriesToShow = places.points_of_interest
+    ? Object.keys(places.points_of_interest)
+    : null;
 
+  const filteredPreferencesData = Object.keys(preferencesData).reduce(
+    (acc, key) => {
+      // Filtruj preferencje w danej kategorii
+      const filteredPreferences = preferencesData[key].filter((preference) => {
+        return selectedPreferencesShowPage.some(
+          (selectedPreference) => selectedPreference.name === preference.name,
+        );
+      });
 
-  const mainCategoriesToShow = places.points_of_interest ? Object.keys(places.points_of_interest) : null;
+      // Jeśli istnieją jakieś pasujące preferencje, dodaj je do wynikowej tablicy
+      if (filteredPreferences.length > 0) {
+        acc[key] = filteredPreferences;
+      }
 
-  const filteredPreferencesData = Object.keys(preferencesData).reduce((acc, key) => {
-  // Filtruj preferencje w danej kategorii
-  const filteredPreferences = preferencesData[key].filter(preference => {
-    return selectedPreferencesShowPage.some(selectedPreference => selectedPreference.name === preference.name);
-  });
-
-  
-  // Jeśli istnieją jakieś pasujące preferencje, dodaj je do wynikowej tablicy
-  if (filteredPreferences.length > 0) {
-    acc[key] = filteredPreferences;
-  }
-  
-  return acc;
-  }, {});
+      return acc;
+    },
+    {},
+  );
 
   const calculatePercentageInCategory = (category) => {
-
-    
     const placesCounts = {};
 
     if (places.custom_objects) {
-      Object.keys(places.custom_objects).forEach(category => {
-        placesCounts[category] = Object.values(places.custom_objects[category]).reduce((total, preferences) => {
+      Object.keys(places.custom_objects).forEach((category) => {
+        placesCounts[category] = Object.values(
+          places.custom_objects[category],
+        ).reduce((total, preferences) => {
           return total + preferences.length;
         }, 0);
       });
     }
 
     const placesCategoryCount = placesCounts[category] || 0;
-    
+
     let custom_names = [];
     if (preferencesSearchDataShowPage) {
-      preferencesSearchDataShowPage.forEach(item => {
+      preferencesSearchDataShowPage.forEach((item) => {
         if (typeof item === 'object') {
           custom_names.push(item);
         }
       });
     }
-    const preferencesCategory = custom_names.filter(item => item.main_category === category);
+    const preferencesCategory = custom_names.filter(
+      (item) => item.main_category === category,
+    );
 
     const allPreferencesInCategory = places.points_of_interest[category];
-    
+
     const filteredPreferencesInCategory = filteredPreferencesData[category];
-    
+
     const categories = Object.keys(allPreferencesInCategory).filter(
-      key => Array.isArray(allPreferencesInCategory[key]) && allPreferencesInCategory[key].length > 0
+      (key) =>
+        Array.isArray(allPreferencesInCategory[key]) &&
+        allPreferencesInCategory[key].length > 0,
     );
-  
+
     const numberOfCategories = categories.length;
 
-    const filteredPreferencesCount = filteredPreferencesInCategory ? filteredPreferencesInCategory.length : 0;
-    
-    const percentage = ((numberOfCategories + placesCategoryCount) / (filteredPreferencesCount + preferencesCategory.length)) * 100;
-    
+    const filteredPreferencesCount = filteredPreferencesInCategory
+      ? filteredPreferencesInCategory.length
+      : 0;
+
+    const percentage =
+      ((numberOfCategories + placesCategoryCount) /
+        (filteredPreferencesCount + preferencesCategory.length)) *
+      100;
+
     if (percentage > 100) {
       return '100%';
-    } else if (filteredPreferencesCount > 0){
+    } else if (filteredPreferencesCount > 0) {
       const percentage = (numberOfCategories / filteredPreferencesCount) * 100;
       return `${percentage.toFixed(0)}%`;
     } else {
       return '0%';
-
     }
   };
 
   const categoriesToShow = selectedPreferencesShowPage.map((preference) => {
-
-
     return {
       key: preference.name,
       label: preference.name,
     };
   });
 
-  const transformedPreferences = Object.entries(filteredPreferencesData).reduce((acc, [mainCategory, subCategories]) => {
-    subCategories.forEach(subCategory => {
-      acc.push({ main_category: mainCategory, category: subCategory.name });
-    });
-    return acc;
-  }, []);
-  logger.log(transformedPreferences)
+  const transformedPreferences = Object.entries(filteredPreferencesData).reduce(
+    (acc, [mainCategory, subCategories]) => {
+      subCategories.forEach((subCategory) => {
+        acc.push({ main_category: mainCategory, category: subCategory.name });
+      });
+      return acc;
+    },
+    [],
+  );
+  logger.log(transformedPreferences);
 
-/*
+  /*
   categoriesToShow.sort((a, b) => {
     const hasPlacesA = !!places.points_of_interest[a.key];
     const hasPlacesB = !!places.points_of_interest[b.key];
@@ -374,158 +411,244 @@ function ShowDataPage() {
         <div className="ShowDataPage">
           <div className="search-bar-container-show-data">
             <div>
-            <Link to="/">
-              <button
-                className="logo"
-                title={t('Search Page')}
-              >
-              <img
-                src={'/images/15min_logo.svg'}
-                alt="Red Cross"
-                className="centered-img-cross"
-              />
-              </button>
-            </Link>
+              <Link to="/">
+                <button className="logo" title={t('Search Page')}>
+                  <img
+                    src={'/images/15min_logo.svg'}
+                    alt="Red Cross"
+                    className="centered-img-cross"
+                  />
+                </button>
+              </Link>
             </div>
-            <div className='widthReportSection'>
-              <div className='position'>
+            <div className="widthReportSection">
+              <div className="position">
                 <button
-                  className={isMatchVisible ? "toggleReportSectionisMatchVisibleClass" : "toggleReportSection"}
+                  className={
+                    isMatchVisible
+                      ? 'toggleReportSectionisMatchVisibleClass'
+                      : 'toggleReportSection'
+                  }
                   title={t('Search Page')}
                   onClick={handleToggleMatch}
                 >
-                <label className={isMatchVisible ? "toggleReportSectionLabelisMatchVisibleClass" : "toggleReportSection-label"}><div>{t("Matching")} {countVisibleCategories().text}</div></label>
-                {isMatchVisible ? (                 
-                  <IoIosArrowUp className="toggleReportSection-icon"/>
-                ) : (
-                  <IoIosArrowDown className="toggleReportSection-icon"/>
-                )}
+                  <label
+                    className={
+                      isMatchVisible
+                        ? 'toggleReportSectionLabelisMatchVisibleClass'
+                        : 'toggleReportSection-label'
+                    }
+                  >
+                    <div>
+                      {t('Matching')} {countVisibleCategories().text}
+                    </div>
+                  </label>
+                  {isMatchVisible ? (
+                    <IoIosArrowUp className="toggleReportSection-icon" />
+                  ) : (
+                    <IoIosArrowDown className="toggleReportSection-icon" />
+                  )}
                 </button>
                 {isMatchVisible && (
-                <motion.div
-                variants={MatchSectionSlide}
-                animate="enter"
-                initial="initial"
-                >
-                <div className='matchVidible'>
-                  <div className='show-data-hr-place-top'>
-                    <hr className='show-data-search-place-hr'/>
-                  </div>
-                  <div className=''>
-                    {(selectedPreferencesShowPage.length === 0 && preferencesSearchDataShowPage.length === 0) ? (
-                      <label className='selectyourCriteriaWithoutCategories' style={{paddingBottom: '9vh'}}>{t("Select your criteria in the menu on the left to see a match")}</label>
-                    ) : (preferencesSearchDataShowPage.length != 0 && selectedPreferencesShowPage.length === 0) ? (
-                      <div className="matchShadow">
-                          <div>
-                              <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
-                                <div className='matchContainerMatch'>
-                                  <div className='matchBackground'></div>
-                                  <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%"}}></div>
-                                </div>
-                              </div>
-                            <div className='show-data-hr-place'>
-                                <hr className='show-data-search-place-hr'/>
-                            </div>
-                            <div className='toggle-match-details-div' style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                <div className="toggle-match-details" onClick={() => handleUserReportClick()}>{t("See full report")}</div>
-                            </div>
-                          </div>
+                  <motion.div
+                    variants={MatchSectionSlide}
+                    animate="enter"
+                    initial="initial"
+                  >
+                    <div className="matchVidible">
+                      <div className="show-data-hr-place-top">
+                        <hr className="show-data-search-place-hr" />
                       </div>
-                    ) : (
-                      <div className="matchShadow">
-                        <div>
-                          <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
-                            <div className='matchContainerMatch'>
-                              <div className='matchBackground'></div>
-                              <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%"}}></div>
-                            </div>
-                          </div>
-                          <div className='show-data-hr-place'>
-                            <hr className='show-data-search-place-hr'/>
-                          </div>
-                          <div className="maxCriteriaLength">
-                            {mainCategoriesToShow && mainCategoriesToShow.map((category, index) => (
-                              <div key={index} className='selectyourCriteria' ><div className='matchingName'>{category + ":"} {calculatePercentageInCategory(category)} </div>
-                                <div className='matchContainer'>
-                                  <div className='matchBackground'></div>
-                                  <div className='matchReactangle' style={{ width: `calc(${calculatePercentageInCategory(category)})`}}></div>
+                      <div className="">
+                        {selectedPreferencesShowPage.length === 0 &&
+                        preferencesSearchDataShowPage.length === 0 ? (
+                          <label
+                            className="selectyourCriteriaWithoutCategories"
+                            style={{ paddingBottom: '9vh' }}
+                          >
+                            {t(
+                              'Select your criteria in the menu on the left to see a match',
+                            )}
+                          </label>
+                        ) : preferencesSearchDataShowPage.length != 0 &&
+                          selectedPreferencesShowPage.length === 0 ? (
+                          <div className="matchShadow">
+                            <div>
+                              <div className="selectyourCriteria">
+                                <div className="matchingName">
+                                  {t('Matching')}{' '}
+                                  {countVisibleCategories().text}
+                                </div>
+                                <div className="matchContainerMatch">
+                                  <div className="matchBackground"></div>
+                                  <div
+                                    className="matchReactangle"
+                                    style={{
+                                      width: `calc(${
+                                        countVisibleCategories().percentage
+                                      }%)`,
+                                      height: '100%',
+                                    }}
+                                  ></div>
                                 </div>
                               </div>
-                            ))}
+                              <div className="show-data-hr-place">
+                                <hr className="show-data-search-place-hr" />
+                              </div>
+                              <div
+                                className="toggle-match-details-div"
+                                style={{
+                                  display: 'flex',
+                                  justifyContent: 'flex-end',
+                                }}
+                              >
+                                <div
+                                  className="toggle-match-details"
+                                  onClick={() => handleUserReportClick()}
+                                >
+                                  {t('See full report')}
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                          <div className='show-data-hr-place'>
-                            <hr className='show-data-search-place-hr'/>
+                        ) : (
+                          <div className="matchShadow">
+                            <div>
+                              <div className="selectyourCriteria">
+                                <div className="matchingName">
+                                  {t('Matching')}{' '}
+                                  {countVisibleCategories().text}
+                                </div>
+                                <div className="matchContainerMatch">
+                                  <div className="matchBackground"></div>
+                                  <div
+                                    className="matchReactangle"
+                                    style={{
+                                      width: `calc(${
+                                        countVisibleCategories().percentage
+                                      }%)`,
+                                      height: '100%',
+                                    }}
+                                  ></div>
+                                </div>
+                              </div>
+                              <div className="show-data-hr-place">
+                                <hr className="show-data-search-place-hr" />
+                              </div>
+                              <div className="maxCriteriaLength">
+                                {mainCategoriesToShow &&
+                                  mainCategoriesToShow.map(
+                                    (category, index) => (
+                                      <div
+                                        key={index}
+                                        className="selectyourCriteria"
+                                      >
+                                        <div className="matchingName">
+                                          {category + ':'}{' '}
+                                          {calculatePercentageInCategory(
+                                            category,
+                                          )}{' '}
+                                        </div>
+                                        <div className="matchContainer">
+                                          <div className="matchBackground"></div>
+                                          <div
+                                            className="matchReactangle"
+                                            style={{
+                                              width: `calc(${calculatePercentageInCategory(
+                                                category,
+                                              )})`,
+                                            }}
+                                          ></div>
+                                        </div>
+                                      </div>
+                                    ),
+                                  )}
+                              </div>
+                              <div className="show-data-hr-place">
+                                <hr className="show-data-search-place-hr" />
+                              </div>
+                              <div
+                                className="toggle-match-details-div"
+                                style={{
+                                  display: 'flex',
+                                  justifyContent: 'flex-end',
+                                }}
+                              >
+                                <div
+                                  className="toggle-match-details"
+                                  onClick={() => handleUserReportClick()}
+                                >
+                                  {t('See full report')}
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                          <div className='toggle-match-details-div' style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                              <div className="toggle-match-details" onClick={() => handleUserReportClick()}>{t("See full report")}</div>
-                          </div>
-                        </div>  
-                      </div>       
-                    )}
-                  </div>
-                </div>
-                </motion.div>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
                 )}
               </div>
             </div>
           </div>
           <div className="show-data-map">
-              <div className="left-section">
-                <div>
-                  <Roles
-                    onSelectPreferences={handlePreferencesSelect}
-                    selectedPreferencesShowPage={selectedPreferencesShowPage}
-                    toggleRoleSVisible={handleToggleLeftSection}
-                    isLeftSectionVisible={isLeftSectionVisible}
-                    setPreferencedDataShowPage={handlePreferencesData}
-                    preferencesSearchDataShowPage={preferencesSearchDataShowPage}
-                    setPreferencesSearchDataShowPage={handlePreferencesSearchSelect}
-                    handleSearch={handleEnterPress}
-                    onAddressClick={handleDataCategoryClick}
-                  />
-                </div>
+            <div className="left-section">
+              <div>
+                <Roles
+                  onSelectPreferences={handlePreferencesSelect}
+                  selectedPreferencesShowPage={selectedPreferencesShowPage}
+                  toggleRoleSVisible={handleToggleLeftSection}
+                  isLeftSectionVisible={isLeftSectionVisible}
+                  setPreferencedDataShowPage={handlePreferencesData}
+                  preferencesSearchDataShowPage={preferencesSearchDataShowPage}
+                  setPreferencesSearchDataShowPage={
+                    handlePreferencesSearchSelect
+                  }
+                  handleSearch={handleEnterPress}
+                  onAddressClick={handleDataCategoryClick}
+                />
               </div>
+            </div>
 
             <div
               className={`right-section map-container ${
                 isLeftSectionVisible ? '' : 'right-section-center'
               }`}
             >
-            <div className="column-show-data search-bar-and-results-show-data results-container-show-data">
-            <motion.div
-              variants={RightSectionSlide}
-              animate="enter"
-              exit="exit"
-              initial="initial"
-            >
-              <SearchBar
-              setResults={setResults}
-              showDataRef={buttonRef}
-              input={input}
-              addressId={addressId}
-              setInput={handleSearchBarChange}
-              setIsResultClicked={setIsResultClicked}
-              onEnterPress={handleEnterPress}
-              searchBarClassName={
-                results && results.length > 0 && !isResultClicked
-                  ? "border-bottom show-data-page-search-bar"
-                  : "show-data-page-search-bar"
-              }
-              selectedPreferences={selectedPreferencesShowPage}
-              transformedPreferences={transformedPreferences}
-              preferencesSearchData={preferencesSearchDataShowPage}
-              />
-            </motion.div>
-              {results && results.length > 0 && !isResultClicked && (
-                <SearchResultsList
-                  results={results}
-                  onResultClick={handleResultClick}
-                  searchResultsListClassName="show-data-page-search-result-list"
-                  searchResultsClassName="show-data-page-search-list"
-                />
-              )}
-
-            </div>
+              <div className="column-show-data search-bar-and-results-show-data results-container-show-data">
+                <motion.div
+                  variants={RightSectionSlide}
+                  animate="enter"
+                  exit="exit"
+                  initial="initial"
+                >
+                  <SearchBar
+                    setResults={setResults}
+                    showDataRef={buttonRef}
+                    input={input}
+                    addressId={addressId}
+                    setInput={handleSearchBarChange}
+                    setIsResultClicked={setIsResultClicked}
+                    onEnterPress={handleEnterPress}
+                    searchBarClassName={
+                      results && results.length > 0 && !isResultClicked
+                        ? 'border-bottom show-data-page-search-bar'
+                        : 'show-data-page-search-bar'
+                    }
+                    selectedPreferences={selectedPreferencesShowPage}
+                    transformedPreferences={transformedPreferences}
+                    preferencesSearchData={preferencesSearchDataShowPage}
+                  />
+                </motion.div>
+                {results && results.length > 0 && !isResultClicked && (
+                  <SearchResultsList
+                    results={results}
+                    onResultClick={handleResultClick}
+                    searchResultsListClassName="show-data-page-search-result-list"
+                    searchResultsClassName="show-data-page-search-list"
+                  />
+                )}
+              </div>
               <Map
                 places={places.points_of_interest}
                 mainCategoriesToShow={mainCategoriesToShow}
@@ -542,7 +665,7 @@ function ShowDataPage() {
           </div>
         </div>
       </div>
-      <Footer useMargin={true}/>
+      <Footer useMargin={true} />
     </div>
   );
 }

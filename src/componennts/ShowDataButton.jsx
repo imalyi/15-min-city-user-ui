@@ -8,7 +8,16 @@ import { Icon } from '@iconify/react';
 import { logger } from '../logger';
 
 export const ShowDataButton = React.forwardRef(
-  ({ address, addressId, selectedPreferences, transformedPreferences, preferencesSearchData }, ref) => {
+  (
+    {
+      address,
+      addressId,
+      selectedPreferences,
+      transformedPreferences,
+      preferencesSearchData,
+    },
+    ref,
+  ) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const handleUserLocationClick = async () => {
@@ -19,7 +28,7 @@ export const ShowDataButton = React.forwardRef(
       } else {
         const places = await getplacesFromCoordinates();
         if (places === undefined) {
-          logger.error('No places found')
+          logger.error('No places found');
         } else {
           navigate('/show-addresses', {
             state: {
@@ -36,8 +45,8 @@ export const ShowDataButton = React.forwardRef(
     };
 
     const getplacesFromCoordinates = async () => {
-      logger.log(selectedPreferences)
-      logger.log(transformedPreferences)
+      logger.log(selectedPreferences);
+      logger.log(transformedPreferences);
 
       try {
         let custom_names = [];
@@ -45,7 +54,7 @@ export const ShowDataButton = React.forwardRef(
         const customNamesArray = [];
         logger.log(preferencesSearchData);
         if (preferencesSearchData) {
-          preferencesSearchData.forEach(item => {
+          preferencesSearchData.forEach((item) => {
             if (typeof item === 'object') {
               custom_names.push(item);
             } else if (typeof item === 'string') {
@@ -54,21 +63,21 @@ export const ShowDataButton = React.forwardRef(
           });
         }
 
-        custom_names.forEach(item => {
+        custom_names.forEach((item) => {
           customNamesArray.push({
             name: item.name,
             main_category: item.category,
-            category: item.sub_category
+            category: item.sub_category,
           });
         });
-        
+
         logger.log(customNamesArray);
 
         const requestBody = {
           address: address,
           categories: transformedPreferences,
           requested_objects: customNamesArray,
-          requested_addresses: custom_addresses
+          requested_addresses: custom_addresses,
         };
         logger.log(requestBody);
         const response = await fetch(`${api.APP_URL_USER_API}report/`, {
@@ -78,7 +87,7 @@ export const ShowDataButton = React.forwardRef(
           },
           body: JSON.stringify(requestBody),
         });
-    
+
         if (response.ok) {
           const data = await response.json();
           logger.log(data);
@@ -98,7 +107,7 @@ export const ShowDataButton = React.forwardRef(
         onClick={handleUserLocationClick}
         title={t('Show results')}
       >
-        {<Icon icon="carbon:search" id='search-icon-button'/>}
+        {<Icon icon="carbon:search" id="search-icon-button" />}
       </button>
     );
   },

@@ -119,14 +119,14 @@ export const SearchBar = ({
       />
       <button ref={buttonRef} style={{ display: 'none' }}></button>
       <ShowDataButton
-          ref={showDataRef}
-          address={input}
-          addressId={addressId}
-          selectedPreferences={selectedPreferences}
-          transformedPreferences={transformedPreferences}
-          preferencesSearchData={preferencesSearchData}
-          selectedPreferencesSearch={selectedPreferencesSearch}
-        />
+        ref={showDataRef}
+        address={input}
+        addressId={addressId}
+        selectedPreferences={selectedPreferences}
+        transformedPreferences={transformedPreferences}
+        preferencesSearchData={preferencesSearchData}
+        selectedPreferencesSearch={selectedPreferencesSearch}
+      />
     </div>
   );
 };
