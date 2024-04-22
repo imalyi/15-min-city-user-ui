@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import '../styles/Footer.css';
 import { useTranslation } from 'react-i18next';
 import { logger } from '../logger';
-import {Icon} from '@iconify/react';
+import { Icon } from '@iconify/react';
 
 function Footer({ useMargin })  {
   const footerClass = useMargin ? 'margin-footer' : '';
   const { i18n, t } = useTranslation();
   const [isTranslateChangeVisible, setTranslateChangeVisible] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
-  logger.log(selectedLanguage)
+  logger.log(selectedLanguage);
   const translateTranscript = {
     'pl': 'Polski',
     'en': 'English',
@@ -22,7 +22,7 @@ function Footer({ useMargin })  {
   const handleLanguageChange = (lng) => {
     setSelectedLanguage(lng);
     i18n.changeLanguage(lng);
-  }
+  };
   return (
     <div className={footerClass} >
       <div className="bg-dark text-light p-3 footer">

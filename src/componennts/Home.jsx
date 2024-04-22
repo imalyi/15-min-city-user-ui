@@ -1,15 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Footer from './Footer';
 import '../styles/Home.css';
 import { SearchBar } from './SearchBar';
 import { SearchResultsList } from './SearchResultsList';
 import { ShowDataButton } from './ShowDataButton';
-//import HowItWorks from './HowItWorks';
 import Roles from './Roles';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { motion } from "framer-motion"
-import {icon} from "./anim.js"
+import { motion } from "framer-motion";
+import {icon} from "./anim.js";
 import { logger } from '../logger';
 
 function Home() {
@@ -20,21 +19,16 @@ function Home() {
   const [selectedRole, setSelectedRole] = useState('without role');
   const [selectedPreferences, setSelectedPreferences] = useState([]);
   const [selectedPreferencesSearch, setSelectedPreferencesSearch] = useState([]);
-  const { i18n, t } = useTranslation();
+  const {i18n, t} = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
   const handleLanguageChange = (lng) => {
     setSelectedLanguage(lng);
     i18n.changeLanguage(lng);
-    //window.location.reload();
   };
-
-  //const howItWorksText = '***Description of page functions***';
-
-  const buttonRef = useRef(null); // Dodaj ref do przycisku
+  const buttonRef = useRef(null);
 
   const handleEnterPress = () => {
-    // Po naciśnięciu Enter, naciśnij przycisk ShowDataButton
     if (buttonRef.current) {
       buttonRef.current.click();
     }
@@ -61,7 +55,6 @@ function Home() {
     setSelectedPreferences(preferences);
   };
 
-
   return (
     <div className="home-container">
       <div className="language-select-container">
@@ -80,17 +73,6 @@ function Home() {
           </img>
           </motion.button>
         </Link>
-        {/* 
-        <select
-          value={selectedLanguage}
-          onChange={(e) => handleLanguageChange(e.target.value)}
-          className="language-select"
-        >
-          <option value="en">{t('English')}</option>
-          <option value="pl">{t('Polish')}</option>
-          <option value="de">{t('German')}</option>
-        </select>
-        */}
       </div>
       <div className="search-bar-container">
         <div className="column search-bar-and-results results-container">
@@ -114,9 +96,7 @@ function Home() {
             transformedPreferences={[]}
           />
           <div className='relative'>
-
           {results && results.length > 0 && !isResultClicked && (
-            
             <SearchResultsList
               results={results}
               onResultClick={handleResultClick}

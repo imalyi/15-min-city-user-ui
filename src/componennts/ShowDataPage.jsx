@@ -91,7 +91,7 @@ function ShowDataPage() {
   };
 
   const handleDataCategoryClick = (address) => {
-    let location = []
+    let location = [];
 
 // Sprawdź, czy adres istnieje w places.custom_addresses
     if (places.custom_addresses.hasOwnProperty(address)) {
@@ -184,7 +184,14 @@ function ShowDataPage() {
     if (categoriesToShow.length === 0 && (preferencesSearchDataShowPage.length != 0 || custom_addresses.length != 0)) {
       const percentage =
       ((totalPlacesCount + totalAddressesCount) / (custom_names.length + custom_addresses.length)) * 100;
-      if (percentage > 100 || isNaN(percentage) || percentage < 0) {
+      if (percentage > 100) {
+        return {
+          text: '0%',
+          class: 'red-text',
+          percentage: 100,
+        };
+      }
+      if (isNaN(percentage) || percentage < 0) {
         return {
           text: '0%',
           class: 'red-text',
@@ -233,7 +240,14 @@ function ShowDataPage() {
       textClass = 'green-text';
     }
     logger.log(percentage)
-    if (percentage > 100 || isNaN(percentage) || percentage < 0) {
+    if (percentage > 100) {
+      return {
+        text: '100%',
+        class: 'red-text',
+        percentage: 100,
+      };
+    }
+    if (isNaN(percentage) || percentage < 0) {
       return {
         text: '0%',
         class: 'red-text',
@@ -404,7 +418,7 @@ function ShowDataPage() {
                       <div className="matchShadow">
                           <div>
                               <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
-                                <div className='matchContainer'>
+                                <div className='matchContainerMatch'>
                                   <div className='matchBackground'></div>
                                   <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%"}}></div>
                                 </div>
@@ -421,7 +435,7 @@ function ShowDataPage() {
                       <div className="matchShadow">
                         <div>
                           <div className='selectyourCriteria' ><div className='matchingName'>{t("Matching")} {countVisibleCategories().text}</div>
-                            <div className='matchContainer'>
+                            <div className='matchContainerMatch'>
                               <div className='matchBackground'></div>
                               <div className='matchReactangle' style={{ width: `calc(${countVisibleCategories().percentage}%)`, height: "100%"}}></div>
                             </div>

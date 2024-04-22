@@ -441,7 +441,18 @@ html{
   height: 2vh; /* Wysokość kontenera */
   margin-top: 1vh;
   margin-left: 1vh;
+  
 }
+
+.matchContainerMatch {
+  width: 50%;
+  position: relative;
+  height: 2vh; /* Wysokość kontenera */
+  margin-top: 1vh;
+  margin-left: 1vh;
+  margin-right: 8px;
+}
+
 
 .matchBackground {
   position: absolute;
@@ -773,6 +784,14 @@ html{
     height: 1.5vh; /* Wysokość kontenera */
     margin-top: 1vh;
     margin-left: 1vh;
+  }
+  .matchContainerMatch {
+    width: 50%;
+    position: relative;
+    height: 1.5vh; /* Wysokość kontenera */
+    margin-top: 1vh;
+    margin-left: 1vh;
+    margin-right: 8px;
   }
   .toggle-match-details{
     color: #F0F8FF;
