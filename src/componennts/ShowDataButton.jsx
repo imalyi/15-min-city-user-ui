@@ -27,6 +27,7 @@ export const ShowDataButton = React.forwardRef(
               addressId,
               places,
               selectedPreferences,
+              preferencesSearchData,
             },
           });
           logger.log(selectedPreferences);

@@ -28,6 +28,7 @@ function ShowDataPage() {
   const address = location.state?.address || 'Unknown Address';
   const addressId = location.state?.addressId || 'Unknown Address';
   const selectedPreferences = location.state?.selectedPreferences || [];
+  const preferencesSearchData = location.state?.preferencesSearchData || [];
 
   const selectedCoordinates = [location.state?.places.location[1], location.state?.places.location[0]];
   const [results, setResults] = useState([]);
@@ -50,8 +51,10 @@ function ShowDataPage() {
 
   const [categoryVisibility, setCategoryVisibility] = useState({});
 
-  const [preferencesSearchDataShowPage, setPreferencesSearchDataShowPage] = useState([]);
+  const [preferencesSearchDataShowPage, setPreferencesSearchDataShowPage] = useState(preferencesSearchData);
   logger.log(places)
+  logger.log(preferencesSearchDataShowPage)
+  logger.log(preferencesSearchDataShowPage)
 
   logger.warn("To production")
 
@@ -139,6 +142,10 @@ function ShowDataPage() {
 
   const handlePreferencesSelect = (preferences) => {
     setSelectedPreferencesShowPage(preferences);
+  };
+
+  const handlePreferencesSearchSelect = (preferences) => {
+    setPreferencesSearchDataShowPage(preferences);
   };
 
   const countVisibleCategories = () => {
@@ -457,7 +464,8 @@ function ShowDataPage() {
                     toggleRoleSVisible={handleToggleLeftSection}
                     isLeftSectionVisible={isLeftSectionVisible}
                     setPreferencedDataShowPage={handlePreferencesData}
-                    setPreferencesSearchDataShowPage={setPreferencesSearchDataShowPage}
+                    preferencesSearchDataShowPage={preferencesSearchDataShowPage}
+                    setPreferencesSearchDataShowPage={handlePreferencesSearchSelect}
                     handleSearch={handleEnterPress}
                     onAddressClick={handleDataCategoryClick}
                   />

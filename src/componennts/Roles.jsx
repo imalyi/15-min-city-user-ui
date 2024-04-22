@@ -12,7 +12,7 @@ import {LeftSectionSlide, LeftSectionSlideHide} from "./anim.js"
 import { logger } from '../logger';
 
 
-const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVisible, isLeftSectionVisible, setPreferencedDataShowPage, setPreferencesSearchDataShowPage, handleSearch, onAddressClick }) => {
+const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVisible, isLeftSectionVisible, setPreferencedDataShowPage, preferencesSearchDataShowPage, setPreferencesSearchDataShowPage, handleSearch, onAddressClick }) => {
   const { t } = useTranslation();
   const [isShowDataPage, setIsShowDataPage] = useState(false);
   const [selectedPreferences, setSelectedPreferences] = useState(
@@ -25,7 +25,9 @@ const Roles = ({ onSelectPreferences, selectedPreferencesShowPage, toggleRoleSVi
   const [customObject, setCustomObject] = useState([]);
   const [input, setInput] = useState('');
   const [isResultClicked, setIsResultClicked] = useState(false);
-  const [preferencesSearchData, setPreferencesSearchData] = useState([]);
+  const [preferencesSearchData, setPreferencesSearchData] = useState(
+    preferencesSearchDataShowPage
+);
 
   logger.log(preferencesData)
 

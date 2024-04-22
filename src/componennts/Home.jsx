@@ -19,6 +19,7 @@ function Home() {
   const [isResultClicked, setIsResultClicked] = useState(false);
   const [selectedRole, setSelectedRole] = useState('without role');
   const [selectedPreferences, setSelectedPreferences] = useState([]);
+  const [selectedPreferencesSearch, setSelectedPreferencesSearch] = useState([]);
   const { i18n, t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
@@ -109,6 +110,7 @@ function Home() {
                 : "home-searchBar"
             }
             selectedPreferences={selectedPreferences}
+            selectedPreferencesSearch={selectedPreferencesSearch}
             transformedPreferences={[]}
           />
           <div className='relative'>

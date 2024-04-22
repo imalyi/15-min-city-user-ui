@@ -16,6 +16,7 @@ export const SearchBar = ({
   onEnterPress,
   searchBarClassName,
   selectedPreferences,
+  selectedPreferencesSearch,
   transformedPreferences,
   preferencesSearchData,
 }) => {
@@ -124,6 +125,7 @@ export const SearchBar = ({
           selectedPreferences={selectedPreferences}
           transformedPreferences={transformedPreferences}
           preferencesSearchData={preferencesSearchData}
+          selectedPreferencesSearch={selectedPreferencesSearch}
         />
     </div>
   );
