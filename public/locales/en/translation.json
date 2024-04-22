@@ -193,7 +193,7 @@
   "Placówki pocztowe, bankomaty": "Post offices, ATMs",
   "Centra rozrywki": "Entertainment centers",
   "Centra handlowe": "Shopping centers",
-  "Kina, teatry, opery": "Cinemas, theaters, operas",
+  "Kina, teatry, opery": "Cinemas, theatres, operas",
   "Sale gier": "Game rooms",
   "Kluby, dyskoteki": "Clubs, discos",
   "Małe skłepy spożywcze": "Small grocery stores",
@@ -228,5 +228,8 @@
   "Sklepy": "Shops",
   "Sport": "Sport",
   "Transport": "Transport",
-  "Wyposażenie": "Equipment"
+  "Wyposażenie": "Equipment",
+  "Your locations": "Your locations",
+  "Your places": "Your places"
+
 }
