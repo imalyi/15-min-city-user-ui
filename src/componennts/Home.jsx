@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Footer from './Footer';
 import '../styles/Home.css';
 import { SearchBar } from './SearchBar';
@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { icon } from './anim.js';
 import { logger } from '../logger';
+import api from '../config';
+import { set } from 'animejs';
 
 function Home() {
   const [results, setResults] = useState([]);
@@ -56,6 +58,61 @@ function Home() {
     setSelectedPreferences(preferences);
   };
 
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const handleSetCustomAdressesAndObjects = (data) => {
+    const customObjectsAndAdresses = [];
+    data.requested_addresses.forEach((item) => {
+      customObjectsAndAdresses.push(item);
+    });
+    data.requested_objects.forEach((item) => {
+      customObjectsAndAdresses.push({
+          name: item.name,
+          category: item.main_category,
+          sub_category: item.category,
+        });
+    });
+    logger.log(customObjectsAndAdresses);
+    setSelectedPreferencesSearch(customObjectsAndAdresses);
+  }
+
+  const handleSetPreferences = (data) => {
+    const preferences = [];
+    data.categories.forEach((item) => {
+      preferences.push({
+        name: item.category
+      });
+    });
+    setSelectedPreferences(preferences);
+  };
+
+  const loadData = async () => {
+    try {
+      const secret="15mintest"
+      const response = await fetch(`${api.APP_URL_USER_API}user/load?secret=${secret}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        logger.log(data);
+        setInput(data.request.addresses[0]);
+        handleSetCustomAdressesAndObjects(data.request);
+        handleSetPreferences(data.request);
+      } else {
+        console.error('Error getting report:', response.statusText);
+        throw new Error(response.statusText);
+      }
+    } catch (error) {
+      console.error('Error getting report:', error);
+    }
+  };
+
   return (
     <div className="home-container">
       <div className="language-select-container">
@@ -100,7 +157,7 @@ function Home() {
                 : 'home-searchBar'
             }
             selectedPreferences={selectedPreferences}
-            selectedPreferencesSearch={selectedPreferencesSearch}
+            preferencesSearchData={selectedPreferencesSearch}
             transformedPreferences={[]}
           />
           <div className="relative">

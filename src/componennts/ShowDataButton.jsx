@@ -30,6 +30,7 @@ export const ShowDataButton = React.forwardRef(
         if (places === undefined) {
           logger.error('No places found');
         } else {
+          logger.log(preferencesSearchData)
           navigate('/show-addresses', {
             state: {
               address,
@@ -39,20 +40,16 @@ export const ShowDataButton = React.forwardRef(
               preferencesSearchData,
             },
           });
-          logger.log(selectedPreferences);
         }
       }
     };
 
     const getplacesFromCoordinates = async () => {
-      logger.log(selectedPreferences);
-      logger.log(transformedPreferences);
 
       try {
         let custom_names = [];
         let custom_addresses = [];
         const customNamesArray = [];
-        logger.log(preferencesSearchData);
         if (preferencesSearchData) {
           preferencesSearchData.forEach((item) => {
             if (typeof item === 'object') {
@@ -71,7 +68,6 @@ export const ShowDataButton = React.forwardRef(
           });
         });
 
-        logger.log(customNamesArray);
 
         const requestBody = {
           address: address,
@@ -79,7 +75,6 @@ export const ShowDataButton = React.forwardRef(
           requested_objects: customNamesArray,
           requested_addresses: custom_addresses,
         };
-        logger.log(requestBody);
         const response = await fetch(`${api.APP_URL_USER_API}report/`, {
           method: 'POST',
           headers: {
@@ -90,7 +85,6 @@ export const ShowDataButton = React.forwardRef(
 
         if (response.ok) {
           const data = await response.json();
-          logger.log(data);
           return data;
         } else {
           console.error('Error getting report:', response.statusText);

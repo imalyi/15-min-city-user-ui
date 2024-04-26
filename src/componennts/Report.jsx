@@ -15,8 +15,6 @@ function Report() {
   const location = useLocation();
   const places = location.state?.places || {};
   const address = location.state?.address || 'Unknown Address';
-  logger.log(places);
-  logger.log(places.points_of_interest);
   const categories = places.points_of_interest
     ? Object.keys(places.points_of_interest)
     : null;
@@ -26,7 +24,6 @@ function Report() {
   const custom_objects = places.custom_addresses
     ? Object.entries(places.custom_objects)
     : null;
-  logger.log(custom_objects);
 
   const [selectedCategoryPreferences, setselectedCategoryPreferences] =
     useState(null);
@@ -55,7 +52,6 @@ function Report() {
     setselectedAddressPreferences(false);
     setselectedObjectPreferences(false);
   };
-  logger.log(selectedObjectPreferences);
 
   const allObjects = Object.values(custom_objects).flatMap(
     ([categoryName, categoryList], index1) => {
@@ -72,7 +68,6 @@ function Report() {
     },
   );
 
-  logger.log(allObjects);
 
   const [allPreferences, setAllPreferences] = useState(() => {
     // Inicjalizacja stanu allPreferences
@@ -87,7 +82,6 @@ function Report() {
         }, [])
       : [];
   });
-  logger.log(allPreferences);
 
   const handlePreferencesClick = (category) => {
     // Aktualizacja wartości value na false po kliknięciu
@@ -273,9 +267,9 @@ function Report() {
             <div className="preferenceItems">
               {selectedAddressPreferences &&
                 Object.entries(custom_addresses).map((address, index) => {
-                  const address_name = address[1][0];
+                  logger.log(address)
+                  const address_name = address[1][1].address.full;
                   const address_info = address[1][1];
-                  logger.log(address_info);
                   return (
                     <div className="preferenceItem">
                       <div className="mainItemData">

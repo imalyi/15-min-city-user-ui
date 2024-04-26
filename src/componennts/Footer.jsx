@@ -9,7 +9,6 @@ function Footer({ useMargin }) {
   const { i18n, t } = useTranslation();
   const [isTranslateChangeVisible, setTranslateChangeVisible] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
-  logger.log(selectedLanguage);
   const translateTranscript = {
     pl: 'Polski',
     en: 'English',

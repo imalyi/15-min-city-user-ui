@@ -38,7 +38,6 @@ const Roles = ({
     preferencesSearchDataShowPage,
   );
 
-  logger.log(preferencesData);
 
   const handleRemoveAllPreferences = () => {
     setPreferencesSearchData([]);
@@ -74,7 +73,6 @@ const Roles = ({
       setPreferencesSearchData([...preferencesSearchData, result]);
       setPreferencesSearchDataShowPage([...preferencesSearchData, result]);
       setTimeout(handleSearch(), 50);
-      logger.log(preferencesSearchData);
     } else {
       logger.warn('Result already exists in preferencesSearchData');
     }
@@ -354,7 +352,6 @@ const Roles = ({
                         className="selected-search-preference"
                         onClick={() => onAddressClick(preference)}
                       >
-                        {logger.log(preferencesSearchData)}
                         <span className="selected-preference-label">
                           {t(preference.name ? preference.name : preference)}
                         </span>
