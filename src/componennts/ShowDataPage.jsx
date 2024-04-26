@@ -197,7 +197,7 @@ function ShowDataPage() {
         100;
       if (percentage > 100) {
         return {
-          text: '0%',
+          text: '100%',
           class: 'red-text',
           percentage: 100,
         };
