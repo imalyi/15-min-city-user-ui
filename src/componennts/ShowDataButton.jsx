@@ -85,6 +85,7 @@ export const ShowDataButton = React.forwardRef(
 
         if (response.ok) {
           const data = await response.json();
+          logger.log(data);
           return data;
         } else {
           console.error('Error getting report:', response.statusText);

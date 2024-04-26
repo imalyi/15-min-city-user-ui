@@ -20,6 +20,8 @@ function Home() {
   const [isResultClicked, setIsResultClicked] = useState(false);
   const [selectedRole, setSelectedRole] = useState('without role');
   const [selectedPreferences, setSelectedPreferences] = useState([]);
+  const [selectedPreferencesTransformed, setSelectedPreferencesTransformed] = useState([]);
+
   const [selectedPreferencesSearch, setSelectedPreferencesSearch] = useState(
     [],
   );
@@ -104,6 +106,7 @@ function Home() {
         setInput(data.request.addresses[0]);
         handleSetCustomAdressesAndObjects(data.request);
         handleSetPreferences(data.request);
+        setSelectedPreferencesTransformed(data.request.categories);
       } else {
         console.error('Error getting report:', response.statusText);
         throw new Error(response.statusText);
@@ -158,7 +161,7 @@ function Home() {
             }
             selectedPreferences={selectedPreferences}
             preferencesSearchData={selectedPreferencesSearch}
-            transformedPreferences={[]}
+            transformedPreferences={selectedPreferencesTransformed}
           />
           <div className="relative">
             {results && results.length > 0 && !isResultClicked && (

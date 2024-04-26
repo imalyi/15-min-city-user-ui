@@ -29,7 +29,7 @@ function ShowDataPage() {
   const addressId = location.state?.addressId || 'Unknown Address';
   const selectedPreferences = location.state?.selectedPreferences || [];
   const preferencesSearchData = location.state?.preferencesSearchData || [];
-  logger.log(selectedPreferences, preferencesSearchData);
+  logger.log(selectedPreferences, preferencesSearchData, places);
   const selectedCoordinates = [
     location.state?.places.location[1],
     location.state?.places.location[0],
