@@ -94,6 +94,7 @@ function Report() {
         setTransformedPreferences(data.reports[0].categories);
         setPlaces(data.reports[0].points_of_interest);
         i18n.changeLanguage(data.language);
+        logger.log(i18n.language)
         setAllPreferences(() => {    logger.log(data.reports[0].points_of_interest)
           return data.reports[0].points_of_interest
             ? Object.values(data.reports[0].points_of_interest).flatMap((category) => {
