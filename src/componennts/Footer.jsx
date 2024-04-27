@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/Footer.css';
 import { useTranslation } from 'react-i18next';
 import { logger } from '../logger';
@@ -22,6 +22,11 @@ function Footer({ useMargin }) {
     setSelectedLanguage(lng);
     i18n.changeLanguage(lng);
   };
+
+  useEffect(() => {
+    setSelectedLanguage(i18n.language);
+  }, [i18n.language]);
+
   return (
     <div className={footerClass}>
       <div className="bg-dark text-light p-3 footer">

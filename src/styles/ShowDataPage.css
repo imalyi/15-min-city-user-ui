@@ -312,7 +312,6 @@ html {
 }
 
 .toggleReportSectionisMatchVisibleClass {
-  color: #dce6fa;
   margin-right: 5vh;
   margin-top: 4vh;
   height: 8vh;
@@ -858,7 +857,6 @@ html {
     width: calc(100% - 2vh);
   }
   .toggleReportSectionisMatchVisibleClass {
-    color: #dce6fa;
     margin-right: 2vh;
     margin-top: 2vh;
     height: 8vh;
@@ -1132,7 +1130,6 @@ html {
     width: calc(100% - 1vh);
   }
   .toggleReportSectionisMatchVisibleClass {
-    color: #dce6fa;
     margin-right: 1vh;
     margin-top: 2vh;
     height: 5vh;

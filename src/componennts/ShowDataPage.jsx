@@ -529,24 +529,6 @@ function ShowDataPage() {
                           selectedPreferencesShowPage.length === 0 ? (
                           <div className="matchShadow">
                             <div>
-                              <div className="selectyourCriteria">
-                                <div className="matchingName">
-                                  {t('Matching')}{' '}
-                                  {countVisibleCategories().text}
-                                </div>
-                                <div className="matchContainerMatch">
-                                  <div className="matchBackground"></div>
-                                  <div
-                                    className="matchReactangle"
-                                    style={{
-                                      width: `calc(${
-                                        countVisibleCategories().percentage
-                                      }%)`,
-                                      height: '100%',
-                                    }}
-                                  ></div>
-                                </div>
-                              </div>
                               <div className="show-data-hr-place">
                                 <hr className="show-data-search-place-hr" />
                               </div>
@@ -569,27 +551,7 @@ function ShowDataPage() {
                         ) : (
                           <div className="matchShadow">
                             <div>
-                              <div className="selectyourCriteria">
-                                <div className="matchingName">
-                                  {t('Matching')}{' '}
-                                  {countVisibleCategories().text}
-                                </div>
-                                <div className="matchContainerMatch">
-                                  <div className="matchBackground"></div>
-                                  <div
-                                    className="matchReactangle"
-                                    style={{
-                                      width: `calc(${
-                                        countVisibleCategories().percentage
-                                      }%)`,
-                                      height: '100%',
-                                    }}
-                                  ></div>
-                                </div>
-                              </div>
-                              <div className="show-data-hr-place">
-                                <hr className="show-data-search-place-hr" />
-                              </div>
+
                               <div className="maxCriteriaLength">
                                 {mainCategoriesToShow &&
                                   mainCategoriesToShow.map(
