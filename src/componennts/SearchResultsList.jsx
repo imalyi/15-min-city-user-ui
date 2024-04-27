@@ -11,7 +11,6 @@ export const SearchResultsList = ({
 }) => {
   return (
     <div className={`results-list ${searchResultsListClassName}`}>
-      {logger.log(results)}
       {results.map((result) => {
         return (
           <SearchResult

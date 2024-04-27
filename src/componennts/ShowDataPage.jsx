@@ -16,19 +16,23 @@ import { Icon } from '@iconify/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RightSectionSlide, MatchSectionSlide } from './anim.js';
 import { logger } from '../logger';
+import api from '../config';
+import { useCookies } from 'react-cookie';
+
+
 
 function ShowDataPage() {
   const navigate = useNavigate();
   const [isMatchVisible, setIsMatchVisible] = useState(false);
   const [isMatchDetailsVisible, setisMatchDetailsVisible] = useState(false);
-
+  const [cookies, setCookie] = useCookies(['userID']);
   const location = useLocation();
   const places = location.state?.places || {};
   const address = location.state?.address || 'Unknown Address';
   const addressId = location.state?.addressId || 'Unknown Address';
   const selectedPreferences = location.state?.selectedPreferences || [];
   const preferencesSearchData = location.state?.preferencesSearchData || [];
-
+  logger.log(selectedPreferences, preferencesSearchData, places);
   const selectedCoordinates = [
     location.state?.places.location[1],
     location.state?.places.location[0],
@@ -55,19 +59,14 @@ function ShowDataPage() {
 
   const [preferencesSearchDataShowPage, setPreferencesSearchDataShowPage] =
     useState(preferencesSearchData);
-  logger.log(places);
-  logger.log(preferencesSearchDataShowPage);
-  logger.log(preferencesSearchDataShowPage);
+  logger.warn(cookies.userID);
 
-  logger.warn('To production');
+  const userId = cookies.userID;
+
+  const reportUrl = `/report?userid=${userId}`;
 
   const handleUserReportClick = async () => {
-    navigate('/report', {
-      state: {
-        address,
-        places,
-      },
-    });
+    window.open(reportUrl, '_blank');
   };
 
   const handlePreferencesData = (data) => {
@@ -98,7 +97,6 @@ function ShowDataPage() {
     if (places.custom_addresses.hasOwnProperty(address)) {
       // Jeśli tak, pobierz lokalizację z obiektu places.custom_addresses
       location = places.custom_addresses[address].location;
-      logger.log('Lokalizacja dla adresu:', location);
       setFlyToLocation(location);
     } else {
       logger.warn(
@@ -112,6 +110,61 @@ function ShowDataPage() {
       setTimeout(() => {
         buttonRef.current.click();
       }, 10); // Czas w milisekundach (tutaj 100000ms = 100s)
+    }
+  };
+
+  const saveData = async () => {
+    try {
+      let custom_names = [];
+      let custom_addresses = [];
+      const customNamesArray = [];
+      logger.log(preferencesSearchDataShowPage);
+      if (preferencesSearchDataShowPage) {
+        preferencesSearchDataShowPage.forEach((item) => {
+          if (typeof item === 'object') {
+            custom_names.push(item);
+          } else if (typeof item === 'string') {
+            custom_addresses.push(item);
+          }
+        });
+      }
+      logger.log(custom_names, custom_addresses);
+      custom_names.forEach((item) => {
+        customNamesArray.push({
+          name: item.name,
+          main_category: item.category,
+          category: item.sub_category,
+        });
+      });
+
+      logger.log(customNamesArray);
+
+      const requestBody = {
+        secret: cookies.userID,
+        language: i18n.language,
+        addresses: [address],
+        categories: transformedPreferences,
+        requested_objects: customNamesArray,
+        requested_addresses: custom_addresses,
+      };
+      logger.log(requestBody);
+      const response = await fetch(`${api.APP_URL_USER_API}user/save`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        logger.log(data);
+      } else {
+        console.error('Error getting report:', response.statusText);
+        throw new Error(response.statusText);
+      }
+    } catch (error) {
+      console.error('Error getting report:', error);
     }
   };
 
@@ -151,6 +204,9 @@ function ShowDataPage() {
   };
 
   const countVisibleCategories = () => {
+    logger.log('Data presaved');
+    saveData();
+    logger.log('Data saved');
     let custom_names = [];
     let custom_addresses = [];
     if (preferencesSearchDataShowPage) {
@@ -162,7 +218,7 @@ function ShowDataPage() {
         }
       });
     }
-
+    logger.log(custom_names, custom_addresses);
     let totalPlacesCount = 0;
     let totalAddressesCount = 0;
 
@@ -197,7 +253,7 @@ function ShowDataPage() {
         100;
       if (percentage > 100) {
         return {
-          text: '0%',
+          text: '100%',
           class: 'red-text',
           percentage: 100,
         };
@@ -383,7 +439,6 @@ function ShowDataPage() {
     },
     [],
   );
-  logger.log(transformedPreferences);
 
   /*
   categoriesToShow.sort((a, b) => {
@@ -544,7 +599,7 @@ function ShowDataPage() {
                                         className="selectyourCriteria"
                                       >
                                         <div className="matchingName">
-                                          {category + ':'}{' '}
+                                          {t(category) + ':'}{' '}
                                           {calculatePercentageInCategory(
                                             category,
                                           )}{' '}

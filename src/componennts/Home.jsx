@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Footer from './Footer';
 import '../styles/Home.css';
 import { SearchBar } from './SearchBar';
@@ -10,6 +10,10 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { icon } from './anim.js';
 import { logger } from '../logger';
+import api from '../config';
+import { set } from 'animejs';
+import { useCookies } from 'react-cookie';
+import md5 from 'md5';
 
 function Home() {
   const [results, setResults] = useState([]);
@@ -18,11 +22,66 @@ function Home() {
   const [isResultClicked, setIsResultClicked] = useState(false);
   const [selectedRole, setSelectedRole] = useState('without role');
   const [selectedPreferences, setSelectedPreferences] = useState([]);
+  const [selectedPreferencesTransformed, setSelectedPreferencesTransformed] = useState([]);
+
   const [selectedPreferencesSearch, setSelectedPreferencesSearch] = useState(
     [],
   );
   const { i18n, t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+
+  const [cookies, setCookie] = useCookies(['userID']);
+
+  useEffect(() => {
+    if (cookies.userID) {
+      loadData(cookies.userID);
+    } else {
+      handleNewUserRegistration();
+    }
+  }, []);
+
+
+  const loadData = async (id) => {
+    try {
+      const response = await fetch(`${api.APP_URL_USER_API}user/load?secret=${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        logger.log(data);
+        setInput(data.request.addresses[0]);
+        handleSetCustomAdressesAndObjects(data.request);
+        handleSetPreferences(data.request);
+        setSelectedPreferencesTransformed(data.request.categories);
+        i18n.changeLanguage(data.language);
+
+      } else {
+        console.error('Error getting report:', response.statusText);
+        throw new Error(response.statusText);
+      }
+    } catch (error) {
+      console.error('Error getting report:', error);
+    }
+  };
+
+  const generateUserID = () => {
+    const timestamp = new Date().getTime();
+    const randomNumber = Math.floor(Math.random() * (999999999 - 1000 + 1)) + 1000;
+    const combinedString = timestamp.toString() + randomNumber.toString();
+    const userID = md5(combinedString);
+    return userID;
+  };
+
+  const handleNewUserRegistration = async () => {
+    const userID = generateUserID();
+    logger.warn(userID);
+    setCookie('userID', userID); // Set userID cookie
+
+  };
 
   const handleLanguageChange = (lng) => {
     setSelectedLanguage(lng);
@@ -55,6 +114,33 @@ function Home() {
   const handlePreferencesSelect = (preferences) => {
     setSelectedPreferences(preferences);
   };
+
+  const handleSetCustomAdressesAndObjects = (data) => {
+    const customObjectsAndAdresses = [];
+    data.requested_addresses.forEach((item) => {
+      customObjectsAndAdresses.push(item);
+    });
+    data.requested_objects.forEach((item) => {
+      customObjectsAndAdresses.push({
+          name: item.name,
+          category: item.main_category,
+          sub_category: item.category,
+        });
+    });
+    logger.log(customObjectsAndAdresses);
+    setSelectedPreferencesSearch(customObjectsAndAdresses);
+  }
+
+  const handleSetPreferences = (data) => {
+    const preferences = [];
+    data.categories.forEach((item) => {
+      preferences.push({
+        name: item.category
+      });
+    });
+    setSelectedPreferences(preferences);
+  };
+
 
   return (
     <div className="home-container">
@@ -100,8 +186,8 @@ function Home() {
                 : 'home-searchBar'
             }
             selectedPreferences={selectedPreferences}
-            selectedPreferencesSearch={selectedPreferencesSearch}
-            transformedPreferences={[]}
+            preferencesSearchData={selectedPreferencesSearch}
+            transformedPreferences={selectedPreferencesTransformed}
           />
           <div className="relative">
             {results && results.length > 0 && !isResultClicked && (

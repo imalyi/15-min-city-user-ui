@@ -68,7 +68,7 @@
   margin-left: 3vw;
   font-family: 'Lato', sans-serif;
   font-weight: 500;
-  font-size: 3vh;
+  font-size: 2.5vh;
   background-color: #f0f8ff;
   margin-bottom: 3vh;
   margin-top: 3vh;
@@ -76,14 +76,14 @@
 .translate-button-footer {
   font-family: 'Lato', sans-serif;
   font-weight: 500;
-  font-size: 24px;
+  font-size: 2.5vh;
   background-color: #f0f8ff;
 }
 .translate-toggle-visible {
-  height: 27vh;
+  height: 24vh;
   width: 13vw;
   position: absolute;
-  top: -20.5vh;
+  top: -18.3vh;
   background-color: #f0f8ff;
   padding-left: 1vw;
   text-align: left;
@@ -104,7 +104,7 @@
   padding-top: 0.8vh;
   font-family: 'Lato', sans-serif;
   font-weight: 500;
-  font-size: 3vh;
+  font-size: 2.5vh;
   background-color: #f0f8ff;
   color: #99a0a9;
 }

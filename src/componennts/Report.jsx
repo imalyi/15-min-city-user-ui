@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/Report.css';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
@@ -8,32 +8,45 @@ import { logger } from '../logger';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import anime from 'animejs';
+import { useCookies } from 'react-cookie';
+import api from '../config';
+import { use } from 'i18next';
 
 function Report() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const places = location.state?.places || {};
-  const address = location.state?.address || 'Unknown Address';
-  logger.log(places);
-  logger.log(places.points_of_interest);
-  const categories = places.points_of_interest
-    ? Object.keys(places.points_of_interest)
+  const {i18n, t } = useTranslation();
+  const [address, setAddress] =
+    useState("");
+  const [places, setPlaces] =
+    useState({});
+  const [transformedPreferences, setTransformedPreferences] =
+    useState("");
+  const [custom_objects, setRequestedObjects] =
+    useState([]);
+  const [custom_addresses, setRequestedAddresses] =
+    useState([]);
+  const categories = places
+    ? Object.keys(places)
     : null;
+    /*
   const custom_addresses = places.custom_addresses
     ? Object.entries(places.custom_addresses)
     : null;
   const custom_objects = places.custom_addresses
     ? Object.entries(places.custom_objects)
     : null;
-  logger.log(custom_objects);
-
+    */
+  logger.log(custom_addresses);
+  const location = useLocation();
+  const [cookies, setCookie] = useCookies(['userID']);
+  const searchParams = new URLSearchParams(location.search);
+  const userId = searchParams.get('userid');
   const [selectedCategoryPreferences, setselectedCategoryPreferences] =
     useState(null);
   const [selectedAddressPreferences, setselectedAddressPreferences] =
     useState(false);
   const [selectedObjectPreferences, setselectedObjectPreferences] =
     useState(false);
+  const [allPreferences, setAllPreferences] = useState([]);
 
   const [selectedCategory, setselectedCategory] = useState(null);
 
@@ -50,44 +63,77 @@ function Report() {
     setselectedObjectPreferences(false);
   };
   const handleCategoryClick = (category) => {
-    setselectedCategoryPreferences(places.points_of_interest[category]);
+    setselectedCategoryPreferences(places[category]);
     setselectedCategory(category);
     setselectedAddressPreferences(false);
     setselectedObjectPreferences(false);
   };
-  logger.log(selectedObjectPreferences);
 
-  const allObjects = Object.values(custom_objects).flatMap(
-    ([categoryName, categoryList], index1) => {
-      return Object.entries(categoryList).flatMap(
-        ([subcategoryName, subcategory]) => {
-          return subcategory.map((item, index2) => ({
-            name: item.name,
-            location: item.location,
-            address: item.address,
-            distance: item.distance,
-          }));
+  useEffect(() => {
+    if (userId) {
+      loadData(userId);
+    }
+  }, []);
+  
+
+  const loadData = async (id) => {
+    try {
+      const response = await fetch(`${api.APP_URL_USER_API}user/load?secret=${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
-    },
-  );
+      });
 
-  logger.log(allObjects);
+      if (response.ok) {
+        const data = await response.json();
+        logger.log(data);
+        setAddress(data.request.addresses[0]);
+        setRequestedAddresses(data.reports[0].custom_addresses);
+        setRequestedObjects(data.reports[0].custom_objects);
+        setTransformedPreferences(data.reports[0].categories);
+        setPlaces(data.reports[0].points_of_interest);
+        i18n.changeLanguage(data.language);
+        setAllPreferences(() => {    logger.log(data.reports[0].points_of_interest)
+          return data.reports[0].points_of_interest
+            ? Object.values(data.reports[0].points_of_interest).flatMap((category) => {
+                logger.log("Category:", category);
+                return Object.keys(category).flatMap((subcategory) =>
+                  category[subcategory].map((item) => ({
+                    key: subcategory,
+                    value: true,
+                  }))
+                );
+              })
+            : [];} 
+        );
 
-  const [allPreferences, setAllPreferences] = useState(() => {
-    // Inicjalizacja stanu allPreferences
-    return places.points_of_interest
-      ? Object.values(places.points_of_interest).reduce((acc, category) => {
-          return acc.concat(
-            Object.entries(category).map(([key]) => ({
-              key,
-              value: true,
-            })),
-          );
-        }, [])
-      : [];
+      } else {
+        console.error('Error getting report:', response.statusText);
+        throw new Error(response.statusText);
+      }
+    } catch (error) {
+      console.error('Error getting report:', error);
+    }
+  };
+
+  const allObjects = [];
+  Object.keys(custom_objects).forEach(categoryName => {
+    Object.keys(custom_objects[categoryName]).forEach(subcategoryName => {
+      custom_objects[categoryName][subcategoryName].forEach(item => {
+        allObjects.push({
+          name: item.name,
+          location: item.location,
+          address: item.address,
+          distance: item.distance,
+        });
+      });
+    });
   });
-  logger.log(allPreferences);
+  logger.log(allObjects.length);
+logger.log(allPreferences)
+logger.log(places)
+
 
   const handlePreferencesClick = (category) => {
     // Aktualizacja wartości value na false po kliknięciu
@@ -171,7 +217,7 @@ function Report() {
                 </div>
               </div>
             ) : null}
-            {custom_objects && custom_objects.length > 0 ? (
+            {allObjects && allObjects.length > 0 ? (
               <div>
                 <div
                   className={
@@ -273,9 +319,9 @@ function Report() {
             <div className="preferenceItems">
               {selectedAddressPreferences &&
                 Object.entries(custom_addresses).map((address, index) => {
-                  const address_name = address[1][0];
-                  const address_info = address[1][1];
-                  logger.log(address_info);
+                  logger.log(address[1].address.full)
+                  const address_name = address[1].address.full;
+                  const address_info = address[1];
                   return (
                     <div className="preferenceItem">
                       <div className="mainItemData">

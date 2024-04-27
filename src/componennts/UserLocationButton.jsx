@@ -58,7 +58,6 @@ export const UserLocationButton = ({ onLocationUpdate, onEnterPress }) => {
 
       if (response.ok) {
         const data = await response.json();
-        logger.log(data);
         return data;
       } else {
         console.error(

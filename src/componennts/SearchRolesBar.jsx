@@ -44,7 +44,6 @@ export const SearchRolesBar = ({
         if (response.ok) {
           const data = await response.json();
           const results = data;
-          logger.log(results);
           setCustomAddress(results.addresses);
           setCustomObject(results.objects);
         } else {

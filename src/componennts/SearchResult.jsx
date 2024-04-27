@@ -12,7 +12,6 @@ export const SearchResult = ({
       className={`search-list ${searchResultsClassName}`}
       onClick={() => onResultClick(result)}
     >
-      {logger.log(result)}
       {result}
     </div>
   );

@@ -16,7 +16,6 @@ export const SearchBar = ({
   onEnterPress,
   searchBarClassName,
   selectedPreferences,
-  selectedPreferencesSearch,
   transformedPreferences,
   preferencesSearchData,
 }) => {
@@ -24,14 +23,13 @@ export const SearchBar = ({
   const [debouncedValue, setDebouncedValue] = useState(input);
   const delay = 500; // Ustaw opóźnienie (w milisekundach) zależnie od Twoich preferencji
   const fetchTimeoutRef = useRef(null);
-
+  logger.log('SearchBar');
   const showServerErrorAlert = () => {
     alert(
       'Oops! Something went wrong with our server. Please try using Search Bar again later. We apologize for the inconvenience.',
     );
   };
 
-  logger.log(selectedPreferences);
   const fetchData = useCallback(
     async (value) => {
       if (value === '') {
@@ -52,7 +50,6 @@ export const SearchBar = ({
           const data = await response.json();
           const results = data.slice(0, 3);
           setResults(results);
-          logger.log(results);
         } else {
           console.error(
             'Error getting address from coordinatessss:',
@@ -125,7 +122,6 @@ export const SearchBar = ({
         selectedPreferences={selectedPreferences}
         transformedPreferences={transformedPreferences}
         preferencesSearchData={preferencesSearchData}
-        selectedPreferencesSearch={selectedPreferencesSearch}
       />
     </div>
   );
