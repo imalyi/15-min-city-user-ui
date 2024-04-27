@@ -17,12 +17,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { RightSectionSlide, MatchSectionSlide } from './anim.js';
 import { logger } from '../logger';
 import api from '../config';
+import { useCookies } from 'react-cookie';
+
+
 
 function ShowDataPage() {
   const navigate = useNavigate();
   const [isMatchVisible, setIsMatchVisible] = useState(false);
   const [isMatchDetailsVisible, setisMatchDetailsVisible] = useState(false);
-
+  const [cookies, setCookie] = useCookies(['userID']);
   const location = useLocation();
   const places = location.state?.places || {};
   const address = location.state?.address || 'Unknown Address';
@@ -56,15 +59,14 @@ function ShowDataPage() {
 
   const [preferencesSearchDataShowPage, setPreferencesSearchDataShowPage] =
     useState(preferencesSearchData);
-  logger.warn('To production');
+  logger.warn(cookies.userID);
+
+  const userId = cookies.userID;
+
+  const reportUrl = `/report?userid=${userId}`;
 
   const handleUserReportClick = async () => {
-    navigate('/report', {
-      state: {
-        address,
-        places,
-      },
-    });
+    window.open(reportUrl, '_blank');
   };
 
   const handlePreferencesData = (data) => {
@@ -138,7 +140,7 @@ function ShowDataPage() {
       logger.log(customNamesArray);
 
       const requestBody = {
-        secret: '15mintest',
+        secret: cookies.userID,
         language: i18n.language,
         addresses: [address],
         categories: transformedPreferences,
@@ -251,7 +253,7 @@ function ShowDataPage() {
         100;
       if (percentage > 100) {
         return {
-          text: '0%',
+          text: '100%',
           class: 'red-text',
           percentage: 100,
         };
@@ -597,7 +599,7 @@ function ShowDataPage() {
                                         className="selectyourCriteria"
                                       >
                                         <div className="matchingName">
-                                          {category + ':'}{' '}
+                                          {t(category) + ':'}{' '}
                                           {calculatePercentageInCategory(
                                             category,
                                           )}{' '}
