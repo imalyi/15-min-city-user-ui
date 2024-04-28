@@ -92,11 +92,14 @@ function ShowDataPage() {
 
   const handleDataCategoryClick = (address) => {
     let location = [];
-
     // Sprawdź, czy adres istnieje w places.custom_addresses
-    if (places.custom_addresses.hasOwnProperty(address)) {
-      // Jeśli tak, pobierz lokalizację z obiektu places.custom_addresses
-      location = places.custom_addresses[address].location;
+    const foundAddress = Object.values(places.custom_addresses).find(
+      (addr) => addr.address.full === address
+    );
+  
+    if (foundAddress) {
+      // Jeśli adres został znaleziony, pobierz jego lokalizację
+      location = foundAddress.location;
       setFlyToLocation(location);
     } else {
       logger.warn(
