@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/ShowDataButton.css';
 import { FaSearch } from 'react-icons/fa';
@@ -7,24 +7,31 @@ import api from '../config';
 import { Icon } from '@iconify/react';
 import { logger } from '../logger';
 
+
 export const ShowDataButton = React.forwardRef(
   (
     {
       address,
-      addressId,
+      addresses,
       selectedPreferences,
       transformedPreferences,
       preferencesSearchData,
+      ShowDataButtonCompare,
+      handleCompareWindowOpen,
     },
     ref,
   ) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
+
+
     const handleUserLocationClick = async () => {
-      if (address === '') {
+      if (address == '') {
+        if (ShowDataButtonCompare !== "alert-none") {
         alert(
           'Please enter an address and select it from the options provided',
         );
+      }
       } else {
         const places = await getplacesFromCoordinates();
         if (places === undefined) {
@@ -34,7 +41,7 @@ export const ShowDataButton = React.forwardRef(
           navigate('/show-addresses', {
             state: {
               address,
-              addressId,
+              addresses,
               places,
               selectedPreferences,
               preferencesSearchData,
@@ -96,14 +103,24 @@ export const ShowDataButton = React.forwardRef(
       }
     };
     return (
-      <button
-        ref={ref}
-        className="show-data-button"
-        onClick={handleUserLocationClick}
-        title={t('Show results')}
-      >
-        {<Icon icon="carbon:search" id="search-icon-button" />}
-      </button>
+      <div>
+        <button
+          ref={ref}
+          className="show-data-button-invisible"
+          onClick={handleUserLocationClick}
+        />
+        <button
+          className="show-data-button"
+          onClick={ShowDataButtonCompare === "compare" ? handleCompareWindowOpen : handleUserLocationClick}
+          title={t('Show results')}
+        >
+          {ShowDataButtonCompare === "compare" ? (
+            <Icon icon="material-symbols-light:balance" id="compare-icon-button" />
+          ) : (
+            <Icon icon="carbon:search" id="search-icon-button" />
+          )}
+        </button>
+      </div>
     );
   },
 );

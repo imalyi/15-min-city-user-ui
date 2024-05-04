@@ -18,7 +18,7 @@ import { RightSectionSlide, MatchSectionSlide } from './anim.js';
 import { logger } from '../logger';
 import api from '../config';
 import { useCookies } from 'react-cookie';
-
+import CompareWindow from './CompareWindow';
 
 
 function ShowDataPage() {
@@ -29,7 +29,7 @@ function ShowDataPage() {
   const location = useLocation();
   const places = location.state?.places || {};
   const address = location.state?.address || 'Unknown Address';
-  const addressId = location.state?.addressId || 'Unknown Address';
+  const addresses_home = location.state?.addresses || [];
   const selectedPreferences = location.state?.selectedPreferences || [];
   const preferencesSearchData = location.state?.preferencesSearchData || [];
   logger.log(selectedPreferences, preferencesSearchData, places);
@@ -37,9 +37,9 @@ function ShowDataPage() {
     location.state?.places.location[1],
     location.state?.places.location[0],
   ];
+  const [addresses, setAddresses] = useState(addresses_home);
   const [results, setResults] = useState([]);
   const [input, setInput] = useState(address);
-  const [addressIdShowPage, setAddressIdShowPage] = useState(addressId);
   const [isResultClicked, setIsResultClicked] = useState(true);
   const [selectedCoordinatesShowPage, setSelectedCoordinatesShowPage] =
     useState(selectedCoordinates);
@@ -64,6 +64,18 @@ function ShowDataPage() {
   const userId = cookies.userID;
 
   const reportUrl = `/report?userid=${userId}`;
+
+
+  const [isCompareWindowOpen, setIsCompareWindowOpen] = useState(false);
+
+  const handleCompareWindowOpen = () => {
+    setIsCompareWindowOpen(true);
+  };
+
+  const handleCompareWindowClose = () => {
+    setIsCompareWindowOpen(false);
+  };
+
 
   const handleUserReportClick = async () => {
     window.open(reportUrl, '_blank');
@@ -141,11 +153,12 @@ function ShowDataPage() {
       });
 
       logger.log(customNamesArray);
+      logger.log(addresses);
 
       const requestBody = {
         secret: cookies.userID,
         language: i18n.language,
-        addresses: [address],
+        addresses: addresses,
         categories: transformedPreferences,
         requested_objects: customNamesArray,
         requested_addresses: custom_addresses,
@@ -173,7 +186,6 @@ function ShowDataPage() {
 
   const handleResultClick = (result) => {
     setInput(result);
-    setAddressIdShowPage(result);
     setIsResultClicked(true);
     handleEnterPress();
   };
@@ -181,11 +193,11 @@ function ShowDataPage() {
   const handleSearchBarChange = (value) => {
     setInput(value);
     setIsResultClicked(false);
+    handleEnterPress();
   };
 
   const handleUserLocationUpdate = (address, lat, lng) => {
     setInput(`${address[0].address}`);
-    setAddressIdShowPage(`${address[0].id}`);
     setSelectedCoordinatesShowPage([lat, lng]);
     setIsResultClicked(true);
   };
@@ -465,6 +477,23 @@ function ShowDataPage() {
 
   return (
     <div className="ShowData">
+      <CompareWindow 
+        isOpen={isCompareWindowOpen} 
+        onClose={handleCompareWindowClose}
+        setResults={setResults}
+        showDataRef={buttonRef}
+        inputShowAddress={input}
+        setInputShowData={handleSearchBarChange}
+        setIsResultClicked={setIsResultClicked}
+        onEnterPress={handleEnterPress}
+        ShowDataButtonCompare={"compare"}
+        addressesShowData={addresses}
+        handleCompareWindowOpen={handleCompareWindowOpen}
+        selectedPreferences={selectedPreferencesShowPage}
+        transformedPreferences={transformedPreferences}
+        preferencesSearchData={preferencesSearchDataShowPage}
+        setAddressesShowPage={setAddresses}
+      />
       <div className="showDataContainer">
         <div className="ShowDataPage">
           <div className="search-bar-container-show-data">
@@ -646,7 +675,6 @@ function ShowDataPage() {
                     setResults={setResults}
                     showDataRef={buttonRef}
                     input={input}
-                    addressId={addressId}
                     setInput={handleSearchBarChange}
                     setIsResultClicked={setIsResultClicked}
                     onEnterPress={handleEnterPress}
@@ -655,6 +683,8 @@ function ShowDataPage() {
                         ? 'border-bottom show-data-page-search-bar'
                         : 'show-data-page-search-bar'
                     }
+                    ShowDataButtonCompare={"compare"}
+                    handleCompareWindowOpen={handleCompareWindowOpen}
                     selectedPreferences={selectedPreferencesShowPage}
                     transformedPreferences={transformedPreferences}
                     preferencesSearchData={preferencesSearchDataShowPage}

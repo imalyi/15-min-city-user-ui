@@ -230,6 +230,12 @@
   "Transport": "Transport",
   "Wyposażenie": "Equipment",
   "Your locations": "Your locations",
-  "Your places": "Your places"
+  "Your places": "Your places",
+  "Do you have more addresses?" : "Do you have more addresses?",
+  "You can conveniently compare them with each other. Use the box below to add a location to the list." : "You can conveniently compare them with each other. Use the box below to add a location to the list.",
+  "You can only add up to 3 addresses": "You can only add up to 3 addresses",
+  "This address is already on the list":  "This address is already on the list",
+  "Compare addresses": "Compare addresses"
+
 
 }

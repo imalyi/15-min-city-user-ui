@@ -18,6 +18,7 @@ import md5 from 'md5';
 function Home() {
   const [results, setResults] = useState([]);
   const [input, setInput] = useState('');
+  const [addresses, setAddresses] = useState('');
   const [addressId, setAddressId] = useState('');
   const [isResultClicked, setIsResultClicked] = useState(false);
   const [selectedRole, setSelectedRole] = useState('without role');
@@ -58,7 +59,7 @@ function Home() {
         handleSetPreferences(data.request);
         setSelectedPreferencesTransformed(data.request.categories);
         i18n.changeLanguage(data.language);
-
+        setAddresses(data.request.addresses);
       } else {
         console.error('Error getting report:', response.statusText);
         throw new Error(response.statusText);
@@ -176,6 +177,7 @@ function Home() {
             setResults={setResults}
             showDataRef={buttonRef}
             input={input}
+            addresses={addresses}
             addressId={addressId}
             setInput={handleSearchBarChange}
             setIsResultClicked={setIsResultClicked}

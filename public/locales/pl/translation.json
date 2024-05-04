@@ -230,5 +230,10 @@
   "Transport": "Transport",
   "Wyposażenie": "Wyposażenie",
   "Your locations": "Twoje lokalizacje",
-  "Your places": "Twoje miejsca"
+  "Your places": "Twoje miejsca",
+  "You can conveniently compare them with each other. Use the box below to add a location to the list." : "Możesz wygodnie porównać je ze sobą. Użyj pola poniżej, aby dodać lokalizację do zestawienia.",
+  "Do you have more addresses?": "Masz więcej adresów?",
+  "You can only add up to 3 addresses": "Możesz dodać maksymalnie 3 adresy",
+  "This address is already on the list": "Ten adres jest już na liście",
+  "Compare addresses": "Porównaj adresy"
 }

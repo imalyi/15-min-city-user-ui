@@ -5,10 +5,18 @@
   display: flex;
   align-items: center;
 }
+.show-data-button-invisible{
+  display: none;
+}
 
 @media only screen and (max-width: 850px) {
   #search-icon-button {
     color: #f8718a;
+    height: 3vh;
+    width: 3vh;
+  }
+  #compare-icon-button {
+    color: #24254C;
     height: 3vh;
     width: 3vh;
   }
@@ -19,5 +27,10 @@
     color: #f8718a;
     height: 4vh;
     width: 4vh;
+  }
+  #compare-icon-button {
+    color: #24254C;
+    height: 4.5vh;
+    width: 4.5vh;
   }
 }

@@ -5,12 +5,13 @@ import api from '../config';
 import { ShowDataButton } from './ShowDataButton';
 import { use } from 'i18next';
 import { logger } from '../logger';
+import { Icon } from '@iconify/react';
 
 export const SearchBar = ({
   setResults,
   showDataRef,
-  addressId,
   input,
+  addresses,
   setInput,
   setIsResultClicked,
   onEnterPress,
@@ -18,6 +19,9 @@ export const SearchBar = ({
   selectedPreferences,
   transformedPreferences,
   preferencesSearchData,
+  ShowDataButtonCompare,
+  handleCompareWindowOpen,
+  alarm,
 }) => {
   const { t } = useTranslation();
   const [debouncedValue, setDebouncedValue] = useState(input);
@@ -107,22 +111,29 @@ export const SearchBar = ({
   }, [debouncedValue, fetchData, delay]);
 
   return (
-    <div className={`input-wrapper ${searchBarClassName}`}>
-      <input
-        placeholder={t('Enter address (street, city...)')}
-        value={input}
-        onChange={(e) => handleChange(e.target.value)}
-        onKeyPress={handleKeyPress}
-      />
-      <button ref={buttonRef} style={{ display: 'none' }}></button>
-      <ShowDataButton
-        ref={showDataRef}
-        address={input}
-        addressId={addressId}
-        selectedPreferences={selectedPreferences}
-        transformedPreferences={transformedPreferences}
-        preferencesSearchData={preferencesSearchData}
-      />
+    <div className={`${alarm === '' ? '' : 'search-bar-with-alarm'}`}>
+      <div className={`${searchBarClassName === 'compare-window-search-bar' ? searchBarClassName : 'input-wrapper ' + searchBarClassName}`}>
+        <input
+          placeholder={t('Enter address (street, city...)')}
+          value={input}
+          onChange={(e) => handleChange(e.target.value)}
+          onKeyPress={handleKeyPress}
+        />
+        <button ref={buttonRef} style={{ display: 'none' }}></button>
+        <ShowDataButton
+          ref={showDataRef}
+          address={input}
+          addresses={addresses}
+          selectedPreferences={selectedPreferences}
+          transformedPreferences={transformedPreferences}
+          preferencesSearchData={preferencesSearchData}
+          ShowDataButtonCompare={ShowDataButtonCompare}
+          handleCompareWindowOpen={handleCompareWindowOpen}
+        />
+      </div>
+      <div>
+        {alarm && <div> <Icon icon="material-symbols-light:error-outline" id="error-outline-button" /></div>}
+      </div>
     </div>
   );
 };

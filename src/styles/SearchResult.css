@@ -24,6 +24,19 @@
   background-color: #bcc6da;
 }
 
+.compare-window-search-list{
+  padding: 2.27vh 3vh;
+  font-family: 'Lato', sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.compare-window-search-list:hover {
+  background-color: #bcc6da;
+}
+
 @media only screen and (max-width: 850px) {
   .home-search-list {
     padding: 2.5vh 3vh;

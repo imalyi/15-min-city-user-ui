@@ -669,7 +669,6 @@ html {
   display: flex;
   align-items: center;
   margin-left: 3vh;
-  margin-right: 5vh;
   margin-top: 4vh;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
@@ -895,7 +894,6 @@ html {
     display: flex;
     align-items: center;
     margin-left: 3vh;
-    margin-right: 2vh;
     margin-top: 2vh;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
