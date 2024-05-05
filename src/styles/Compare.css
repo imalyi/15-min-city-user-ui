@@ -196,3 +196,324 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+@media only screen and (max-width: 1200px) {
+    .match-div{
+        font-family: Lato;
+        font-size: 2.5vh;
+        font-weight: 500;
+        line-height: 28.8px;
+        text-align: left;
+        margin-left: 3vh;
+        margin-top: 2vh;
+    }
+    
+    .address-name{
+        font-family: Lato;
+        font-size: 2.5vh;
+        font-weight: 600;
+        line-height: 28.8px;
+        text-align: left;
+        margin-left: 3vh;
+        margin-top: 2vh;
+    }
+    .compare-category-name{
+        margin-left: 3vh;
+        margin-top: 1vh;
+        font-family: Lato;
+        font-size: 2.5vh;
+        font-weight: 600;
+        line-height: 28.8px;
+        text-align: left;
+    }
+    
+    .preference-item-distance{
+        font-family: Lato;
+        font-size: 2.5vh;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        float: right;
+        display: flex;
+    }
+    .compare-nearest-place-name{
+        font-family: Lato;
+        font-size: 2.5vh;
+        font-weight: 400;
+        line-height: 28.8px;
+        text-align: left;
+        margin-left: 3vh;
+        margin-top: 2vh;
+    
+    }
+    #compare-person-simple-walk-light{
+        color: #f8718a;
+        height: 4vh;
+        width: 4vh;
+        margin-top: 1.8vh;
+        margin-right: 1.5vh;
+    }
+    .compare-time{
+        margin-top: 2.5vh;
+        margin-right: 1vw;
+        font-family: Lato;
+        font-size: 2.5vh;
+        font-style: normal;
+        font-weight: 400;
+    }
+    .compare-button-one-address{
+        font-family: Lato;
+        font-size: 2.5vh;
+        font-weight: 400;
+        line-height: 28.8px;
+        text-align: left;
+        background-color: #24254C;
+        border: none;
+        border-radius: 12px;
+        height: 6vh;
+        margin-top: 3vh;
+        color:#F0F8FF;
+        margin-right: 2vh;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .match-div{
+        font-family: Lato;
+        font-size: 2vh;
+        font-weight: 500;
+        line-height: 28.8px;
+        text-align: left;
+        margin-left: 3vh;
+        margin-top: 2vh;
+    }
+    
+    .address-name{
+        font-family: Lato;
+        font-size: 2vh;
+        font-weight: 600;
+        line-height: 28.8px;
+        text-align: left;
+        margin-left: 3vh;
+        margin-top: 2vh;
+    }
+    .compare-category-name{
+        margin-left: 3vh;
+        margin-top: 1vh;
+        font-family: Lato;
+        font-size: 2vh;
+        font-weight: 600;
+        line-height: 28.8px;
+        text-align: left;
+    }
+    
+    .preference-item-distance{
+        font-family: Lato;
+        font-size: 2vh;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        float: right;
+        display: flex;
+    }
+    .compare-nearest-place-name{
+        font-family: Lato;
+        font-size: 2vh;
+        font-weight: 400;
+        line-height: 28.8px;
+        text-align: left;
+        margin-left: 3vh;
+        margin-top: 2vh;
+    
+    }
+    #compare-person-simple-walk-light{
+        color: #f8718a;
+        height: 3vh;
+        width: 3vh;
+        margin-top: 2.8vh;
+        margin-right: 1.5vh;
+    }
+    .compare-time{
+        margin-top: 3vh;
+        margin-right: 2vw;
+        font-family: Lato;
+        font-size: 2vh;
+        font-style: normal;
+        font-weight: 400;
+    }
+    .compare-button-one-address{
+        font-family: Lato;
+        font-size: 2vh;
+        font-weight: 400;
+        line-height: 28.8px;
+        text-align: left;
+        background-color: #24254C;
+        border: none;
+        border-radius: 12px;
+        height: 6vh;
+        margin-top: 3vh;
+        color:#F0F8FF;
+        margin-right: 2vh;
+    }
+}
+
+
+@media only screen and (max-width: 700px) {
+    .match-div{
+        font-family: Lato;
+        font-size: 1.5vh;
+        font-weight: 500;
+        line-height: 28.8px;
+        text-align: left;
+        margin-left: 3vh;
+        margin-top: 2vh;
+    }
+    
+    .address-name{
+        font-family: Lato;
+        font-size: 1.5vh;
+        font-weight: 600;
+        line-height: 28.8px;
+        text-align: left;
+        margin-left: 3vh;
+        margin-top: 2vh;
+    }
+    .compare-category-name{
+        margin-left: 3vh;
+        margin-top: 1vh;
+        font-family: Lato;
+        font-size: 1.5vh;
+        font-weight: 600;
+        line-height: 28.8px;
+        text-align: left;
+    }
+    
+    .preference-item-distance{
+        font-family: Lato;
+        font-size: 1.5vh;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        float: right;
+        display: flex;
+    }
+    .compare-nearest-place-name{
+        font-family: Lato;
+        font-size: 1.5vh;
+        font-weight: 400;
+        line-height: 28.8px;
+        text-align: left;
+        margin-left: 3vh;
+        margin-top: 2vh;
+    
+    }
+    #compare-person-simple-walk-light{
+        color: #f8718a;
+        height: 2.5vh;
+        width: 2.5vh;
+        margin-top: 3vh;
+        margin-right: 1.5vh;
+    }
+    .compare-time{
+        margin-top: 3.3vh;
+        margin-right: 3vw;
+        font-family: Lato;
+        font-size: 1.5vh;
+        font-style: normal;
+        font-weight: 400;
+    }
+    .compare-button-one-address{
+        font-family: Lato;
+        font-size: 1.5vh;
+        font-weight: 400;
+        line-height: 28.8px;
+        text-align: left;
+        background-color: #24254C;
+        border: none;
+        border-radius: 12px;
+        height: 6vh;
+        margin-top: 3vh;
+        color:#F0F8FF;
+        margin-right: 2vh;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .match-div{
+        font-family: Lato;
+        font-size: 1.5vh;
+        font-weight: 500;
+        line-height: 28.8px;
+        text-align: left;
+        margin-left: 3vh;
+        margin-top: 2vh;
+    }
+    
+    .address-name{
+        font-family: Lato;
+        font-size: 1.1vh;
+        font-weight: 600;
+        line-height: 28.8px;
+        text-align: left;
+        margin-left: 3vh;
+        margin-top: 2vh;
+    }
+    .compare-category-name{
+        margin-left: 3vh;
+        margin-top: 1vh;
+        font-family: Lato;
+        font-size: 1.5vh;
+        font-weight: 600;
+        line-height: 28.8px;
+        text-align: left;
+    }
+    
+    .preference-item-distance{
+        font-family: Lato;
+        font-size: 1.5vh;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        float: right;
+        display: flex;
+    }
+    .compare-nearest-place-name{
+        font-family: Lato;
+        font-size: 1.5vh;
+        font-weight: 400;
+        line-height: 28.8px;
+        text-align: left;
+        margin-left: 3vh;
+        margin-top: 2vh;
+    
+    }
+    #compare-person-simple-walk-light{
+        color: #f8718a;
+        height: 2.5vh;
+        width: 2.5vh;
+        margin-top: 3vh;
+        margin-right: 1.5vh;
+    }
+    .compare-time{
+        margin-top: 3.3vh;
+        margin-right: 3vw;
+        font-family: Lato;
+        font-size: 1.5vh;
+        font-style: normal;
+        font-weight: 400;
+    }
+    .compare-button-one-address{
+        font-family: Lato;
+        font-size: 1.5vh;
+        font-weight: 400;
+        line-height: 28.8px;
+        text-align: left;
+        background-color: #24254C;
+        border: none;
+        border-radius: 12px;
+        height: 6vh;
+        margin-top: 3vh;
+        color:#F0F8FF;
+        margin-right: 2vh;
+    }
+}
