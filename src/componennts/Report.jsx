@@ -20,8 +20,10 @@ function Report() {
   const [address, setAddress] = useState(searchParams.get('address'));
   const [places, setPlaces] = useState({});
   const [transformedPreferences, setTransformedPreferences] = useState('');
-  const [custom_objects, setRequestedObjects] = useState([]);
-  const [custom_addresses, setRequestedAddresses] = useState([]);
+  const [custom_objects, setCustomObject] = useState([]);
+  const [custom_addresses, setCustomAddresses] = useState([]);
+  const [requested_objects, setRequestedObjects] = useState([]);
+  const [requested_addresses, setRequestedAddresses] = useState([]);
   const categories = places ? Object.keys(places) : null;
   /*
   const custom_addresses = places.custom_addresses
@@ -91,13 +93,16 @@ function Report() {
         );
         logger.log(reportWithRequestedAddress);
         if (reportWithRequestedAddress) {
+          logger.log(data.request);
+
           // Jeśli znaleziono raport z odpowiednim adresem, ustawiamy dane
-          setRequestedAddresses(reportWithRequestedAddress.custom_addresses);
-          setRequestedObjects(reportWithRequestedAddress.custom_objects);
+          setCustomAddresses(reportWithRequestedAddress.custom_addresses);
+          setCustomObject(reportWithRequestedAddress.custom_objects);
           setTransformedPreferences(reportWithRequestedAddress.categories);
           setPlaces(reportWithRequestedAddress.points_of_interest);
+          setRequestedObjects(data.request.requested_objects)
+          setRequestedAddresses(data.request.requested_addresses)
           i18n.changeLanguage(reportWithRequestedAddress.language);
-          logger.log(i18n.language);
 
           setAllPreferences(() => {
             logger.log(reportWithRequestedAddress.points_of_interest);
@@ -174,6 +179,8 @@ function Report() {
     });
   };
 
+  logger.log(requested_objects, requested_addresses);
+
   return (
     <div className="report">
       <div className="reportContainer">
@@ -193,7 +200,7 @@ function Report() {
             <div className="addressName">{address}</div>
           </div>
         </div>
-        {Object.keys(places).length !== 0 ? (
+        {Object.keys(places).length !== 0 || Object.keys(custom_objects).length !== 0 || Object.keys(custom_addresses).length !== 0? (
           <div className="reportMain">
             <div
               className={
