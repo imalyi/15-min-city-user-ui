@@ -18,6 +18,7 @@ export const ShowDataButton = React.forwardRef(
       preferencesSearchData,
       ShowDataButtonCompare,
       handleCompareWindowOpen,
+      setAlarm,
     },
     ref,
   ) => {
@@ -28,14 +29,13 @@ export const ShowDataButton = React.forwardRef(
     const handleUserLocationClick = async () => {
       if (address == '') {
         if (ShowDataButtonCompare !== "alert-none") {
-        alert(
-          'Please enter an address and select it from the options provided',
-        );
+          setAlarm('invalid address');
       }
       } else {
         const places = await getplacesFromCoordinates();
         if (places === undefined) {
           logger.error('No places found');
+          setAlarm('invalid address');
         } else {
           logger.log(preferencesSearchData)
           navigate('/show-addresses', {

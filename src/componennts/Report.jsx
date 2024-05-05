@@ -38,7 +38,7 @@ function Report() {
     ? Object.entries(places.custom_objects)
     : null;
     */
-  logger.log(custom_addresses);
+  logger.log(Object.keys(places).length);
 
 
   const userId = searchParams.get('userid');
@@ -199,6 +199,7 @@ logger.log(places)
             <div className="addressName">{address}</div>
           </div>
         </div>
+        {Object.keys(places).length !== 0 ? (
         <div className="reportMain">
           <div
             className={
@@ -545,6 +546,12 @@ logger.log(places)
             </div>
           </div>
         </div>
+        ) : (
+          <div className='compare-main-div'>
+              <div class="loader"></div>
+          </div>
+        )
+        } 
         <Footer useMargin={true} />
       </div>
     </div>

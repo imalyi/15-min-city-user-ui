@@ -24,7 +24,7 @@ function Home() {
   const [selectedRole, setSelectedRole] = useState('without role');
   const [selectedPreferences, setSelectedPreferences] = useState([]);
   const [selectedPreferencesTransformed, setSelectedPreferencesTransformed] = useState([]);
-
+  const [alarm, setAlarm] = useState("");
   const [selectedPreferencesSearch, setSelectedPreferencesSearch] = useState(
     [],
   );
@@ -41,7 +41,7 @@ function Home() {
     }
   }, []);
 
-
+  logger.log(input)
   const loadData = async (id) => {
     try {
       const response = await fetch(`${api.APP_URL_USER_API}user/load?secret=${id}`, {
@@ -54,7 +54,13 @@ function Home() {
       if (response.ok) {
         const data = await response.json();
         logger.log(data);
-        setInput(data.request.addresses[0]);
+        logger.log(input)
+        setInput((prevInput) => {
+          if (prevInput === '') {
+            return data.request.addresses[0];
+          }
+          return prevInput;
+        });
         handleSetCustomAdressesAndObjects(data.request);
         handleSetPreferences(data.request);
         setSelectedPreferencesTransformed(data.request.categories);
@@ -104,6 +110,7 @@ function Home() {
   };
 
   const handleSearchBarChange = (value) => {
+    setAlarm("");
     setInput(value);
     setIsResultClicked(false);
   };
@@ -190,9 +197,13 @@ function Home() {
             selectedPreferences={selectedPreferences}
             preferencesSearchData={selectedPreferencesSearch}
             transformedPreferences={selectedPreferencesTransformed}
+            setAlarm={setAlarm}
           />
           <div className="relative">
-            {results && results.length > 0 && !isResultClicked && (
+          <div className="home-alarm">
+                {t(alarm)}
+          </div>
+            {!isResultClicked && (
               <SearchResultsList
                 results={results}
                 onResultClick={handleResultClick}

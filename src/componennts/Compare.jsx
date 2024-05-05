@@ -294,12 +294,13 @@ function Compare() {
             </Link>
           </div>
         </div>
-        <div className='compare-main-div'>
-          {addresses && addresses.map((address, index) => (
-            <div key={index} className={addresses.length === 2 ? "address-div-2" : addresses.length === 3 ? "address-div-3" : ""}>
-                <div className='main-info'>
+        {addresses !== "" ? (
+            <div className='compare-main-div'>
+              {addresses && addresses.map((address, index) => (
+                <div key={index} className={addresses.length === 2 ? "address-div-2" : addresses.length === 3 ? "address-div-3" : ""}>
+                  <div className='main-info'>
                     <div className="address-name">
-                        {t(address)}
+                      {t(address)}
                     </div>
                     <div className="match-div">
                       {t('Matching')} {countVisibleCategories(address)}
@@ -307,65 +308,70 @@ function Compare() {
                     <div className="compare-hr-place">
                       <hr className="compare-search-place-hr" />
                     </div>
-                </div>
-                <div className='categories'>
-                {mainCategoriesToShow && mainCategoriesToShow.map((category, index) => (
-                  <div>
-                  <div className='compare-category-name'>
-                    {t(category)} {calculatePercentageInCategory(address, category)}
                   </div>
-                  <div className='nearest-place'>
-                      <div className='compare-nearest-place-name'>
-                        {t(findNearestPlace(address, category).name)}
-                      </div>
-                      <div className="preference-item-distance">
-                        {findNearestPlace(address, category).distance !== -1 ? (
-                          <>
-                            <div>
-                              <Icon
-                                icon="ph:person-simple-walk-light"
-                                id="compare-person-simple-walk-light"
-                              />
-                            </div>
-                            <div className="compare-distance-item">
-                              <div className="compare-time">
-                                {Math.ceil(findNearestPlace(address, category).distance / 83)} min
-                              </div>
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                          <div style={{ color: '#dce6fa' }}>
-                            <Icon
-                              icon="ph:person-simple-walk-light"
-                              id="compare-person-simple-walk-light"
-                              style={{ color: '#dce6fa' }}
-                            />
+                  <div className='categories'>
+                    {mainCategoriesToShow && mainCategoriesToShow.map((category, index) => (
+                      <div>
+                        <div className='compare-category-name'>
+                          {t(category)} {calculatePercentageInCategory(address, category)}
+                        </div>
+                        <div className='nearest-place'>
+                          <div className='compare-nearest-place-name'>
+                            {t(findNearestPlace(address, category).name)}
                           </div>
-                          <div className="compare-distance-item" style={{ color: '#dce6fa' }}>
-                            <div className="compare-time">
-                              {Math.ceil(findNearestPlace(address, category).distance / 83)} min
-                            </div>
+                          <div className="preference-item-distance">
+                            {findNearestPlace(address, category).distance !== -1 ? (
+                              <>
+                                <div>
+                                  <Icon
+                                    icon="ph:person-simple-walk-light"
+                                    id="compare-person-simple-walk-light"
+                                  />
+                                </div>
+                                <div className="compare-distance-item">
+                                  <div className="compare-time">
+                                    {Math.ceil(findNearestPlace(address, category).distance / 83)} min
+                                  </div>
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                <div style={{ color: '#dce6fa' }}>
+                                  <Icon
+                                    icon="ph:person-simple-walk-light"
+                                    id="compare-person-simple-walk-light"
+                                    style={{ color: '#dce6fa' }}
+                                  />
+                                </div>
+                                <div className="compare-distance-item" style={{ color: '#dce6fa' }}>
+                                  <div className="compare-time">
+                                    {Math.ceil(findNearestPlace(address, category).distance / 83)} min
+                                  </div>
+                                </div>
+                              </>
+                            )}
                           </div>
-                        </>
-                        )}
+                        </div>
                       </div>
-                    </div>
+                    ))}
                   </div>
-                ))}
+                  <div className="compare-hr-place" style={{ marginTop: '0' }}>
+                    <hr className="compare-search-place-hr" />
+                  </div>
+                  <div className="compare-button-div">
+                    <button className="compare-button-one-address" onClick={() => handleUserReportClick(address)}>
+                      {t('See full report')}
+                    </button>
+                  </div>
                 </div>
-                <div className="compare-hr-place" style={{ marginTop: '0' }}>
-                      <hr className="compare-search-place-hr" />
-                </div>
-                <div className="compare-button-div">
-                  <button className="compare-button-one-address" onClick={() => handleUserReportClick(address)}>
-                    {t('See full report')}
-                  </button>
-                </div>
+              ))}
             </div>
-          ))}
-
-        </div>
+          ) : (
+            <div className='compare-main-div'>
+                <div class="loader"></div>
+            </div>
+          )
+          } 
         <Footer useMargin={true} />
       </div>
     </div>

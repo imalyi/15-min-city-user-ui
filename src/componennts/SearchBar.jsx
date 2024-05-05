@@ -21,13 +21,13 @@ export const SearchBar = ({
   preferencesSearchData,
   ShowDataButtonCompare,
   handleCompareWindowOpen,
+  setAlarm,
   alarm,
 }) => {
   const { t } = useTranslation();
   const [debouncedValue, setDebouncedValue] = useState(input);
   const delay = 500; // Ustaw opóźnienie (w milisekundach) zależnie od Twoich preferencji
   const fetchTimeoutRef = useRef(null);
-  logger.log('SearchBar');
   const showServerErrorAlert = () => {
     alert(
       'Oops! Something went wrong with our server. Please try using Search Bar again later. We apologize for the inconvenience.',
@@ -129,6 +129,7 @@ export const SearchBar = ({
           preferencesSearchData={preferencesSearchData}
           ShowDataButtonCompare={ShowDataButtonCompare}
           handleCompareWindowOpen={handleCompareWindowOpen}
+          setAlarm={setAlarm}
         />
       </div>
       <div>

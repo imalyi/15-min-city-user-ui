@@ -59,7 +59,29 @@ html::-webkit-scrollbar-thumb {
   position: relative;
 }
 
+.home-alarm{
+  font-family: Lato;
+  font-size: 2.5vh;
+  font-weight: 600;
+  line-height: 28.8px;
+  position: absolute;
+  margin-left: 4vw;
+  margin-top: 1.5vh;
+  color: #960606;
+}
+
 @media only screen and (max-width: 850px) {
+  
+  .home-alarm{
+    font-family: Lato;
+    font-size: 2vh;
+    font-weight: 600;
+    line-height: 28.8px;
+    position: absolute;
+    margin-left: 3vh;
+    margin-top: 1vh;
+    color: #960606;
+  }
   .search-bar-container {
     flex: 1;
     display: flex;
