@@ -7,6 +7,7 @@ import { use } from 'i18next';
 import { logger } from '../logger';
 import { Icon } from '@iconify/react';
 
+
 export const SearchBar = ({
   setResults,
   showDataRef,
@@ -25,6 +26,7 @@ export const SearchBar = ({
   alarm,
 }) => {
   const { t } = useTranslation();
+
   const [debouncedValue, setDebouncedValue] = useState(input);
   const delay = 500; // Ustaw opóźnienie (w milisekundach) zależnie od Twoich preferencji
   const fetchTimeoutRef = useRef(null);
