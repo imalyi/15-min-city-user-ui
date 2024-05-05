@@ -103,9 +103,9 @@ export const SearchRolesBar = ({
         onChange={(e) => handleChange(e.target.value)}
       />
       <button ref={buttonRef} style={{ display: 'none' }}></button>
-      <button className="show-data-button">
+      <div className="show-data-button-roles">
         {<Icon icon="carbon:search" id="search-icon" />}
-      </button>
+      </div>
     </div>
   );
 };
