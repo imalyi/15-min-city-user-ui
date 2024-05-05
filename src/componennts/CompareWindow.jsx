@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import '../styles/CompareWindow.css';
 import { useTranslation } from 'react-i18next';
 import { SearchBar } from './SearchBar';
@@ -6,6 +6,7 @@ import { Icon } from '@iconify/react';
 import {SearchResultsList} from './SearchResultsList';
 import { logger } from '../logger';
 import { useCookies } from 'react-cookie';
+import { use } from 'i18next';
 
 const CompareWindow = ({ 
     isOpen,
@@ -25,11 +26,17 @@ const CompareWindow = ({
   const [input, setInput] = useState('');
   const [isResultClicked, setIsResultClicked] = useState(true);
   const [addresses, setAddresses] = useState(addressesShowData);
-  logger.log(addresses);
+  logger.log(addressesShowData);
   const [alarm, setAlarm] = useState("");
   const [cookies, setCookie] = useCookies(['userID']);
 
   const userId = cookies.userID;
+
+  useEffect(() => {
+    if (addressesShowData) {
+      setAddresses(addressesShowData);
+    }
+  }, [addressesShowData]);
 
   const reportUrl = `/compare?userid=${userId}`;
 
@@ -122,6 +129,7 @@ const CompareWindow = ({
                 preferencesSearchData={preferencesSearchData}
                 ShowDataButtonCompare="alert-none"
                 alarm={alarm}
+                setAlarm={setAlarm}
             />
             <div style={{ position: "relative" }}>
             <div className="alarm">
