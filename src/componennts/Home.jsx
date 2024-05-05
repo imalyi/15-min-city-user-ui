@@ -23,8 +23,9 @@ function Home() {
   const [isResultClicked, setIsResultClicked] = useState(false);
   const [selectedRole, setSelectedRole] = useState('without role');
   const [selectedPreferences, setSelectedPreferences] = useState([]);
-  const [selectedPreferencesTransformed, setSelectedPreferencesTransformed] = useState([]);
-  const [alarm, setAlarm] = useState("");
+  const [selectedPreferencesTransformed, setSelectedPreferencesTransformed] =
+    useState([]);
+  const [alarm, setAlarm] = useState('');
   const [selectedPreferencesSearch, setSelectedPreferencesSearch] = useState(
     [],
   );
@@ -41,20 +42,23 @@ function Home() {
     }
   }, []);
 
-  logger.log(input)
+  logger.log(input);
   const loadData = async (id) => {
     try {
-      const response = await fetch(`${api.APP_URL_USER_API}user/load?secret=${id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${api.APP_URL_USER_API}user/load?secret=${id}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      });
+      );
 
       if (response.ok) {
         const data = await response.json();
         logger.log(data);
-        logger.log(input)
+        logger.log(input);
         setInput((prevInput) => {
           if (prevInput === '') {
             return data.request.addresses[0];
@@ -77,7 +81,8 @@ function Home() {
 
   const generateUserID = () => {
     const timestamp = new Date().getTime();
-    const randomNumber = Math.floor(Math.random() * (999999999 - 1000 + 1)) + 1000;
+    const randomNumber =
+      Math.floor(Math.random() * (999999999 - 1000 + 1)) + 1000;
     const combinedString = timestamp.toString() + randomNumber.toString();
     const userID = md5(combinedString);
     return userID;
@@ -87,7 +92,6 @@ function Home() {
     const userID = generateUserID();
     logger.warn(userID);
     setCookie('userID', userID); // Set userID cookie
-
   };
 
   const handleLanguageChange = (lng) => {
@@ -110,7 +114,7 @@ function Home() {
   };
 
   const handleSearchBarChange = (value) => {
-    setAlarm("");
+    setAlarm('');
     setInput(value);
     setIsResultClicked(false);
   };
@@ -130,25 +134,24 @@ function Home() {
     });
     data.requested_objects.forEach((item) => {
       customObjectsAndAdresses.push({
-          name: item.name,
-          category: item.main_category,
-          sub_category: item.category,
-        });
+        name: item.name,
+        category: item.main_category,
+        sub_category: item.category,
+      });
     });
     logger.log(customObjectsAndAdresses);
     setSelectedPreferencesSearch(customObjectsAndAdresses);
-  }
+  };
 
   const handleSetPreferences = (data) => {
     const preferences = [];
     data.categories.forEach((item) => {
       preferences.push({
-        name: item.category
+        name: item.category,
       });
     });
     setSelectedPreferences(preferences);
   };
-
 
   return (
     <div className="home-container">
@@ -200,9 +203,7 @@ function Home() {
             setAlarm={setAlarm}
           />
           <div className="relative">
-          <div className="home-alarm">
-                {t(alarm)}
-          </div>
+            <div className="home-alarm">{t(alarm)}</div>
             {!isResultClicked && (
               <SearchResultsList
                 results={results}

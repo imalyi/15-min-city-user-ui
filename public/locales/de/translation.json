@@ -154,7 +154,7 @@
   "Enter address (street, city...)": "Adresse eingeben (Straße, Stadt...)",
   "About us": "Über uns",
   "Contact": "Kontakt",
-  "Search for an object by name..." : "Suche nach einem Objekt nach Namen...",
+  "Search for an object by name...": "Suche nach einem Objekt nach Namen...",
   "Your filters": "Ihre Filter",
   "Clear all": "Alles löschen",
   "Hide": "Verbergen",
@@ -168,7 +168,7 @@
   "Imagine that getting to the points in the city that are important to you requires only a short walk.": "Stellen Sie sich vor, dass Sie die für Sie wichtigen Punkte in der Stadt nur wenige Gehminuten entfernt erreichen können.",
   "The idea of a 15-minute city is just such a vision - a life of convenience and proximity, where you will do your daily errands without long journeys, enjoying greater freedom.": "Die Idee einer 15-Minuten-Stadt ist genau eine solche Vision - ein Leben voller Bequemlichkeit und Nähe, in dem Sie Ihre täglichen Erledigungen ohne lange Reisen erledigen und eine größere Freiheit genießen.",
   "Enter the address of your choice, indicate the facilities you are using and make sure you have everything at hand where you are staying.": "Geben Sie die Adresse Ihrer Wahl ein, geben Sie die Einrichtungen an, die Sie nutzen, und stellen Sie sicher, dass Sie alles zur Hand haben, wo Sie wohnen.",
-  "There is nothing here at the moment...." : "Es gibt im Moment nichts hier....",
+  "There is nothing here at the moment....": "Es gibt im Moment nichts hier....",
   "Select a category on the left to view the report": "Wählen Sie eine Kategorie links aus, um den Bericht anzuzeigen",
   "Turystyka": "Tourism",
   "Zdrowie": "Gesundheit",
@@ -236,5 +236,4 @@
   "This address is already on the list": "Diese Adresse ist bereits auf der Liste",
   "Compare addresses": "Adressen vergleichen",
   "No places in category": "Keine Orte in der Kategorie"
-
 }

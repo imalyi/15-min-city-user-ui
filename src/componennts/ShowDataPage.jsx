@@ -64,7 +64,7 @@ function ShowDataPage() {
   const userId = cookies.userID;
   logger.log(addresses);
 
-  const [alarm, setAlarm] = useState("");
+  const [alarm, setAlarm] = useState('');
 
   const [isCompareWindowOpen, setIsCompareWindowOpen] = useState(false);
 
@@ -76,8 +76,6 @@ function ShowDataPage() {
     setIsCompareWindowOpen(false);
   };
 
-
-
   useEffect(() => {
     if (cookies.userID && !dataLoaded) {
       logger.log(dataLoaded, addresses);
@@ -88,7 +86,8 @@ function ShowDataPage() {
 
   const generateUserID = () => {
     const timestamp = new Date().getTime();
-    const randomNumber = Math.floor(Math.random() * (999999999 - 1000 + 1)) + 1000;
+    const randomNumber =
+      Math.floor(Math.random() * (999999999 - 1000 + 1)) + 1000;
     const combinedString = timestamp.toString() + randomNumber.toString();
     const userID = md5(combinedString);
     return userID;
@@ -125,9 +124,9 @@ function ShowDataPage() {
     let location = [];
     // Sprawdź, czy adres istnieje w places.custom_addresses
     const foundAddress = Object.values(places.custom_addresses).find(
-      (addr) => addr.address.full === address
+      (addr) => addr.address.full === address,
     );
-  
+
     if (foundAddress) {
       // Jeśli adres został znaleziony, pobierz jego lokalizację
       location = foundAddress.location;
@@ -149,13 +148,16 @@ function ShowDataPage() {
 
   const loadData = async (id) => {
     try {
-      const response = await fetch(`${api.APP_URL_USER_API}user/load?secret=${id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${api.APP_URL_USER_API}user/load?secret=${id}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      });
-  
+      );
+
       if (response.ok) {
         const data = await response.json();
         setAddresses((prevAddresses) => {
@@ -200,10 +202,10 @@ function ShowDataPage() {
             category: item.sub_category,
           });
         });
-  
+
         logger.log(customNamesArray);
         logger.log(addresses);
-  
+
         const requestBody = {
           secret: id,
           language: i18n.language,
@@ -220,7 +222,7 @@ function ShowDataPage() {
           },
           body: JSON.stringify(requestBody),
         });
-  
+
         if (response.ok) {
           const data = await response.json();
           logger.log(data);
@@ -232,7 +234,6 @@ function ShowDataPage() {
         console.error('Error getting report:', error);
       }
     }
-    
   };
 
   const handleResultClick = (result) => {
@@ -532,8 +533,8 @@ function ShowDataPage() {
 
   return (
     <div className="ShowData">
-      <CompareWindow 
-        isOpen={isCompareWindowOpen} 
+      <CompareWindow
+        isOpen={isCompareWindowOpen}
         onClose={handleCompareWindowClose}
         setResults={setResults}
         showDataRef={buttonRef}
@@ -541,7 +542,7 @@ function ShowDataPage() {
         setInputShowData={handleSearchBarChange}
         setIsResultClicked={setIsResultClicked}
         onEnterPress={handleEnterPress}
-        ShowDataButtonCompare={"compare"}
+        ShowDataButtonCompare={'compare'}
         addressesShowData={addresses}
         handleCompareWindowOpen={handleCompareWindowOpen}
         selectedPreferences={selectedPreferencesShowPage}
@@ -638,7 +639,6 @@ function ShowDataPage() {
                         ) : (
                           <div className="matchShadow">
                             <div>
-
                               <div className="maxCriteriaLength">
                                 {mainCategoriesToShow &&
                                   mainCategoriesToShow.map(
@@ -738,7 +738,7 @@ function ShowDataPage() {
                         ? 'border-bottom show-data-page-search-bar'
                         : 'show-data-page-search-bar'
                     }
-                    ShowDataButtonCompare={"compare"}
+                    ShowDataButtonCompare={'compare'}
                     handleCompareWindowOpen={handleCompareWindowOpen}
                     selectedPreferences={selectedPreferencesShowPage}
                     transformedPreferences={transformedPreferences}

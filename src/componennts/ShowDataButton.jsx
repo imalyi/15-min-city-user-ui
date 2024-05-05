@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/ShowDataButton.css';
 import { FaSearch } from 'react-icons/fa';
@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import api from '../config';
 import { Icon } from '@iconify/react';
 import { logger } from '../logger';
-
 
 export const ShowDataButton = React.forwardRef(
   (
@@ -25,19 +24,18 @@ export const ShowDataButton = React.forwardRef(
     const navigate = useNavigate();
     const { t } = useTranslation();
 
-
     const handleUserLocationClick = async () => {
       if (address == '') {
-        if (ShowDataButtonCompare !== "alert-none") {
+        if (ShowDataButtonCompare !== 'alert-none') {
           setAlarm('invalid address');
-      }
+        }
       } else {
         const places = await getplacesFromCoordinates();
         if (places === undefined) {
           logger.error('No places found');
           setAlarm('invalid address');
         } else {
-          logger.log(preferencesSearchData)
+          logger.log(preferencesSearchData);
           navigate('/show-addresses', {
             state: {
               address,
@@ -52,7 +50,6 @@ export const ShowDataButton = React.forwardRef(
     };
 
     const getplacesFromCoordinates = async () => {
-
       try {
         let custom_names = [];
         let custom_addresses = [];
@@ -74,7 +71,6 @@ export const ShowDataButton = React.forwardRef(
             category: item.sub_category,
           });
         });
-
 
         const requestBody = {
           address: address,
@@ -111,11 +107,18 @@ export const ShowDataButton = React.forwardRef(
         />
         <button
           className="show-data-button"
-          onClick={ShowDataButtonCompare === "compare" ? handleCompareWindowOpen : handleUserLocationClick}
+          onClick={
+            ShowDataButtonCompare === 'compare'
+              ? handleCompareWindowOpen
+              : handleUserLocationClick
+          }
           title={t('Show results')}
         >
-          {ShowDataButtonCompare === "compare" ? (
-            <Icon icon="material-symbols-light:balance" id="compare-icon-button" />
+          {ShowDataButtonCompare === 'compare' ? (
+            <Icon
+              icon="material-symbols-light:balance"
+              id="compare-icon-button"
+            />
           ) : (
             <Icon icon="carbon:search" id="search-icon-button" />
           )}

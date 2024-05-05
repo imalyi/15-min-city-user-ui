@@ -59,7 +59,7 @@ html::-webkit-scrollbar-thumb {
   position: relative;
 }
 
-.home-alarm{
+.home-alarm {
   font-family: Lato;
   font-size: 2.5vh;
   font-weight: 600;
@@ -71,8 +71,7 @@ html::-webkit-scrollbar-thumb {
 }
 
 @media only screen and (max-width: 850px) {
-  
-  .home-alarm{
+  .home-alarm {
     font-family: Lato;
     font-size: 2vh;
     font-weight: 600;

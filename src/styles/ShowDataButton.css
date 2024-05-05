@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
 }
-.show-data-button-invisible{
+.show-data-button-invisible {
   display: none;
 }
 
@@ -16,7 +16,7 @@
     width: 3vh;
   }
   #compare-icon-button {
-    color: #24254C;
+    color: #24254c;
     height: 3vh;
     width: 3vh;
   }
@@ -29,7 +29,7 @@
     width: 4vh;
   }
   #compare-icon-button {
-    color: #24254C;
+    color: #24254c;
     height: 4.5vh;
     width: 4.5vh;
   }

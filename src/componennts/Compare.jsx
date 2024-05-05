@@ -14,24 +14,16 @@ import { use } from 'i18next';
 import md5 from 'md5';
 
 function Compare() {
-  const {i18n, t } = useTranslation();
-  const [addresses, setAddresses] =
-    useState("");
-  const [report, setReport] =
-    useState({});
-  const [requestedObjects, setRequestedObjects] =
-    useState([]);
-  const [requestedAddresses, setRequestedAddresses] =
-    useState([]);
-  const [requestedCategories, setRequestedCategories] =
-    useState([]);
-  const [mainCategoriesToShow, setMainCategoriesToShow] =
-    useState([]);
-
-
+  const { i18n, t } = useTranslation();
+  const [addresses, setAddresses] = useState('');
+  const [report, setReport] = useState({});
+  const [requestedObjects, setRequestedObjects] = useState([]);
+  const [requestedAddresses, setRequestedAddresses] = useState([]);
+  const [requestedCategories, setRequestedCategories] = useState([]);
+  const [mainCategoriesToShow, setMainCategoriesToShow] = useState([]);
 
   logger.log(mainCategoriesToShow);
-    /*
+  /*
   const custom_addresses = places.custom_addresses
     ? Object.entries(places.custom_addresses)
     : null;
@@ -44,17 +36,17 @@ function Compare() {
   const searchParams = new URLSearchParams(location.search);
   const userId = searchParams.get('userid');
   logger.log(addresses);
- 
 
   useEffect(() => {
     if (userId) {
       loadData(userId);
     }
   }, []);
-  
+
   const generateUserID = () => {
     const timestamp = new Date().getTime();
-    const randomNumber = Math.floor(Math.random() * (999999999 - 1000 + 1)) + 1000;
+    const randomNumber =
+      Math.floor(Math.random() * (999999999 - 1000 + 1)) + 1000;
     const combinedString = timestamp.toString() + randomNumber.toString();
     const userID = md5(combinedString);
     return userID;
@@ -62,18 +54,23 @@ function Compare() {
   const handleUserReportClick = async (address) => {
     const id = generateUserID();
     saveData(id);
-    const reportUrl = `/report?userid=${id}&address=${encodeURIComponent(address)}`;
+    const reportUrl = `/report?userid=${id}&address=${encodeURIComponent(
+      address,
+    )}`;
     window.open(reportUrl, '_blank');
   };
 
   const loadData = async (id) => {
     try {
-      const response = await fetch(`${api.APP_URL_USER_API}user/load?secret=${id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${api.APP_URL_USER_API}user/load?secret=${id}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      });
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -84,9 +81,11 @@ function Compare() {
         setRequestedObjects(data.request.requested_objects);
         setRequestedCategories(data.request.categories);
         setReport(data.reports);
-        setMainCategoriesToShow(Object.keys(data.reports[0].points_of_interest));
+        setMainCategoriesToShow(
+          Object.keys(data.reports[0].points_of_interest),
+        );
         i18n.changeLanguage(data.language);
-        logger.log(i18n.language)
+        logger.log(i18n.language);
       } else {
         console.error('Error getting report:', response.statusText);
         throw new Error(response.statusText);
@@ -128,14 +127,16 @@ function Compare() {
   };
 
   const countVisibleCategories = (address) => {
-    const foundReport = report.find(report => report.address.full === address);
+    const foundReport = report.find(
+      (report) => report.address.full === address,
+    );
     if (!foundReport || !foundReport.points_of_interest) {
       return '0%';
     }
     //logger.log(foundReport);
     let totalPlacesCount = 0;
     let totalAddressesCount = 0;
-    
+
     if (foundReport.custom_objects) {
       Object.values(foundReport.custom_objects).forEach((category) => {
         Object.values(category).forEach((preferences) => {
@@ -160,9 +161,9 @@ function Compare() {
     for (const category in foundReport.points_of_interest) {
       // Sprawdzenie, czy długość tablicy miejsc w danej kategorii jest większa od zera
       for (const interest in foundReport.points_of_interest[category]) {
-          if (foundReport.points_of_interest[category][interest].length > 0) {
-            categoryCount++; // Zwiększenie licznika, jeśli są jakieś miejsca w kategorii
-          }
+        if (foundReport.points_of_interest[category][interest].length > 0) {
+          categoryCount++; // Zwiększenie licznika, jeśli są jakieś miejsca w kategorii
+        }
       }
     }
 
@@ -188,7 +189,9 @@ function Compare() {
   };
 
   const calculatePercentageInCategory = (address, category) => {
-    const foundReport = report.find(report => report.address.full === address);
+    const foundReport = report.find(
+      (report) => report.address.full === address,
+    );
     if (!foundReport || !foundReport.points_of_interest) {
       return '0%';
     }
@@ -211,11 +214,16 @@ function Compare() {
     for (const foundReportCategory in foundReport.points_of_interest) {
       // Sprawdzenie, czy długość tablicy miejsc w danej kategorii jest większa od zera
       if (foundReportCategory === category) {
-        for (const interest in foundReport.points_of_interest[foundReportCategory]) {
-          if (foundReport.points_of_interest[foundReportCategory][interest].length > 0) {
+        for (const interest in foundReport.points_of_interest[
+          foundReportCategory
+        ]) {
+          if (
+            foundReport.points_of_interest[foundReportCategory][interest]
+              .length > 0
+          ) {
             categoryCount++; // Zwiększenie licznika, jeśli są jakieś miejsca w kategorii
           }
-      }
+        }
       }
     }
     const preferencesCategory = requestedCategories.filter(
@@ -229,7 +237,6 @@ function Compare() {
         countObjects++;
       }
     });
-
 
     logger.log(address, category);
     logger.log(preferencesCategory.length, countObjects);
@@ -250,13 +257,18 @@ function Compare() {
     }
   };
 
-
   const findNearestPlace = (address, category) => {
-    const foundReport = report.find(report => report.address.full === address);
-    if (!foundReport || !foundReport.points_of_interest || !foundReport.points_of_interest[category]) {
+    const foundReport = report.find(
+      (report) => report.address.full === address,
+    );
+    if (
+      !foundReport ||
+      !foundReport.points_of_interest ||
+      !foundReport.points_of_interest[category]
+    ) {
       return null; // Jeśli nie ma raportu lub brak kategorii "Gastronomia", zwróć null
     }
-    
+
     const placesInCategoryObj = foundReport.points_of_interest[category];
     const placesInCategory = Object.values(placesInCategoryObj);
     const allPlacesInCategory = placesInCategory.reduce((acc, currentArray) => {
@@ -269,10 +281,10 @@ function Compare() {
         distance: -1,
       };
     }
-    logger.log(allPlacesInCategory)
+    logger.log(allPlacesInCategory);
     // Sortujemy miejsca według odległości
     allPlacesInCategory.sort((a, b) => a.distance - b.distance);
-    logger.log(allPlacesInCategory[0])
+    logger.log(allPlacesInCategory[0]);
     return {
       name: allPlacesInCategory[0].name,
       distance: allPlacesInCategory[0].distance,
@@ -294,14 +306,22 @@ function Compare() {
             </Link>
           </div>
         </div>
-        {addresses !== "" ? (
-            <div className='compare-main-div'>
-              {addresses && addresses.map((address, index) => (
-                <div key={index} className={addresses.length === 2 ? "address-div-2" : addresses.length === 3 ? "address-div-3" : ""}>
-                  <div className='main-info'>
-                    <div className="address-name">
-                      {t(address)}
-                    </div>
+        {addresses !== '' ? (
+          <div className="compare-main-div">
+            {addresses &&
+              addresses.map((address, index) => (
+                <div
+                  key={index}
+                  className={
+                    addresses.length === 2
+                      ? 'address-div-2'
+                      : addresses.length === 3
+                        ? 'address-div-3'
+                        : ''
+                  }
+                >
+                  <div className="main-info">
+                    <div className="address-name">{t(address)}</div>
                     <div className="match-div">
                       {t('Matching')} {countVisibleCategories(address)}
                     </div>
@@ -309,69 +329,85 @@ function Compare() {
                       <hr className="compare-search-place-hr" />
                     </div>
                   </div>
-                  <div className='categories'>
-                    {mainCategoriesToShow && mainCategoriesToShow.map((category, index) => (
-                      <div>
-                        <div className='compare-category-name'>
-                          {t(category)} {calculatePercentageInCategory(address, category)}
-                        </div>
-                        <div className='nearest-place'>
-                          <div className='compare-nearest-place-name'>
-                            {t(findNearestPlace(address, category).name)}
+                  <div className="categories">
+                    {mainCategoriesToShow &&
+                      mainCategoriesToShow.map((category, index) => (
+                        <div>
+                          <div className="compare-category-name">
+                            {t(category)}{' '}
+                            {calculatePercentageInCategory(address, category)}
                           </div>
-                          <div className="preference-item-distance">
-                            {findNearestPlace(address, category).distance !== -1 ? (
-                              <>
-                                <div>
-                                  <Icon
-                                    icon="ph:person-simple-walk-light"
-                                    id="compare-person-simple-walk-light"
-                                  />
-                                </div>
-                                <div className="compare-distance-item">
-                                  <div className="compare-time">
-                                    {Math.ceil(findNearestPlace(address, category).distance / 83)} min
+                          <div className="nearest-place">
+                            <div className="compare-nearest-place-name">
+                              {t(findNearestPlace(address, category).name)}
+                            </div>
+                            <div className="preference-item-distance">
+                              {findNearestPlace(address, category).distance !==
+                              -1 ? (
+                                <>
+                                  <div>
+                                    <Icon
+                                      icon="ph:person-simple-walk-light"
+                                      id="compare-person-simple-walk-light"
+                                    />
                                   </div>
-                                </div>
-                              </>
-                            ) : (
-                              <>
-                                <div style={{ color: '#dce6fa' }}>
-                                  <Icon
-                                    icon="ph:person-simple-walk-light"
-                                    id="compare-person-simple-walk-light"
+                                  <div className="compare-distance-item">
+                                    <div className="compare-time">
+                                      {Math.ceil(
+                                        findNearestPlace(address, category)
+                                          .distance / 83,
+                                      )}{' '}
+                                      min
+                                    </div>
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <div style={{ color: '#dce6fa' }}>
+                                    <Icon
+                                      icon="ph:person-simple-walk-light"
+                                      id="compare-person-simple-walk-light"
+                                      style={{ color: '#dce6fa' }}
+                                    />
+                                  </div>
+                                  <div
+                                    className="compare-distance-item"
                                     style={{ color: '#dce6fa' }}
-                                  />
-                                </div>
-                                <div className="compare-distance-item" style={{ color: '#dce6fa' }}>
-                                  <div className="compare-time">
-                                    {Math.ceil(findNearestPlace(address, category).distance / 83)} min
+                                  >
+                                    <div className="compare-time">
+                                      {Math.ceil(
+                                        findNearestPlace(address, category)
+                                          .distance / 83,
+                                      )}{' '}
+                                      min
+                                    </div>
                                   </div>
-                                </div>
-                              </>
-                            )}
+                                </>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
                   </div>
                   <div className="compare-hr-place" style={{ marginTop: '0' }}>
                     <hr className="compare-search-place-hr" />
                   </div>
                   <div className="compare-button-div">
-                    <button className="compare-button-one-address" onClick={() => handleUserReportClick(address)}>
+                    <button
+                      className="compare-button-one-address"
+                      onClick={() => handleUserReportClick(address)}
+                    >
                       {t('See full report')}
                     </button>
                   </div>
                 </div>
               ))}
-            </div>
-          ) : (
-            <div className='compare-main-div'>
-                <div class="loader"></div>
-            </div>
-          )
-          } 
+          </div>
+        ) : (
+          <div className="compare-main-div">
+            <div class="loader"></div>
+          </div>
+        )}
         <Footer useMargin={true} />
       </div>
     </div>

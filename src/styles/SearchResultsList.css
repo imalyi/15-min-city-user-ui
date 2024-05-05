@@ -16,7 +16,7 @@
   z-index: 999;
 }
 
-.compare-window-search-result-list{
+.compare-window-search-result-list {
   position: absolute;
   margin-left: 2;
   width: calc(100% - 4vw);

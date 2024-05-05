@@ -38,7 +38,6 @@ const Roles = ({
     preferencesSearchDataShowPage,
   );
 
-
   const handleRemoveAllPreferences = () => {
     setPreferencesSearchData([]);
     setSelectedPreferences([]);

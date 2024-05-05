@@ -7,7 +7,6 @@ import { use } from 'i18next';
 import { logger } from '../logger';
 import { Icon } from '@iconify/react';
 
-
 export const SearchBar = ({
   setResults,
   showDataRef,
@@ -114,7 +113,13 @@ export const SearchBar = ({
 
   return (
     <div className={`${alarm === '' ? '' : 'search-bar-with-alarm'}`}>
-      <div className={`${searchBarClassName === 'compare-window-search-bar' ? searchBarClassName : 'input-wrapper ' + searchBarClassName}`}>
+      <div
+        className={`${
+          searchBarClassName === 'compare-window-search-bar'
+            ? searchBarClassName
+            : 'input-wrapper ' + searchBarClassName
+        }`}
+      >
         <input
           placeholder={t('Enter address (street, city...)')}
           value={input}
@@ -135,7 +140,15 @@ export const SearchBar = ({
         />
       </div>
       <div>
-        {alarm && <div> <Icon icon="material-symbols-light:error-outline" id="error-outline-button" /></div>}
+        {alarm && (
+          <div>
+            {' '}
+            <Icon
+              icon="material-symbols-light:error-outline"
+              id="error-outline-button"
+            />
+          </div>
+        )}
       </div>
     </div>
   );
