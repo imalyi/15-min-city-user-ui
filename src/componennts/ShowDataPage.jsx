@@ -94,7 +94,8 @@ function ShowDataPage() {
   };
   const handleUserReportClick = async () => {
     const id = generateUserID();
-    saveData(id);
+    logger.log(places.address.full)
+    saveData(id, places.address.full);
     const reportUrl = `/report?userid=${id}&address=${encodeURIComponent(places.address.full)}`;
     window.open(reportUrl, '_blank');
   };
@@ -178,7 +179,7 @@ function ShowDataPage() {
     }
   };
 
-  const saveData = async (id) => {
+  const saveData = async (id, searchBarAddress) => {
     if (dataLoaded !== false) {
       try {
         let custom_names = [];
@@ -205,11 +206,17 @@ function ShowDataPage() {
 
         logger.log(customNamesArray);
         logger.log(addresses);
+        let adresses_request = addresses;
 
+        if (searchBarAddress !== '') {
+          adresses_request = addresses.concat(searchBarAddress);
+        }
+        logger.log(searchBarAddress);
+        logger.log(adresses_request);
         const requestBody = {
           secret: id,
           language: i18n.language,
-          addresses: addresses,
+          addresses: adresses_request,
           categories: transformedPreferences,
           requested_objects: customNamesArray,
           requested_addresses: custom_addresses,
@@ -276,7 +283,7 @@ function ShowDataPage() {
 
   const countVisibleCategories = () => {
     logger.log('Data presaved');
-    saveData(cookies.userID);
+    saveData(cookies.userID, '');
     logger.log('Data saved');
     let custom_names = [];
     let custom_addresses = [];

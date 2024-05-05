@@ -39,10 +39,13 @@ const CompareWindow = ({
   }, [addressesShowData]);
 
   const reportUrl = `/compare?userid=${userId}`;
-
+  logger.log(selectedPreferences, preferencesSearchData);
   const handleCompareButton = () => {
     if (addresses.length < 2) {
       setAlarm('You need to add at least 2 addresses to compare them');
+      return;
+    } else if(selectedPreferences.length === 0 && preferencesSearchData.length === 0) {
+      setAlarm('Please select at least one preference to compare addresses');
       return;
     }
     handleUserReportClick();
