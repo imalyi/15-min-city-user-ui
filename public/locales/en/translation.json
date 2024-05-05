@@ -235,7 +235,8 @@
   "You can conveniently compare them with each other. Use the box below to add a location to the list." : "You can conveniently compare them with each other. Use the box below to add a location to the list.",
   "You can only add up to 3 addresses": "You can only add up to 3 addresses",
   "This address is already on the list":  "This address is already on the list",
-  "Compare addresses": "Compare addresses"
+  "Compare addresses": "Compare addresses",
+  "No places in category": "No places in category"
 
 
 }

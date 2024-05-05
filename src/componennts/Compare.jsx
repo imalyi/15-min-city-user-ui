@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '../styles/Report.css';
+import '../styles/Compare.css';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import Footer from './Footer';
 import { useTranslation } from 'react-i18next';
@@ -11,22 +11,26 @@ import anime from 'animejs';
 import { useCookies } from 'react-cookie';
 import api from '../config';
 import { use } from 'i18next';
+import md5 from 'md5';
 
-function Report() {
+function Compare() {
   const {i18n, t } = useTranslation();
-  const [address, setAddress] =
+  const [addresses, setAddresses] =
     useState("");
-  const [places, setPlaces] =
+  const [report, setReport] =
     useState({});
-  const [transformedPreferences, setTransformedPreferences] =
-    useState("");
-  const [custom_objects, setRequestedObjects] =
+  const [requestedObjects, setRequestedObjects] =
     useState([]);
-  const [custom_addresses, setRequestedAddresses] =
+  const [requestedAddresses, setRequestedAddresses] =
     useState([]);
-  const categories = places
-    ? Object.keys(places)
-    : null;
+  const [requestedCategories, setRequestedCategories] =
+    useState([]);
+  const [mainCategoriesToShow, setMainCategoriesToShow] =
+    useState([]);
+
+
+
+  logger.log(mainCategoriesToShow);
     /*
   const custom_addresses = places.custom_addresses
     ? Object.entries(places.custom_addresses)
@@ -35,39 +39,12 @@ function Report() {
     ? Object.entries(places.custom_objects)
     : null;
     */
-  logger.log(custom_addresses);
   const location = useLocation();
   const [cookies, setCookie] = useCookies(['userID']);
   const searchParams = new URLSearchParams(location.search);
   const userId = searchParams.get('userid');
-  const [selectedCategoryPreferences, setselectedCategoryPreferences] =
-    useState(null);
-  const [selectedAddressPreferences, setselectedAddressPreferences] =
-    useState(false);
-  const [selectedObjectPreferences, setselectedObjectPreferences] =
-    useState(false);
-  const [allPreferences, setAllPreferences] = useState([]);
-
-  const [selectedCategory, setselectedCategory] = useState(null);
-
-  const handleObjectClick = () => {
-    setselectedCategoryPreferences(null);
-    setselectedCategory(null);
-    setselectedObjectPreferences(true);
-    setselectedAddressPreferences(false);
-  };
-  const handleAddressClick = () => {
-    setselectedCategoryPreferences(null);
-    setselectedCategory(null);
-    setselectedAddressPreferences(true);
-    setselectedObjectPreferences(false);
-  };
-  const handleCategoryClick = (category) => {
-    setselectedCategoryPreferences(places[category]);
-    setselectedCategory(category);
-    setselectedAddressPreferences(false);
-    setselectedObjectPreferences(false);
-  };
+  logger.log(addresses);
+ 
 
   useEffect(() => {
     if (userId) {
@@ -75,6 +52,19 @@ function Report() {
     }
   }, []);
   
+  const generateUserID = () => {
+    const timestamp = new Date().getTime();
+    const randomNumber = Math.floor(Math.random() * (999999999 - 1000 + 1)) + 1000;
+    const combinedString = timestamp.toString() + randomNumber.toString();
+    const userID = md5(combinedString);
+    return userID;
+  };
+  const handleUserReportClick = async (address) => {
+    const id = generateUserID();
+    saveData(id);
+    const reportUrl = `/report?userid=${id}&address=${encodeURIComponent(address)}`;
+    window.open(reportUrl, '_blank');
+  };
 
   const loadData = async (id) => {
     try {
@@ -88,27 +78,15 @@ function Report() {
       if (response.ok) {
         const data = await response.json();
         logger.log(data);
-        setAddress(data.request.addresses[0]);
-        setRequestedAddresses(data.reports[0].custom_addresses);
-        setRequestedObjects(data.reports[0].custom_objects);
-        setTransformedPreferences(data.reports[0].categories);
-        setPlaces(data.reports[0].points_of_interest);
+        logger.log(data.request.categories);
+        setAddresses(data.request.addresses);
+        setRequestedAddresses(data.request.requested_addresses);
+        setRequestedObjects(data.request.requested_objects);
+        setRequestedCategories(data.request.categories);
+        setReport(data.reports);
+        setMainCategoriesToShow(Object.keys(data.reports[0].points_of_interest));
         i18n.changeLanguage(data.language);
         logger.log(i18n.language)
-        setAllPreferences(() => {    logger.log(data.reports[0].points_of_interest)
-          return data.reports[0].points_of_interest
-            ? Object.values(data.reports[0].points_of_interest).flatMap((category) => {
-                logger.log("Category:", category);
-                return Object.keys(category).flatMap((subcategory) =>
-                  category[subcategory].map((item) => ({
-                    key: subcategory,
-                    value: true,
-                  }))
-                );
-              })
-            : [];} 
-        );
-
       } else {
         console.error('Error getting report:', response.statusText);
         throw new Error(response.statusText);
@@ -118,56 +96,188 @@ function Report() {
     }
   };
 
-  const allObjects = [];
-  Object.keys(custom_objects).forEach(categoryName => {
-    Object.keys(custom_objects[categoryName]).forEach(subcategoryName => {
-      custom_objects[categoryName][subcategoryName].forEach(item => {
-        allObjects.push({
-          name: item.name,
-          location: item.location,
-          address: item.address,
-          distance: item.distance,
+  const saveData = async (id) => {
+    try {
+      const requestBody = {
+        secret: id,
+        language: i18n.language,
+        addresses: addresses,
+        categories: requestedCategories,
+        requested_objects: requestedObjects,
+        requested_addresses: requestedAddresses,
+      };
+      logger.log(requestBody);
+      const response = await fetch(`${api.APP_URL_USER_API}user/save`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        logger.log(data);
+      } else {
+        console.error('Error getting report:', response.statusText);
+        throw new Error(response.statusText);
+      }
+    } catch (error) {
+      console.error('Error getting report:', error);
+    }
+  };
+
+  const countVisibleCategories = (address) => {
+    const foundReport = report.find(report => report.address.full === address);
+    if (!foundReport || !foundReport.points_of_interest) {
+      return '0%';
+    }
+    //logger.log(foundReport);
+    let totalPlacesCount = 0;
+    let totalAddressesCount = 0;
+    
+    if (foundReport.custom_objects) {
+      Object.values(foundReport.custom_objects).forEach((category) => {
+        Object.values(category).forEach((preferences) => {
+          totalPlacesCount += preferences.length;
         });
       });
-    });
-  });
-  logger.log(allObjects.length);
-logger.log(allPreferences)
-logger.log(places)
-
-
-  const handlePreferencesClick = (category) => {
-    // Aktualizacja wartości value na false po kliknięciu
-    setAllPreferences((prevPreferences) =>
-      prevPreferences.map((preference) => {
-        if (preference.key === category) {
-          return { ...preference, value: !preference.value };
+    }
+    if (foundReport.custom_addresses) {
+      Object.values(foundReport.custom_addresses).forEach((address) => {
+        if (
+          address.commute_time &&
+          address.commute_time.walk &&
+          address.commute_time.walk.distance < 3000
+        ) {
+          totalAddressesCount += 1;
         }
-        return preference;
-      }),
+      });
+    }
+
+    let categoryCount = 0;
+
+    for (const category in foundReport.points_of_interest) {
+      // Sprawdzenie, czy długość tablicy miejsc w danej kategorii jest większa od zera
+      for (const interest in foundReport.points_of_interest[category]) {
+          if (foundReport.points_of_interest[category][interest].length > 0) {
+            categoryCount++; // Zwiększenie licznika, jeśli są jakieś miejsca w kategorii
+          }
+      }
+    }
+
+    //logger.log(categoryCount, totalAddressesCount, totalPlacesCount);
+    //logger.log(requestedCategories.length, requestedAddresses.length, requestedObjects.length);
+
+    const percentage =
+      ((categoryCount + totalAddressesCount + totalPlacesCount) /
+        (requestedCategories.length +
+          requestedAddresses.length +
+          requestedObjects.length)) *
+      100;
+
+    if (percentage > 100) {
+      percentage = 100;
+      return `${percentage.toFixed(0)}%`;
+    }
+    if (isNaN(percentage) || percentage < 0) {
+      percentage = 0;
+      return `${percentage.toFixed(0)}%`;
+    }
+    return `${percentage.toFixed(0)}%`;
+  };
+
+  const calculatePercentageInCategory = (address, category) => {
+    const foundReport = report.find(report => report.address.full === address);
+    if (!foundReport || !foundReport.points_of_interest) {
+      return '0%';
+    }
+    const placesCounts = {};
+
+    if (foundReport.custom_objects) {
+      Object.keys(foundReport.custom_objects).forEach((category) => {
+        placesCounts[category] = Object.values(
+          foundReport.custom_objects[category],
+        ).reduce((total, preferences) => {
+          return total + preferences.length;
+        }, 0);
+      });
+    }
+
+    const placesCategoryCount = placesCounts[category] || 0;
+
+    let categoryCount = 0;
+
+    for (const foundReportCategory in foundReport.points_of_interest) {
+      // Sprawdzenie, czy długość tablicy miejsc w danej kategorii jest większa od zera
+      if (foundReportCategory === category) {
+        for (const interest in foundReport.points_of_interest[foundReportCategory]) {
+          if (foundReport.points_of_interest[foundReportCategory][interest].length > 0) {
+            categoryCount++; // Zwiększenie licznika, jeśli są jakieś miejsca w kategorii
+          }
+      }
+      }
+    }
+    const preferencesCategory = requestedCategories.filter(
+      (item) => item.main_category === category,
     );
-  };
 
-  const scrollToRight = () => {
-    const scrollContainer = document.querySelector('.selected-category-label');
-    anime({
-      targets: scrollContainer,
-      scrollLeft: '+=500',
-      duration: 500, // Czas trwania animacji w milisekundach
-      easing: 'easeInOutQuad', // Rodzaj interpolacji animacji
+    let countObjects = 0;
+
+    requestedObjects.forEach((object) => {
+      if (object.main_category === object.category) {
+        countObjects++;
+      }
     });
+
+
+    logger.log(address, category);
+    logger.log(preferencesCategory.length, countObjects);
+
+    logger.log(categoryCount, placesCategoryCount);
+
+    const percentage =
+      ((categoryCount + placesCategoryCount) /
+        (preferencesCategory.length + countObjects)) *
+      100;
+
+    if (percentage > 100) {
+      return '100%';
+    } else if (percentage < 0) {
+      return '0%';
+    } else {
+      return `${percentage.toFixed(0)}%`;
+    }
   };
 
-  const scrollToLeft = () => {
-    const scrollContainer = document.querySelector('.selected-category-label');
-    anime({
-      targets: scrollContainer,
-      scrollLeft: '-=500',
-      duration: 500, // Czas trwania animacji w milisekundach
-      easing: 'easeInOutQuad', // Rodzaj interpolacji animacji
-    });
-  };
 
+  const findNearestPlace = (address, category) => {
+    const foundReport = report.find(report => report.address.full === address);
+    if (!foundReport || !foundReport.points_of_interest || !foundReport.points_of_interest[category]) {
+      return null; // Jeśli nie ma raportu lub brak kategorii "Gastronomia", zwróć null
+    }
+    
+    const placesInCategoryObj = foundReport.points_of_interest[category];
+    const placesInCategory = Object.values(placesInCategoryObj);
+    const allPlacesInCategory = placesInCategory.reduce((acc, currentArray) => {
+      return acc.concat(currentArray);
+    }, []);
+    // Jeśli nie ma żadnych miejsc w kategorii, zwróć null
+    if (allPlacesInCategory.length === 0) {
+      return {
+        name: 'No places in category',
+        distance: -1,
+      };
+    }
+    logger.log(allPlacesInCategory)
+    // Sortujemy miejsca według odległości
+    allPlacesInCategory.sort((a, b) => a.distance - b.distance);
+    logger.log(allPlacesInCategory[0])
+    return {
+      name: allPlacesInCategory[0].name,
+      distance: allPlacesInCategory[0].distance,
+    };
+  };
   return (
     <div className="report">
       <div className="reportContainer">
@@ -183,355 +293,78 @@ logger.log(places)
               </button>
             </Link>
           </div>
-          <div className="chooseAddress">
-            <div className="addressName">{address}</div>
-          </div>
         </div>
-        <div className="reportMain">
-          <div
-            className={
-              categories && categories.length <= 9
-                ? 'leftReport-short'
-                : 'leftReport'
-            }
-          >
-            {custom_addresses && custom_addresses.length > 0 ? (
-              <div>
-                <div
-                  className={
-                    selectedAddressPreferences === true
-                      ? 'categoryNameSelected'
-                      : 'categoryName'
-                  }
-                  onClick={() => handleAddressClick()}
-                >
-                  <label className="categoryLabel">{t('Your locations')}</label>
-                </div>
-                <div
-                  className={
-                    selectedAddressPreferences === true
-                      ? 'show-data-hr-place-selected'
-                      : 'show-data-hr-place'
-                  }
-                >
-                  <hr className="show-data-search-place-hr" />
-                </div>
-              </div>
-            ) : null}
-            {allObjects && allObjects.length > 0 ? (
-              <div>
-                <div
-                  className={
-                    selectedObjectPreferences === true
-                      ? 'categoryNameSelected'
-                      : 'categoryName'
-                  }
-                  onClick={() => handleObjectClick()}
-                >
-                  <label className="categoryLabel">{t('Your places')}</label>
-                </div>
-                <div
-                  className={
-                    selectedObjectPreferences === true
-                      ? 'show-data-hr-place-selected'
-                      : 'show-data-hr-place'
-                  }
-                >
-                  <hr className="show-data-search-place-hr" />
-                </div>
-              </div>
-            ) : null}
-            {categories &&
-              categories.map((category, index) => (
-                <div>
-                  <div
-                    key={index}
-                    className={
-                      category === selectedCategory
-                        ? 'categoryNameSelected'
-                        : 'categoryName'
-                    }
-                    onClick={() => handleCategoryClick(category)}
-                  >
-                    <label className="categoryLabel">{t(category)}</label>
-                  </div>
-                  <div
-                    className={
-                      category === selectedCategory
-                        ? 'show-data-hr-place-selected'
-                        : 'show-data-hr-place'
-                    }
-                  >
-                    <hr className="show-data-search-place-hr" />
-                  </div>
-                </div>
-              ))}
-          </div>
-          <div className="rightReport">
-            {selectedCategoryPreferences ? (
-              <>
-                <div className="selected-category-container">
-                  <div className="selected-category-label">
-                    <div className="scrollButtonLeft" onClick={scrollToLeft}>
-                      {<Icon icon="lets-icons:expand-left" id="expand-left" />}
+        <div className='compare-main-div'>
+          {addresses && addresses.map((address, index) => (
+            <div key={index} className={addresses.length === 2 ? "address-div-2" : addresses.length === 3 ? "address-div-3" : ""}>
+                <div className='main-info'>
+                    <div className="address-name">
+                        {t(address)}
                     </div>
-                    <div style={{ marginLeft: '4vw' }}></div>
-                    {Object.keys(selectedCategoryPreferences).map(
-                      (category, index) => {
-                        const preference = allPreferences.find(
-                          (pref) => pref.key === category,
-                        );
-                        const className =
-                          preference && preference.value === true
-                            ? 'preferenceName'
-                            : 'preferenceNameDisabled';
-                        return (
-                          <div
-                            className={className}
-                            key={index}
-                            onClick={() => handlePreferencesClick(category)}
-                          >
-                            <label className="preferenceLabel">
-                              {t(category)}
-                            </label>
-                          </div>
-                        );
-                      },
-                    )}
-                    <div style={{ marginRight: '4vw' }}></div>
-                    <div className="scrollButtonRight" onClick={scrollToRight}>
-                      {
-                        <Icon
-                          icon="lets-icons:expand-right"
-                          id="expand-right"
-                        />
-                      }
+                    <div className="match-div">
+                      {t('Matching')} {countVisibleCategories(address)}
                     </div>
+                    <div className="compare-hr-place">
+                      <hr className="compare-search-place-hr" />
+                    </div>
+                </div>
+                <div className='categories'>
+                {mainCategoriesToShow && mainCategoriesToShow.map((category, index) => (
+                  <div>
+                  <div className='compare-category-name'>
+                    {t(category)} {calculatePercentageInCategory(address, category)}
                   </div>
-                </div>
-              </>
-            ) : !selectedAddressPreferences && !selectedObjectPreferences ? (
-              <>
-                <div className="emptyRaport-labelFirst">
-                  {t('Select a category on the left to view the report')}
-                </div>
-              </>
-            ) : null}
-            <div className="preferenceItems">
-              {selectedAddressPreferences &&
-                Object.entries(custom_addresses).map((address, index) => {
-                  logger.log(address[1].address.full)
-                  const address_name = address[1].address.full;
-                  const address_info = address[1];
-                  return (
-                    <div className="preferenceItem">
-                      <div className="mainItemData">
-                        <div className="preferenceAddressItemDistance">
-                          {address_name}
-                        </div>
-                        <div className="addressDistances">
-                          <div className="preferenceAddressItemDistance">
-                            <div className="icon">
-                              <Icon
-                                icon="material-symbols-light:directions-car-outline"
-                                id="person-simple-walk-light"
-                              />
-                            </div>
-                            <div className="distance-time">
-                              <label className="distance">
-                                {address_info.commute_time.bike.distance > 1000
-                                  ? `${(
-                                      address_info.commute_time.drive.distance /
-                                      1000
-                                    ).toFixed(1)} km`
-                                  : `${
-                                      Math.ceil(
-                                        address_info.commute_time.drive
-                                          .distance / 10,
-                                      ) * 10
-                                    } m`}
-                              </label>
-                              <label className="time">
-                                {Math.ceil(
-                                  address_info.commute_time.drive.duration / 60,
-                                )}{' '}
-                                min
-                              </label>
-                            </div>
-                          </div>
-                          <div className="preferenceAddressItemDistance">
-                            <div className="icon">
-                              <Icon
-                                icon="material-symbols-light:directions-bus-outline"
-                                id="person-simple-walk-light"
-                              />
-                            </div>
-                            <div className="distance-time">
-                              <label className="distance">
-                                {address_info.commute_time.transit.distance >
-                                1000
-                                  ? `${(
-                                      address_info.commute_time.transit
-                                        .distance / 1000
-                                    ).toFixed(1)} km`
-                                  : `${
-                                      Math.ceil(
-                                        address_info.commute_time.transit
-                                          .distance / 10,
-                                      ) * 10
-                                    } m`}
-                              </label>
-                              <label className="time">
-                                {Math.ceil(
-                                  address_info.commute_time.transit.duration /
-                                    60,
-                                )}{' '}
-                                min
-                              </label>
-                            </div>
-                          </div>
-                          <div className="preferenceAddressItemDistance">
-                            <div className="icon">
+                  <div className='nearest-place'>
+                      <div className='compare-nearest-place-name'>
+                        {t(findNearestPlace(address, category).name)}
+                      </div>
+                      <div className="preference-item-distance">
+                        {findNearestPlace(address, category).distance !== -1 ? (
+                          <>
+                            <div>
                               <Icon
                                 icon="ph:person-simple-walk-light"
-                                id="person-simple-walk-light"
+                                id="compare-person-simple-walk-light"
                               />
                             </div>
-                            <div className="distance-time">
-                              <label className="distance">
-                                {address_info.commute_time.walk.distance > 1000
-                                  ? `${(
-                                      address_info.commute_time.walk.distance /
-                                      1000
-                                    ).toFixed(1)} km`
-                                  : `${
-                                      Math.ceil(
-                                        address_info.commute_time.walk
-                                          .distance / 10,
-                                      ) * 10
-                                    } m`}
-                              </label>
-                              <label className="time">
-                                {Math.ceil(
-                                  address_info.commute_time.walk.duration / 60,
-                                )}{' '}
-                                min
-                              </label>
+                            <div className="compare-distance-item">
+                              <div className="compare-time">
+                                {Math.ceil(findNearestPlace(address, category).distance / 83)} min
+                              </div>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                          <div style={{ color: '#dce6fa' }}>
+                            <Icon
+                              icon="ph:person-simple-walk-light"
+                              id="compare-person-simple-walk-light"
+                              style={{ color: '#dce6fa' }}
+                            />
+                          </div>
+                          <div className="compare-distance-item" style={{ color: '#dce6fa' }}>
+                            <div className="compare-time">
+                              {Math.ceil(findNearestPlace(address, category).distance / 83)} min
                             </div>
                           </div>
-                          <div className="preferenceAddressItemDistance">
-                            <div className="icon">
-                              <Icon
-                                icon="ph:person-simple-bike-light"
-                                id="person-simple-walk-light"
-                              />
-                            </div>
-                            <div className="distance-time">
-                              <label className="distance">
-                                {address_info.commute_time.bike.distance > 1000
-                                  ? `${(
-                                      address_info.commute_time.bike.distance /
-                                      1000
-                                    ).toFixed(1)} km`
-                                  : `${
-                                      Math.ceil(
-                                        address_info.commute_time.bike
-                                          .distance / 10,
-                                      ) * 10
-                                    } m`}
-                              </label>
-                              <label className="time">
-                                {Math.ceil(
-                                  address_info.commute_time.bike.duration / 60,
-                                )}{' '}
-                                min
-                              </label>
-                            </div>
-                          </div>
-                        </div>
+                        </>
+                        )}
                       </div>
                     </div>
-                  );
-                })}
-              {selectedObjectPreferences &&
-                allObjects.map((object, index) => {
-                  return (
-                    <div className="preferenceItem" key={index}>
-                      <div className="mainItemData">
-                        <div className="preferenceItemName">{object.name}</div>
-                        <div className="preferenceItemAddress">
-                          {object.address.full}
-                        </div>
-                      </div>
-                      <div className="preferenceItemDistance">
-                        <div className="icon">
-                          <Icon
-                            icon="ph:person-simple-walk-light"
-                            id="person-simple-walk-light"
-                          />
-                        </div>
-                        <div className="distance-time">
-                          <label className="distance">
-                            {object.distance > 1000
-                              ? `${(object.distance / 1000).toFixed(1)} km`
-                              : `${Math.ceil(object.distance / 10) * 10} m`}
-                          </label>
-                          <label className="time">
-                            {Math.ceil(object.distance / 83)} min
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              {!selectedAddressPreferences &&
-                !selectedObjectPreferences &&
-                selectedCategoryPreferences &&
-                Object.keys(selectedCategoryPreferences).map(
-                  (category, index) => {
-                    const preference = allPreferences.find(
-                      (pref) => pref.key === category,
-                    );
-                    if (preference && preference.value === true) {
-                      return Object.values(
-                        selectedCategoryPreferences[category],
-                      ).map((item, index) => (
-                        <div className="preferenceItem" key={index}>
-                          <div className="mainItemData">
-                            <div className="preferenceItemName">
-                              {item.name}
-                            </div>
-                            <div className="preferenceItemAddress">
-                              {item.address.full}
-                            </div>
-                          </div>
-                          <div className="preferenceItemDistance">
-                            <div className="icon">
-                              <Icon
-                                icon="ph:person-simple-walk-light"
-                                id="person-simple-walk-light"
-                              />
-                            </div>
-                            <div className="distance-time">
-                              <label className="distance">
-                                {item.distance > 1000
-                                  ? `${(item.distance / 1000).toFixed(1)} km`
-                                  : `${Math.ceil(item.distance / 10) * 10} m`}
-                              </label>
-                              <label className="time">
-                                {Math.ceil(item.distance / 83)} min
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                      ));
-                    } else {
-                      return <div key={index}></div>; // Pusty div, jeśli preferencja jest wyłączona
-                    }
-                  },
-                )}
+                  </div>
+                ))}
+                </div>
+                <div className="compare-hr-place" style={{ marginTop: '0' }}>
+                      <hr className="compare-search-place-hr" />
+                </div>
+                <div className="compare-button-div">
+                  <button className="compare-button-one-address" onClick={() => handleUserReportClick(address)}>
+                    {t('See full report')}
+                  </button>
+                </div>
             </div>
-          </div>
+          ))}
+
         </div>
         <Footer useMargin={true} />
       </div>
@@ -539,4 +372,4 @@ logger.log(places)
   );
 }
 
-export default Report;
+export default Compare;

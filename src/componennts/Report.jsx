@@ -13,9 +13,12 @@ import api from '../config';
 import { use } from 'i18next';
 
 function Report() {
+  const location = useLocation();
+  const [cookies, setCookie] = useCookies(['userID']);
+  const searchParams = new URLSearchParams(location.search);
   const {i18n, t } = useTranslation();
   const [address, setAddress] =
-    useState("");
+    useState(searchParams.get('address'));
   const [places, setPlaces] =
     useState({});
   const [transformedPreferences, setTransformedPreferences] =
@@ -36,9 +39,8 @@ function Report() {
     : null;
     */
   logger.log(custom_addresses);
-  const location = useLocation();
-  const [cookies, setCookie] = useCookies(['userID']);
-  const searchParams = new URLSearchParams(location.search);
+
+
   const userId = searchParams.get('userid');
   const [selectedCategoryPreferences, setselectedCategoryPreferences] =
     useState(null);
@@ -88,27 +90,37 @@ function Report() {
       if (response.ok) {
         const data = await response.json();
         logger.log(data);
-        setAddress(data.request.addresses[0]);
-        setRequestedAddresses(data.reports[0].custom_addresses);
-        setRequestedObjects(data.reports[0].custom_objects);
-        setTransformedPreferences(data.reports[0].categories);
-        setPlaces(data.reports[0].points_of_interest);
-        i18n.changeLanguage(data.language);
-        logger.log(i18n.language)
-        setAllPreferences(() => {    logger.log(data.reports[0].points_of_interest)
-          return data.reports[0].points_of_interest
-            ? Object.values(data.reports[0].points_of_interest).flatMap((category) => {
-                logger.log("Category:", category);
-                return Object.keys(category).flatMap((subcategory) =>
-                  category[subcategory].map((item) => ({
-                    key: subcategory,
-                    value: true,
-                  }))
-                );
-              })
-            : [];} 
-        );
 
+        // Filtrujemy raporty, aby znaleźć ten z odpowiednim adresem
+        const reportWithRequestedAddress = data.reports.find(report => 
+          report.address.full === address
+        );
+        logger.log(reportWithRequestedAddress);
+        if (reportWithRequestedAddress) {
+          // Jeśli znaleziono raport z odpowiednim adresem, ustawiamy dane
+          setRequestedAddresses(reportWithRequestedAddress.custom_addresses);
+          setRequestedObjects(reportWithRequestedAddress.custom_objects);
+          setTransformedPreferences(reportWithRequestedAddress.categories);
+          setPlaces(reportWithRequestedAddress.points_of_interest);
+          i18n.changeLanguage(reportWithRequestedAddress.language);
+          logger.log(i18n.language);
+
+          setAllPreferences(() => {
+            logger.log(reportWithRequestedAddress.points_of_interest);
+            return reportWithRequestedAddress.points_of_interest
+              ? Object.values(reportWithRequestedAddress.points_of_interest).flatMap((category) => {
+                  logger.log("Category:", category);
+                  return Object.keys(category).flatMap((subcategory) =>
+                    category[subcategory].map((item) => ({
+                      key: subcategory,
+                      value: true,
+                    }))
+                  );
+                })
+              : [];
+          });
+
+        }
       } else {
         console.error('Error getting report:', response.statusText);
         throw new Error(response.statusText);

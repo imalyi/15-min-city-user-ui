@@ -19,7 +19,7 @@ import { logger } from '../logger';
 import api from '../config';
 import { useCookies } from 'react-cookie';
 import CompareWindow from './CompareWindow';
-
+import md5 from 'md5';
 
 function ShowDataPage() {
   const navigate = useNavigate();
@@ -62,8 +62,7 @@ function ShowDataPage() {
   logger.warn(cookies.userID);
 
   const userId = cookies.userID;
-
-  const reportUrl = `/report?userid=${userId}`;
+  logger.log(places)
 
 
   const [isCompareWindowOpen, setIsCompareWindowOpen] = useState(false);
@@ -76,8 +75,17 @@ function ShowDataPage() {
     setIsCompareWindowOpen(false);
   };
 
-
+  const generateUserID = () => {
+    const timestamp = new Date().getTime();
+    const randomNumber = Math.floor(Math.random() * (999999999 - 1000 + 1)) + 1000;
+    const combinedString = timestamp.toString() + randomNumber.toString();
+    const userID = md5(combinedString);
+    return userID;
+  };
   const handleUserReportClick = async () => {
+    const id = generateUserID();
+    saveData(id);
+    const reportUrl = `/report?userid=${id}&address=${encodeURIComponent(places.address.full)}`;
     window.open(reportUrl, '_blank');
   };
 
@@ -128,7 +136,7 @@ function ShowDataPage() {
     }
   };
 
-  const saveData = async () => {
+  const saveData = async (id) => {
     try {
       let custom_names = [];
       let custom_addresses = [];
@@ -156,7 +164,7 @@ function ShowDataPage() {
       logger.log(addresses);
 
       const requestBody = {
-        secret: cookies.userID,
+        secret: id,
         language: i18n.language,
         addresses: addresses,
         categories: transformedPreferences,
@@ -220,7 +228,7 @@ function ShowDataPage() {
 
   const countVisibleCategories = () => {
     logger.log('Data presaved');
-    saveData();
+    saveData(cookies.userID);
     logger.log('Data saved');
     let custom_names = [];
     let custom_addresses = [];
@@ -304,7 +312,7 @@ function ShowDataPage() {
         );
       });
     });
-    logger.log(visibleCategories.length);
+    logger.log(visibleCategories);
     logger.log(categoriesToShow);
 
     const percentage =
