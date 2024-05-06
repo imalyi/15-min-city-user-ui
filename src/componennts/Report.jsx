@@ -100,8 +100,8 @@ function Report() {
           setCustomObject(reportWithRequestedAddress.custom_objects);
           setTransformedPreferences(reportWithRequestedAddress.categories);
           setPlaces(reportWithRequestedAddress.points_of_interest);
-          setRequestedObjects(data.request.requested_objects)
-          setRequestedAddresses(data.request.requested_addresses)
+          setRequestedObjects(data.request.requested_objects);
+          setRequestedAddresses(data.request.requested_addresses);
           i18n.changeLanguage(reportWithRequestedAddress.language);
 
           setAllPreferences(() => {
@@ -200,7 +200,9 @@ function Report() {
             <div className="addressName">{address}</div>
           </div>
         </div>
-        {Object.keys(places).length !== 0 || Object.keys(custom_objects).length !== 0 || Object.keys(custom_addresses).length !== 0? (
+        {Object.keys(places).length !== 0 ||
+        Object.keys(custom_objects).length !== 0 ||
+        Object.keys(custom_addresses).length !== 0 ? (
           <div className="reportMain">
             <div
               className={

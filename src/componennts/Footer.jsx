@@ -34,7 +34,8 @@ function Footer({ useMargin }) {
     const email = 'contact_with_cityinminutes@pm.me';
 
     // Kopiowanie adresu e-mail do schowka
-    navigator.clipboard.writeText(email)
+    navigator.clipboard
+      .writeText(email)
       .then(() => {
         setCopied(true);
       })
@@ -46,23 +47,20 @@ function Footer({ useMargin }) {
     window.location.href = `mailto:${email}`;
   };
 
-
   return (
     <div className={footerClass}>
       <div className="bg-dark text-light p-3 footer">
         <hr className="footer-hr" />
         <div className="footer-divs">
           <div className="button-footer">{t('About us')}</div>
-          <div className='mail-button' onClick={handleCopyAndOpenMail}>
+          <div className="mail-button" onClick={handleCopyAndOpenMail}>
             <div>
               <Icon
                 icon="material-symbols-light:mail-outline"
                 id="mail-icon-button"
               />
             </div>
-            <div className="button-footer-contact">
-              {t('Contact us')}
-            </div>
+            <div className="button-footer-contact">{t('Contact us')}</div>
           </div>
           {isTranslateChangeVisible ? (
             <div className="translate-main-div">

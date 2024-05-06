@@ -95,9 +95,11 @@ function ShowDataPage() {
   };
   const handleUserReportClick = async () => {
     const id = generateUserID();
-    logger.log(places.address.full)
+    logger.log(places.address.full);
     saveData(id, places.address.full);
-    const reportUrl = `/report?userid=${id}&address=${encodeURIComponent(places.address.full)}`;
+    const reportUrl = `/report?userid=${id}&address=${encodeURIComponent(
+      places.address.full,
+    )}`;
     window.open(reportUrl, '_blank');
   };
 

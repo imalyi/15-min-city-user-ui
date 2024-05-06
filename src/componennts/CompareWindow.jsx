@@ -50,7 +50,10 @@ const CompareWindow = ({
     if (addresses.length < 2) {
       setAlarm(t('You need to add at least 2 addresses to compare them'));
       return;
-    } else if(selectedPreferences.length === 0 && preferencesSearchData.length === 0) {
+    } else if (
+      selectedPreferences.length === 0 &&
+      preferencesSearchData.length === 0
+    ) {
       setAlarm(t('Please select at least one preference to compare addresses'));
       return;
     }
@@ -153,7 +156,11 @@ const CompareWindow = ({
               <SearchResultsList
                 results={results}
                 onResultClick={handleResultClick}
-                searchResultsListClassName={alarm !== '' ? "compare-window-search-result-list-with-alert" : "compare-window-search-result-list"}
+                searchResultsListClassName={
+                  alarm !== ''
+                    ? 'compare-window-search-result-list-with-alert'
+                    : 'compare-window-search-result-list'
+                }
                 searchResultsClassName="compare-window-search-list"
               />
             )}

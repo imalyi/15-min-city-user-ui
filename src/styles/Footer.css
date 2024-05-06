@@ -84,16 +84,15 @@
   margin-right: 1vw;
 }
 
-#mail-icon-button{
+#mail-icon-button {
   color: #24254c;
   height: 4vh;
   width: 4vh;
   margin-top: 2.8vh;
   margin-left: 1vw;
-
 }
 
-.mail-button{
+.mail-button {
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -174,14 +173,13 @@
     margin-top: 2vh;
   }
 
-  #mail-icon-button{
+  #mail-icon-button {
     color: #24254c;
     height: 3vh;
     width: 3vh;
     margin-top: 2vh;
     margin-left: 1vw;
   }
-  
 
   .translate-button-footer {
     font-family: 'Lato', sans-serif;

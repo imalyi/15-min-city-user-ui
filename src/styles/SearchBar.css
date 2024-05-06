@@ -27,7 +27,6 @@ input:focus {
   display: flex;
 }
 
-
 #error-outline-button {
   color: #960606;
   height: 5vh;
@@ -44,9 +43,7 @@ input:focus {
     margin-top: 4vh;
     margin-left: 1vw;
   }
-
 }
-
 
 @media only screen and (max-width: 851px) {
   #error-outline-button {
@@ -173,5 +170,4 @@ input:focus {
     margin-top: 3.5vh;
     margin-left: 3vw;
   }
-
 }
