@@ -236,5 +236,9 @@
   "You can only add up to 3 addresses": "Możesz dodać maksymalnie 3 adresy",
   "This address is already on the list": "Ten adres jest już na liście",
   "Compare addresses": "Porównaj adresy",
-  "No places in category": "Brak miejsc w kategorii"
+  "No places in category": "Brak miejsc w kategorii",
+  "You need to add at least 2 addresses to compare them": "Musisz dodać co najmniej 2 adresy, aby je porównać",
+  "Please select at least one preference to compare addresses": "Wybierz co najmniej jedno kryterium, aby porównać adresy",
+  "invalid address": "nieprawidłowy adres"
+
 }

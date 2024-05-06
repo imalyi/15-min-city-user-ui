@@ -164,7 +164,7 @@ function ShowDataPage() {
         setAddresses((prevAddresses) => {
           logger.log(prevAddresses.length);
           if (prevAddresses.length === 0) {
-            return data.request.addresses;
+            return [address, ...data.request.addresses];
           }
           return prevAddresses;
         });
@@ -550,6 +550,7 @@ function ShowDataPage() {
         setIsResultClicked={setIsResultClicked}
         onEnterPress={handleEnterPress}
         ShowDataButtonCompare={'compare'}
+        addressInput={address}
         addressesShowData={addresses}
         handleCompareWindowOpen={handleCompareWindowOpen}
         selectedPreferences={selectedPreferencesShowPage}
