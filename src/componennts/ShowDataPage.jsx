@@ -20,6 +20,7 @@ import api from '../config';
 import { useCookies } from 'react-cookie';
 import CompareWindow from './CompareWindow';
 import md5 from 'md5';
+import { set } from 'animejs';
 
 function ShowDataPage() {
   const navigate = useNavigate();
@@ -94,9 +95,11 @@ function ShowDataPage() {
   };
   const handleUserReportClick = async () => {
     const id = generateUserID();
-    logger.log(places.address.full)
+    logger.log(places.address.full);
     saveData(id, places.address.full);
-    const reportUrl = `/report?userid=${id}&address=${encodeURIComponent(places.address.full)}`;
+    const reportUrl = `/report?userid=${id}&address=${encodeURIComponent(
+      places.address.full,
+    )}`;
     window.open(reportUrl, '_blank');
   };
 
@@ -140,6 +143,11 @@ function ShowDataPage() {
   };
 
   const handleEnterPress = () => {
+    logger.log(results);
+    if (results.length !== 0) {
+      setInput(results[0]);
+      setIsResultClicked(true);
+    }
     if (buttonRef.current) {
       setTimeout(() => {
         buttonRef.current.click();
@@ -162,9 +170,12 @@ function ShowDataPage() {
       if (response.ok) {
         const data = await response.json();
         setAddresses((prevAddresses) => {
-          logger.log(prevAddresses.length);
+          logger.log(data.request.addresses, address);
           if (prevAddresses.length === 0) {
-            return data.request.addresses;
+            if (data.request.addresses.includes(address)) {
+              return data.request.addresses;
+            }
+            return [address, ...data.request.addresses];
           }
           return prevAddresses;
         });
@@ -550,6 +561,7 @@ function ShowDataPage() {
         setIsResultClicked={setIsResultClicked}
         onEnterPress={handleEnterPress}
         ShowDataButtonCompare={'compare'}
+        addressInput={address}
         addressesShowData={addresses}
         handleCompareWindowOpen={handleCompareWindowOpen}
         selectedPreferences={selectedPreferencesShowPage}

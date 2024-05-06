@@ -154,7 +154,7 @@
   "Choose All Preferences": "Choose All Preferences",
   "Enter address (street, city...)": "Enter address (street, city...) :",
   "About us": "About us",
-  "Contact": "Contact",
+  "Contact us": "Contact us",
   "Search for an object by name...": "Search for an object by name...",
   "Your filters": "Your filters",
   "Clear all": "Clear all",
@@ -236,5 +236,8 @@
   "You can only add up to 3 addresses": "You can only add up to 3 addresses",
   "This address is already on the list": "This address is already on the list",
   "Compare addresses": "Compare addresses",
-  "No places in category": "No places in category"
+  "No places in category": "No places in category",
+  "You need to add at least 2 addresses to compare them": "You need to add at least 2 addresses to compare them",
+  "Please select at least one preference to compare addresses": "Please select at least one preference to compare addresses",
+  "invalid address": "invalid address"
 }

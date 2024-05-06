@@ -12,6 +12,7 @@ const CompareWindow = ({
   isOpen,
   onClose,
   inputShowAddress,
+  addressInput,
   addressesShowData,
   setInputShowData,
   selectedPreferences,
@@ -29,12 +30,17 @@ const CompareWindow = ({
   logger.log(addressesShowData);
   const [alarm, setAlarm] = useState('');
   const [cookies, setCookie] = useCookies(['userID']);
-
+  const [isNotAddressLoaded, setIsNotAddressLoaded] = useState(true);
   const userId = cookies.userID;
-
+  logger.log(isNotAddressLoaded);
   useEffect(() => {
     if (addressesShowData) {
       setAddresses(addressesShowData);
+    }
+    if (addressesShowData.length === 0 && isNotAddressLoaded) {
+      logger.log(addresses);
+      setAddresses([...addressesShowData, addressInput]);
+      setIsNotAddressLoaded(false);
     }
   }, [addressesShowData]);
 
@@ -42,10 +48,13 @@ const CompareWindow = ({
   logger.log(selectedPreferences, preferencesSearchData);
   const handleCompareButton = () => {
     if (addresses.length < 2) {
-      setAlarm('You need to add at least 2 addresses to compare them');
+      setAlarm(t('You need to add at least 2 addresses to compare them'));
       return;
-    } else if(selectedPreferences.length === 0 && preferencesSearchData.length === 0) {
-      setAlarm('Please select at least one preference to compare addresses');
+    } else if (
+      selectedPreferences.length === 0 &&
+      preferencesSearchData.length === 0
+    ) {
+      setAlarm(t('Please select at least one preference to compare addresses'));
       return;
     }
     handleUserReportClick();
@@ -57,11 +66,11 @@ const CompareWindow = ({
 
   const addAddress = (address) => {
     if (addresses.length >= 3) {
-      setAlarm('You can only add up to 3 addresses');
+      setAlarm(t('You can only add up to 3 addresses'));
       return;
     }
     if (addresses.includes(address)) {
-      setAlarm('This address is already on the list');
+      setAlarm(t('This address is already on the list'));
       return;
     }
     setAlarm('');
@@ -77,6 +86,7 @@ const CompareWindow = ({
   const handleRemoveAddress = (address) => {
     setAddressesShowPage(addresses.filter((item) => item !== address));
     setAddresses(addresses.filter((item) => item !== address));
+    setIsNotAddressLoaded(false);
   };
 
   const handleResultClick = (result) => {
@@ -90,10 +100,12 @@ const CompareWindow = ({
 
   const handleSearchBarChange = (value) => {
     setInput(value);
+    setAlarm('');
     setIsResultClicked(false);
   };
 
   const handleEnterPress = () => {
+    setIsResultClicked(true);
     if (buttonRef.current) {
       setTimeout(() => {
         buttonRef.current.click();
@@ -144,7 +156,11 @@ const CompareWindow = ({
               <SearchResultsList
                 results={results}
                 onResultClick={handleResultClick}
-                searchResultsListClassName="compare-window-search-result-list"
+                searchResultsListClassName={
+                  alarm !== ''
+                    ? 'compare-window-search-result-list-with-alert'
+                    : 'compare-window-search-result-list'
+                }
                 searchResultsClassName="compare-window-search-list"
               />
             )}

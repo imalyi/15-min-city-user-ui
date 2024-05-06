@@ -27,13 +27,13 @@ export const ShowDataButton = React.forwardRef(
     const handleUserLocationClick = async () => {
       if (address == '') {
         if (ShowDataButtonCompare !== 'alert-none') {
-          setAlarm('invalid address');
+          setAlarm(t('invalid address'));
         }
       } else {
         const places = await getplacesFromCoordinates();
         if (places === undefined) {
           logger.error('No places found');
-          setAlarm('invalid address');
+          setAlarm(t('invalid address'));
         } else {
           logger.log(preferencesSearchData);
           navigate('/show-addresses', {

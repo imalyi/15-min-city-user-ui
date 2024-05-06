@@ -75,6 +75,24 @@
   position: absolute;
   margin-left: 2vw;
   margin-right: 2vh;
+  width: calc(100% - 4vw);
+  background-color: #dce6fa;
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  box-shadow: 0px 9px 30px 0px rgba(46, 54, 61, 0.15);
+  max-height: 61vh;
+  overflow-y: auto;
+  z-index: 999;
+}
+
+.compare-window-search-result-list-with-alert {
+  position: absolute;
+  margin-left: 2vw;
+  margin-right: 2vh;
   width: calc(100% - 8vw);
   background-color: #dce6fa;
   display: flex;

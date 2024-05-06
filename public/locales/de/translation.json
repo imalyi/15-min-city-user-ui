@@ -153,7 +153,7 @@
   "Choose All Preferences": "Wählen Sie alle Präferenzen",
   "Enter address (street, city...)": "Adresse eingeben (Straße, Stadt...)",
   "About us": "Über uns",
-  "Contact": "Kontakt",
+  "Contact us": "Kontaktieren Sie uns",
   "Search for an object by name...": "Suche nach einem Objekt nach Namen...",
   "Your filters": "Ihre Filter",
   "Clear all": "Alles löschen",
@@ -235,5 +235,8 @@
   "You can only add up to 3 addresses": "Sie können nur bis zu 3 Adressen hinzufügen",
   "This address is already on the list": "Diese Adresse ist bereits auf der Liste",
   "Compare addresses": "Adressen vergleichen",
-  "No places in category": "Keine Orte in der Kategorie"
+  "No places in category": "Keine Orte in der Kategorie",
+  "You need to add at least 2 addresses to compare them": "Sie müssen mindestens 2 Adressen hinzufügen, um sie zu vergleichen",
+  "Please select at least one preference to compare addresses": "Bitte wählen Sie mindestens eine Präferenz aus, um Adressen zu vergleichen",
+  "invalid address": "ungültige Adresse"
 }
