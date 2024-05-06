@@ -38,6 +38,7 @@ const CompareWindow = ({
       setAddresses(addressesShowData);
     }
     if (addressesShowData.length === 0 && isNotAddressLoaded) {
+      logger.log(addresses);
       setAddresses([...addressesShowData, addressInput]);
       setIsNotAddressLoaded(false);
     }
@@ -96,10 +97,12 @@ const CompareWindow = ({
 
   const handleSearchBarChange = (value) => {
     setInput(value);
+    setAlarm('');
     setIsResultClicked(false);
   };
 
   const handleEnterPress = () => {
+    setIsResultClicked(true);
     if (buttonRef.current) {
       setTimeout(() => {
         buttonRef.current.click();
@@ -150,7 +153,7 @@ const CompareWindow = ({
               <SearchResultsList
                 results={results}
                 onResultClick={handleResultClick}
-                searchResultsListClassName="compare-window-search-result-list"
+                searchResultsListClassName={alarm !== '' ? "compare-window-search-result-list-with-alert" : "compare-window-search-result-list"}
                 searchResultsClassName="compare-window-search-list"
               />
             )}

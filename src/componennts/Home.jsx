@@ -101,8 +101,14 @@ function Home() {
   const buttonRef = useRef(null);
 
   const handleEnterPress = () => {
+    if (results.length !== 0) {
+      setInput(results[0]);
+    }
+    setIsResultClicked(true);
     if (buttonRef.current) {
-      buttonRef.current.click();
+      setTimeout(() => {
+        buttonRef.current.click();
+      }, 10); // Czas w milisekundach (tutaj 100000ms = 100s)
     }
   };
 

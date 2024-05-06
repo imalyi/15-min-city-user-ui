@@ -26,23 +26,35 @@ input:focus {
 .search-bar-with-alarm {
   display: flex;
 }
+
+
 #error-outline-button {
-  position: absolute;
   color: #960606;
-  height: 6vh;
-  width: 6vh;
-  margin-top: 3vh;
-  margin-right: 1vw;
+  height: 5vh;
+  width: 4vw;
+  margin-top: 3.5vh;
+  margin-left: 0.5vw;
 }
+
+@media only screen and (max-width: 1100px) {
+  #error-outline-button {
+    color: #960606;
+    height: 4vh;
+    width: 3vw;
+    margin-top: 4vh;
+    margin-left: 1vw;
+  }
+
+}
+
 
 @media only screen and (max-width: 851px) {
   #error-outline-button {
-    position: absolute;
     color: #960606;
     height: 3vh;
-    width: 4vh;
+    width: 4vw;
     margin-top: 3.5vh;
-    margin-right: 1vw;
+    margin-left: 1.5vw;
   }
 
   .input-wrapper {
@@ -62,7 +74,7 @@ input:focus {
 
   .compare-window-search-bar {
     position: relative;
-    width: calc(100% - 8vw);
+    width: calc(100% - 4vw);
     height: 6vh;
     border-radius: 8px;
     padding: 0 3vh;
@@ -98,7 +110,7 @@ input:focus {
 @media only screen and (min-width: 851px) {
   .compare-window-search-bar {
     position: relative;
-    width: calc(100% - 8vw);
+    width: calc(100% - 4vw);
     height: 8vh;
     border-radius: 8px;
     padding: 0 3vh;
@@ -151,4 +163,15 @@ input:focus {
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
   }
+}
+
+@media only screen and (max-width: 500px) {
+  #error-outline-button {
+    color: #960606;
+    height: 3vh;
+    width: 4vw;
+    margin-top: 3.5vh;
+    margin-left: 3vw;
+  }
+
 }

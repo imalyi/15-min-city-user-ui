@@ -20,6 +20,7 @@ import api from '../config';
 import { useCookies } from 'react-cookie';
 import CompareWindow from './CompareWindow';
 import md5 from 'md5';
+import { set } from 'animejs';
 
 function ShowDataPage() {
   const navigate = useNavigate();
@@ -140,6 +141,11 @@ function ShowDataPage() {
   };
 
   const handleEnterPress = () => {
+    logger.log(results);
+    if (results.length !== 0) {
+      setInput(results[0]);
+      setIsResultClicked(true);
+    }
     if (buttonRef.current) {
       setTimeout(() => {
         buttonRef.current.click();
@@ -162,8 +168,11 @@ function ShowDataPage() {
       if (response.ok) {
         const data = await response.json();
         setAddresses((prevAddresses) => {
-          logger.log(prevAddresses.length);
+          logger.log(data.request.addresses, address);
           if (prevAddresses.length === 0) {
+            if (data.request.addresses.includes(address)) {
+              return data.request.addresses;
+            }
             return [address, ...data.request.addresses];
           }
           return prevAddresses;
