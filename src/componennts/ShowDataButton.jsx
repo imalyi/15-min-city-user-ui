@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/ShowDataButton.css';
 import { FaSearch } from 'react-icons/fa';
@@ -11,48 +11,49 @@ export const ShowDataButton = React.forwardRef(
   (
     {
       address,
-      addressId,
+      addresses,
       selectedPreferences,
       transformedPreferences,
       preferencesSearchData,
+      ShowDataButtonCompare,
+      handleCompareWindowOpen,
+      setAlarm,
     },
     ref,
   ) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
+
     const handleUserLocationClick = async () => {
-      if (address === '') {
-        alert(
-          'Please enter an address and select it from the options provided',
-        );
+      if (address == '') {
+        if (ShowDataButtonCompare !== 'alert-none') {
+          setAlarm(t('invalid address'));
+        }
       } else {
         const places = await getplacesFromCoordinates();
         if (places === undefined) {
           logger.error('No places found');
+          setAlarm(t('invalid address'));
         } else {
+          logger.log(preferencesSearchData);
           navigate('/show-addresses', {
             state: {
               address,
-              addressId,
+              addresses,
               places,
               selectedPreferences,
               preferencesSearchData,
             },
           });
-          logger.log(selectedPreferences);
         }
       }
     };
 
     const getplacesFromCoordinates = async () => {
-      logger.log(selectedPreferences);
-      logger.log(transformedPreferences);
-
       try {
         let custom_names = [];
         let custom_addresses = [];
         const customNamesArray = [];
-        logger.log(preferencesSearchData);
         if (preferencesSearchData) {
           preferencesSearchData.forEach((item) => {
             if (typeof item === 'object') {
@@ -71,15 +72,12 @@ export const ShowDataButton = React.forwardRef(
           });
         });
 
-        logger.log(customNamesArray);
-
         const requestBody = {
           address: address,
           categories: transformedPreferences,
           requested_objects: customNamesArray,
           requested_addresses: custom_addresses,
         };
-        logger.log(requestBody);
         const response = await fetch(`${api.APP_URL_USER_API}report/`, {
           method: 'POST',
           headers: {
@@ -101,14 +99,31 @@ export const ShowDataButton = React.forwardRef(
       }
     };
     return (
-      <button
-        ref={ref}
-        className="show-data-button"
-        onClick={handleUserLocationClick}
-        title={t('Show results')}
-      >
-        {<Icon icon="carbon:search" id="search-icon-button" />}
-      </button>
+      <div>
+        <button
+          ref={ref}
+          className="show-data-button-invisible"
+          onClick={handleUserLocationClick}
+        />
+        <button
+          className="show-data-button"
+          onClick={
+            ShowDataButtonCompare === 'compare'
+              ? handleCompareWindowOpen
+              : handleUserLocationClick
+          }
+          title={t('Show results')}
+        >
+          {ShowDataButtonCompare === 'compare' ? (
+            <Icon
+              icon="material-symbols-light:balance"
+              id="compare-icon-button"
+            />
+          ) : (
+            <Icon icon="carbon:search" id="search-icon-button" />
+          )}
+        </button>
+      </div>
     );
   },
 );

@@ -115,7 +115,6 @@ export default Map;
 
 function FlyToMarker({ flyToLocation }) {
   const { map } = useLeafletContext();
-  logger.log('FlyToMarker', flyToLocation);
   useEffect(() => {
     if (flyToLocation) {
       const [lng, lat] = flyToLocation;

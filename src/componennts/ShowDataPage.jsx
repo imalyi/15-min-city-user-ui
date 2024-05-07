@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/ShowDataPage.css';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
@@ -16,26 +16,31 @@ import { Icon } from '@iconify/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RightSectionSlide, MatchSectionSlide } from './anim.js';
 import { logger } from '../logger';
+import api from '../config';
+import { useCookies } from 'react-cookie';
+import CompareWindow from './CompareWindow';
+import md5 from 'md5';
+import { set } from 'animejs';
 
 function ShowDataPage() {
   const navigate = useNavigate();
   const [isMatchVisible, setIsMatchVisible] = useState(false);
   const [isMatchDetailsVisible, setisMatchDetailsVisible] = useState(false);
-
+  const [cookies, setCookie] = useCookies(['userID']);
   const location = useLocation();
   const places = location.state?.places || {};
   const address = location.state?.address || 'Unknown Address';
-  const addressId = location.state?.addressId || 'Unknown Address';
+  const addresses_home = location.state?.addresses || [];
   const selectedPreferences = location.state?.selectedPreferences || [];
   const preferencesSearchData = location.state?.preferencesSearchData || [];
-
+  logger.log(addresses_home);
   const selectedCoordinates = [
     location.state?.places.location[1],
     location.state?.places.location[0],
   ];
+  const [addresses, setAddresses] = useState(addresses_home);
   const [results, setResults] = useState([]);
   const [input, setInput] = useState(address);
-  const [addressIdShowPage, setAddressIdShowPage] = useState(addressId);
   const [isResultClicked, setIsResultClicked] = useState(true);
   const [selectedCoordinatesShowPage, setSelectedCoordinatesShowPage] =
     useState(selectedCoordinates);
@@ -52,22 +57,50 @@ function ShowDataPage() {
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
   const [categoryVisibility, setCategoryVisibility] = useState({});
-
+  const [dataLoaded, setDataLoaded] = useState(false);
   const [preferencesSearchDataShowPage, setPreferencesSearchDataShowPage] =
     useState(preferencesSearchData);
-  logger.log(places);
-  logger.log(preferencesSearchDataShowPage);
-  logger.log(preferencesSearchDataShowPage);
+  logger.warn(cookies.userID);
+  logger.log(dataLoaded);
+  const userId = cookies.userID;
+  logger.log(addresses);
 
-  logger.warn('To production');
+  const [alarm, setAlarm] = useState('');
 
+  const [isCompareWindowOpen, setIsCompareWindowOpen] = useState(false);
+
+  const handleCompareWindowOpen = () => {
+    setIsCompareWindowOpen(true);
+  };
+
+  const handleCompareWindowClose = () => {
+    setIsCompareWindowOpen(false);
+  };
+
+  useEffect(() => {
+    if (cookies.userID && !dataLoaded) {
+      logger.log(dataLoaded, addresses);
+      loadData(cookies.userID);
+      setDataLoaded(true);
+    }
+  }, [cookies.userID, dataLoaded]);
+
+  const generateUserID = () => {
+    const timestamp = new Date().getTime();
+    const randomNumber =
+      Math.floor(Math.random() * (999999999 - 1000 + 1)) + 1000;
+    const combinedString = timestamp.toString() + randomNumber.toString();
+    const userID = md5(combinedString);
+    return userID;
+  };
   const handleUserReportClick = async () => {
-    navigate('/report', {
-      state: {
-        address,
-        places,
-      },
-    });
+    const id = generateUserID();
+    logger.log(places.address.full);
+    saveData(id, places.address.full);
+    const reportUrl = `/report?userid=${id}&address=${encodeURIComponent(
+      places.address.full,
+    )}`;
+    window.open(reportUrl, '_blank');
   };
 
   const handlePreferencesData = (data) => {
@@ -93,12 +126,14 @@ function ShowDataPage() {
 
   const handleDataCategoryClick = (address) => {
     let location = [];
-
     // Sprawdź, czy adres istnieje w places.custom_addresses
-    if (places.custom_addresses.hasOwnProperty(address)) {
-      // Jeśli tak, pobierz lokalizację z obiektu places.custom_addresses
-      location = places.custom_addresses[address].location;
-      logger.log('Lokalizacja dla adresu:', location);
+    const foundAddress = Object.values(places.custom_addresses).find(
+      (addr) => addr.address.full === address,
+    );
+
+    if (foundAddress) {
+      // Jeśli adres został znaleziony, pobierz jego lokalizację
+      location = foundAddress.location;
       setFlyToLocation(location);
     } else {
       logger.warn(
@@ -108,6 +143,11 @@ function ShowDataPage() {
   };
 
   const handleEnterPress = () => {
+    logger.log(results);
+    if (results.length !== 0) {
+      setInput(results[0]);
+      setIsResultClicked(true);
+    }
     if (buttonRef.current) {
       setTimeout(() => {
         buttonRef.current.click();
@@ -115,9 +155,107 @@ function ShowDataPage() {
     }
   };
 
+  const loadData = async (id) => {
+    try {
+      const response = await fetch(
+        `${api.APP_URL_USER_API}user/load?secret=${id}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setAddresses((prevAddresses) => {
+          logger.log(data.request.addresses, address);
+          if (prevAddresses.length === 0) {
+            if (data.request.addresses.includes(address)) {
+              return data.request.addresses;
+            }
+            return [address, ...data.request.addresses];
+          }
+          return prevAddresses;
+        });
+        logger.log(data.request.addresses);
+        logger.log(data);
+      } else {
+        console.error('Error getting report:', response.statusText);
+        throw new Error(response.statusText);
+      }
+    } catch (error) {
+      console.error('Error getting report:', error);
+    }
+  };
+
+  const saveData = async (id, searchBarAddress) => {
+    if (dataLoaded !== false) {
+      try {
+        let custom_names = [];
+        let custom_addresses = [];
+        const customNamesArray = [];
+        logger.log(preferencesSearchDataShowPage);
+        if (preferencesSearchDataShowPage) {
+          preferencesSearchDataShowPage.forEach((item) => {
+            if (typeof item === 'object') {
+              custom_names.push(item);
+            } else if (typeof item === 'string') {
+              custom_addresses.push(item);
+            }
+          });
+        }
+        logger.log(custom_names, custom_addresses);
+        custom_names.forEach((item) => {
+          customNamesArray.push({
+            name: item.name,
+            main_category: item.category,
+            category: item.sub_category,
+          });
+        });
+
+        logger.log(customNamesArray);
+        logger.log(addresses);
+        let adresses_request = addresses;
+
+        if (searchBarAddress !== '') {
+          adresses_request = addresses.concat(searchBarAddress);
+        }
+        logger.log(searchBarAddress);
+        logger.log(adresses_request);
+        const requestBody = {
+          secret: id,
+          language: i18n.language,
+          addresses: adresses_request,
+          categories: transformedPreferences,
+          requested_objects: customNamesArray,
+          requested_addresses: custom_addresses,
+        };
+        logger.log(requestBody);
+        const response = await fetch(`${api.APP_URL_USER_API}user/save`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          logger.log(data);
+        } else {
+          console.error('Error getting report:', response.statusText);
+          throw new Error(response.statusText);
+        }
+      } catch (error) {
+        console.error('Error getting report:', error);
+      }
+    }
+  };
+
   const handleResultClick = (result) => {
     setInput(result);
-    setAddressIdShowPage(result);
     setIsResultClicked(true);
     handleEnterPress();
   };
@@ -125,11 +263,11 @@ function ShowDataPage() {
   const handleSearchBarChange = (value) => {
     setInput(value);
     setIsResultClicked(false);
+    handleEnterPress();
   };
 
   const handleUserLocationUpdate = (address, lat, lng) => {
     setInput(`${address[0].address}`);
-    setAddressIdShowPage(`${address[0].id}`);
     setSelectedCoordinatesShowPage([lat, lng]);
     setIsResultClicked(true);
   };
@@ -150,7 +288,14 @@ function ShowDataPage() {
     setPreferencesSearchDataShowPage(preferences);
   };
 
+  const handleAddressesAdd = (addresses) => {
+    setAddresses(addresses);
+  };
+
   const countVisibleCategories = () => {
+    logger.log('Data presaved');
+    saveData(cookies.userID, '');
+    logger.log('Data saved');
     let custom_names = [];
     let custom_addresses = [];
     if (preferencesSearchDataShowPage) {
@@ -162,7 +307,7 @@ function ShowDataPage() {
         }
       });
     }
-
+    logger.log(custom_names, custom_addresses);
     let totalPlacesCount = 0;
     let totalAddressesCount = 0;
 
@@ -233,7 +378,7 @@ function ShowDataPage() {
         );
       });
     });
-    logger.log(visibleCategories.length);
+    logger.log(visibleCategories);
     logger.log(categoriesToShow);
 
     const percentage =
@@ -383,7 +528,6 @@ function ShowDataPage() {
     },
     [],
   );
-  logger.log(transformedPreferences);
 
   /*
   categoriesToShow.sort((a, b) => {
@@ -407,6 +551,24 @@ function ShowDataPage() {
 
   return (
     <div className="ShowData">
+      <CompareWindow
+        isOpen={isCompareWindowOpen}
+        onClose={handleCompareWindowClose}
+        setResults={setResults}
+        showDataRef={buttonRef}
+        inputShowAddress={input}
+        setInputShowData={handleSearchBarChange}
+        setIsResultClicked={setIsResultClicked}
+        onEnterPress={handleEnterPress}
+        ShowDataButtonCompare={'compare'}
+        addressInput={address}
+        addressesShowData={addresses}
+        handleCompareWindowOpen={handleCompareWindowOpen}
+        selectedPreferences={selectedPreferencesShowPage}
+        transformedPreferences={transformedPreferences}
+        preferencesSearchData={preferencesSearchDataShowPage}
+        setAddressesShowPage={handleAddressesAdd}
+      />
       <div className="showDataContainer">
         <div className="ShowDataPage">
           <div className="search-bar-container-show-data">
@@ -474,24 +636,6 @@ function ShowDataPage() {
                           selectedPreferencesShowPage.length === 0 ? (
                           <div className="matchShadow">
                             <div>
-                              <div className="selectyourCriteria">
-                                <div className="matchingName">
-                                  {t('Matching')}{' '}
-                                  {countVisibleCategories().text}
-                                </div>
-                                <div className="matchContainerMatch">
-                                  <div className="matchBackground"></div>
-                                  <div
-                                    className="matchReactangle"
-                                    style={{
-                                      width: `calc(${
-                                        countVisibleCategories().percentage
-                                      }%)`,
-                                      height: '100%',
-                                    }}
-                                  ></div>
-                                </div>
-                              </div>
                               <div className="show-data-hr-place">
                                 <hr className="show-data-search-place-hr" />
                               </div>
@@ -514,27 +658,6 @@ function ShowDataPage() {
                         ) : (
                           <div className="matchShadow">
                             <div>
-                              <div className="selectyourCriteria">
-                                <div className="matchingName">
-                                  {t('Matching')}{' '}
-                                  {countVisibleCategories().text}
-                                </div>
-                                <div className="matchContainerMatch">
-                                  <div className="matchBackground"></div>
-                                  <div
-                                    className="matchReactangle"
-                                    style={{
-                                      width: `calc(${
-                                        countVisibleCategories().percentage
-                                      }%)`,
-                                      height: '100%',
-                                    }}
-                                  ></div>
-                                </div>
-                              </div>
-                              <div className="show-data-hr-place">
-                                <hr className="show-data-search-place-hr" />
-                              </div>
                               <div className="maxCriteriaLength">
                                 {mainCategoriesToShow &&
                                   mainCategoriesToShow.map(
@@ -544,7 +667,7 @@ function ShowDataPage() {
                                         className="selectyourCriteria"
                                       >
                                         <div className="matchingName">
-                                          {category + ':'}{' '}
+                                          {t(category) + ':'}{' '}
                                           {calculatePercentageInCategory(
                                             category,
                                           )}{' '}
@@ -626,7 +749,6 @@ function ShowDataPage() {
                     setResults={setResults}
                     showDataRef={buttonRef}
                     input={input}
-                    addressId={addressId}
                     setInput={handleSearchBarChange}
                     setIsResultClicked={setIsResultClicked}
                     onEnterPress={handleEnterPress}
@@ -635,9 +757,12 @@ function ShowDataPage() {
                         ? 'border-bottom show-data-page-search-bar'
                         : 'show-data-page-search-bar'
                     }
+                    ShowDataButtonCompare={'compare'}
+                    handleCompareWindowOpen={handleCompareWindowOpen}
                     selectedPreferences={selectedPreferencesShowPage}
                     transformedPreferences={transformedPreferences}
                     preferencesSearchData={preferencesSearchDataShowPage}
+                    setAlarm={setAlarm}
                   />
                 </motion.div>
                 {results && results.length > 0 && !isResultClicked && (

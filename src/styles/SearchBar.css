@@ -18,14 +18,42 @@ input {
   height: 100%;
   font-size: 1.25rem;
   width: 100%;
-  margin-left: 5px;
 }
 
 input:focus {
   outline: none;
 }
+.search-bar-with-alarm {
+  display: flex;
+}
 
-@media only screen and (max-width: 850px) {
+#error-outline-button {
+  color: #960606;
+  height: 5vh;
+  width: 4vw;
+  margin-top: 3.5vh;
+  margin-left: 0.5vw;
+}
+
+@media only screen and (max-width: 1100px) {
+  #error-outline-button {
+    color: #960606;
+    height: 4vh;
+    width: 3vw;
+    margin-top: 4vh;
+    margin-left: 1vw;
+  }
+}
+
+@media only screen and (max-width: 851px) {
+  #error-outline-button {
+    color: #960606;
+    height: 3vh;
+    width: 4vw;
+    margin-top: 3.5vh;
+    margin-left: 1.5vw;
+  }
+
   .input-wrapper {
     width: calc(100vw - 6vh);
     height: 7vh;
@@ -40,6 +68,24 @@ input:focus {
     margin-left: 3vh;
     margin-top: 5vh;
   }
+
+  .compare-window-search-bar {
+    position: relative;
+    width: calc(100% - 4vw);
+    height: 6vh;
+    border-radius: 8px;
+    padding: 0 3vh;
+    background-color: #dce6fa;
+    display: flex;
+    align-items: center;
+    margin-left: 2vw;
+    margin-top: 2vh;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
   .input-wrapper input {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
@@ -59,6 +105,34 @@ input:focus {
 }
 
 @media only screen and (min-width: 851px) {
+  .compare-window-search-bar {
+    position: relative;
+    width: calc(100% - 4vw);
+    height: 8vh;
+    border-radius: 8px;
+    padding: 0 3vh;
+    background-color: #dce6fa;
+    display: flex;
+    align-items: center;
+    margin-left: 2vw;
+    margin-top: 2vh;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  .compare-window-search-bar input {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 3vh;
+  }
+  .compare-window-search-bar input::placeholder {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 3vh;
+  }
+
   .home-searchBar {
     width: calc(100% - 10vh);
     height: 9vh;
@@ -85,5 +159,15 @@ input:focus {
     border-top-right-radius: 8px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  #error-outline-button {
+    color: #960606;
+    height: 3vh;
+    width: 4vw;
+    margin-top: 3.5vh;
+    margin-left: 3vw;
   }
 }

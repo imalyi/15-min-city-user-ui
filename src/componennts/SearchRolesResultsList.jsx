@@ -11,7 +11,6 @@ export const SearchRolesResultsList = ({
 }) => {
   return (
     <div className={`roles-search-result-list ${searchResultsListClassName}`}>
-      {logger.log(customAddress)}
       {customObject.map((object) => {
         return (
           <SearchRolesResult

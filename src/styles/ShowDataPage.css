@@ -312,7 +312,6 @@ html {
 }
 
 .toggleReportSectionisMatchVisibleClass {
-  color: #dce6fa;
   margin-right: 5vh;
   margin-top: 4vh;
   height: 8vh;
@@ -670,7 +669,6 @@ html {
   display: flex;
   align-items: center;
   margin-left: 3vh;
-  margin-right: 5vh;
   margin-top: 4vh;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
@@ -858,7 +856,6 @@ html {
     width: calc(100% - 2vh);
   }
   .toggleReportSectionisMatchVisibleClass {
-    color: #dce6fa;
     margin-right: 2vh;
     margin-top: 2vh;
     height: 8vh;
@@ -897,7 +894,6 @@ html {
     display: flex;
     align-items: center;
     margin-left: 3vh;
-    margin-right: 2vh;
     margin-top: 2vh;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -1132,7 +1128,6 @@ html {
     width: calc(100% - 1vh);
   }
   .toggleReportSectionisMatchVisibleClass {
-    color: #dce6fa;
     margin-right: 1vh;
     margin-top: 2vh;
     height: 5vh;

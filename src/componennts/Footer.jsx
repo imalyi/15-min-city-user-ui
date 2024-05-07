@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/Footer.css';
 import { useTranslation } from 'react-i18next';
 import { logger } from '../logger';
@@ -9,7 +9,6 @@ function Footer({ useMargin }) {
   const { i18n, t } = useTranslation();
   const [isTranslateChangeVisible, setTranslateChangeVisible] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
-  logger.log(selectedLanguage);
   const translateTranscript = {
     pl: 'Polski',
     en: 'English',
@@ -23,13 +22,46 @@ function Footer({ useMargin }) {
     setSelectedLanguage(lng);
     i18n.changeLanguage(lng);
   };
+
+  useEffect(() => {
+    setSelectedLanguage(i18n.language);
+  }, [i18n.language]);
+
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyAndOpenMail = () => {
+    // Adres e-mail, który chcesz skopiować i otworzyć w kliencie poczty
+    const email = 'contact_with_cityinminutes@pm.me';
+
+    // Kopiowanie adresu e-mail do schowka
+    navigator.clipboard
+      .writeText(email)
+      .then(() => {
+        setCopied(true);
+      })
+      .catch((error) => {
+        console.error('Failed to copy email: ', error);
+      });
+
+    // Otwarcie klienta poczty e-mail
+    window.location.href = `mailto:${email}`;
+  };
+
   return (
     <div className={footerClass}>
       <div className="bg-dark text-light p-3 footer">
         <hr className="footer-hr" />
         <div className="footer-divs">
           <div className="button-footer">{t('About us')}</div>
-          <div className="button-footer">{t('Contact')}</div>
+          <div className="mail-button" onClick={handleCopyAndOpenMail}>
+            <div>
+              <Icon
+                icon="material-symbols-light:mail-outline"
+                id="mail-icon-button"
+              />
+            </div>
+            <div className="button-footer-contact">{t('Contact us')}</div>
+          </div>
           {isTranslateChangeVisible ? (
             <div className="translate-main-div">
               <div className="translate-toggle-visible">

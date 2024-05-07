@@ -44,7 +44,6 @@ export const SearchRolesBar = ({
         if (response.ok) {
           const data = await response.json();
           const results = data;
-          logger.log(results);
           setCustomAddress(results.addresses);
           setCustomObject(results.objects);
         } else {
@@ -104,9 +103,9 @@ export const SearchRolesBar = ({
         onChange={(e) => handleChange(e.target.value)}
       />
       <button ref={buttonRef} style={{ display: 'none' }}></button>
-      <button className="show-data-button">
+      <div className="show-data-button-roles">
         {<Icon icon="carbon:search" id="search-icon" />}
-      </button>
+      </div>
     </div>
   );
 };
