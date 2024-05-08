@@ -64,7 +64,6 @@ export const SearchBar = ({
         }
       } catch (error) {
         console.error('Error getting address from coordinates:', error);
-        showServerErrorAlert();
       }
     },
     [setIsResultClicked, setResults],

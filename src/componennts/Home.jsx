@@ -101,9 +101,12 @@ function Home() {
   const buttonRef = useRef(null);
 
   const handleEnterPress = () => {
+    //TODO: Add logic to handle enter press
+    /*
     if (results.length !== 0) {
       setInput(results[0]);
     }
+    */
     setIsResultClicked(true);
     if (buttonRef.current) {
       setTimeout(() => {

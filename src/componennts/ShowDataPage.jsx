@@ -143,11 +143,14 @@ function ShowDataPage() {
   };
 
   const handleEnterPress = () => {
+    //TODO: Add logic to handle enter press
+    /*
     logger.log(results);
     if (results.length !== 0) {
       setInput(results[0]);
       setIsResultClicked(true);
     }
+    */
     if (buttonRef.current) {
       setTimeout(() => {
         buttonRef.current.click();
