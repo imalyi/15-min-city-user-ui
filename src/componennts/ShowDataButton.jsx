@@ -35,7 +35,6 @@ export const ShowDataButton = React.forwardRef(
           logger.error('No places found');
           setAlarm(t('invalid address'));
         } else {
-          logger.log(preferencesSearchData);
           navigate('/show-addresses', {
             state: {
               address,
@@ -88,7 +87,6 @@ export const ShowDataButton = React.forwardRef(
 
         if (response.ok) {
           const data = await response.json();
-          logger.log(data);
           return data;
         } else {
           console.error('Error getting report:', response.statusText);

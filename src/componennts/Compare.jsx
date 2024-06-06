@@ -22,7 +22,6 @@ function Compare() {
   const [requestedCategories, setRequestedCategories] = useState([]);
   const [mainCategoriesToShow, setMainCategoriesToShow] = useState([]);
 
-  logger.log(mainCategoriesToShow);
   /*
   const custom_addresses = places.custom_addresses
     ? Object.entries(places.custom_addresses)
@@ -35,7 +34,6 @@ function Compare() {
   const [cookies, setCookie] = useCookies(['userID']);
   const searchParams = new URLSearchParams(location.search);
   const userId = searchParams.get('userid');
-  logger.log(addresses);
 
   useEffect(() => {
     if (userId) {
@@ -74,8 +72,6 @@ function Compare() {
 
       if (response.ok) {
         const data = await response.json();
-        logger.log(data);
-        logger.log(data.request.categories);
         setAddresses(data.request.addresses);
         setRequestedAddresses(data.request.requested_addresses);
         setRequestedObjects(data.request.requested_objects);
@@ -85,7 +81,6 @@ function Compare() {
           Object.keys(data.reports[0].points_of_interest),
         );
         i18n.changeLanguage(data.language);
-        logger.log(i18n.language);
       } else {
         console.error('Error getting report:', response.statusText);
         throw new Error(response.statusText);
@@ -105,7 +100,6 @@ function Compare() {
         requested_objects: requestedObjects,
         requested_addresses: requestedAddresses,
       };
-      logger.log(requestBody);
       const response = await fetch(`${api.APP_URL_USER_API}user/save`, {
         method: 'POST',
         headers: {
@@ -116,7 +110,6 @@ function Compare() {
 
       if (response.ok) {
         const data = await response.json();
-        logger.log(data);
       } else {
         console.error('Error getting report:', response.statusText);
         throw new Error(response.statusText);
@@ -133,7 +126,6 @@ function Compare() {
     if (!foundReport || !foundReport.points_of_interest) {
       return '0%';
     }
-    //logger.log(foundReport);
     let totalPlacesCount = 0;
     let totalAddressesCount = 0;
 
@@ -167,8 +159,6 @@ function Compare() {
       }
     }
 
-    //logger.log(categoryCount, totalAddressesCount, totalPlacesCount);
-    //logger.log(requestedCategories.length, requestedAddresses.length, requestedObjects.length);
 
     const percentage =
       ((categoryCount + totalAddressesCount + totalPlacesCount) /
@@ -238,10 +228,7 @@ function Compare() {
       }
     });
 
-    logger.log(address, category);
-    logger.log(preferencesCategory.length, countObjects);
 
-    logger.log(categoryCount, placesCategoryCount);
 
     const percentage =
       ((categoryCount + placesCategoryCount) /
@@ -281,10 +268,8 @@ function Compare() {
         distance: -1,
       };
     }
-    logger.log(allPlacesInCategory);
     // Sortujemy miejsca według odległości
     allPlacesInCategory.sort((a, b) => a.distance - b.distance);
-    logger.log(allPlacesInCategory[0]);
     return {
       name: allPlacesInCategory[0].name,
       distance: allPlacesInCategory[0].distance,
