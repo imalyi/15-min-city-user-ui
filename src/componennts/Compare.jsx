@@ -21,6 +21,7 @@ function Compare() {
   const [requestedAddresses, setRequestedAddresses] = useState([]);
   const [requestedCategories, setRequestedCategories] = useState([]);
   const [mainCategoriesToShow, setMainCategoriesToShow] = useState([]);
+  const [addressData, setAddressData] = useState([]);
 
   /*
   const custom_addresses = places.custom_addresses
@@ -80,6 +81,21 @@ function Compare() {
         setMainCategoriesToShow(
           Object.keys(data.reports[0].points_of_interest),
         );
+        const newAddressData = data.request.addresses.map((address) => {
+          const categories = Object.keys(data.reports[0].points_of_interest).map((category) => {
+            return {
+              name: category,
+              percentage: calculatePercentageInCategory(address, category, data.reports, data.request.categories),
+            };
+          });
+  
+          return {
+            address,
+            categories,
+          };
+        });
+        setAddressData(newAddressData);
+        logger.log(newAddressData)
         i18n.changeLanguage(data.language);
       } else {
         console.error('Error getting report:', response.statusText);
@@ -117,6 +133,16 @@ function Compare() {
     } catch (error) {
       console.error('Error getting report:', error);
     }
+  };
+
+  const getPercentageForAddressAndCategory = (address, category) => {
+    const addressEntry = addressData.find((data) => data.address === address);
+    if (!addressEntry) return null;
+  
+    const categoryEntry = addressEntry.categories.find((cat) => cat.name === category);
+    if (!categoryEntry) return null;
+  
+    return categoryEntry.percentage;
   };
 
   const countVisibleCategories = (address) => {
@@ -178,7 +204,36 @@ function Compare() {
     return `${percentage.toFixed(0)}%`;
   };
 
-  const calculatePercentageInCategory = (address, category) => {
+  const isCategoryPercentageHigher = (address, category) => {
+    // Find the entry for the specified address
+    const targetAddressEntry = addressData.find((data) => data.address === address);
+    if (!targetAddressEntry) return false;
+  
+    // Find the category entry for the specified address
+    const targetCategoryEntry = targetAddressEntry.categories.find((cat) => cat.name === category);
+    if (!targetCategoryEntry) return false;
+  
+    // Get the percentage for the specified category at the specified address
+    const targetPercentage = parseFloat(targetCategoryEntry.percentage);
+  
+    // Compare with the same category at other addresses
+    for (const entry of addressData) {
+      if (entry.address !== address) {
+        const categoryEntry = entry.categories.find((cat) => cat.name === category);
+        if (categoryEntry) {
+          const percentage = parseFloat(categoryEntry.percentage);
+          if (targetPercentage < percentage || (targetPercentage == 0)) {
+            return false; // The target address does not have a higher percentage
+          }
+        }
+      }
+    }
+    return true; // The target address has a higher percentage than all other addresses
+  };
+  
+
+  const calculatePercentageInCategory = (address, category, report, requestedCategories) => {
+    logger.log('report', report )
     const foundReport = report.find(
       (report) => report.address.full === address,
     );
@@ -229,11 +284,14 @@ function Compare() {
     });
 
 
+    logger.log(categoryCount, placesCategoryCount, preferencesCategory.length, countObjects)
 
     const percentage =
       ((categoryCount + placesCategoryCount) /
         (preferencesCategory.length + countObjects)) *
       100;
+    
+    logger.log('percentage', percentage)
 
     if (percentage > 100) {
       return '100%';
@@ -319,8 +377,15 @@ function Compare() {
                       mainCategoriesToShow.map((category, index) => (
                         <div>
                           <div className="compare-category-name">
-                            {t(category)}{' '}
-                            {calculatePercentageInCategory(address, category)}
+                              {t(category)}{' '}
+                              {getPercentageForAddressAndCategory(address, category)}
+                              {isCategoryPercentageHigher(address, category) ? (
+                                <div className='compare-top'>
+                                  <label className='compare-top-label'>
+                                    TOP
+                                  </label>
+                                </div>
+                              ) : () => {}}
                           </div>
                           <div className="nearest-place">
                             <div className="compare-nearest-place-name">
