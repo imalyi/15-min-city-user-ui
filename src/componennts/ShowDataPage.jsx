@@ -33,7 +33,6 @@ function ShowDataPage() {
   const addresses_home = location.state?.addresses || [];
   const selectedPreferences = location.state?.selectedPreferences || [];
   const preferencesSearchData = location.state?.preferencesSearchData || [];
-  logger.log(addresses_home);
   const selectedCoordinates = [
     location.state?.places.location[1],
     location.state?.places.location[0],
@@ -60,10 +59,7 @@ function ShowDataPage() {
   const [dataLoaded, setDataLoaded] = useState(false);
   const [preferencesSearchDataShowPage, setPreferencesSearchDataShowPage] =
     useState(preferencesSearchData);
-  logger.warn(cookies.userID);
-  logger.log(dataLoaded);
   const userId = cookies.userID;
-  logger.log(addresses);
 
   const [alarm, setAlarm] = useState('');
 
@@ -79,7 +75,6 @@ function ShowDataPage() {
 
   useEffect(() => {
     if (cookies.userID && !dataLoaded) {
-      logger.log(dataLoaded, addresses);
       loadData(cookies.userID);
       setDataLoaded(true);
     }
@@ -95,7 +90,6 @@ function ShowDataPage() {
   };
   const handleUserReportClick = async () => {
     const id = generateUserID();
-    logger.log(places.address.full);
     saveData(id, places.address.full);
     const reportUrl = `/report?userid=${id}&address=${encodeURIComponent(
       places.address.full,
@@ -143,11 +137,13 @@ function ShowDataPage() {
   };
 
   const handleEnterPress = () => {
-    logger.log(results);
+    //TODO: Add logic to handle enter press
+    /*
     if (results.length !== 0) {
       setInput(results[0]);
       setIsResultClicked(true);
     }
+    */
     if (buttonRef.current) {
       setTimeout(() => {
         buttonRef.current.click();
@@ -170,7 +166,6 @@ function ShowDataPage() {
       if (response.ok) {
         const data = await response.json();
         setAddresses((prevAddresses) => {
-          logger.log(data.request.addresses, address);
           if (prevAddresses.length === 0) {
             if (data.request.addresses.includes(address)) {
               return data.request.addresses;
@@ -179,8 +174,6 @@ function ShowDataPage() {
           }
           return prevAddresses;
         });
-        logger.log(data.request.addresses);
-        logger.log(data);
       } else {
         console.error('Error getting report:', response.statusText);
         throw new Error(response.statusText);
@@ -196,7 +189,6 @@ function ShowDataPage() {
         let custom_names = [];
         let custom_addresses = [];
         const customNamesArray = [];
-        logger.log(preferencesSearchDataShowPage);
         if (preferencesSearchDataShowPage) {
           preferencesSearchDataShowPage.forEach((item) => {
             if (typeof item === 'object') {
@@ -206,7 +198,6 @@ function ShowDataPage() {
             }
           });
         }
-        logger.log(custom_names, custom_addresses);
         custom_names.forEach((item) => {
           customNamesArray.push({
             name: item.name,
@@ -215,15 +206,11 @@ function ShowDataPage() {
           });
         });
 
-        logger.log(customNamesArray);
-        logger.log(addresses);
         let adresses_request = addresses;
 
         if (searchBarAddress !== '') {
           adresses_request = addresses.concat(searchBarAddress);
         }
-        logger.log(searchBarAddress);
-        logger.log(adresses_request);
         const requestBody = {
           secret: id,
           language: i18n.language,
@@ -232,7 +219,6 @@ function ShowDataPage() {
           requested_objects: customNamesArray,
           requested_addresses: custom_addresses,
         };
-        logger.log(requestBody);
         const response = await fetch(`${api.APP_URL_USER_API}user/save`, {
           method: 'POST',
           headers: {
@@ -243,7 +229,6 @@ function ShowDataPage() {
 
         if (response.ok) {
           const data = await response.json();
-          logger.log(data);
         } else {
           console.error('Error getting report:', response.statusText);
           throw new Error(response.statusText);
@@ -263,6 +248,12 @@ function ShowDataPage() {
   const handleSearchBarChange = (value) => {
     setInput(value);
     setIsResultClicked(false);
+    handleEnterPress();
+  };
+
+  const handleSearchBarChangeCompare = (value) => {
+    setInput(value);
+    setIsResultClicked(true);
     handleEnterPress();
   };
 
@@ -293,9 +284,7 @@ function ShowDataPage() {
   };
 
   const countVisibleCategories = () => {
-    logger.log('Data presaved');
     saveData(cookies.userID, '');
-    logger.log('Data saved');
     let custom_names = [];
     let custom_addresses = [];
     if (preferencesSearchDataShowPage) {
@@ -307,7 +296,6 @@ function ShowDataPage() {
         }
       });
     }
-    logger.log(custom_names, custom_addresses);
     let totalPlacesCount = 0;
     let totalAddressesCount = 0;
 
@@ -329,7 +317,6 @@ function ShowDataPage() {
         }
       });
     }
-    logger.log(categoriesToShow.length, totalAddressesCount);
 
     if (
       categoriesToShow.length === 0 &&
@@ -378,8 +365,6 @@ function ShowDataPage() {
         );
       });
     });
-    logger.log(visibleCategories);
-    logger.log(categoriesToShow);
 
     const percentage =
       ((visibleCategories.length + totalPlacesCount + totalAddressesCount) /
@@ -389,14 +374,7 @@ function ShowDataPage() {
       100;
     // Ustal klasę tekstu w zależności od procentu
     let textClass = '';
-    logger.log(
-      visibleCategories.length,
-      totalPlacesCount,
-      totalAddressesCount,
-      categoriesToShow.length,
-      custom_names.length,
-      custom_addresses.length,
-    );
+
     if (percentage <= 30) {
       textClass = 'red-text';
     } else if (percentage > 30 && percentage < 50) {
@@ -408,7 +386,6 @@ function ShowDataPage() {
     } else if (percentage > 90) {
       textClass = 'green-text';
     }
-    logger.log(percentage);
     if (percentage > 100) {
       return {
         text: '100%',
@@ -423,7 +400,6 @@ function ShowDataPage() {
         percentage: 0,
       };
     }
-    logger.log(percentage);
     return {
       text: `${percentage.toFixed(0)}%`,
       class: textClass,
@@ -557,7 +533,7 @@ function ShowDataPage() {
         setResults={setResults}
         showDataRef={buttonRef}
         inputShowAddress={input}
-        setInputShowData={handleSearchBarChange}
+        setInputShowData={handleSearchBarChangeCompare}
         setIsResultClicked={setIsResultClicked}
         onEnterPress={handleEnterPress}
         ShowDataButtonCompare={'compare'}
@@ -582,6 +558,22 @@ function ShowDataPage() {
                   />
                 </button>
               </Link>
+            </div>
+            <div>
+              <div
+                className="compare-button-show-data-page"
+                onClick={handleCompareWindowOpen}
+              >
+                <div className="compare-button-show-data-page-text">
+                  {t('Compare addresses')}
+                </div>
+                <div className="compare-button-show-data-page-icon">
+                  <Icon
+                    icon="material-symbols-light:balance"
+                    id="compare-icon-button"
+                  />
+                </div>
+              </div>
             </div>
             <div className="widthReportSection">
               <div className="position">
@@ -757,7 +749,7 @@ function ShowDataPage() {
                         ? 'border-bottom show-data-page-search-bar'
                         : 'show-data-page-search-bar'
                     }
-                    ShowDataButtonCompare={'compare'}
+                    ShowDataButtonCompare={''}
                     handleCompareWindowOpen={handleCompareWindowOpen}
                     selectedPreferences={selectedPreferencesShowPage}
                     transformedPreferences={transformedPreferences}

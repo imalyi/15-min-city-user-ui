@@ -20,7 +20,6 @@ export const SearchBar = ({
   transformedPreferences,
   preferencesSearchData,
   ShowDataButtonCompare,
-  handleCompareWindowOpen,
   setAlarm,
   alarm,
 }) => {
@@ -64,7 +63,6 @@ export const SearchBar = ({
         }
       } catch (error) {
         console.error('Error getting address from coordinates:', error);
-        showServerErrorAlert();
       }
     },
     [setIsResultClicked, setResults],
@@ -135,7 +133,6 @@ export const SearchBar = ({
           transformedPreferences={transformedPreferences}
           preferencesSearchData={preferencesSearchData}
           ShowDataButtonCompare={ShowDataButtonCompare}
-          handleCompareWindowOpen={handleCompareWindowOpen}
           setAlarm={setAlarm}
         />
       </div>

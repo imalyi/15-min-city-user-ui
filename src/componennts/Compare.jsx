@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/Compare.css';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
@@ -21,27 +21,41 @@ function Compare() {
   const [requestedAddresses, setRequestedAddresses] = useState([]);
   const [requestedCategories, setRequestedCategories] = useState([]);
   const [mainCategoriesToShow, setMainCategoriesToShow] = useState([]);
+  const [addressData, setAddressData] = useState([]);
+  const categoriesRefs = useRef([]); // Reference to the categories divs
 
-  logger.log(mainCategoriesToShow);
-  /*
-  const custom_addresses = places.custom_addresses
-    ? Object.entries(places.custom_addresses)
-    : null;
-  const custom_objects = places.custom_addresses
-    ? Object.entries(places.custom_objects)
-    : null;
-    */
   const location = useLocation();
   const [cookies, setCookie] = useCookies(['userID']);
   const searchParams = new URLSearchParams(location.search);
   const userId = searchParams.get('userid');
-  logger.log(addresses);
 
   useEffect(() => {
     if (userId) {
       loadData(userId);
     }
   }, []);
+
+  useEffect(() => {
+    // Attach scroll event listeners to each scrollable element
+    categoriesRefs.current.forEach((ref, index) => {
+      ref.addEventListener('scroll', handleScroll(index));
+    });
+  }, [addressData]); // Re-attach listeners if addressData changes
+
+  const handleScroll = (index) => (event) => {
+    const { scrollTop, scrollLeft } = event.target;
+
+    categoriesRefs.current.forEach((ref, i) => {
+      if (i !== index) {
+        ref.scrollTop = scrollTop;
+        ref.scrollLeft = scrollLeft;
+      }
+    });
+  };
+
+  const setCategoryRef = (element, index) => {
+    categoriesRefs.current[index] = element;
+  };
 
   const generateUserID = () => {
     const timestamp = new Date().getTime();
@@ -51,6 +65,7 @@ function Compare() {
     const userID = md5(combinedString);
     return userID;
   };
+
   const handleUserReportClick = async (address) => {
     const id = generateUserID();
     saveData(id);
@@ -74,8 +89,6 @@ function Compare() {
 
       if (response.ok) {
         const data = await response.json();
-        logger.log(data);
-        logger.log(data.request.categories);
         setAddresses(data.request.addresses);
         setRequestedAddresses(data.request.requested_addresses);
         setRequestedObjects(data.request.requested_objects);
@@ -84,8 +97,29 @@ function Compare() {
         setMainCategoriesToShow(
           Object.keys(data.reports[0].points_of_interest),
         );
+        const newAddressData = data.request.addresses.map((address) => {
+          const categories = Object.keys(
+            data.reports[0].points_of_interest,
+          ).map((category) => {
+            return {
+              name: category,
+              percentage: calculatePercentageInCategory(
+                address,
+                category,
+                data.reports,
+                data.request.categories,
+              ),
+            };
+          });
+
+          return {
+            address,
+            categories,
+          };
+        });
+        setAddressData(newAddressData);
+        logger.log(newAddressData);
         i18n.changeLanguage(data.language);
-        logger.log(i18n.language);
       } else {
         console.error('Error getting report:', response.statusText);
         throw new Error(response.statusText);
@@ -105,7 +139,6 @@ function Compare() {
         requested_objects: requestedObjects,
         requested_addresses: requestedAddresses,
       };
-      logger.log(requestBody);
       const response = await fetch(`${api.APP_URL_USER_API}user/save`, {
         method: 'POST',
         headers: {
@@ -116,7 +149,6 @@ function Compare() {
 
       if (response.ok) {
         const data = await response.json();
-        logger.log(data);
       } else {
         console.error('Error getting report:', response.statusText);
         throw new Error(response.statusText);
@@ -126,6 +158,18 @@ function Compare() {
     }
   };
 
+  const getPercentageForAddressAndCategory = (address, category) => {
+    const addressEntry = addressData.find((data) => data.address === address);
+    if (!addressEntry) return null;
+
+    const categoryEntry = addressEntry.categories.find(
+      (cat) => cat.name === category,
+    );
+    if (!categoryEntry) return null;
+
+    return categoryEntry.percentage;
+  };
+
   const countVisibleCategories = (address) => {
     const foundReport = report.find(
       (report) => report.address.full === address,
@@ -133,7 +177,6 @@ function Compare() {
     if (!foundReport || !foundReport.points_of_interest) {
       return '0%';
     }
-    //logger.log(foundReport);
     let totalPlacesCount = 0;
     let totalAddressesCount = 0;
 
@@ -167,9 +210,6 @@ function Compare() {
       }
     }
 
-    //logger.log(categoryCount, totalAddressesCount, totalPlacesCount);
-    //logger.log(requestedCategories.length, requestedAddresses.length, requestedObjects.length);
-
     const percentage =
       ((categoryCount + totalAddressesCount + totalPlacesCount) /
         (requestedCategories.length +
@@ -188,7 +228,46 @@ function Compare() {
     return `${percentage.toFixed(0)}%`;
   };
 
-  const calculatePercentageInCategory = (address, category) => {
+  const isCategoryPercentageHigher = (address, category) => {
+    // Find the entry for the specified address
+    const targetAddressEntry = addressData.find(
+      (data) => data.address === address,
+    );
+    if (!targetAddressEntry) return false;
+
+    // Find the category entry for the specified address
+    const targetCategoryEntry = targetAddressEntry.categories.find(
+      (cat) => cat.name === category,
+    );
+    if (!targetCategoryEntry) return false;
+
+    // Get the percentage for the specified category at the specified address
+    const targetPercentage = parseFloat(targetCategoryEntry.percentage);
+
+    // Compare with the same category at other addresses
+    for (const entry of addressData) {
+      if (entry.address !== address) {
+        const categoryEntry = entry.categories.find(
+          (cat) => cat.name === category,
+        );
+        if (categoryEntry) {
+          const percentage = parseFloat(categoryEntry.percentage);
+          if (targetPercentage < percentage || targetPercentage == 0) {
+            return false; // The target address does not have a higher percentage
+          }
+        }
+      }
+    }
+    return true; // The target address has a higher percentage than all other addresses
+  };
+
+  const calculatePercentageInCategory = (
+    address,
+    category,
+    report,
+    requestedCategories,
+  ) => {
+    logger.log('report', report);
     const foundReport = report.find(
       (report) => report.address.full === address,
     );
@@ -238,15 +317,19 @@ function Compare() {
       }
     });
 
-    logger.log(address, category);
-    logger.log(preferencesCategory.length, countObjects);
-
-    logger.log(categoryCount, placesCategoryCount);
+    logger.log(
+      categoryCount,
+      placesCategoryCount,
+      preferencesCategory.length,
+      countObjects,
+    );
 
     const percentage =
       ((categoryCount + placesCategoryCount) /
         (preferencesCategory.length + countObjects)) *
       100;
+
+    logger.log('percentage', percentage);
 
     if (percentage > 100) {
       return '100%';
@@ -281,15 +364,14 @@ function Compare() {
         distance: -1,
       };
     }
-    logger.log(allPlacesInCategory);
     // Sortujemy miejsca według odległości
     allPlacesInCategory.sort((a, b) => a.distance - b.distance);
-    logger.log(allPlacesInCategory[0]);
     return {
       name: allPlacesInCategory[0].name,
       distance: allPlacesInCategory[0].distance,
     };
   };
+
   return (
     <div className="report">
       <div className="reportContainer">
@@ -329,13 +411,24 @@ function Compare() {
                       <hr className="compare-search-place-hr" />
                     </div>
                   </div>
-                  <div className="categories">
+                  <div
+                    className="categories"
+                    ref={(el) => setCategoryRef(el, index)}
+                  >
                     {mainCategoriesToShow &&
                       mainCategoriesToShow.map((category, index) => (
-                        <div>
+                        <div key={index}>
                           <div className="compare-category-name">
                             {t(category)}{' '}
-                            {calculatePercentageInCategory(address, category)}
+                            {getPercentageForAddressAndCategory(
+                              address,
+                              category,
+                            )}
+                            {isCategoryPercentageHigher(address, category) ? (
+                              <div className="compare-top">
+                                <label className="compare-top-label">TOP</label>
+                              </div>
+                            ) : null}
                           </div>
                           <div className="nearest-place">
                             <div className="compare-nearest-place-name">
@@ -405,7 +498,7 @@ function Compare() {
           </div>
         ) : (
           <div className="compare-main-div">
-            <div class="loader"></div>
+            <div className="loader"></div>
           </div>
         )}
         <Footer useMargin={true} />
