@@ -16,7 +16,6 @@ export const ShowDataButton = React.forwardRef(
       transformedPreferences,
       preferencesSearchData,
       ShowDataButtonCompare,
-      handleCompareWindowOpen,
       setAlarm,
     },
     ref,
@@ -105,21 +104,12 @@ export const ShowDataButton = React.forwardRef(
         />
         <button
           className="show-data-button"
-          onClick={
-            ShowDataButtonCompare === 'compare'
-              ? handleCompareWindowOpen
-              : handleUserLocationClick
-          }
+          onClick={ handleUserLocationClick }
           title={t('Show results')}
         >
-          {ShowDataButtonCompare === 'compare' ? (
-            <Icon
-              icon="material-symbols-light:balance"
-              id="compare-icon-button"
-            />
-          ) : (
+          {
             <Icon icon="carbon:search" id="search-icon-button" />
-          )}
+          }
         </button>
       </div>
     );

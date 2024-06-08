@@ -251,6 +251,13 @@ function ShowDataPage() {
     handleEnterPress();
   };
 
+  const handleSearchBarChangeCompare = (value) => {
+    setInput(value);
+    setIsResultClicked(true);
+    handleEnterPress();
+  };
+
+
   const handleUserLocationUpdate = (address, lat, lng) => {
     setInput(`${address[0].address}`);
     setSelectedCoordinatesShowPage([lat, lng]);
@@ -527,7 +534,7 @@ function ShowDataPage() {
         setResults={setResults}
         showDataRef={buttonRef}
         inputShowAddress={input}
-        setInputShowData={handleSearchBarChange}
+        setInputShowData={handleSearchBarChangeCompare}
         setIsResultClicked={setIsResultClicked}
         onEnterPress={handleEnterPress}
         ShowDataButtonCompare={'compare'}
@@ -552,6 +559,21 @@ function ShowDataPage() {
                   />
                 </button>
               </Link>
+            </div>
+            <div>
+              <div className="compare-button-show-data-page" onClick={handleCompareWindowOpen}>
+                <div className='compare-button-show-data-page-text'>
+                  {t(
+                    'Compare addresses',
+                  )}
+                </div>
+                <div className='compare-button-show-data-page-icon'>
+                  <Icon
+                    icon="material-symbols-light:balance"
+                    id="compare-icon-button"
+                  />
+                </div>
+              </div>
             </div>
             <div className="widthReportSection">
               <div className="position">
@@ -727,7 +749,7 @@ function ShowDataPage() {
                         ? 'border-bottom show-data-page-search-bar'
                         : 'show-data-page-search-bar'
                     }
-                    ShowDataButtonCompare={'compare'}
+                    ShowDataButtonCompare={''}
                     handleCompareWindowOpen={handleCompareWindowOpen}
                     selectedPreferences={selectedPreferencesShowPage}
                     transformedPreferences={transformedPreferences}
