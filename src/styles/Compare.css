@@ -90,6 +90,7 @@
 }
 
 .compare-category-name {
+  display:flex;
   margin-left: 3vh;
   margin-top: 1vh;
   font-family: Lato;
@@ -185,6 +186,28 @@
   margin: auto; /* Wyśrodkowanie kółka */
 }
 
+.compare-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Lato;
+  background-color: #3044CA;
+  border-radius: 8px;
+  margin-left: 3vh;
+}
+
+.compare-top-label{
+  font-size: 2vh;
+  font-weight: 400;
+  line-height: 19.2px;
+  color: #F0F8FF;
+  padding-left: 0.8vh;
+  padding-right: 0.8vh;
+  padding-top: 0.3vw;
+  padding-bottom: 0.3vw;
+  margin-bottom: 0px;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -222,6 +245,7 @@
     font-weight: 600;
     line-height: 28.8px;
     text-align: left;
+    display: flex;
   }
 
   .preference-item-distance {
@@ -353,9 +377,30 @@
 }
 
 @media only screen and (max-width: 700px) {
+  .compare-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Lato;
+    background-color: #3044CA;
+    border-radius: 8px;
+    margin-left: 1vh;
+  }
+  
+  .compare-top-label{
+    font-size: 1vh;
+    font-weight: 400;
+    line-height: 19.2px;
+    color: #F0F8FF;
+    padding-left: 0.4vh;
+    padding-right: 0.4vh;
+    padding-top: 0.2vw;
+    padding-bottom: 0.2vw;
+    margin-bottom: 0px;
+  }
   .match-div {
     font-family: Lato;
-    font-size: 1.5vh;
+    font-size: 2vh;
     font-weight: 500;
     line-height: 28.8px;
     text-align: left;
@@ -365,7 +410,7 @@
 
   .address-name {
     font-family: Lato;
-    font-size: 1.5vh;
+    font-size: 2vh;
     font-weight: 600;
     line-height: 28.8px;
     text-align: left;
@@ -374,9 +419,9 @@
   }
   .compare-category-name {
     margin-left: 3vh;
-    margin-top: 1vh;
+    margin-top: 0vh;
     font-family: Lato;
-    font-size: 1.5vh;
+    font-size: 2vh;
     font-weight: 600;
     line-height: 28.8px;
     text-align: left;
@@ -384,7 +429,7 @@
 
   .preference-item-distance {
     font-family: Lato;
-    font-size: 1.5vh;
+    font-size: 2vh;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -393,7 +438,7 @@
   }
   .compare-nearest-place-name {
     font-family: Lato;
-    font-size: 1.5vh;
+    font-size: 2vh;
     font-weight: 400;
     line-height: 28.8px;
     text-align: left;
@@ -431,7 +476,8 @@
   }
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 400px) {
+
   .match-div {
     font-family: Lato;
     font-size: 1.5vh;

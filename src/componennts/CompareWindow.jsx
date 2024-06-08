@@ -27,25 +27,21 @@ const CompareWindow = ({
   const [input, setInput] = useState('');
   const [isResultClicked, setIsResultClicked] = useState(true);
   const [addresses, setAddresses] = useState(addressesShowData);
-  logger.log(addressesShowData);
   const [alarm, setAlarm] = useState('');
   const [cookies, setCookie] = useCookies(['userID']);
   const [isNotAddressLoaded, setIsNotAddressLoaded] = useState(true);
   const userId = cookies.userID;
-  logger.log(isNotAddressLoaded);
   useEffect(() => {
     if (addressesShowData) {
       setAddresses(addressesShowData);
     }
     if (addressesShowData.length === 0 && isNotAddressLoaded) {
-      logger.log(addresses);
       setAddresses([...addressesShowData, addressInput]);
       setIsNotAddressLoaded(false);
     }
   }, [addressesShowData]);
 
   const reportUrl = `/compare?userid=${userId}`;
-  logger.log(selectedPreferences, preferencesSearchData);
   const handleCompareButton = () => {
     if (addresses.length < 2) {
       setAlarm(t('You need to add at least 2 addresses to compare them'));
@@ -112,7 +108,6 @@ const CompareWindow = ({
       }, 10); // Czas w milisekundach (tutaj 100000ms = 100s)
     }
   };
-  logger.log(isResultClicked);
   if (!isOpen) return null;
   return (
     <div className="modal-overlay">
