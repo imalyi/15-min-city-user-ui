@@ -15,11 +15,7 @@
     height: 3vh;
     width: 3vh;
   }
-  #compare-icon-button {
-    color: #24254c;
-    height: 3vh;
-    width: 3vh;
-  }
+
 }
 
 @media only screen and (min-width: 851px) {
@@ -27,10 +23,5 @@
     color: #f8718a;
     height: 4vh;
     width: 4vh;
-  }
-  #compare-icon-button {
-    color: #24254c;
-    height: 4.5vh;
-    width: 4.5vh;
   }
 }
