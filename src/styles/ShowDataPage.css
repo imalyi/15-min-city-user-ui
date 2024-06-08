@@ -695,18 +695,18 @@ html {
 
 .compare-button-show-data-page {
   background-color: #f0f8ff;
-  border: 1px solid #3044CA;
+  border: 1px solid #3044ca;
   border-radius: 8px;
   display: flex;
   align-items: center;
   margin-top: 4vh;
-  right:0;
+  right: 0;
   position: absolute;
   margin-right: 47vh;
   cursor: pointer;
 }
 
-.compare-button-show-data-page-text{
+.compare-button-show-data-page-text {
   font-family: Lato;
   font-size: 3vh;
   font-weight: 400;
@@ -718,7 +718,7 @@ html {
   padding-bottom: 1.9vh;
 }
 
-.compare-button-show-data-page-icon{
+.compare-button-show-data-page-icon {
   padding-right: 3.5vh;
   padding-top: 1vh;
 }
@@ -732,18 +732,18 @@ html {
 @media only screen and (max-width: 1300px) {
   .compare-button-show-data-page {
     background-color: #f0f8ff;
-    border: 1px solid #3044CA;
+    border: 1px solid #3044ca;
     border-radius: 8px;
     display: flex;
     align-items: center;
     margin-top: 2vh;
-    right:0;
+    right: 0;
     position: absolute;
     margin-right: 32vh;
     height: 6vh;
   }
-  
-  .compare-button-show-data-page-text{
+
+  .compare-button-show-data-page-text {
     font-family: Lato;
     font-size: 2vh;
     font-weight: 400;
@@ -754,18 +754,18 @@ html {
     padding-top: 1.9vh;
     padding-bottom: 2vh;
   }
-  
-  .compare-button-show-data-page-icon{
+
+  .compare-button-show-data-page-icon {
     padding-right: 2vh;
     padding-top: 1vh;
   }
-  
+
   #compare-icon-button {
     color: #24254c;
     height: 3.5vh;
     width: 3.5vh;
   }
-  
+
   .show-data-page-search-result-list {
     position: absolute;
     margin-left: 3vh;
@@ -1033,18 +1033,18 @@ html {
 @media only screen and (max-width: 800px) {
   .compare-button-show-data-page {
     background-color: #f0f8ff;
-    border: 1px solid #3044CA;
+    border: 1px solid #3044ca;
     border-radius: 8px;
     display: flex;
     align-items: center;
     margin-top: 2vh;
-    right:0;
+    right: 0;
     position: absolute;
     margin-right: 24vh;
     height: 5vh;
   }
-  
-  .compare-button-show-data-page-text{
+
+  .compare-button-show-data-page-text {
     font-family: Lato;
     font-size: 1.5vh;
     font-weight: 400;
@@ -1055,18 +1055,18 @@ html {
     padding-top: 1.9vh;
     padding-bottom: 2vh;
   }
-  
-  .compare-button-show-data-page-icon{
+
+  .compare-button-show-data-page-icon {
     padding-right: 1.5vh;
     padding-top: 1vh;
   }
-  
+
   #compare-icon-button {
     color: #24254c;
     height: 3.5vh;
     width: 3.5vh;
   }
-  
+
   .show-data-page-search-result-list {
     position: absolute;
     margin-left: 1vh;

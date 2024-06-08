@@ -104,12 +104,10 @@ export const ShowDataButton = React.forwardRef(
         />
         <button
           className="show-data-button"
-          onClick={ handleUserLocationClick }
+          onClick={handleUserLocationClick}
           title={t('Show results')}
         >
-          {
-            <Icon icon="carbon:search" id="search-icon-button" />
-          }
+          {<Icon icon="carbon:search" id="search-icon-button" />}
         </button>
       </div>
     );

@@ -37,7 +37,7 @@ function Report() {
   const userId = searchParams.get('userid');
   const [selectedCategoryPreferences, setselectedCategoryPreferences] =
     useState(null);
-  logger.log(selectedCategoryPreferences, "aaa")
+  logger.log(selectedCategoryPreferences, 'aaa');
   const [selectedAddressPreferences, setselectedAddressPreferences] =
     useState(false);
   const [selectedObjectPreferences, setselectedObjectPreferences] =
@@ -59,42 +59,39 @@ function Report() {
     setselectedObjectPreferences(false);
   };
   const handleCategoryClick = (category) => {
-    logger.log(places)
+    logger.log(places);
 
-    setselectedCategoryPreferences(places[category], "bbb");
-    logger.log(places[category])
+    setselectedCategoryPreferences(places[category], 'bbb');
+    logger.log(places[category]);
     setselectedCategory(category);
     setselectedAddressPreferences(false);
     setselectedObjectPreferences(false);
   };
 
-
   const handleLoadDataCategorySelected = (category, places) => {
-    logger.log(places)
-    if (category === "custom_addresses") {
-      handleAddressClick()
-    } else if (category === "custom_objects") {
-      handleObjectClick()
-    } else if (places !== null){
-      logger.log(places)
+    logger.log(places);
+    if (category === 'custom_addresses') {
+      handleAddressClick();
+    } else if (category === 'custom_objects') {
+      handleObjectClick();
+    } else if (places !== null) {
+      logger.log(places);
       setselectedCategoryPreferences(places[category]);
-      logger.log(places[category])
+      logger.log(places[category]);
       setselectedCategory(category);
       setselectedAddressPreferences(false);
       setselectedObjectPreferences(false);
     }
-
   };
-
 
   useEffect(() => {
     if (userId) {
       loadData(userId);
     }
   }, []);
-  logger.log(selectedCategory)
-  logger.log(selectedAddressPreferences)
-  logger.log(selectedObjectPreferences)
+  logger.log(selectedCategory);
+  logger.log(selectedAddressPreferences);
+  logger.log(selectedObjectPreferences);
   const loadData = async (id) => {
     try {
       const response = await fetch(
@@ -115,7 +112,6 @@ function Report() {
           (report) => report.address.full === address,
         );
         if (reportWithRequestedAddress) {
-
           // Jeśli znaleziono raport z odpowiednim adresem, ustawiamy dane
           setCustomAddresses(reportWithRequestedAddress.custom_addresses);
           setCustomObject(reportWithRequestedAddress.custom_objects);
@@ -127,8 +123,6 @@ function Report() {
           logger.log(reportWithRequestedAddress.custom_objects);
           logger.log(data.request.requested_addresses);
           i18n.changeLanguage(reportWithRequestedAddress.language);
-
-
 
           setAllPreferences(() => {
             return reportWithRequestedAddress.points_of_interest
@@ -145,27 +139,42 @@ function Report() {
               : [];
           });
           const allObjectsLoad = [];
-          Object.keys(reportWithRequestedAddress.custom_objects).forEach((categoryName) => {
-            Object.keys(reportWithRequestedAddress.custom_objects[categoryName]).forEach((subcategoryName) => {
-              reportWithRequestedAddress.custom_objects[categoryName][subcategoryName].forEach((item) => {
-                allObjectsLoad.push({
-                  name: item.name,
-                  location: item.location,
-                  address: item.address,
-                  distance: item.distance,
+          Object.keys(reportWithRequestedAddress.custom_objects).forEach(
+            (categoryName) => {
+              Object.keys(
+                reportWithRequestedAddress.custom_objects[categoryName],
+              ).forEach((subcategoryName) => {
+                reportWithRequestedAddress.custom_objects[categoryName][
+                  subcategoryName
+                ].forEach((item) => {
+                  allObjectsLoad.push({
+                    name: item.name,
+                    location: item.location,
+                    address: item.address,
+                    distance: item.distance,
+                  });
                 });
               });
-            });
-          });
+            },
+          );
           if (reportWithRequestedAddress.custom_addresses.length > 0) {
-            handleLoadDataCategorySelected("custom_addresses", null)
-            logger.log('handleAddressClick')
-          } else if (Object.keys(reportWithRequestedAddress.custom_objects).length > 0 && allObjectsLoad.length > 0) {
-            handleLoadDataCategorySelected("custom_objects", null)
-            logger.log('handleObjectClick')
+            handleLoadDataCategorySelected('custom_addresses', null);
+            logger.log('handleAddressClick');
+          } else if (
+            Object.keys(reportWithRequestedAddress.custom_objects).length > 0 &&
+            allObjectsLoad.length > 0
+          ) {
+            handleLoadDataCategorySelected('custom_objects', null);
+            logger.log('handleObjectClick');
           } else {
-            handleLoadDataCategorySelected(Object.keys(reportWithRequestedAddress.points_of_interest)[0], reportWithRequestedAddress.points_of_interest)
-            logger.log('handleCategoryClick', reportWithRequestedAddress.points_of_interest)
+            handleLoadDataCategorySelected(
+              Object.keys(reportWithRequestedAddress.points_of_interest)[0],
+              reportWithRequestedAddress.points_of_interest,
+            );
+            logger.log(
+              'handleCategoryClick',
+              reportWithRequestedAddress.points_of_interest,
+            );
           }
         }
       } else {
@@ -190,7 +199,7 @@ function Report() {
       });
     });
   });
-  logger.log(allObjects)
+  logger.log(allObjects);
   const handlePreferencesClick = (category) => {
     // Aktualizacja wartości value na false po kliknięciu
     setAllPreferences((prevPreferences) =>
@@ -222,7 +231,6 @@ function Report() {
       easing: 'easeInOutQuad', // Rodzaj interpolacji animacji
     });
   };
-
 
   return (
     <div className="report">

@@ -40,7 +40,6 @@ function Compare() {
     categoriesRefs.current.forEach((ref, index) => {
       ref.addEventListener('scroll', handleScroll(index));
     });
-
   }, [addressData]); // Re-attach listeners if addressData changes
 
   const handleScroll = (index) => (event) => {
@@ -60,7 +59,8 @@ function Compare() {
 
   const generateUserID = () => {
     const timestamp = new Date().getTime();
-    const randomNumber = Math.floor(Math.random() * (999999999 - 1000 + 1)) + 1000;
+    const randomNumber =
+      Math.floor(Math.random() * (999999999 - 1000 + 1)) + 1000;
     const combinedString = timestamp.toString() + randomNumber.toString();
     const userID = md5(combinedString);
     return userID;
@@ -69,7 +69,9 @@ function Compare() {
   const handleUserReportClick = async (address) => {
     const id = generateUserID();
     saveData(id);
-    const reportUrl = `/report?userid=${id}&address=${encodeURIComponent(address)}`;
+    const reportUrl = `/report?userid=${id}&address=${encodeURIComponent(
+      address,
+    )}`;
     window.open(reportUrl, '_blank');
   };
 
@@ -82,7 +84,7 @@ function Compare() {
           headers: {
             'Content-Type': 'application/json',
           },
-        }
+        },
       );
 
       if (response.ok) {
@@ -92,12 +94,21 @@ function Compare() {
         setRequestedObjects(data.request.requested_objects);
         setRequestedCategories(data.request.categories);
         setReport(data.reports);
-        setMainCategoriesToShow(Object.keys(data.reports[0].points_of_interest));
+        setMainCategoriesToShow(
+          Object.keys(data.reports[0].points_of_interest),
+        );
         const newAddressData = data.request.addresses.map((address) => {
-          const categories = Object.keys(data.reports[0].points_of_interest).map((category) => {
+          const categories = Object.keys(
+            data.reports[0].points_of_interest,
+          ).map((category) => {
             return {
               name: category,
-              percentage: calculatePercentageInCategory(address, category, data.reports, data.request.categories),
+              percentage: calculatePercentageInCategory(
+                address,
+                category,
+                data.reports,
+                data.request.categories,
+              ),
             };
           });
 
@@ -107,7 +118,7 @@ function Compare() {
           };
         });
         setAddressData(newAddressData);
-        logger.log(newAddressData)
+        logger.log(newAddressData);
         i18n.changeLanguage(data.language);
       } else {
         console.error('Error getting report:', response.statusText);
@@ -151,7 +162,9 @@ function Compare() {
     const addressEntry = addressData.find((data) => data.address === address);
     if (!addressEntry) return null;
 
-    const categoryEntry = addressEntry.categories.find((cat) => cat.name === category);
+    const categoryEntry = addressEntry.categories.find(
+      (cat) => cat.name === category,
+    );
     if (!categoryEntry) return null;
 
     return categoryEntry.percentage;
@@ -159,7 +172,7 @@ function Compare() {
 
   const countVisibleCategories = (address) => {
     const foundReport = report.find(
-      (report) => report.address.full === address
+      (report) => report.address.full === address,
     );
     if (!foundReport || !foundReport.points_of_interest) {
       return '0%';
@@ -217,11 +230,15 @@ function Compare() {
 
   const isCategoryPercentageHigher = (address, category) => {
     // Find the entry for the specified address
-    const targetAddressEntry = addressData.find((data) => data.address === address);
+    const targetAddressEntry = addressData.find(
+      (data) => data.address === address,
+    );
     if (!targetAddressEntry) return false;
 
     // Find the category entry for the specified address
-    const targetCategoryEntry = targetAddressEntry.categories.find((cat) => cat.name === category);
+    const targetCategoryEntry = targetAddressEntry.categories.find(
+      (cat) => cat.name === category,
+    );
     if (!targetCategoryEntry) return false;
 
     // Get the percentage for the specified category at the specified address
@@ -230,10 +247,12 @@ function Compare() {
     // Compare with the same category at other addresses
     for (const entry of addressData) {
       if (entry.address !== address) {
-        const categoryEntry = entry.categories.find((cat) => cat.name === category);
+        const categoryEntry = entry.categories.find(
+          (cat) => cat.name === category,
+        );
         if (categoryEntry) {
           const percentage = parseFloat(categoryEntry.percentage);
-          if (targetPercentage < percentage || (targetPercentage == 0)) {
+          if (targetPercentage < percentage || targetPercentage == 0) {
             return false; // The target address does not have a higher percentage
           }
         }
@@ -242,10 +261,15 @@ function Compare() {
     return true; // The target address has a higher percentage than all other addresses
   };
 
-  const calculatePercentageInCategory = (address, category, report, requestedCategories) => {
-    logger.log('report', report)
+  const calculatePercentageInCategory = (
+    address,
+    category,
+    report,
+    requestedCategories,
+  ) => {
+    logger.log('report', report);
     const foundReport = report.find(
-      (report) => report.address.full === address
+      (report) => report.address.full === address,
     );
     if (!foundReport || !foundReport.points_of_interest) {
       return '0%';
@@ -255,7 +279,7 @@ function Compare() {
     if (foundReport.custom_objects) {
       Object.keys(foundReport.custom_objects).forEach((category) => {
         placesCounts[category] = Object.values(
-          foundReport.custom_objects[category]
+          foundReport.custom_objects[category],
         ).reduce((total, preferences) => {
           return total + preferences.length;
         }, 0);
@@ -282,7 +306,7 @@ function Compare() {
       }
     }
     const preferencesCategory = requestedCategories.filter(
-      (item) => item.main_category === category
+      (item) => item.main_category === category,
     );
 
     let countObjects = 0;
@@ -293,14 +317,19 @@ function Compare() {
       }
     });
 
-    logger.log(categoryCount, placesCategoryCount, preferencesCategory.length, countObjects)
+    logger.log(
+      categoryCount,
+      placesCategoryCount,
+      preferencesCategory.length,
+      countObjects,
+    );
 
     const percentage =
       ((categoryCount + placesCategoryCount) /
         (preferencesCategory.length + countObjects)) *
       100;
 
-    logger.log('percentage', percentage)
+    logger.log('percentage', percentage);
 
     if (percentage > 100) {
       return '100%';
@@ -313,7 +342,7 @@ function Compare() {
 
   const findNearestPlace = (address, category) => {
     const foundReport = report.find(
-      (report) => report.address.full === address
+      (report) => report.address.full === address,
     );
     if (
       !foundReport ||
@@ -369,8 +398,8 @@ function Compare() {
                     addresses.length === 2
                       ? 'address-div-2'
                       : addresses.length === 3
-                      ? 'address-div-3'
-                      : ''
+                        ? 'address-div-3'
+                        : ''
                   }
                 >
                   <div className="main-info">
@@ -382,13 +411,19 @@ function Compare() {
                       <hr className="compare-search-place-hr" />
                     </div>
                   </div>
-                  <div className="categories" ref={(el) => setCategoryRef(el, index)}>
+                  <div
+                    className="categories"
+                    ref={(el) => setCategoryRef(el, index)}
+                  >
                     {mainCategoriesToShow &&
                       mainCategoriesToShow.map((category, index) => (
                         <div key={index}>
                           <div className="compare-category-name">
                             {t(category)}{' '}
-                            {getPercentageForAddressAndCategory(address, category)}
+                            {getPercentageForAddressAndCategory(
+                              address,
+                              category,
+                            )}
                             {isCategoryPercentageHigher(address, category) ? (
                               <div className="compare-top">
                                 <label className="compare-top-label">TOP</label>
@@ -400,7 +435,8 @@ function Compare() {
                               {t(findNearestPlace(address, category).name)}
                             </div>
                             <div className="preference-item-distance">
-                              {findNearestPlace(address, category).distance !== -1 ? (
+                              {findNearestPlace(address, category).distance !==
+                              -1 ? (
                                 <>
                                   <div>
                                     <Icon
@@ -410,7 +446,11 @@ function Compare() {
                                   </div>
                                   <div className="compare-distance-item">
                                     <div className="compare-time">
-                                      {Math.ceil(findNearestPlace(address, category).distance / 83)} min
+                                      {Math.ceil(
+                                        findNearestPlace(address, category)
+                                          .distance / 83,
+                                      )}{' '}
+                                      min
                                     </div>
                                   </div>
                                 </>
@@ -428,7 +468,11 @@ function Compare() {
                                     style={{ color: '#dce6fa' }}
                                   >
                                     <div className="compare-time">
-                                      {Math.ceil(findNearestPlace(address, category).distance / 83)} min
+                                      {Math.ceil(
+                                        findNearestPlace(address, category)
+                                          .distance / 83,
+                                      )}{' '}
+                                      min
                                     </div>
                                   </div>
                                 </>

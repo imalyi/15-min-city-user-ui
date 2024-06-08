@@ -257,7 +257,6 @@ function ShowDataPage() {
     handleEnterPress();
   };
 
-
   const handleUserLocationUpdate = (address, lat, lng) => {
     setInput(`${address[0].address}`);
     setSelectedCoordinatesShowPage([lat, lng]);
@@ -561,13 +560,14 @@ function ShowDataPage() {
               </Link>
             </div>
             <div>
-              <div className="compare-button-show-data-page" onClick={handleCompareWindowOpen}>
-                <div className='compare-button-show-data-page-text'>
-                  {t(
-                    'Compare addresses',
-                  )}
+              <div
+                className="compare-button-show-data-page"
+                onClick={handleCompareWindowOpen}
+              >
+                <div className="compare-button-show-data-page-text">
+                  {t('Compare addresses')}
                 </div>
-                <div className='compare-button-show-data-page-icon'>
+                <div className="compare-button-show-data-page-icon">
                   <Icon
                     icon="material-symbols-light:balance"
                     id="compare-icon-button"
