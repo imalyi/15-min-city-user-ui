@@ -550,7 +550,7 @@ function ShowDataPage() {
           <div className="search-bar-container-show-data">
             <div>
               <Link to="/">
-                <button className="logo" title={t('Search Page')}>
+                <button className="logo-show-data" title={t('Search Page')}>
                   <img
                     src={'/images/15min_logo.svg'}
                     alt="Red Cross"

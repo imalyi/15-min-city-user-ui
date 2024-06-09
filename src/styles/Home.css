@@ -89,8 +89,8 @@ html::-webkit-scrollbar-thumb {
     min-width: 200px;
   }
   .logo_home {
-    margin-left: 3vw;
-    margin-top: 4vh;
+    margin-left: 1.5vw;
+    margin-top: 2.5vh;
     width: 64px;
     height: 6vh;
     border: none;
