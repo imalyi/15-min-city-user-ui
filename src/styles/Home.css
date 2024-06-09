@@ -89,8 +89,8 @@ html::-webkit-scrollbar-thumb {
     min-width: 200px;
   }
   .logo_home {
-    margin-left: 2vh;
-    margin-top: 3vh;
+    margin-left: 3vw;
+    margin-top: 4vh;
     width: 64px;
     height: 6vh;
     border: none;
@@ -141,7 +141,7 @@ html::-webkit-scrollbar-thumb {
 
   .home-description-third-title {
     max-width: 80vw;
-    margin-top: 5vh;
+    margin-top: 3vh;
     margin-left: 3vh;
     color: var(--primary, #24254c);
     font-family: 'Lato', sans-serif;
@@ -152,7 +152,7 @@ html::-webkit-scrollbar-thumb {
   }
 }
 
-@media only screen and (min-width: 851px) {
+@media only screen and (min-width: 850px) {
   .search-bar-container {
     flex: 1;
     display: flex;
@@ -161,8 +161,8 @@ html::-webkit-scrollbar-thumb {
     min-width: 200px;
   }
   .logo_home {
-    margin-left: 5.5vh;
-    margin-top: 3vh;
+    margin-left: 2vw;
+    margin-top: 4vh;
     height: 8vh;
     border: none;
     background-color: #f0f8ff;
@@ -212,7 +212,7 @@ html::-webkit-scrollbar-thumb {
 
   .home-description-third-title {
     width: 70vh;
-    margin-top: 7vh;
+    margin-top: 5vh;
     margin-left: 5.5vh;
     color: var(--primary, #24254c);
     font-family: 'Lato', sans-serif;
