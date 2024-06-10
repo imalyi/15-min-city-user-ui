@@ -78,6 +78,15 @@
   background-color: #a1abbf; /* Kolor "kciuka" paska przewijania */
 }
 
+.margin-right-report{
+  margin-right: 4vw;
+
+}
+
+.margin-left-report{
+  margin-left: 4vw;
+}
+
 .rightReport {
   background-color: #dce6fa;
   height: 73.5vh;
@@ -220,7 +229,6 @@
 }
 .preferenceLabel {
   cursor: pointer;
-  margin-top: 0.2vh;
   font-family: Lato;
   font-size: 3vh;
   font-style: normal;
@@ -290,6 +298,20 @@
   margin-bottom: 1vh;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
+.preferenceItem-responsible {
+  background-color: #dce6fa;
+  border-radius: 8px;
+  border: 1px solid #dce6fa;
+  padding: 1.5vh;
+  padding-bottom: 1vh;
+  margin-right: 2vw;
+  margin-top: 1vh;
+  margin-left: 2vw;
+  margin-bottom: 1vh;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  flex-direction: column;
+  display: flex;
+}
 .preferenceItemName {
   margin-top: 0.2vh;
   font-family: Lato;
@@ -324,6 +346,16 @@
   margin-top: 2vh;
   font-family: Lato;
   font-size: 3vh;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  flex-direction: row;
+  display: flex;
+}
+
+.preferenceAddressItemDistance-without-margin-top{
+  font-family: Lato;
+  font-size: 2vh;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -385,6 +417,118 @@
   background-color: #a1abbf; /* Kolor "kciuka" paska przewijania */
 }
 
+.report-choose-main{
+  width: 94vw;
+  height: 6vh;
+  background-color: #dce6fa;
+  border-radius: 8px;
+  margin-top: 2vh;
+  margin-left: 3vw;
+  margin-right: 3wh;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.report-choose-main-border-bottom{
+  width: 94vw;
+  height: 6vh;
+  background-color: #dce6fa;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-top: 2vh;
+  margin-left: 3vw;
+  margin-right: 3wh;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.report-selected-category{
+  width: 90vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.report-selected-category-label{
+  margin-top: 0.5vh;
+  margin-left: 2vh;
+  font-family: Lato;
+  font-size: 2vh;
+  font-weight: 600;
+  line-height: 14.4px;
+  text-align: left;
+}
+
+.report-choose-toggle{
+  position: absolute;
+  width: 94vw;
+  overflow-y: scroll;
+  background-color: #dce6fa;
+  z-index: 10;
+  margin-left: 3vw;
+  margin-right: 3wh;
+  box-shadow: 0px 6px 24px 0px #3044CA1A;
+}
+
+.toggleCategorySection{
+  width: 4vw;
+  height: 4vh;
+}
+
+.report-category-hr{
+  border-top: 0px;
+  margin-left: 4vw;
+  margin-right: 4vw;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  background-color: #bcc6da;
+  height: 1px;
+}
+
+.report-category-hr-color{
+  margin-right: 3vw;
+  margin-left: 3vw;
+  background-color: #dce6fa;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+
+.report-category-item{
+  padding-left: 2vh;
+  font-family: Lato;
+  font-size: 2vh;
+  font-weight: 600;
+  line-height: 14.4px;
+  text-align: left;
+  padding-top: 1.5vh;
+  padding-bottom: 1.5vh;
+  transition: background-color 0.3s ease; /* Smooth transition for color change */
+  display: flex;
+  align-items: center;
+}
+
+.report-category-item:hover {
+  background-color: #BCC6DA; /* Change this to the color you want on hover */
+}
+
+.addressDistances-address-responsewness{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.address-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
 @media only screen and (max-width: 850px) {
   .preferenceName {
     cursor: pointer;
@@ -399,7 +543,7 @@
     margin-right: 0.5vw;
     color: white;
   }
-
+  
   .addressName {
     font-family: Lato, sans-serif;
     font-size: 2vh;
@@ -449,7 +593,6 @@
 
   .preferenceLabel {
     cursor: pointer;
-    margin-top: 0.2vh;
     font-family: Lato;
     font-size: 2vh;
     font-style: normal;
@@ -520,27 +663,88 @@
   }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 450px) {
   .preferenceName {
     cursor: pointer;
     display: flex;
     text-align: center;
     align-items: center;
-    height: 6vh;
+    height: 4vh;
     background-color: #3044ca;
     border-radius: 8px;
     border: 1px solid #3044ca;
-    padding: 1vw;
+    padding: 1vh;
     margin-right: 0.5vw;
     color: white;
   }
+  .preferenceNameDisabled {
+    cursor: pointer;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    height: 4vh;
+    background-color: #dce6fa;
+    border-radius: 8px;
+    border: 1px solid #3044ca;
+    padding: 1vh;
+    margin-right: 0.5vw;
+    justify-content: center;
 
-  .addressName {
-    font-family: Lato, sans-serif;
+  }
+  .preferenceLabel {
+    cursor: pointer;
+    font-family: Lato;
     font-size: 1.5vh;
     font-style: normal;
-    font-weight: 600;
-    margin-left: 3vh;
+    font-weight: 500;
+    line-height: normal;
+  }
+  .chooseAddress {
+    background-color: #dce6fa;
+    border-radius: 8px;
+    width: 70vw;
+    align-items: center;
+    display: flex;
+    margin-top: 4vh;
+    margin-right: 2vw;
+  }
+  .scrollButtonLeft {
+    position: absolute;
+    height: 4vh;
+    margin-top: 0vh;
+    z-index: 2; /* Zwiększenie wartości z-index */
+    align-items: center;
+    display: flex;
+  }
+  .scrollButtonRight {
+    position: absolute;
+    height: 4vh;
+    margin-top: 0vh;
+    margin-left: 88vw;
+    z-index: 2; /* Zwiększenie wartości z-index */
+    align-items: center;
+    display: flex;
+  }
+  #expand-left {
+    cursor: pointer;
+    color: #24254c;
+    height: 6vh;
+    width: 6vw;
+    z-index: 10;
+  }
+  
+  #expand-right {
+    cursor: pointer;
+    color: #24254c;
+    height: 6vh;
+    width: 6vw;
+    z-index: 10;
+  }
+  .margin-right-report{
+    margin-right: 4vw;
+  }
+  .margin-left-report{
+    margin-left: 6vw;
   }
   .categoryName {
     text-align: center;
@@ -582,19 +786,11 @@
     color: #99a0a9;
   }
 
-  .preferenceLabel {
-    cursor: pointer;
-    margin-top: 0.2vh;
-    font-family: Lato;
-    font-size: 1.5vh;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
+
   .preferenceItemName {
     margin-top: 0.2vh;
     font-family: Lato;
-    font-size: 1.5vh;
+    font-size: 2vh;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -603,7 +799,7 @@
   .preferenceItemAddress {
     margin-top: 2vh;
     font-family: Lato;
-    font-size: 1.5vh;
+    font-size: 1.7vh;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -650,7 +846,88 @@
     color: #f8718a;
     height: 3vh;
     width: 3vh;
-    margin-top: 2vh;
+    margin-top: 0vh;
     margin-right: 1.5vh;
+  }
+  
+  .reportMain {
+    display: initial;
+    justify-content: initial;
+  }
+  .rightReport {
+    background-color: #dce6fa;
+    height: 73.5vh;
+    width: 94vw;
+    border-radius: 8px;
+    margin-right: 3vw;
+    margin-left: 3vw;
+    margin-top: 2vh;
+  }
+  .logo {
+    margin-left: 1.5vw;
+    margin-top: 2vh;
+    width: 64px;
+    height: 6vh;
+    background-color: #f0f8ff;
+    border: none;
+    border-radius: 8px;
+  }
+  .chooseAddress {
+    background-color: #dce6fa;
+    border-radius: 8px;
+    width: 70vw;
+    align-items: center;
+    display: flex;
+    margin-top: 2vh;
+    margin-right: 3vw;
+    height: 6vh;
+
+  }
+
+  .addressName {
+    font-family: Lato, sans-serif;
+    font-size: 1.7vh;
+    font-style: normal;
+    font-weight: 600;
+    margin-left: 2vh;
+  }
+
+  .selected-category-container::before,
+  .selected-category-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 7vw; /* Szerokość obszaru do rozmazania */
+    height: 110%;
+    z-index: 1;
+    pointer-events: none; /* Wyłączamy interakcję z tymi elementami */
+  }
+  .distance-time {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.5vh;
+  }
+  .distance {
+    font-family: Lato;
+    font-size: 1.7vh;
+    font-style: normal;
+    font-weight: 400;
+  }
+  
+  .time {
+    font-family: Lato;
+    font-size: 1.7vh;
+    font-style: normal;
+    font-weight: 400;
+    margin-left: 2vw;
+  }
+  .mainItemData {
+    flex-direction: column;
+    width: 80vw;
+  }
+  .preferenceItems {
+    margin-top: 2vh;
+    max-height: 63vh;
+    overflow-y: scroll;
   }
 }

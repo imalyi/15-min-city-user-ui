@@ -239,5 +239,7 @@
   "No places in category": "Brak miejsc w kategorii",
   "You need to add at least 2 addresses to compare them": "Musisz dodać co najmniej 2 adresy, aby je porównać",
   "Please select at least one preference to compare addresses": "Wybierz co najmniej jedno kryterium, aby porównać adresy",
-  "invalid address": "nieprawidłowy adres"
+  "invalid address": "nieprawidłowy adres",
+  "Select criteria": "Wybierz kryteria",
+  "Map": "Mapa"
 }

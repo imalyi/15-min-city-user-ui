@@ -15,6 +15,23 @@ export const LeftSectionSlide = {
   },
 };
 
+export const MobileLeftSectionSlide = {
+  initial: {
+    y: '50%', // Zaczynamy z położeniem poza ekranem, więc y: '100%'
+    opacity: 0,
+  },
+  enter: {
+    y: '0%', // Przesuwamy do położenia na ekranie, więc y: '0%'
+    transition: { duration: 0.5 },
+    opacity: 1,
+  },
+  exit: {
+    y: '100%', // Ponownie wyprowadzamy poza ekran, więc y: '100%'
+    transition: { duration: 0.4 },
+    opacity: 0,
+  },
+};
+
 export const RightSectionSlide = {
   initial: {
     x: '100%',

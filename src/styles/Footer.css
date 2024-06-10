@@ -29,6 +29,9 @@
 
 .footer-divs {
   display: flex;
+  z-index: 1002;
+  position: relative;
+  background-color: #f0f8ff;
 }
 
 .marginLeftTranslate {
