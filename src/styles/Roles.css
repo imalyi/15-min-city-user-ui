@@ -338,8 +338,8 @@
   margin: 0 auto; /* Dodałem marginesy poziome */
   margin-top: 0.3vh;
 }
-.choose-criteria-mobile-div-roles{
-  width:calc(100% - 2vw);
+.choose-criteria-mobile-div-roles {
+  width: calc(100% - 2vw);
   margin-left: 2vw;
   height: 8vh;
   background-color: #dce6fa;
@@ -348,9 +348,8 @@
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
   display: flex;
-  justify-content: center; 
-  align-items: center; 
-
+  justify-content: center;
+  align-items: center;
 }
 
 /* Dla ekranów o szerokości do 600px (np. smartfony) */
@@ -458,7 +457,7 @@
   .roles-content.expanded {
     height: 100%;
   }
-  
+
   .roles-content.collapsed {
     height: 50px;
   }
@@ -911,7 +910,7 @@
     justify-content: center;
     margin-top: 0vh;
   }
-  
+
   .category-check {
     display: flex;
     align-items: center;
@@ -940,7 +939,6 @@
     line-height: normal;
     margin-left: 2.5vw;
     margin-top: 2.5vw;
-    
   }
   .preferences-checkbox {
     display: flex;
@@ -998,8 +996,7 @@
   }
   .close-icon {
     cursor: pointer;
-    width:2vh;
-    height:2vh;
+    width: 2vh;
+    height: 2vh;
   }
-  
 }

@@ -8,7 +8,11 @@ import { SearchRolesBar } from './SearchRolesBar';
 import { SearchRolesResultsList } from './SearchRolesResultsList';
 import { Icon } from '@iconify/react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LeftSectionSlide, LeftSectionSlideHide, MobileLeftSectionSlide } from './anim.js';
+import {
+  LeftSectionSlide,
+  LeftSectionSlideHide,
+  MobileLeftSectionSlide,
+} from './anim.js';
 import { logger } from '../logger';
 
 const Roles = ({
@@ -191,8 +195,6 @@ const Roles = ({
     setTimeout(handleSearch(), 50);
   };
 
-
-
   return (
     <div>
       <AnimatePresence mode="wait">
@@ -203,11 +205,11 @@ const Roles = ({
             exit="exit"
             initial="initial"
           >
-            <div >
-              {isSmallScreen==true ? (
-                <div className='choose-criteria-mobile-div-roles'>
-                  <div className='choose-criteria-mobile'>
-                    {t("Select criteria")}
+            <div>
+              {isSmallScreen == true ? (
+                <div className="choose-criteria-mobile-div-roles">
+                  <div className="choose-criteria-mobile">
+                    {t('Select criteria')}
                   </div>
                 </div>
               ) : (
@@ -358,23 +360,24 @@ const Roles = ({
                 <label className="filters-label">{t('Your filters')}</label>
 
                 <div>
-                  {preferencesSearchData && preferencesSearchData.map((preference, index) => (
-                    <div key={index} className="selected-search-preferences">
-                      <div
-                        className="selected-search-preference"
-                        onClick={() => onAddressClick(preference)}
-                      >
-                        <span className="selected-preference-label">
-                          {t(preference.name ? preference.name : preference)}
-                        </span>
-                        <Icon
-                          icon="material-symbols-light:close"
-                          className="close-icon"
-                          onClick={() => handleRemovePreference(index)}
-                        />
+                  {preferencesSearchData &&
+                    preferencesSearchData.map((preference, index) => (
+                      <div key={index} className="selected-search-preferences">
+                        <div
+                          className="selected-search-preference"
+                          onClick={() => onAddressClick(preference)}
+                        >
+                          <span className="selected-preference-label">
+                            {t(preference.name ? preference.name : preference)}
+                          </span>
+                          <Icon
+                            icon="material-symbols-light:close"
+                            className="close-icon"
+                            onClick={() => handleRemovePreference(index)}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </div>
               <div className="hr-place">
@@ -394,13 +397,13 @@ const Roles = ({
                   />
                   {isMobile == true ? (
                     <div>
-                     <label
-                      className="toggle-left-section"
-                      onClick={() => {
-                        toggleExpendedClick();
-                      }}
-                      > 
-                      {t('Map')}
+                      <label
+                        className="toggle-left-section"
+                        onClick={() => {
+                          toggleExpendedClick();
+                        }}
+                      >
+                        {t('Map')}
                       </label>
                     </div>
                   ) : (

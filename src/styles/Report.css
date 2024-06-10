@@ -78,12 +78,11 @@
   background-color: #a1abbf; /* Kolor "kciuka" paska przewijania */
 }
 
-.margin-right-report{
+.margin-right-report {
   margin-right: 4vw;
-
 }
 
-.margin-left-report{
+.margin-left-report {
   margin-left: 4vw;
 }
 
@@ -353,7 +352,7 @@
   display: flex;
 }
 
-.preferenceAddressItemDistance-without-margin-top{
+.preferenceAddressItemDistance-without-margin-top {
   font-family: Lato;
   font-size: 2vh;
   font-style: normal;
@@ -417,7 +416,7 @@
   background-color: #a1abbf; /* Kolor "kciuka" paska przewijania */
 }
 
-.report-choose-main{
+.report-choose-main {
   width: 94vw;
   height: 6vh;
   background-color: #dce6fa;
@@ -430,7 +429,7 @@
   position: relative;
 }
 
-.report-choose-main-border-bottom{
+.report-choose-main-border-bottom {
   width: 94vw;
   height: 6vh;
   background-color: #dce6fa;
@@ -446,14 +445,14 @@
   position: relative;
 }
 
-.report-selected-category{
+.report-selected-category {
   width: 90vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.report-selected-category-label{
+.report-selected-category-label {
   margin-top: 0.5vh;
   margin-left: 2vh;
   font-family: Lato;
@@ -463,7 +462,7 @@
   text-align: left;
 }
 
-.report-choose-toggle{
+.report-choose-toggle {
   position: absolute;
   width: 94vw;
   overflow-y: scroll;
@@ -471,15 +470,15 @@
   z-index: 10;
   margin-left: 3vw;
   margin-right: 3wh;
-  box-shadow: 0px 6px 24px 0px #3044CA1A;
+  box-shadow: 0px 6px 24px 0px #3044ca1a;
 }
 
-.toggleCategorySection{
+.toggleCategorySection {
   width: 4vw;
   height: 4vh;
 }
 
-.report-category-hr{
+.report-category-hr {
   border-top: 0px;
   margin-left: 4vw;
   margin-right: 4vw;
@@ -489,7 +488,7 @@
   height: 1px;
 }
 
-.report-category-hr-color{
+.report-category-hr-color {
   margin-right: 3vw;
   margin-left: 3vw;
   background-color: #dce6fa;
@@ -497,8 +496,7 @@
   margin-bottom: 0px;
 }
 
-
-.report-category-item{
+.report-category-item {
   padding-left: 2vh;
   font-family: Lato;
   font-size: 2vh;
@@ -513,20 +511,18 @@
 }
 
 .report-category-item:hover {
-  background-color: #BCC6DA; /* Change this to the color you want on hover */
+  background-color: #bcc6da; /* Change this to the color you want on hover */
 }
 
-.addressDistances-address-responsewness{
+.addressDistances-address-responsewness {
   display: flex;
   flex-direction: column;
-
 }
 
-.address-row{
+.address-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
 }
 
 @media only screen and (max-width: 850px) {
@@ -543,7 +539,7 @@
     margin-right: 0.5vw;
     color: white;
   }
-  
+
   .addressName {
     font-family: Lato, sans-serif;
     font-size: 2vh;
@@ -689,7 +685,6 @@
     padding: 1vh;
     margin-right: 0.5vw;
     justify-content: center;
-
   }
   .preferenceLabel {
     cursor: pointer;
@@ -732,7 +727,7 @@
     width: 6vw;
     z-index: 10;
   }
-  
+
   #expand-right {
     cursor: pointer;
     color: #24254c;
@@ -740,10 +735,10 @@
     width: 6vw;
     z-index: 10;
   }
-  .margin-right-report{
+  .margin-right-report {
     margin-right: 4vw;
   }
-  .margin-left-report{
+  .margin-left-report {
     margin-left: 6vw;
   }
   .categoryName {
@@ -785,7 +780,6 @@
     margin-top: 30vh;
     color: #99a0a9;
   }
-
 
   .preferenceItemName {
     margin-top: 0.2vh;
@@ -849,7 +843,7 @@
     margin-top: 0vh;
     margin-right: 1.5vh;
   }
-  
+
   .reportMain {
     display: initial;
     justify-content: initial;
@@ -881,7 +875,6 @@
     margin-top: 2vh;
     margin-right: 3vw;
     height: 6vh;
-
   }
 
   .addressName {
@@ -913,7 +906,7 @@
     font-style: normal;
     font-weight: 400;
   }
-  
+
   .time {
     font-family: Lato;
     font-size: 1.7vh;

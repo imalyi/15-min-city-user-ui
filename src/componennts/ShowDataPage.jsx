@@ -73,11 +73,9 @@ function ShowDataPage() {
     setIsCompareWindowOpen(false);
   };
 
-
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 450);
 
   const [isExpanded, setIsExpanded] = useState(false);
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -726,9 +724,7 @@ function ShowDataPage() {
           </div>
           {isSmallScreen ? (
             <div className="show-data-map-responsiveness">
-              <div
-                className="right-section-responsiveness map-container"
-              >
+              <div className="right-section-responsiveness map-container">
                 <div className="column-show-data search-bar-and-results-show-data results-container-show-data">
                   <motion.div
                     variants={RightSectionSlide}
@@ -779,23 +775,29 @@ function ShowDataPage() {
                 />
               </div>
               <div className="left-section-responsiveness">
-              {isExpanded == false ? 
-                (
-                  <div className='choose-criteria-mobile-div' onClick={() => handleIsExpandedClick()}>
-                    <div className='choose-criteria-mobile'>
-                      {t("Select criteria")}
+                {isExpanded == false ? (
+                  <div
+                    className="choose-criteria-mobile-div"
+                    onClick={() => handleIsExpandedClick()}
+                  >
+                    <div className="choose-criteria-mobile">
+                      {t('Select criteria')}
                     </div>
                   </div>
                 ) : (
-                  <div className='modal-overlay-category'>
-                    <div className='modal-contents-category'>
+                  <div className="modal-overlay-category">
+                    <div className="modal-contents-category">
                       <Roles
                         onSelectPreferences={handlePreferencesSelect}
-                        selectedPreferencesShowPage={selectedPreferencesShowPage}
+                        selectedPreferencesShowPage={
+                          selectedPreferencesShowPage
+                        }
                         toggleRoleSVisible={handleToggleLeftSection}
                         isLeftSectionVisible={isLeftSectionVisible}
                         setPreferencedDataShowPage={handlePreferencesData}
-                        preferencesSearchDataShowPage={preferencesSearchDataShowPage}
+                        preferencesSearchDataShowPage={
+                          preferencesSearchDataShowPage
+                        }
                         setPreferencesSearchDataShowPage={
                           handlePreferencesSearchSelect
                         }
@@ -811,83 +813,84 @@ function ShowDataPage() {
             </div>
           ) : (
             <div className="show-data-map">
-            <div className="left-section">
-              <div>
-                <Roles
-                  onSelectPreferences={handlePreferencesSelect}
-                  selectedPreferencesShowPage={selectedPreferencesShowPage}
-                  toggleRoleSVisible={handleToggleLeftSection}
-                  isLeftSectionVisible={isLeftSectionVisible}
-                  setPreferencedDataShowPage={handlePreferencesData}
+              <div className="left-section">
+                <div>
+                  <Roles
+                    onSelectPreferences={handlePreferencesSelect}
+                    selectedPreferencesShowPage={selectedPreferencesShowPage}
+                    toggleRoleSVisible={handleToggleLeftSection}
+                    isLeftSectionVisible={isLeftSectionVisible}
+                    setPreferencedDataShowPage={handlePreferencesData}
+                    preferencesSearchDataShowPage={
+                      preferencesSearchDataShowPage
+                    }
+                    setPreferencesSearchDataShowPage={
+                      handlePreferencesSearchSelect
+                    }
+                    handleSearch={handleEnterPress}
+                    onAddressClick={handleDataCategoryClick}
+                    isMobile={false}
+                    toggleExpendedClick={handleIsExpandedClick}
+                  />
+                </div>
+              </div>
+
+              <div
+                className={`right-section map-container ${
+                  isLeftSectionVisible ? '' : 'right-section-center'
+                }`}
+              >
+                <div className="column-show-data search-bar-and-results-show-data results-container-show-data">
+                  <motion.div
+                    variants={RightSectionSlide}
+                    animate="enter"
+                    exit="exit"
+                    initial="initial"
+                  >
+                    <SearchBar
+                      setResults={setResults}
+                      showDataRef={buttonRef}
+                      input={input}
+                      setInput={handleSearchBarChange}
+                      setIsResultClicked={setIsResultClicked}
+                      onEnterPress={handleEnterPress}
+                      searchBarClassName={
+                        results && results.length > 0 && !isResultClicked
+                          ? 'border-bottom show-data-page-search-bar'
+                          : 'show-data-page-search-bar'
+                      }
+                      ShowDataButtonCompare={''}
+                      handleCompareWindowOpen={handleCompareWindowOpen}
+                      selectedPreferences={selectedPreferencesShowPage}
+                      transformedPreferences={transformedPreferences}
+                      preferencesSearchData={preferencesSearchDataShowPage}
+                      setAlarm={setAlarm}
+                    />
+                  </motion.div>
+                  {results && results.length > 0 && !isResultClicked && (
+                    <SearchResultsList
+                      results={results}
+                      onResultClick={handleResultClick}
+                      searchResultsListClassName="show-data-page-search-result-list"
+                      searchResultsClassName="show-data-page-search-list"
+                    />
+                  )}
+                </div>
+                <Map
+                  places={places.points_of_interest}
+                  mainCategoriesToShow={mainCategoriesToShow}
+                  categoriesToShow={categoriesToShow.map(
+                    (category) => category.key,
+                  )}
+                  selectedCoordinatesShowPage={selectedCoordinates}
+                  flyToLocation={flyToLocation}
+                  custom_names={places.custom_objects}
+                  custom_addresses={places.custom_addresses}
                   preferencesSearchDataShowPage={preferencesSearchDataShowPage}
-                  setPreferencesSearchDataShowPage={
-                    handlePreferencesSearchSelect
-                  }
-                  handleSearch={handleEnterPress}
-                  onAddressClick={handleDataCategoryClick}
-                  isMobile={false}
-                  toggleExpendedClick={handleIsExpandedClick}
                 />
               </div>
             </div>
-
-            <div
-              className={`right-section map-container ${
-                isLeftSectionVisible ? '' : 'right-section-center'
-              }`}
-            >
-              <div className="column-show-data search-bar-and-results-show-data results-container-show-data">
-                <motion.div
-                  variants={RightSectionSlide}
-                  animate="enter"
-                  exit="exit"
-                  initial="initial"
-                >
-                  <SearchBar
-                    setResults={setResults}
-                    showDataRef={buttonRef}
-                    input={input}
-                    setInput={handleSearchBarChange}
-                    setIsResultClicked={setIsResultClicked}
-                    onEnterPress={handleEnterPress}
-                    searchBarClassName={
-                      results && results.length > 0 && !isResultClicked
-                        ? 'border-bottom show-data-page-search-bar'
-                        : 'show-data-page-search-bar'
-                    }
-                    ShowDataButtonCompare={''}
-                    handleCompareWindowOpen={handleCompareWindowOpen}
-                    selectedPreferences={selectedPreferencesShowPage}
-                    transformedPreferences={transformedPreferences}
-                    preferencesSearchData={preferencesSearchDataShowPage}
-                    setAlarm={setAlarm}
-                  />
-                </motion.div>
-                {results && results.length > 0 && !isResultClicked && (
-                  <SearchResultsList
-                    results={results}
-                    onResultClick={handleResultClick}
-                    searchResultsListClassName="show-data-page-search-result-list"
-                    searchResultsClassName="show-data-page-search-list"
-                  />
-                )}
-              </div>
-              <Map
-                places={places.points_of_interest}
-                mainCategoriesToShow={mainCategoriesToShow}
-                categoriesToShow={categoriesToShow.map(
-                  (category) => category.key,
-                )}
-                selectedCoordinatesShowPage={selectedCoordinates}
-                flyToLocation={flyToLocation}
-                custom_names={places.custom_objects}
-                custom_addresses={places.custom_addresses}
-                preferencesSearchDataShowPage={preferencesSearchDataShowPage}
-              />
-            </div>
-          </div>
           )}
-
         </div>
       </div>
       <Footer useMargin={true} />

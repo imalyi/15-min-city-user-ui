@@ -208,7 +208,7 @@
   margin-bottom: 0px;
 }
 
-.nearest-place-resp{
+.nearest-place-resp {
   display: flex;
   flex-direction: column;
 }
@@ -481,7 +481,6 @@
 }
 
 @media only screen and (max-width: 450px) {
-
   .address-div-2 {
     display: flex;
     flex-direction: column;
@@ -510,7 +509,7 @@
     margin-top: 3vh;
     overflow-x: scroll;
   }
-  .compare-main-div-3{
+  .compare-main-div-3 {
     display: flex;
     justify-content: space-between;
     height: 80.5vh;
@@ -522,19 +521,19 @@
   }
 
   /* Custom scrollbar styles for Webkit browsers */
-.compare-main-div-3::-webkit-scrollbar {
-  height: 10px; /* Height of the horizontal scrollbar */
-}
+  .compare-main-div-3::-webkit-scrollbar {
+    height: 10px; /* Height of the horizontal scrollbar */
+  }
 
-.compare-main-div-3::-webkit-scrollbar-thumb {
-  background-color: #c0c0c0; /* Color of the scrollbar thumb */
-  border-radius: 10px; /* Roundness of the scrollbar thumb */
-  border: 3px solid #f0f8ff; /* Color of the scrollbar track */
-}
+  .compare-main-div-3::-webkit-scrollbar-thumb {
+    background-color: #c0c0c0; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Roundness of the scrollbar thumb */
+    border: 3px solid #f0f8ff; /* Color of the scrollbar track */
+  }
 
-.compare-main-div-3::-webkit-scrollbar-track {
-  background-color: #f0f8ff; /* Color of the scrollbar track */
-}
+  .compare-main-div-3::-webkit-scrollbar-track {
+    background-color: #f0f8ff; /* Color of the scrollbar track */
+  }
   .match-div {
     font-family: Lato;
     font-size: 1.5vh;
@@ -617,7 +616,7 @@
     overflow: scroll;
     overflow-x: hidden;
   }
-  
+
   .compare-button-one-address {
     font-family: Lato;
     font-size: 1.7vh;
@@ -632,5 +631,4 @@
     margin-right: 0vh;
     margin-top: 0vh;
   }
-
 }

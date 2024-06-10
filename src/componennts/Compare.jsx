@@ -30,7 +30,6 @@ function Compare() {
   const userId = searchParams.get('userid');
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 450);
 
-
   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth <= 450);
@@ -400,13 +399,15 @@ function Compare() {
           </div>
         </div>
         {addresses !== '' ? (
-          <div className={
-            addresses.length === 2 || isSmallScreen === false
-              ? 'compare-main-div'
-              : addresses.length === 3 
-                ? 'compare-main-div-3'
-                : ''
-          }>
+          <div
+            className={
+              addresses.length === 2 || isSmallScreen === false
+                ? 'compare-main-div'
+                : addresses.length === 3
+                  ? 'compare-main-div-3'
+                  : ''
+            }
+          >
             {addresses &&
               addresses.map((address, index) => (
                 <div
@@ -447,9 +448,13 @@ function Compare() {
                               </div>
                             ) : null}
                           </div>
-                          <div className={`${
-                                isSmallScreen ? 'nearest-place-resp' : 'nearest-place'
-                              }`}>
+                          <div
+                            className={`${
+                              isSmallScreen
+                                ? 'nearest-place-resp'
+                                : 'nearest-place'
+                            }`}
+                          >
                             <div className="compare-nearest-place-name">
                               {t(findNearestPlace(address, category).name)}
                             </div>

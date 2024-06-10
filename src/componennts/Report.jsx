@@ -275,41 +275,42 @@ function Report() {
           <div className="reportMain">
             {isSmallScreen ? (
               <div>
-                <div 
-                    className={
-                      isCategoryToggle
-                        ? 'report-choose-main-border-bottom'
-                        : 'report-choose-main'
-                    } 
-                    onClick={() => handleCategoryToggle()}>
-                    <div>
-                      <div className='report-selected-category'>
-                          <label className="report-selected-category-label">
-                            {selectedAddressPreferences !== false
-                            ? t('Your locations')
-                            : selectedObjectPreferences !== false
+                <div
+                  className={
+                    isCategoryToggle
+                      ? 'report-choose-main-border-bottom'
+                      : 'report-choose-main'
+                  }
+                  onClick={() => handleCategoryToggle()}
+                >
+                  <div>
+                    <div className="report-selected-category">
+                      <label className="report-selected-category-label">
+                        {selectedAddressPreferences !== false
+                          ? t('Your locations')
+                          : selectedObjectPreferences !== false
                             ? t('Your places')
                             : t(selectedCategory)}
-                          </label>
-                          
-                          {isCategoryToggle ? (
-                            <IoIosArrowUp className='toggleCategorySection' />
-                          ) : (
-                            <IoIosArrowDown className='toggleCategorySection' />
-                          )}
-                      </div>
+                      </label>
+
+                      {isCategoryToggle ? (
+                        <IoIosArrowUp className="toggleCategorySection" />
+                      ) : (
+                        <IoIosArrowDown className="toggleCategorySection" />
+                      )}
                     </div>
+                  </div>
                 </div>
-                {isCategoryToggle===true ? (
+                {isCategoryToggle === true ? (
                   <div>
-                    <div className='report-category-hr-color'>
+                    <div className="report-category-hr-color">
                       <hr className="report-category-hr" />
                     </div>
-                    <div className='report-choose-toggle'>
+                    <div className="report-choose-toggle">
                       {custom_addresses && custom_addresses.length > 0 ? (
                         <div
                           onClick={() => handleAddressClick()}
-                          className='report-category-item'
+                          className="report-category-item"
                         >
                           <div>{t('Your locations')}</div>
                         </div>
@@ -317,7 +318,7 @@ function Report() {
                       {allObjects && allObjects.length > 0 ? (
                         <div
                           onClick={() => handleObjectClick()}
-                          className='report-category-item'
+                          className="report-category-item"
                         >
                           <div>{t('Your places')}</div>
                         </div>
@@ -327,16 +328,16 @@ function Report() {
                           <div
                             key={index}
                             onClick={() => handleCategoryClick(category)}
-                            className='report-category-item'
+                            className="report-category-item"
                           >
                             <div>{t(category)}</div>
                           </div>
                         ))}
                     </div>
-                    </div>
-                    ) : (
-                      <></>
-                    )}
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
             ) : (
               <div
@@ -346,71 +347,23 @@ function Report() {
                     : 'leftReport'
                 }
               >
-              {custom_addresses && custom_addresses.length > 0 ? (
-                <div>
-                  <div
-                    className={
-                      selectedAddressPreferences === true
-                        ? 'categoryNameSelected'
-                        : 'categoryName'
-                    }
-                    onClick={() => handleAddressClick()}
-                  >
-                    <label className="categoryLabel">
-                      {t('Your locations')}
-                    </label>
-                  </div>
-                  <div
-                    className={
-                      selectedAddressPreferences === true
-                        ? 'show-data-hr-place-selected'
-                        : 'show-data-hr-place'
-                    }
-                  >
-                    <hr className="show-data-search-place-hr" />
-                  </div>
-                </div>
-              ) : null}
-              {allObjects && allObjects.length > 0 ? (
-                <div>
-                  <div
-                    className={
-                      selectedObjectPreferences === true
-                        ? 'categoryNameSelected'
-                        : 'categoryName'
-                    }
-                    onClick={() => handleObjectClick()}
-                  >
-                    <label className="categoryLabel">{t('Your places')}</label>
-                  </div>
-                  <div
-                    className={
-                      selectedObjectPreferences === true
-                        ? 'show-data-hr-place-selected'
-                        : 'show-data-hr-place'
-                    }
-                  >
-                    <hr className="show-data-search-place-hr" />
-                  </div>
-                </div>
-              ) : null}
-              {categories &&
-                categories.map((category, index) => (
+                {custom_addresses && custom_addresses.length > 0 ? (
                   <div>
                     <div
-                      key={index}
                       className={
-                        category === selectedCategory
+                        selectedAddressPreferences === true
                           ? 'categoryNameSelected'
                           : 'categoryName'
                       }
-                      onClick={() => handleCategoryClick(category)}
+                      onClick={() => handleAddressClick()}
                     >
-                      <label className="categoryLabel">{t(category)}</label>
+                      <label className="categoryLabel">
+                        {t('Your locations')}
+                      </label>
                     </div>
                     <div
                       className={
-                        category === selectedCategory
+                        selectedAddressPreferences === true
                           ? 'show-data-hr-place-selected'
                           : 'show-data-hr-place'
                       }
@@ -418,8 +371,58 @@ function Report() {
                       <hr className="show-data-search-place-hr" />
                     </div>
                   </div>
-                ))}
-            </div>
+                ) : null}
+                {allObjects && allObjects.length > 0 ? (
+                  <div>
+                    <div
+                      className={
+                        selectedObjectPreferences === true
+                          ? 'categoryNameSelected'
+                          : 'categoryName'
+                      }
+                      onClick={() => handleObjectClick()}
+                    >
+                      <label className="categoryLabel">
+                        {t('Your places')}
+                      </label>
+                    </div>
+                    <div
+                      className={
+                        selectedObjectPreferences === true
+                          ? 'show-data-hr-place-selected'
+                          : 'show-data-hr-place'
+                      }
+                    >
+                      <hr className="show-data-search-place-hr" />
+                    </div>
+                  </div>
+                ) : null}
+                {categories &&
+                  categories.map((category, index) => (
+                    <div>
+                      <div
+                        key={index}
+                        className={
+                          category === selectedCategory
+                            ? 'categoryNameSelected'
+                            : 'categoryName'
+                        }
+                        onClick={() => handleCategoryClick(category)}
+                      >
+                        <label className="categoryLabel">{t(category)}</label>
+                      </div>
+                      <div
+                        className={
+                          category === selectedCategory
+                            ? 'show-data-hr-place-selected'
+                            : 'show-data-hr-place'
+                        }
+                      >
+                        <hr className="show-data-search-place-hr" />
+                      </div>
+                    </div>
+                  ))}
+              </div>
             )}
             <div className="rightReport">
               {selectedCategoryPreferences ? (
@@ -434,7 +437,7 @@ function Report() {
                           />
                         }
                       </div>
-                      <div className='margin-left-report'></div>
+                      <div className="margin-left-report"></div>
                       {Object.keys(selectedCategoryPreferences).map(
                         (category, index) => {
                           const preference = allPreferences.find(
@@ -457,7 +460,7 @@ function Report() {
                           );
                         },
                       )}
-                      <div className='margin-right-report'></div>
+                      <div className="margin-right-report"></div>
                       <div
                         className="scrollButtonRight"
                         onClick={scrollToRight}
@@ -481,424 +484,160 @@ function Report() {
               ) : null}
               {isSmallScreen == true ? (
                 <div className="preferenceItems">
-                {selectedAddressPreferences &&
-                  Object.entries(custom_addresses).map((address, index) => {
-                    const address_name = address[1].address.full;
-                    const address_info = address[1];
-                    return (
-                      <div className="preferenceItem-responsible">
-                        <div className="mainItemData">
-                          <div className="preferenceAddressItemDistance-without-margin-top">
-                            {address_name}
-                          </div>
-                          <div className="addressDistances-address-responsewness">
-                          <div className='address-row'>
-                            <div className="preferenceAddressItemDistance">
-                              <div className="icon">
-                                <Icon
-                                  icon="material-symbols-light:directions-car-outline"
-                                  id="person-simple-walk-light"
-                                />
-                              </div>
-                              <div className="distance-time">
-                                <label className="distance">
-                                  {address_info.commute_time.bike.distance >
-                                  1000
-                                    ? `${(
+                  {selectedAddressPreferences &&
+                    Object.entries(custom_addresses).map((address, index) => {
+                      const address_name = address[1].address.full;
+                      const address_info = address[1];
+                      return (
+                        <div className="preferenceItem-responsible">
+                          <div className="mainItemData">
+                            <div className="preferenceAddressItemDistance-without-margin-top">
+                              {address_name}
+                            </div>
+                            <div className="addressDistances-address-responsewness">
+                              <div className="address-row">
+                                <div className="preferenceAddressItemDistance">
+                                  <div className="icon">
+                                    <Icon
+                                      icon="material-symbols-light:directions-car-outline"
+                                      id="person-simple-walk-light"
+                                    />
+                                  </div>
+                                  <div className="distance-time">
+                                    <label className="distance">
+                                      {address_info.commute_time.bike.distance >
+                                      1000
+                                        ? `${(
+                                            address_info.commute_time.drive
+                                              .distance / 1000
+                                          ).toFixed(1)} km`
+                                        : `${
+                                            Math.ceil(
+                                              address_info.commute_time.drive
+                                                .distance / 10,
+                                            ) * 10
+                                          } m`}
+                                    </label>
+                                    <label className="time">
+                                      {Math.ceil(
                                         address_info.commute_time.drive
-                                          .distance / 1000
-                                      ).toFixed(1)} km`
-                                    : `${
-                                        Math.ceil(
-                                          address_info.commute_time.drive
-                                            .distance / 10,
-                                        ) * 10
-                                      } m`}
-                                </label>
-                                <label className="time">
-                                  {Math.ceil(
-                                    address_info.commute_time.drive.duration /
-                                      60,
-                                  )}{' '}
-                                  min
-                                </label>
-                              </div>
-                            </div>
-                            <div className="preferenceAddressItemDistance">
-                              <div className="icon">
-                                <Icon
-                                  icon="material-symbols-light:directions-bus-outline"
-                                  id="person-simple-walk-light"
-                                />
-                              </div>
-                              <div className="distance-time">
-                                <label className="distance">
-                                  {address_info.commute_time.transit.distance >
-                                  1000
-                                    ? `${(
+                                          .duration / 60,
+                                      )}{' '}
+                                      min
+                                    </label>
+                                  </div>
+                                </div>
+                                <div className="preferenceAddressItemDistance">
+                                  <div className="icon">
+                                    <Icon
+                                      icon="material-symbols-light:directions-bus-outline"
+                                      id="person-simple-walk-light"
+                                    />
+                                  </div>
+                                  <div className="distance-time">
+                                    <label className="distance">
+                                      {address_info.commute_time.transit
+                                        .distance > 1000
+                                        ? `${(
+                                            address_info.commute_time.transit
+                                              .distance / 1000
+                                          ).toFixed(1)} km`
+                                        : `${
+                                            Math.ceil(
+                                              address_info.commute_time.transit
+                                                .distance / 10,
+                                            ) * 10
+                                          } m`}
+                                    </label>
+                                    <label className="time">
+                                      {Math.ceil(
                                         address_info.commute_time.transit
-                                          .distance / 1000
-                                      ).toFixed(1)} km`
-                                    : `${
-                                        Math.ceil(
-                                          address_info.commute_time.transit
-                                            .distance / 10,
-                                        ) * 10
-                                      } m`}
-                                </label>
-                                <label className="time">
-                                  {Math.ceil(
-                                    address_info.commute_time.transit.duration /
-                                      60,
-                                  )}{' '}
-                                  min
-                                </label>
+                                          .duration / 60,
+                                      )}{' '}
+                                      min
+                                    </label>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                          </div>
-                          <div className='address-row'>
-                            <div className="preferenceAddressItemDistance">
-                              <div className="icon">
-                                <Icon
-                                  icon="ph:person-simple-walk-light"
-                                  id="person-simple-walk-light"
-                                />
-                              </div>
-                              <div className="distance-time">
-                                <label className="distance">
-                                  {address_info.commute_time.walk.distance >
-                                  1000
-                                    ? `${(
+                              <div className="address-row">
+                                <div className="preferenceAddressItemDistance">
+                                  <div className="icon">
+                                    <Icon
+                                      icon="ph:person-simple-walk-light"
+                                      id="person-simple-walk-light"
+                                    />
+                                  </div>
+                                  <div className="distance-time">
+                                    <label className="distance">
+                                      {address_info.commute_time.walk.distance >
+                                      1000
+                                        ? `${(
+                                            address_info.commute_time.walk
+                                              .distance / 1000
+                                          ).toFixed(1)} km`
+                                        : `${
+                                            Math.ceil(
+                                              address_info.commute_time.walk
+                                                .distance / 10,
+                                            ) * 10
+                                          } m`}
+                                    </label>
+                                    <label className="time">
+                                      {Math.ceil(
                                         address_info.commute_time.walk
-                                          .distance / 1000
-                                      ).toFixed(1)} km`
-                                    : `${
-                                        Math.ceil(
-                                          address_info.commute_time.walk
-                                            .distance / 10,
-                                        ) * 10
-                                      } m`}
-                                </label>
-                                <label className="time">
-                                  {Math.ceil(
-                                    address_info.commute_time.walk.duration /
-                                      60,
-                                  )}{' '}
-                                  min
-                                </label>
-                              </div>
-                            </div>
-                            <div className="preferenceAddressItemDistance">
-                              <div className="icon">
-                                <Icon
-                                  icon="ph:person-simple-bike-light"
-                                  id="person-simple-walk-light"
-                                />
-                              </div>
-                              <div className="distance-time">
-                                <label className="distance">
-                                  {address_info.commute_time.bike.distance >
-                                  1000
-                                    ? `${(
+                                          .duration / 60,
+                                      )}{' '}
+                                      min
+                                    </label>
+                                  </div>
+                                </div>
+                                <div className="preferenceAddressItemDistance">
+                                  <div className="icon">
+                                    <Icon
+                                      icon="ph:person-simple-bike-light"
+                                      id="person-simple-walk-light"
+                                    />
+                                  </div>
+                                  <div className="distance-time">
+                                    <label className="distance">
+                                      {address_info.commute_time.bike.distance >
+                                      1000
+                                        ? `${(
+                                            address_info.commute_time.bike
+                                              .distance / 1000
+                                          ).toFixed(1)} km`
+                                        : `${
+                                            Math.ceil(
+                                              address_info.commute_time.bike
+                                                .distance / 10,
+                                            ) * 10
+                                          } m`}
+                                    </label>
+                                    <label className="time">
+                                      {Math.ceil(
                                         address_info.commute_time.bike
-                                          .distance / 1000
-                                      ).toFixed(1)} km`
-                                    : `${
-                                        Math.ceil(
-                                          address_info.commute_time.bike
-                                            .distance / 10,
-                                        ) * 10
-                                      } m`}
-                                </label>
-                                <label className="time">
-                                  {Math.ceil(
-                                    address_info.commute_time.bike.duration /
-                                      60,
-                                  )}{' '}
-                                  min
-                                </label>
+                                          .duration / 60,
+                                      )}{' '}
+                                      min
+                                    </label>
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
-                {selectedObjectPreferences &&
-                  allObjects.map((object, index) => {
-                    return (
-                      <div className="preferenceItem-responsible" key={index}>
-                        <div className="mainItemData">
-                          <div className="preferenceItemName">
-                            {object.name}
-                          </div>
-                          <div className="preferenceItemAddress">
-                            {object.address.full}
-                          </div>
-                        </div>
-                        <div className="preferenceItemDistance">
-                          <div className="icon">
-                            <Icon
-                              icon="ph:person-simple-walk-light"
-                              id="person-simple-walk-light"
-                            />
-                          </div>
-                          <div className="distance-time">
-                            <label className="distance">
-                              {object.distance > 1000
-                                ? `${(object.distance / 1000).toFixed(1)} km`
-                                : `${Math.ceil(object.distance / 10) * 10} m`}
-                            </label>
-                            <label className="time">
-                              {Math.ceil(object.distance / 83)} min
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                {!selectedAddressPreferences &&
-                  !selectedObjectPreferences &&
-                  selectedCategoryPreferences &&
-                  Object.keys(selectedCategoryPreferences).map(
-                    (category, index) => {
-                      const preference = allPreferences.find(
-                        (pref) => pref.key === category,
                       );
-                      if (preference && preference.value === true) {
-                        return Object.values(
-                          selectedCategoryPreferences[category],
-                        ).map((item, index) => (
-                          <div className="preferenceItem-responsible" key={index}>
-                            <div className="mainItemData">
-                              <div className="preferenceItemName">
-                                {item.name}
-                              </div>
-                              <div className="preferenceItemAddress">
-                                {item.address.full}
-                              </div>
-                            </div>
-                            <div className="preferenceItemDistance">
-                              <div className="icon">
-                                <Icon
-                                  icon="ph:person-simple-walk-light"
-                                  id="person-simple-walk-light"
-                                />
-                              </div>
-                              <div className="distance-time">
-                                <label className="distance">
-                                  {item.distance > 1000
-                                    ? `${(item.distance / 1000).toFixed(1)} km`
-                                    : `${Math.ceil(item.distance / 10) * 10} m`}
-                                </label>
-                                <label className="time">
-                                  {Math.ceil(item.distance / 83)} min
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-                        ));
-                      } else {
-                        return <div key={index}></div>; // Pusty div, jeśli preferencja jest wyłączona
-                      }
-                    },
-                  )}
-                </div>
-              ) : (   
-              <div className="preferenceItems">
-              {selectedAddressPreferences &&
-                Object.entries(custom_addresses).map((address, index) => {
-                  const address_name = address[1].address.full;
-                  const address_info = address[1];
-                  return (
-                    <div className="preferenceItem">
-                      <div className="mainItemData">
-                        <div className="preferenceAddressItemDistance">
-                          {address_name}
-                        </div>
-                        <div className="addressDistances">
-                          <div className="preferenceAddressItemDistance">
-                            <div className="icon">
-                              <Icon
-                                icon="material-symbols-light:directions-car-outline"
-                                id="person-simple-walk-light"
-                              />
-                            </div>
-                            <div className="distance-time">
-                              <label className="distance">
-                                {address_info.commute_time.bike.distance >
-                                1000
-                                  ? `${(
-                                      address_info.commute_time.drive
-                                        .distance / 1000
-                                    ).toFixed(1)} km`
-                                  : `${
-                                      Math.ceil(
-                                        address_info.commute_time.drive
-                                          .distance / 10,
-                                      ) * 10
-                                    } m`}
-                              </label>
-                              <label className="time">
-                                {Math.ceil(
-                                  address_info.commute_time.drive.duration /
-                                    60,
-                                )}{' '}
-                                min
-                              </label>
-                            </div>
-                          </div>
-                          <div className="preferenceAddressItemDistance">
-                            <div className="icon">
-                              <Icon
-                                icon="material-symbols-light:directions-bus-outline"
-                                id="person-simple-walk-light"
-                              />
-                            </div>
-                            <div className="distance-time">
-                              <label className="distance">
-                                {address_info.commute_time.transit.distance >
-                                1000
-                                  ? `${(
-                                      address_info.commute_time.transit
-                                        .distance / 1000
-                                    ).toFixed(1)} km`
-                                  : `${
-                                      Math.ceil(
-                                        address_info.commute_time.transit
-                                          .distance / 10,
-                                      ) * 10
-                                    } m`}
-                              </label>
-                              <label className="time">
-                                {Math.ceil(
-                                  address_info.commute_time.transit.duration /
-                                    60,
-                                )}{' '}
-                                min
-                              </label>
-                            </div>
-                          </div>
-                          <div className="preferenceAddressItemDistance">
-                            <div className="icon">
-                              <Icon
-                                icon="ph:person-simple-walk-light"
-                                id="person-simple-walk-light"
-                              />
-                            </div>
-                            <div className="distance-time">
-                              <label className="distance">
-                                {address_info.commute_time.walk.distance >
-                                1000
-                                  ? `${(
-                                      address_info.commute_time.walk
-                                        .distance / 1000
-                                    ).toFixed(1)} km`
-                                  : `${
-                                      Math.ceil(
-                                        address_info.commute_time.walk
-                                          .distance / 10,
-                                      ) * 10
-                                    } m`}
-                              </label>
-                              <label className="time">
-                                {Math.ceil(
-                                  address_info.commute_time.walk.duration /
-                                    60,
-                                )}{' '}
-                                min
-                              </label>
-                            </div>
-                          </div>
-                          <div className="preferenceAddressItemDistance">
-                            <div className="icon">
-                              <Icon
-                                icon="ph:person-simple-bike-light"
-                                id="person-simple-walk-light"
-                              />
-                            </div>
-                            <div className="distance-time">
-                              <label className="distance">
-                                {address_info.commute_time.bike.distance >
-                                1000
-                                  ? `${(
-                                      address_info.commute_time.bike
-                                        .distance / 1000
-                                    ).toFixed(1)} km`
-                                  : `${
-                                      Math.ceil(
-                                        address_info.commute_time.bike
-                                          .distance / 10,
-                                      ) * 10
-                                    } m`}
-                              </label>
-                              <label className="time">
-                                {Math.ceil(
-                                  address_info.commute_time.bike.duration /
-                                    60,
-                                )}{' '}
-                                min
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              {selectedObjectPreferences &&
-                allObjects.map((object, index) => {
-                  return (
-                    <div className="preferenceItem" key={index}>
-                      <div className="mainItemData">
-                        <div className="preferenceItemName">
-                          {object.name}
-                        </div>
-                        <div className="preferenceItemAddress">
-                          {object.address.full}
-                        </div>
-                      </div>
-                      <div className="preferenceItemDistance">
-                        <div className="icon">
-                          <Icon
-                            icon="ph:person-simple-walk-light"
-                            id="person-simple-walk-light"
-                          />
-                        </div>
-                        <div className="distance-time">
-                          <label className="distance">
-                            {object.distance > 1000
-                              ? `${(object.distance / 1000).toFixed(1)} km`
-                              : `${Math.ceil(object.distance / 10) * 10} m`}
-                          </label>
-                          <label className="time">
-                            {Math.ceil(object.distance / 83)} min
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              {!selectedAddressPreferences &&
-                !selectedObjectPreferences &&
-                selectedCategoryPreferences &&
-                Object.keys(selectedCategoryPreferences).map(
-                  (category, index) => {
-                    const preference = allPreferences.find(
-                      (pref) => pref.key === category,
-                    );
-                    if (preference && preference.value === true) {
-                      return Object.values(
-                        selectedCategoryPreferences[category],
-                      ).map((item, index) => (
-                        <div className="preferenceItem" key={index}>
+                    })}
+                  {selectedObjectPreferences &&
+                    allObjects.map((object, index) => {
+                      return (
+                        <div className="preferenceItem-responsible" key={index}>
                           <div className="mainItemData">
                             <div className="preferenceItemName">
-                              {item.name}
+                              {object.name}
                             </div>
                             <div className="preferenceItemAddress">
-                              {item.address.full}
+                              {object.address.full}
                             </div>
                           </div>
                           <div className="preferenceItemDistance">
@@ -910,25 +649,299 @@ function Report() {
                             </div>
                             <div className="distance-time">
                               <label className="distance">
-                                {item.distance > 1000
-                                  ? `${(item.distance / 1000).toFixed(1)} km`
-                                  : `${Math.ceil(item.distance / 10) * 10} m`}
+                                {object.distance > 1000
+                                  ? `${(object.distance / 1000).toFixed(1)} km`
+                                  : `${Math.ceil(object.distance / 10) * 10} m`}
                               </label>
                               <label className="time">
-                                {Math.ceil(item.distance / 83)} min
+                                {Math.ceil(object.distance / 83)} min
                               </label>
                             </div>
                           </div>
                         </div>
-                      ));
-                    } else {
-                      return <div key={index}></div>; // Pusty div, jeśli preferencja jest wyłączona
-                    }
-                  },
-                )}
-            </div>
+                      );
+                    })}
+                  {!selectedAddressPreferences &&
+                    !selectedObjectPreferences &&
+                    selectedCategoryPreferences &&
+                    Object.keys(selectedCategoryPreferences).map(
+                      (category, index) => {
+                        const preference = allPreferences.find(
+                          (pref) => pref.key === category,
+                        );
+                        if (preference && preference.value === true) {
+                          return Object.values(
+                            selectedCategoryPreferences[category],
+                          ).map((item, index) => (
+                            <div
+                              className="preferenceItem-responsible"
+                              key={index}
+                            >
+                              <div className="mainItemData">
+                                <div className="preferenceItemName">
+                                  {item.name}
+                                </div>
+                                <div className="preferenceItemAddress">
+                                  {item.address.full}
+                                </div>
+                              </div>
+                              <div className="preferenceItemDistance">
+                                <div className="icon">
+                                  <Icon
+                                    icon="ph:person-simple-walk-light"
+                                    id="person-simple-walk-light"
+                                  />
+                                </div>
+                                <div className="distance-time">
+                                  <label className="distance">
+                                    {item.distance > 1000
+                                      ? `${(item.distance / 1000).toFixed(
+                                          1,
+                                        )} km`
+                                      : `${
+                                          Math.ceil(item.distance / 10) * 10
+                                        } m`}
+                                  </label>
+                                  <label className="time">
+                                    {Math.ceil(item.distance / 83)} min
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          ));
+                        } else {
+                          return <div key={index}></div>; // Pusty div, jeśli preferencja jest wyłączona
+                        }
+                      },
+                    )}
+                </div>
+              ) : (
+                <div className="preferenceItems">
+                  {selectedAddressPreferences &&
+                    Object.entries(custom_addresses).map((address, index) => {
+                      const address_name = address[1].address.full;
+                      const address_info = address[1];
+                      return (
+                        <div className="preferenceItem">
+                          <div className="mainItemData">
+                            <div className="preferenceAddressItemDistance">
+                              {address_name}
+                            </div>
+                            <div className="addressDistances">
+                              <div className="preferenceAddressItemDistance">
+                                <div className="icon">
+                                  <Icon
+                                    icon="material-symbols-light:directions-car-outline"
+                                    id="person-simple-walk-light"
+                                  />
+                                </div>
+                                <div className="distance-time">
+                                  <label className="distance">
+                                    {address_info.commute_time.bike.distance >
+                                    1000
+                                      ? `${(
+                                          address_info.commute_time.drive
+                                            .distance / 1000
+                                        ).toFixed(1)} km`
+                                      : `${
+                                          Math.ceil(
+                                            address_info.commute_time.drive
+                                              .distance / 10,
+                                          ) * 10
+                                        } m`}
+                                  </label>
+                                  <label className="time">
+                                    {Math.ceil(
+                                      address_info.commute_time.drive.duration /
+                                        60,
+                                    )}{' '}
+                                    min
+                                  </label>
+                                </div>
+                              </div>
+                              <div className="preferenceAddressItemDistance">
+                                <div className="icon">
+                                  <Icon
+                                    icon="material-symbols-light:directions-bus-outline"
+                                    id="person-simple-walk-light"
+                                  />
+                                </div>
+                                <div className="distance-time">
+                                  <label className="distance">
+                                    {address_info.commute_time.transit
+                                      .distance > 1000
+                                      ? `${(
+                                          address_info.commute_time.transit
+                                            .distance / 1000
+                                        ).toFixed(1)} km`
+                                      : `${
+                                          Math.ceil(
+                                            address_info.commute_time.transit
+                                              .distance / 10,
+                                          ) * 10
+                                        } m`}
+                                  </label>
+                                  <label className="time">
+                                    {Math.ceil(
+                                      address_info.commute_time.transit
+                                        .duration / 60,
+                                    )}{' '}
+                                    min
+                                  </label>
+                                </div>
+                              </div>
+                              <div className="preferenceAddressItemDistance">
+                                <div className="icon">
+                                  <Icon
+                                    icon="ph:person-simple-walk-light"
+                                    id="person-simple-walk-light"
+                                  />
+                                </div>
+                                <div className="distance-time">
+                                  <label className="distance">
+                                    {address_info.commute_time.walk.distance >
+                                    1000
+                                      ? `${(
+                                          address_info.commute_time.walk
+                                            .distance / 1000
+                                        ).toFixed(1)} km`
+                                      : `${
+                                          Math.ceil(
+                                            address_info.commute_time.walk
+                                              .distance / 10,
+                                          ) * 10
+                                        } m`}
+                                  </label>
+                                  <label className="time">
+                                    {Math.ceil(
+                                      address_info.commute_time.walk.duration /
+                                        60,
+                                    )}{' '}
+                                    min
+                                  </label>
+                                </div>
+                              </div>
+                              <div className="preferenceAddressItemDistance">
+                                <div className="icon">
+                                  <Icon
+                                    icon="ph:person-simple-bike-light"
+                                    id="person-simple-walk-light"
+                                  />
+                                </div>
+                                <div className="distance-time">
+                                  <label className="distance">
+                                    {address_info.commute_time.bike.distance >
+                                    1000
+                                      ? `${(
+                                          address_info.commute_time.bike
+                                            .distance / 1000
+                                        ).toFixed(1)} km`
+                                      : `${
+                                          Math.ceil(
+                                            address_info.commute_time.bike
+                                              .distance / 10,
+                                          ) * 10
+                                        } m`}
+                                  </label>
+                                  <label className="time">
+                                    {Math.ceil(
+                                      address_info.commute_time.bike.duration /
+                                        60,
+                                    )}{' '}
+                                    min
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  {selectedObjectPreferences &&
+                    allObjects.map((object, index) => {
+                      return (
+                        <div className="preferenceItem" key={index}>
+                          <div className="mainItemData">
+                            <div className="preferenceItemName">
+                              {object.name}
+                            </div>
+                            <div className="preferenceItemAddress">
+                              {object.address.full}
+                            </div>
+                          </div>
+                          <div className="preferenceItemDistance">
+                            <div className="icon">
+                              <Icon
+                                icon="ph:person-simple-walk-light"
+                                id="person-simple-walk-light"
+                              />
+                            </div>
+                            <div className="distance-time">
+                              <label className="distance">
+                                {object.distance > 1000
+                                  ? `${(object.distance / 1000).toFixed(1)} km`
+                                  : `${Math.ceil(object.distance / 10) * 10} m`}
+                              </label>
+                              <label className="time">
+                                {Math.ceil(object.distance / 83)} min
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  {!selectedAddressPreferences &&
+                    !selectedObjectPreferences &&
+                    selectedCategoryPreferences &&
+                    Object.keys(selectedCategoryPreferences).map(
+                      (category, index) => {
+                        const preference = allPreferences.find(
+                          (pref) => pref.key === category,
+                        );
+                        if (preference && preference.value === true) {
+                          return Object.values(
+                            selectedCategoryPreferences[category],
+                          ).map((item, index) => (
+                            <div className="preferenceItem" key={index}>
+                              <div className="mainItemData">
+                                <div className="preferenceItemName">
+                                  {item.name}
+                                </div>
+                                <div className="preferenceItemAddress">
+                                  {item.address.full}
+                                </div>
+                              </div>
+                              <div className="preferenceItemDistance">
+                                <div className="icon">
+                                  <Icon
+                                    icon="ph:person-simple-walk-light"
+                                    id="person-simple-walk-light"
+                                  />
+                                </div>
+                                <div className="distance-time">
+                                  <label className="distance">
+                                    {item.distance > 1000
+                                      ? `${(item.distance / 1000).toFixed(
+                                          1,
+                                        )} km`
+                                      : `${
+                                          Math.ceil(item.distance / 10) * 10
+                                        } m`}
+                                  </label>
+                                  <label className="time">
+                                    {Math.ceil(item.distance / 83)} min
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          ));
+                        } else {
+                          return <div key={index}></div>; // Pusty div, jeśli preferencja jest wyłączona
+                        }
+                      },
+                    )}
+                </div>
               )}
-
             </div>
           </div>
         ) : (
