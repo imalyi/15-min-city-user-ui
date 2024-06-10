@@ -61,7 +61,7 @@ input:focus {
     border-top-right-radius: 8px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    padding: 0 24px;
+    padding: 0 2vh;
     background-color: #dce6fa;
     display: flex;
     align-items: center;
@@ -140,7 +140,7 @@ input:focus {
     border-top-right-radius: 8px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    padding: 0 24px;
+    padding: 0 3vh;
     background-color: #dce6fa;
     display: flex;
     align-items: center;
