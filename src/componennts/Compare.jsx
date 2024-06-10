@@ -28,6 +28,17 @@ function Compare() {
   const [cookies, setCookie] = useCookies(['userID']);
   const searchParams = new URLSearchParams(location.search);
   const userId = searchParams.get('userid');
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 450);
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 450);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (userId) {
@@ -389,7 +400,13 @@ function Compare() {
           </div>
         </div>
         {addresses !== '' ? (
-          <div className="compare-main-div">
+          <div className={
+            addresses.length === 2 || isSmallScreen === false
+              ? 'compare-main-div'
+              : addresses.length === 3 
+                ? 'compare-main-div-3'
+                : ''
+          }>
             {addresses &&
               addresses.map((address, index) => (
                 <div
@@ -430,7 +447,9 @@ function Compare() {
                               </div>
                             ) : null}
                           </div>
-                          <div className="nearest-place">
+                          <div className={`${
+                                isSmallScreen ? 'nearest-place-resp' : 'nearest-place'
+                              }`}>
                             <div className="compare-nearest-place-name">
                               {t(findNearestPlace(address, category).name)}
                             </div>

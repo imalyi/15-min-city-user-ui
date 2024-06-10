@@ -27,9 +27,9 @@
 }
 
 .main-info {
-  max-height: 16.5vh;
+  max-height: 18.5vh;
   overflow: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .main-info::-webkit-scrollbar {
@@ -208,6 +208,10 @@
   margin-bottom: 0px;
 }
 
+.nearest-place-resp{
+  display: flex;
+  flex-direction: column;
+}
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -476,28 +480,89 @@
   }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 450px) {
+
+  .address-div-2 {
+    display: flex;
+    flex-direction: column;
+    width: 44vw;
+    height: 100%;
+    background-color: #dce6fa;
+    border-radius: 12px;
+  }
+  .address-div-3 {
+    display: flex;
+    flex-direction: column;
+    min-width: 44vw;
+    height: 100%;
+    background-color: #dce6fa;
+    border-radius: 12px;
+    margin-right: 4vw;
+  }
+  .compare-main-div {
+    display: flex;
+    justify-content: space-between;
+    height: 80.5vh;
+    width: 92vw;
+    background-color: #f0f8ff;
+    margin-left: 4vw;
+    margin-right: 4vw;
+    margin-top: 3vh;
+    overflow-x: scroll;
+  }
+  .compare-main-div-3{
+    display: flex;
+    justify-content: space-between;
+    height: 80.5vh;
+    background-color: #f0f8ff;
+    margin-left: 4vw;
+    margin-right: 0vw;
+    margin-top: 3vh;
+    overflow-x: scroll;
+  }
+
+  /* Custom scrollbar styles for Webkit browsers */
+.compare-main-div-3::-webkit-scrollbar {
+  height: 10px; /* Height of the horizontal scrollbar */
+}
+
+.compare-main-div-3::-webkit-scrollbar-thumb {
+  background-color: #c0c0c0; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Roundness of the scrollbar thumb */
+  border: 3px solid #f0f8ff; /* Color of the scrollbar track */
+}
+
+.compare-main-div-3::-webkit-scrollbar-track {
+  background-color: #f0f8ff; /* Color of the scrollbar track */
+}
   .match-div {
     font-family: Lato;
     font-size: 1.5vh;
-    font-weight: 500;
-    line-height: 28.8px;
-    text-align: left;
-    margin-left: 3vh;
-    margin-top: 2vh;
-  }
-
-  .address-name {
-    font-family: Lato;
-    font-size: 1.1vh;
     font-weight: 600;
     line-height: 28.8px;
     text-align: left;
-    margin-left: 3vh;
-    margin-top: 2vh;
+    margin-left: 1.5vh;
+    margin-right: 0.5vh;
+    margin-top: 0vh;
+  }
+
+  .address-name {
+    height: 5vh;
+    font-family: Lato;
+    font-size: 1.5vh;
+    font-weight: 600;
+    line-height: 18.8px;
+    text-align: left;
+    margin-left: 1.5vh;
+    margin-right: 0.5vh;
+    margin-top: 1vh;
+  }
+  .compare-hr-place {
+    margin-top: 0.5vh;
+    background-color: #dce6fa;
   }
   .compare-category-name {
-    margin-left: 3vh;
+    margin-left: 1.5vh;
     margin-top: 1vh;
     font-family: Lato;
     font-size: 1.5vh;
@@ -516,41 +581,56 @@
     display: flex;
   }
   .compare-nearest-place-name {
+    height: 2vh;
     font-family: Lato;
     font-size: 1.5vh;
     font-weight: 400;
-    line-height: 28.8px;
+    line-height: 12.8px;
     text-align: left;
-    margin-left: 3vh;
-    margin-top: 2vh;
+    margin-left: 1.5vh;
+    margin-top: 0vh;
   }
   #compare-person-simple-walk-light {
     color: #f8718a;
     height: 2.5vh;
     width: 2.5vh;
-    margin-top: 3vh;
-    margin-right: 1.5vh;
+    margin-top: 1vh;
+    margin-right: 0.7vh;
+    margin-left: 1vh;
   }
   .compare-time {
-    margin-top: 3.3vh;
+    margin-top: 1.4vh;
     margin-right: 3vw;
     font-family: Lato;
-    font-size: 1.5vh;
+    font-size: 1.6vh;
     font-style: normal;
     font-weight: 400;
   }
+  .compare-button-div {
+    height: 8vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .categories {
+    height: 61vh;
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+  
   .compare-button-one-address {
     font-family: Lato;
-    font-size: 1.5vh;
+    font-size: 1.7vh;
     font-weight: 400;
     line-height: 28.8px;
     text-align: left;
     background-color: #24254c;
     border: none;
     border-radius: 12px;
-    height: 6vh;
-    margin-top: 3vh;
+    height: 5vh;
     color: #f0f8ff;
-    margin-right: 2vh;
+    margin-right: 0vh;
+    margin-top: 0vh;
   }
+
 }
