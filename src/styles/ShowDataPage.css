@@ -89,6 +89,12 @@ html {
   min-width: 200px;
 }
 
+.show-data-map-responsiveness {
+  width: 100%;
+  margin: auto;
+  min-width: 200px;
+}
+
 .column-show-data {
   display: flex;
   flex-direction: column;
@@ -149,6 +155,12 @@ html {
 
 .left-section::-webkit-scrollbar-thumb:hover {
   background-color: #8a8a8a; /* Kolor "kciuka" paska przewijania po najechaniu kursorem */
+}
+
+.left-section-responsiveness {
+  width: 100%; /* Adjust the width as needed */
+  height: 10vh;
+  overflow: hidden;
 }
 
 .toggle-left-section-wrapper-show-data {
@@ -275,7 +287,7 @@ html {
   max-height: 20%; /* Dostosuj wysokość obrazka według potrzeb */
 }
 
-.logo {
+.logo-show-data {
   margin-left: 5.5vh;
   margin-top: 3vh;
   width: auto;
@@ -286,7 +298,7 @@ html {
 }
 
 .widthReportSection {
-  max-width: 70%;
+  max-width: 90%;
 }
 
 .position {
@@ -328,7 +340,7 @@ html {
 
 .toggleReportSection-label {
   font-family: Lato, sans-serif;
-  font-size: 24px;
+  font-size: 3vh;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -340,7 +352,7 @@ html {
 
 .toggleReportSectionLabelisMatchVisibleClass {
   font-family: Lato, sans-serif;
-  font-size: 24px;
+  font-size: 3vh;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -645,6 +657,13 @@ html {
   margin-right: 40px;
   transition: cubic-bezier(1, 1, 1, 1) 0.5s;
 }
+.right-section-responsiveness {
+  width: 100%; /* Adjust the width as needed */
+  height: 73.3vh;
+  flex-direction: column; /* Ustaw kolumnowy układ */
+  margin-right: 40px;
+  transition: cubic-bezier(1, 1, 1, 1) 0.5s;
+}
 .right-section-center {
   width: 350%;
   height: 75.8vh;
@@ -693,7 +712,119 @@ html {
   z-index: 999;
 }
 
+.choose-criteria-mobile-div {
+  width: calc(100% - 4vh);
+  margin-left: 2vh;
+  margin-right: 2vh;
+  margin-top: 2vh;
+  height: 8vh;
+  background-color: #dce6fa;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.choose-criteria-mobile {
+  font-family: Lato;
+  font-size: 2vh;
+  font-weight: 600;
+  line-height: 14.4px;
+}
+
+.modal-overlay-category {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.modal-contents-category {
+  position: relative;
+  width: 90vw;
+  height: 80vh;
+  margin-right: 2vw;
+}
+
+.compare-button-show-data-page {
+  background-color: #f0f8ff;
+  border: 1px solid #3044ca;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  margin-top: 4vh;
+  right: 0;
+  position: absolute;
+  margin-right: 47vh;
+  cursor: pointer;
+}
+
+.compare-button-show-data-page-text {
+  font-family: Lato;
+  font-size: 3vh;
+  font-weight: 400;
+  line-height: 28.8px;
+  text-align: left;
+  padding-left: 3vh;
+  padding-right: 3.5vh;
+  padding-top: 1.9vh;
+  padding-bottom: 1.9vh;
+}
+
+.compare-button-show-data-page-icon {
+  padding-right: 3.5vh;
+  padding-top: 1vh;
+}
+
+#compare-icon-button {
+  color: #24254c;
+  height: 5.5vh;
+  width: 5.5vh;
+}
+
 @media only screen and (max-width: 1300px) {
+  .compare-button-show-data-page {
+    background-color: #f0f8ff;
+    border: 1px solid #3044ca;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin-top: 2vh;
+    right: 0;
+    position: absolute;
+    margin-right: 32vh;
+    height: 6vh;
+  }
+
+  .compare-button-show-data-page-text {
+    font-family: Lato;
+    font-size: 2vh;
+    font-weight: 400;
+    line-height: 28.8px;
+    text-align: left;
+    padding-left: 2vh;
+    padding-right: 2vh;
+    padding-top: 1.9vh;
+    padding-bottom: 2vh;
+  }
+
+  .compare-button-show-data-page-icon {
+    padding-right: 2vh;
+    padding-top: 1vh;
+  }
+
+  #compare-icon-button {
+    color: #24254c;
+    height: 3.5vh;
+    width: 3.5vh;
+  }
+
   .show-data-page-search-result-list {
     position: absolute;
     margin-left: 3vh;
@@ -725,11 +856,11 @@ html {
   }
   .toggleReportSectionLabelisMatchVisibleClass {
     font-family: Lato, sans-serif;
-    font-size: 24px;
+    font-size: 2vh;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    padding-left: 10vh;
+    padding-left: 30vh;
     padding-right: 3.5vh;
     padding-top: 2vh;
     padding-bottom: 2vh;
@@ -824,7 +955,7 @@ html {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
-  .logo {
+  .logo-show-data {
     margin-left: 3vh;
     margin-top: 2vh;
     width: auto;
@@ -835,7 +966,7 @@ html {
   }
   .toggleReportSection-label {
     font-family: Lato, sans-serif;
-    font-size: 16px;
+    font-size: 2vh;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -959,6 +1090,42 @@ html {
 }
 
 @media only screen and (max-width: 800px) {
+  .compare-button-show-data-page {
+    background-color: #f0f8ff;
+    border: 1px solid #3044ca;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin-top: 2vh;
+    right: 0;
+    position: absolute;
+    margin-right: 24vh;
+    height: 5vh;
+  }
+
+  .compare-button-show-data-page-text {
+    font-family: Lato;
+    font-size: 1.5vh;
+    font-weight: 400;
+    line-height: 28.8px;
+    text-align: left;
+    padding-left: 1.5vh;
+    padding-right: 1.5vh;
+    padding-top: 1.9vh;
+    padding-bottom: 2vh;
+  }
+
+  .compare-button-show-data-page-icon {
+    padding-right: 1.5vh;
+    padding-top: 1vh;
+  }
+
+  #compare-icon-button {
+    color: #24254c;
+    height: 3.5vh;
+    width: 3.5vh;
+  }
+
   .show-data-page-search-result-list {
     position: absolute;
     margin-left: 1vh;
@@ -1018,11 +1185,11 @@ html {
   }
   .toggleReportSectionLabelisMatchVisibleClass {
     font-family: Lato, sans-serif;
-    font-size: 24px;
+    font-size: 1.5vh;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    padding-left: 0vh;
+    padding-left: 22vh;
     padding-right: 3.5vh;
     padding-top: 2vh;
     padding-bottom: 2vh;
@@ -1096,7 +1263,7 @@ html {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
-  .logo {
+  .logo-show-data {
     margin-left: 1vh;
     margin-top: 2vh;
     width: auto;
@@ -1107,7 +1274,7 @@ html {
   }
   .toggleReportSection-label {
     font-family: Lato, sans-serif;
-    font-size: 12px;
+    font-size: 1.5vh;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -1193,5 +1360,193 @@ html {
     border-top-right-radius: 8px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
+  }
+}
+
+@media only screen and (max-width: 451px) {
+  .toggle-match-details {
+    color: #f0f8ff;
+    padding: 1.125vh 1vh;
+    font-family: Lato, sans-serif;
+    font-size: 1.5vh;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    background: var(--primary, #24254c);
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 3vh;
+  }
+  .matchContainer {
+    width: 45%;
+    position: relative;
+    height: 1.2vh; /* Wysokość kontenera */
+    margin-top: 1.3vh;
+    margin-left: 1vh;
+  }
+  .selectyourCriteria {
+    box-shadow:
+      25px 9px 30px -20px rgba(46, 54, 61, 0.15),
+      -25px 9px 30px -20px rgba(46, 54, 61, 0.15);
+    width: calc(100%);
+    display: flex;
+    text-align: center;
+    height: 5vh;
+    background-color: #dce6fa;
+    font-family: Lato;
+    font-size: 1.5vh;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-left: 3vh;
+    padding-right: 3vh;
+    padding-top: 1vh;
+  }
+  .matchingName {
+    width: 55%;
+    text-align: left;
+    margin-left: 2%;
+    padding-top: 1vh;
+  }
+  .show-data-page-search-bar {
+    width: calc(100% - 4vh);
+    height: 7vh;
+    border-radius: 8px;
+    padding: 0 1.5vh;
+    background-color: #dce6fa;
+    display: flex;
+    align-items: center;
+    margin-left: 2vh;
+    margin-right: 2vh;
+    margin-top: 2vh;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+  .logo-show-data {
+    margin-left: 1.5vw;
+    margin-top: 2.5vh;
+    width: 64px;
+    height: 6vh;
+    background-color: #f0f8ff;
+    border: none;
+    border-radius: 8px;
+  }
+  .compare-button-show-data-page {
+    background-color: #f0f8ff;
+    border: 1px solid #3044ca;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin-top: 2.5vh;
+    right: 0;
+    position: absolute;
+    margin-right: 23vh;
+    height: 6vh;
+  }
+
+  .compare-button-show-data-page-text {
+    font-family: Lato;
+    font-size: 1.5vh;
+    font-weight: 400;
+    line-height: 28.8px;
+    text-align: left;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    padding-top: 1.9vh;
+    padding-bottom: 2vh;
+  }
+
+  .compare-button-show-data-page-icon {
+    padding-right: 1vh;
+    padding-top: 1vh;
+  }
+
+  #compare-icon-button {
+    color: #24254c;
+    height: 3vh;
+    width: 3vh;
+  }
+
+  .toggleReportSection {
+    margin-right: 2vh;
+    margin-top: 2.5vh;
+    height: 6vh;
+    background-color: #dce6fa;
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+  }
+  .matchShadow {
+    width: calc(100% - 2vh);
+  }
+  .toggleReportSectionLabelisMatchVisibleClass {
+    font-family: Lato, sans-serif;
+    font-size: 1.5vh;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding-left: 19.5vh;
+    padding-right: 1vh;
+    padding-top: 1vh;
+    padding-bottom: 0.5vh;
+    white-space: nowrap;
+  }
+  .toggleReportSection-label {
+    font-family: Lato, sans-serif;
+    font-size: 1.5vh;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    padding-top: 1vh;
+    padding-bottom: 0.5vh;
+  }
+  .selectyourCriteriaWithoutCategories {
+    box-shadow: 0px 9px 30px 0px rgba(46, 54, 61, 0.15);
+    width: calc(100% - 2vh);
+    display: flex;
+    text-align: center;
+    height: 7vh;
+    background-color: #dce6fa;
+    font-family: Lato;
+    font-size: 1.5vh;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-left: 3vh;
+    padding-right: 1vh;
+    padding-top: 1.5vh;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  .toggleReportSection-icon {
+    color: black;
+    width: 3vh;
+    height: 5vh;
+    padding-right: 1vh;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+  }
+
+  .toggleReportSectionisMatchVisibleClass {
+    margin-right: 2vh;
+    margin-top: 2.5vh;
+    height: 6vh;
+    background-color: #dce6fa;
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 }

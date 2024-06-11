@@ -61,4 +61,19 @@
 }
 
 @media only screen and (max-width: 450px) {
+  .roles-search-result-list {
+    position: absolute;
+    margin-left: 2vw;
+    width: calc(100% - 2vw);
+    background-color: #dce6fa;
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    max-height: 480px;
+    overflow-y: auto;
+    z-index: 999;
+  }
 }

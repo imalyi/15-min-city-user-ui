@@ -8,7 +8,11 @@ import { SearchRolesBar } from './SearchRolesBar';
 import { SearchRolesResultsList } from './SearchRolesResultsList';
 import { Icon } from '@iconify/react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LeftSectionSlide, LeftSectionSlideHide } from './anim.js';
+import {
+  LeftSectionSlide,
+  LeftSectionSlideHide,
+  MobileLeftSectionSlide,
+} from './anim.js';
 import { logger } from '../logger';
 
 const Roles = ({
@@ -21,6 +25,8 @@ const Roles = ({
   setPreferencesSearchDataShowPage,
   handleSearch,
   onAddressClick,
+  isMobile,
+  toggleExpendedClick,
 }) => {
   const { t } = useTranslation();
   const [isShowDataPage, setIsShowDataPage] = useState(false);
@@ -37,7 +43,7 @@ const Roles = ({
   const [preferencesSearchData, setPreferencesSearchData] = useState(
     preferencesSearchDataShowPage,
   );
-
+  logger.warn('Preferences search data:', preferencesSearchDataShowPage);
   const handleRemoveAllPreferences = () => {
     setPreferencesSearchData([]);
     setSelectedPreferences([]);
@@ -57,7 +63,7 @@ const Roles = ({
   const handleResultClick = (result) => {
     setInput('');
     setIsResultClicked(true);
-
+    logger.warn('Result clicked:', preferencesSearchData);
     // Sprawdzenie, czy result już istnieje w preferencesSearchData
     const resultExists = preferencesSearchData.some((item) => {
       if (typeof item === 'object' && typeof result === 'object') {
@@ -106,7 +112,7 @@ const Roles = ({
 
   useEffect(() => {
     const checkScreenWidth = () => {
-      setIsSmallScreen(window.innerWidth <= 600);
+      setIsSmallScreen(window.innerWidth <= 450);
     };
 
     // Sprawdź szerokość ekranu przy załadowaniu komponentu
@@ -192,14 +198,23 @@ const Roles = ({
   return (
     <div>
       <AnimatePresence mode="wait">
-        {isLeftSectionVisible && (
+        {(isLeftSectionVisible || isMobile) && (
           <motion.div
-            variants={LeftSectionSlide}
+            variants={isMobile ? MobileLeftSectionSlide : LeftSectionSlide}
             animate="enter"
             exit="exit"
             initial="initial"
           >
-            <div style={{ position: 'absolute', width: '100%' }}>
+            <div>
+              {isSmallScreen == true ? (
+                <div className="choose-criteria-mobile-div-roles">
+                  <div className="choose-criteria-mobile">
+                    {t('Select criteria')}
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
               <div>
                 <SearchRolesBar
                   setCustomAddress={setCustomAddress}
@@ -345,23 +360,24 @@ const Roles = ({
                 <label className="filters-label">{t('Your filters')}</label>
 
                 <div>
-                  {preferencesSearchData.map((preference, index) => (
-                    <div key={index} className="selected-search-preferences">
-                      <div
-                        className="selected-search-preference"
-                        onClick={() => onAddressClick(preference)}
-                      >
-                        <span className="selected-preference-label">
-                          {t(preference.name ? preference.name : preference)}
-                        </span>
-                        <Icon
-                          icon="material-symbols-light:close"
-                          className="close-icon"
-                          onClick={() => handleRemovePreference(index)}
-                        />
+                  {preferencesSearchData &&
+                    preferencesSearchData.map((preference, index) => (
+                      <div key={index} className="selected-search-preferences">
+                        <div
+                          className="selected-search-preference"
+                          onClick={() => onAddressClick(preference)}
+                        >
+                          <span className="selected-preference-label">
+                            {t(preference.name ? preference.name : preference)}
+                          </span>
+                          <Icon
+                            icon="material-symbols-light:close"
+                            className="close-icon"
+                            onClick={() => handleRemovePreference(index)}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </div>
               <div className="hr-place">
@@ -379,12 +395,29 @@ const Roles = ({
                     icon="mdi-light:arrow-left"
                     className="toggle-left-section-icon"
                   />
-                  <label
-                    className="toggle-left-section"
-                    onClick={() => toggleRoleSVisible()}
-                  >
-                    {t('Hide')}
-                  </label>
+                  {isMobile == true ? (
+                    <div>
+                      <label
+                        className="toggle-left-section"
+                        onClick={() => {
+                          toggleExpendedClick();
+                        }}
+                      >
+                        {t('Map')}
+                      </label>
+                    </div>
+                  ) : (
+                    <div>
+                      <label
+                        className="toggle-left-section"
+                        onClick={() => {
+                          toggleRoleSVisible();
+                        }}
+                      >
+                        {t('Hide')}
+                      </label>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
