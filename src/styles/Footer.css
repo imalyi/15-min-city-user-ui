@@ -29,6 +29,9 @@
 
 .footer-divs {
   display: flex;
+  z-index: 1002;
+  position: relative;
+  background-color: #f0f8ff;
 }
 
 .marginLeftTranslate {
@@ -49,8 +52,8 @@
 
 .language-icon {
   margin-left: 2vw;
-  width: 32px;
-  height: 32px;
+  width: 4vh;
+  height: 4vh;
   color: #f8718a;
   cursor: pointer;
 }
@@ -58,8 +61,8 @@
 .language-icon-done {
   margin-left: auto;
   margin-right: 1vw;
-  width: 32px;
-  height: 32px;
+  width: 4vh;
+  height: 4vh;
   color: #f8718a;
   cursor: pointer;
 }
@@ -90,14 +93,13 @@
   height: 4vh;
   width: 4vh;
   margin-top: 2.8vh;
-  margin-left: 1vw;
 }
 
 .mail-button {
   cursor: pointer;
   display: flex;
   flex-direction: row;
-  margin-left: 2vw;
+  margin-left: 4vw;
 }
 
 .translate-button-footer {
@@ -155,31 +157,46 @@
 
   .button-footer {
     border: none;
-    margin-left: 4vw;
+    margin-left: 3vw;
     font-family: 'Lato', sans-serif;
     font-weight: 500;
     font-size: 2vh;
     background-color: #f0f8ff;
-    margin-bottom: 2vh;
-    margin-top: 2vh;
+    margin-top: 3.5vh;
   }
   .button-footer-contact {
     border: none;
-    margin-left: 2vw;
+    margin-left: 1vw;
     font-family: 'Lato', sans-serif;
     font-weight: 500;
     font-size: 2vh;
     background-color: #f0f8ff;
-    margin-bottom: 2vh;
-    margin-top: 2vh;
+    margin-top: 3.5vh;
+    margin-right: 1vw;
   }
 
   #mail-icon-button {
     color: #24254c;
-    height: 3vh;
-    width: 3vh;
-    margin-top: 2vh;
-    margin-left: 1vw;
+    height: 4vh;
+    width: 4vh;
+    margin-top: 2.8vh;
+  }
+
+  .language-icon {
+    margin-left: 2vw;
+    width: 4vh;
+    height: 4vh;
+    color: #f8718a;
+    cursor: pointer;
+  }
+
+  .language-icon-done {
+    margin-left: auto;
+    margin-right: 1vw;
+    width: 4vh;
+    height: 4vh;
+    color: #f8718a;
+    cursor: pointer;
   }
 
   .translate-button-footer {
@@ -191,11 +208,84 @@
 
   .translate-toggle-visible {
     height: 21vh;
-    width: 30vw;
+    width: 20vw;
     position: absolute;
     top: -15.2vh;
     background-color: #f0f8ff;
     padding-left: 2vw;
+    text-align: left;
+    box-shadow: 0px 8px 24px 0px #3044ca33;
+    border-radius: 16px;
+    cursor: pointer;
+    z-index: 10000;
+  }
+  .translate-main-div {
+    position: relative;
+    margin-left: 25vw;
+    cursor: pointer;
+    margin-top: 2.7vh;
+  }
+  .language-select-names {
+    border-radius: 16px;
+    padding-bottom: 0.7vh;
+    padding-top: 0.8vh;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    font-size: 2vh;
+    background-color: #f0f8ff;
+    color: #99a0a9;
+  }
+  .selected-language {
+    color: #101720;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .translate-button-visible {
+    margin-top: 2.15vh;
+  }
+
+  .button-footer {
+    border: none;
+    margin-left: 3vw;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    font-size: 1.5vh;
+    background-color: #f0f8ff;
+    margin-top: 2vh;
+  }
+  .button-footer-contact {
+    border: none;
+    margin-left: 1vw;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    font-size: 1.5vh;
+    background-color: #f0f8ff;
+    margin-top: 2vh;
+    margin-right: 1vw;
+  }
+
+  #mail-icon-button {
+    color: #24254c;
+    height: 3vh;
+    width: 3vh;
+    margin-top: 1.6vh;
+  }
+
+  .translate-button-footer {
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    font-size: 1.5vh;
+    background-color: #f0f8ff;
+  }
+
+  .translate-toggle-visible {
+    height: 18vh;
+    width: 20vw;
+    position: absolute;
+    top: -13.05vh;
+    background-color: #f0f8ff;
+    padding-left: 1vw;
     text-align: left;
     box-shadow: 0px 8px 24px 0px #3044ca33;
     border-radius: 16px;
@@ -214,11 +304,31 @@
     padding-top: 0.8vh;
     font-family: 'Lato', sans-serif;
     font-weight: 500;
-    font-size: 2vh;
+    font-size: 1.5vh;
     background-color: #f0f8ff;
     color: #99a0a9;
   }
   .selected-language {
     color: #101720;
+  }
+  .language-icon {
+    margin-left: 2vw;
+    width: 3vh;
+    height: 3vh;
+    color: #f8718a;
+    cursor: pointer;
+  }
+
+  .language-icon-done {
+    margin-left: auto;
+    margin-right: 1vw;
+    width: 3vh;
+    height: 3vh;
+    color: #f8718a;
+    cursor: pointer;
+  }
+  .margin-footer {
+    margin-top: 2vh;
+    margin-bottom: 1vh;
   }
 }

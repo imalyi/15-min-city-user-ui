@@ -54,13 +54,13 @@ function Footer({ useMargin }) {
         <div className="footer-divs">
           <div className="button-footer">{t('About us')}</div>
           <div className="mail-button" onClick={handleCopyAndOpenMail}>
+            <div className="button-footer-contact">{t('Contact us')}</div>
             <div>
               <Icon
                 icon="material-symbols-light:mail-outline"
                 id="mail-icon-button"
               />
             </div>
-            <div className="button-footer-contact">{t('Contact us')}</div>
           </div>
           {isTranslateChangeVisible ? (
             <div className="translate-main-div">

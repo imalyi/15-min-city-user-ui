@@ -1,3 +1,4 @@
+
 .roles-search-bar {
   width: calc(100% - 5vh);
   height: 11vh;
@@ -155,14 +156,14 @@ input:focus {
   .roles-search-bar input::placeholder {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
-    font-size: 1vh;
+    font-size: 1.7vh;
     color: #99a0a9;
   }
 
   .roles-search-bar input {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
-    font-size: 1.5vh;
+    font-size: 1.7vh;
   }
   input {
     background-color: transparent;
@@ -170,6 +171,19 @@ input:focus {
     height: 100%;
     font-size: 1.5vh;
     width: 100%;
-    margin-left: 2px;
+  }
+  .roles-search-bar {
+    width: calc(100% - 2vw);
+    height: 7vh;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 0 1vh;
+    background-color: #dce6fa;
+    display: flex;
+    align-items: center;
+    margin-left: 2vw;
+    margin-top: 0vh;
   }
 }

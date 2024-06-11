@@ -54,3 +54,13 @@
     margin-left: 1vh;
   }
 }
+
+@media only screen and (max-width: 451px) {
+  .leaflet-container {
+    width: calc(100% - 4vh);
+    height: 200%;
+    margin-top: 2vh;
+    margin-left: 2vh;
+    margin-right: 2vh;
+  }
+}

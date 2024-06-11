@@ -42,7 +42,6 @@ function Home() {
     }
   }, []);
 
-  logger.log(input);
   const loadData = async (id) => {
     try {
       const response = await fetch(
@@ -57,8 +56,6 @@ function Home() {
 
       if (response.ok) {
         const data = await response.json();
-        logger.log(data);
-        logger.log(input);
         setInput((prevInput) => {
           if (prevInput === '') {
             return data.request.addresses[0];
@@ -90,7 +87,6 @@ function Home() {
 
   const handleNewUserRegistration = async () => {
     const userID = generateUserID();
-    logger.warn(userID);
     setCookie('userID', userID); // Set userID cookie
   };
 
@@ -148,7 +144,6 @@ function Home() {
         sub_category: item.category,
       });
     });
-    logger.log(customObjectsAndAdresses);
     setSelectedPreferencesSearch(customObjectsAndAdresses);
   };
 
