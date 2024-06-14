@@ -150,6 +150,21 @@ html::-webkit-scrollbar-thumb {
     font-weight: 600;
     line-height: normal;
   }
+  .home-heatmap-link{
+    max-width: 80vw;
+    margin-top: 3vh;
+    margin-left: 3vh;
+    color: var(--primary, #24254c);
+    font-family: 'Lato', sans-serif;
+    font-size: 2vh;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding-top: 11vh; /* Opcjonalnie: odstępy wewnętrzne */
+  }
+  .blue-link{
+    color: blue;
+  }
 }
 
 @media only screen and (min-width: 850px) {
@@ -188,7 +203,7 @@ html::-webkit-scrollbar-thumb {
     min-width: 100vh;
   }
   .home-description-title {
-    max-width: 80vh;
+    max-width: 65vw;
     margin-top: 16vh;
     margin-left: 5.5vh;
     font-family: 'Lato', sans-serif;
@@ -199,7 +214,7 @@ html::-webkit-scrollbar-thumb {
     color: var(--primary, #24254c);
   }
   .home-description-second-title {
-    width: 70vh;
+    width: 55vw;
     margin-top: 3vh;
     margin-left: 5.5vh;
     font-family: 'Lato', sans-serif;
@@ -211,7 +226,7 @@ html::-webkit-scrollbar-thumb {
   }
 
   .home-description-third-title {
-    width: 70vh;
+    width: 50vw;
     margin-top: 5vh;
     margin-left: 5.5vh;
     color: var(--primary, #24254c);
@@ -220,5 +235,23 @@ html::-webkit-scrollbar-thumb {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+  }
+  .home-heatmap-link{
+    max-width: 80vw;
+    margin-top: 5vh;
+    margin-left: 5.5vh;
+    color: var(--primary, #24254c);
+    font-family: 'Lato', sans-serif;
+    font-size: 2.5vh;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    padding: 14vh 0; /* Opcjonalnie: odstępy wewnętrzne */
+  }
+  .blue-link{
+    color: blue;
   }
 }
