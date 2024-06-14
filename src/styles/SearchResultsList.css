@@ -58,7 +58,7 @@
     position: absolute;
     top: 0;
     margin-left: 5vh;
-    width: calc(100% - 10vh);
+    width: calc(100% - 35vw);
     background-color: #dce6fa;
     display: flex;
     flex-direction: column;
