@@ -221,16 +221,6 @@ function Home() {
                 'Enter the address of your choice, indicate the facilities you are using and make sure you have everything at hand where you are staying.',
               )}
             </h2>
-            <div className="home-heatmap-link">
-              <span>              
-                {t(
-                'You have no address? ',
-                )}
-              </span>
-              <Link to="/heatmap" className="blue-link">
-                {t('Choose the necessary objects and discover the best neighborhood')}
-              </Link>
-            </div>
           </div>
         </div>
       </div>

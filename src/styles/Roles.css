@@ -26,6 +26,9 @@
   background-color: #8a8a8a; 
 }
 */
+.homeStyle {
+  background-color: rgba(255, 255, 255, 0.952);
+}
 .all-categories {
   margin: 0px; /* Adjust the margin as needed */
   margin-bottom: 10px;
