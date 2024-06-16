@@ -3,4 +3,6 @@
     flex-direction: column;
     width: 100vw;
     overflow-x: hidden;
+    display: flex;
+    justify-content: space-between;
 }

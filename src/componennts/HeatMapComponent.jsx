@@ -134,7 +134,7 @@ function HeatMapComponent() {
             </button>
         </div>
         <div className='show-data-map'>
-            <div>
+            <div className='left-section'> 
                 <Roles
                     onSelectPreferences={handlePreferencesSelect}
                     selectedPreferencesShowPage={selectedPreferencesShowPage}
@@ -156,7 +156,7 @@ function HeatMapComponent() {
                 }`}
               >
                 {Object(geojson).length != 0 ? (
-                    <HeatMap geojson={geojson} />
+                    <HeatMap geojson={geojson} toggleRoleSVisible={handleToggleLeftSection} isLeftSectionVisible={isLeftSectionVisible}/>
                 ) : (
                     <p>Check your categories and click on search button - Test heatmap. Please wait 5-30 seconds</p>
                 )}

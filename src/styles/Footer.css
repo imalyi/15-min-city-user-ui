@@ -75,6 +75,9 @@
   font-size: 2.5vh;
   background-color: #f0f8ff;
   margin-top: 3vh;
+  margin-bottom: 1vh;
+  cursor: pointer;
+
 }
 
 .button-footer-contact {
@@ -123,9 +126,10 @@
 }
 .translate-main-div {
   position: relative;
-  margin-left: 55vw;
+  margin-left: 75vw;
   cursor: pointer;
   margin-top: 2.7vh;
+
 }
 .language-select-names {
   border-radius: 16px;
@@ -144,7 +148,7 @@
 @media only screen and (max-width: 1250px) {
   .translate-main-div {
     position: relative;
-    margin-left: 40vw;
+    margin-left: 70vw;
     cursor: pointer;
     margin-top: 2.7vh;
   }
@@ -221,7 +225,7 @@
   }
   .translate-main-div {
     position: relative;
-    margin-left: 25vw;
+    margin-left: 65vw;
     cursor: pointer;
     margin-top: 2.7vh;
   }
@@ -281,7 +285,7 @@
 
   .translate-toggle-visible {
     height: 18vh;
-    width: 20vw;
+    width: 25vw;
     position: absolute;
     top: -13.05vh;
     background-color: #f0f8ff;
@@ -294,7 +298,7 @@
   }
   .translate-main-div {
     position: relative;
-    margin-left: 25vw;
+    margin-left: 55vw;
     cursor: pointer;
     margin-top: 1.7vh;
   }
