@@ -251,7 +251,7 @@
 
   .button-footer {
     border: none;
-    margin-left: 3vw;
+    margin-left: 6vw;
     font-family: 'Lato', sans-serif;
     font-weight: 500;
     font-size: 1.5vh;
@@ -298,7 +298,7 @@
   }
   .translate-main-div {
     position: relative;
-    margin-left: 55vw;
+    margin-left: 52vw;
     cursor: pointer;
     margin-top: 1.7vh;
   }

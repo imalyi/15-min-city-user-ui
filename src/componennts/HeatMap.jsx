@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { divIcon } from 'leaflet';
@@ -36,12 +36,15 @@ function CustomControl({toggleRoleSVisible, isLeftSectionVisible}) {
     return () => {
       map.removeControl(controlInstance);
     };
-  }, [map]);
+  }, [map, isLeftSectionVisible, toggleRoleSVisible]);
 
   return null;
 }
 
-function HeatMap({ geojson, toggleRoleSVisible, isLeftSectionVisible }) {
+function HeatMap({ geojson, toggleRoleSVisible, isLeftSectionVisible, isSmallScreen }) {
+  const [mapCenter, setMapCenter] = useState(isSmallScreen ? [54.435787, 18.558210] : [54.41577, 18.927222]);
+
+
   const setColor = ({ properties }) => {
     return { weight: 1, color: '#000' };
   };
@@ -56,15 +59,17 @@ function HeatMap({ geojson, toggleRoleSVisible, isLeftSectionVisible }) {
       html: name,
       className: 'icon',
     });
+  
 
-  logger.log(geojson);
+  
 
   return (
     <MapContainer
-      center={[54.352, 18.6466]}
+      center={mapCenter}
       zoom={11}
       scrollWheelZoom={true}
       zoomControl={false}
+      style={{marginTop: '5vh'}}
     >
       <TileLayer
         attribution="Jawg.Dark"
@@ -73,7 +78,10 @@ function HeatMap({ geojson, toggleRoleSVisible, isLeftSectionVisible }) {
       <GeoJSON data={geojson} style={setColor} />
       <GeoJSON data={seg} style={setColor} />
       <GeoJSON data={ecomp} pointToLayer={pointToLayer} />
-      <CustomControl toggleRoleSVisible={toggleRoleSVisible} isLeftSectionVisible={isLeftSectionVisible}/>
+      {!isSmallScreen &&(
+        <CustomControl toggleRoleSVisible={toggleRoleSVisible} isLeftSectionVisible={isLeftSectionVisible}/>
+      )}
+      
     </MapContainer>
   );
 }

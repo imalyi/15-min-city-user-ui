@@ -1,5 +1,5 @@
 // About.jsx
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Footer from './Footer';
 import { logger } from '../logger';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,16 @@ import '../styles/AboutUs.css';
 function AboutUs() {
   const { i18n, t } = useTranslation();
   const [showPopup, setShowPopup] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 450);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 450);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleEmailClick = () => {
     const email = 'contact_with_cityinminutes@pm.me';
@@ -41,7 +51,7 @@ function AboutUs() {
       </div>
       <div className='info-about-us-container'>
       <div>
-        <h1 className="home-description-title" style={{marginTop: '20vh'}}>
+        <h1 className="home-description-title" style={{marginTop: !isSmallScreen? '15vh' : '11vh'}}>
             {t(
               'We believe in cities where everything you need is at your fingertips.',
             )}
