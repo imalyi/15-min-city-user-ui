@@ -27,6 +27,8 @@ const Roles = ({
   onAddressClick,
   isMobile,
   toggleExpendedClick,
+  isHeatmap,
+  fetchHeatmap,
 }) => {
   const { t } = useTranslation();
   const [isShowDataPage, setIsShowDataPage] = useState(false);
@@ -194,7 +196,6 @@ const Roles = ({
     }
     setTimeout(handleSearch(), 50);
   };
-
   return (
     <div>
       <AnimatePresence mode="wait">
@@ -215,36 +216,45 @@ const Roles = ({
               ) : (
                 <></>
               )}
-              <div>
-                <SearchRolesBar
-                  setCustomAddress={setCustomAddress}
-                  setCustomObject={setCustomObject}
-                  input={input}
-                  setInput={handleSearchBarChange}
-                  setIsResultClicked={setIsResultClicked}
-                  searchBarClassName="roles-search-bar"
-                />
-                {(customAddress || customObject) &&
-                  (customAddress.length > 0 || customObject.length > 0) &&
-                  !isResultClicked && (
-                    <SearchRolesResultsList
-                      customAddress={customAddress}
-                      customObject={customObject}
-                      onResultClick={handleResultClick}
-                      searchResultsListClassName="roles-search-result-list"
-                    />
-                  )}
-              </div>
-              <div className="hr-place">
-                <hr className="search-place-hr" />
-              </div>
+              {isHeatmap==undefined && (
+                <div>
+                <div>
+                  <SearchRolesBar
+                    setCustomAddress={setCustomAddress}
+                    setCustomObject={setCustomObject}
+                    input={input}
+                    setInput={handleSearchBarChange}
+                    setIsResultClicked={setIsResultClicked}
+                    searchBarClassName="roles-search-bar"
+                  />
+                  {(customAddress || customObject) &&
+                    (customAddress.length > 0 || customObject.length > 0) &&
+                    !isResultClicked && (
+                      <SearchRolesResultsList
+                        customAddress={customAddress}
+                        customObject={customObject}
+                        onResultClick={handleResultClick}
+                        searchResultsListClassName="roles-search-result-list"
+                      />
+                    )}
+                </div>
+                <div className="hr-place">
+                  <hr className="search-place-hr" />
+                </div>
+                </div>
+              )}
+              
               <div
                 className={`roles-container ${
                   isShowDataPage ? '' : 'homeStyle'
                 }`}
+                style={{ height: isHeatmap ? '57.5vh' : '', marginTop: isHeatmap && !isMobile ? '5vh' : '', borderTopRightRadius: isHeatmap ? '10px' : '', borderRadius: isHeatmap && isMobile ? '0' : '',  borderTopLeftRadius: isHeatmap && !isMobile ? '10px' : '',}}
               >
                 <div className="centered-category-header">
                   <div className="preferences-column">
+                    {isHeatmap && (
+                      <div style={{marginTop: '2vh'}}></div>
+                    )}
                     {Object.keys(preferencesData).map((categoryName) => (
                       <div key={categoryName} className="category-container">
                         <div className="category-header">
@@ -357,7 +367,10 @@ const Roles = ({
                     ))}
                   </div>
                 </div>
+                {isHeatmap==undefined && (
                 <label className="filters-label">{t('Your filters')}</label>
+                )
+                }
 
                 <div>
                   {preferencesSearchData &&
@@ -391,11 +404,14 @@ const Roles = ({
                   {t('Clear all')}
                 </label>
                 <div className="toggle-left-section-wrapper">
-                  <Icon
-                    icon="mdi-light:arrow-left"
-                    className="toggle-left-section-icon"
-                  />
-                  {isMobile == true ? (
+                  {isHeatmap==undefined && (
+                    <Icon
+                      icon="mdi-light:arrow-left"
+                      className="toggle-left-section-icon"
+                    />
+                  )}
+
+                  {isMobile == true && isHeatmap == undefined? (
                     <div>
                       <label
                         className="toggle-left-section"
@@ -406,7 +422,7 @@ const Roles = ({
                         {t('Map')}
                       </label>
                     </div>
-                  ) : (
+                  ) : isHeatmap == undefined ? (
                     <div>
                       <label
                         className="toggle-left-section"
@@ -415,6 +431,18 @@ const Roles = ({
                         }}
                       >
                         {t('Hide')}
+                      </label>
+                    </div>
+                  ) : (
+                    <div>
+                      <label
+                        className="toggle-left-section"
+                        style={{padding: '1.5vh'}}
+                        onClick={() => {
+                          fetchHeatmap();
+                        }}
+                      >
+                        {t('Show on map')}
                       </label>
                     </div>
                   )}

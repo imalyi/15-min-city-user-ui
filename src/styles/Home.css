@@ -205,7 +205,7 @@ html::-webkit-scrollbar-thumb {
   .home-description-title {
     max-width: 65vw;
     margin-top: 16vh;
-    margin-left: 5.5vh;
+    margin-left: 3vw;
     font-family: 'Lato', sans-serif;
     font-size: 4vh;
     font-style: normal;
@@ -216,7 +216,7 @@ html::-webkit-scrollbar-thumb {
   .home-description-second-title {
     width: 55vw;
     margin-top: 3vh;
-    margin-left: 5.5vh;
+    margin-left: 3vw;
     font-family: 'Lato', sans-serif;
     font-size: 2.5vh;
     font-style: normal;
@@ -228,7 +228,7 @@ html::-webkit-scrollbar-thumb {
   .home-description-third-title {
     width: 50vw;
     margin-top: 5vh;
-    margin-left: 5.5vh;
+    margin-left: 3vw;
     color: var(--primary, #24254c);
     font-family: 'Lato', sans-serif;
     font-size: 3vh;
@@ -239,7 +239,7 @@ html::-webkit-scrollbar-thumb {
   .home-heatmap-link{
     max-width: 80vw;
     margin-top: 5vh;
-    margin-left: 5.5vh;
+    margin-left: 3vw;
     color: var(--primary, #24254c);
     font-family: 'Lato', sans-serif;
     font-size: 2.5vh;

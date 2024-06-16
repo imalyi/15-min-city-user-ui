@@ -5,3 +5,46 @@
     font-size: 1vh;
   }
   
+  .my-custom-button {
+    width: 6vh;
+    height: 6vh;
+    background-color: #DCE6FA;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 8px 24px 0px #3044CA33;
+    position: relative; /* Ensure the container is positioned relatively */
+  }
+  
+  .my-custom-button::before {
+    content: '';
+    position: absolute; /* Use absolute positioning */
+    left: 1.5vh; /* Adjust the left value to move the arrow to the left */
+    transform: translateY(-50%); /* Adjust to align properly */
+    background-image: url('left-arrow-svgrepo-com.svg');
+    background-size: cover;
+    width: 3vh; /* Define width and height of the pseudo-element */
+    height: 3vh;
+    padding: 1.5vh; /* Adjust padding as needed */
+  }
+
+  .my-custom-button-active {
+    width: 6vh;
+    height: 6vh;
+    background-color: #DCE6FA;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 8px 24px 0px #3044CA33;
+    position: relative; /* Ensure the container is positioned relatively */
+  }
+
+  .my-custom-button-active::before {
+    content: '';
+    position: absolute; /* Use absolute positioning */
+    left: 1.5vh; /* Adjust the left value to move the arrow to the left */
+    transform: translateY(-50%); /* Adjust to align properly */
+    background-image: url('right-arrow-svgrepo-com.svg');
+    background-size: cover;
+    width: 3vh; /* Define width and height of the pseudo-element */
+    height: 3vh;
+    padding: 1.5vh; /* Adjust padding as needed */
+  }

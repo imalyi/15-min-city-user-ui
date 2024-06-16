@@ -16,12 +16,22 @@ function HeatMapComponent() {
     const [selectedPreferencesSearch, setSelectedPreferencesSearch] = useState([]);
     const [preferencesData, setPreferencesData] = useState([]);
     const [geojson, setGeojson] = useState([]);
+    const [loadHeatmap, setLoadHeatmap] = useState(false);
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 450);
+    const [isExpanded, setIsExpanded] = useState(false);
+  
+    useEffect(() => {
+      const handleResize = () => {
+        setIsSmallScreen(window.innerWidth <= 450);
+      };
+  
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
-    logger.log(selectedPreferencesShowPage)
-    logger.log(preferencesData)
-    logger.log(preferencesSearchDataShowPage)
-    logger.log(selectedPreferencesSearch)
-
+    const handleIsExpandedClick = () => {
+      setIsExpanded(!isExpanded);
+    };
     const filteredPreferencesData = Object.keys(preferencesData).reduce(
         (acc, key) => {
           // Filtruj preferencje w danej kategorii
@@ -82,10 +92,18 @@ function HeatMapComponent() {
     };
 
     const fetchHeatmap = async () => {
+        handleIsExpandedClick();  
+        if (loadHeatmap) {
+            return;
+        }
+        if (transformedData.length === 0) {
+            setGeojson([]);
+            return;
+        }
         setGeojson([]);
         const data = transformedData;
         logger.log("da" + 'res')
-
+        setLoadHeatmap(true);
         try {
             const res = await fetch(`${api.APP_URL_USER_API}heatmap/`, {
                 method: 'POST',
@@ -105,6 +123,7 @@ function HeatMapComponent() {
         } catch (err) {
             logger.error(err);
         }
+        setLoadHeatmap(false);
     };
 
 
@@ -114,6 +133,7 @@ function HeatMapComponent() {
 
   return (
     <div className='HeatMapPage'>
+      <div style={{flex: '1'}}>
         <div>
             <Link to="/">
             <button className="logo-show-data" title={t('Search Page')}>
@@ -124,43 +144,126 @@ function HeatMapComponent() {
                 />
             </button>
             </Link>
-            <button className="logo-show-data" title={t('Search Page')}>
-                <img
-                src={'/images/look-up-svgrepo-com.svg'}
-                alt="Red Cross"
-                className="centered-img-cross"
-                onClick={fetchHeatmap}
-                />
-            </button>
         </div>
-        <div className='show-data-map'>
-            <div>
-                <Roles
-                    onSelectPreferences={handlePreferencesSelect}
-                    selectedPreferencesShowPage={selectedPreferencesShowPage}
-                    toggleRoleSVisible={handleToggleLeftSection}
-                    isLeftSectionVisible={isLeftSectionVisible}
-                    setPreferencedDataShowPage={handlePreferencesData}
-                    preferencesSearchDataShowPage={
-                        preferencesSearchDataShowPage
-                    }
-                    setPreferencesSearchDataShowPage={
-                        handlePreferencesSearchSelect
-                    }
-                    handleSearch={handleEnterPress}
-                />
-            </div>
-            <div
-                className={`right-section map-container ${
-                  isLeftSectionVisible ? '' : 'right-section-center'
-                }`}
-              >
-                {Object(geojson).length != 0 ? (
-                    <HeatMap geojson={geojson} />
+        {isSmallScreen ? (
+            <div className="show-data-map-responsiveness">
+              <div className="right-section-responsiveness map-container"> 
+                {Object(geojson).length != 0 && geojson != null ? (
+                      <HeatMap geojson={geojson} toggleRoleSVisible={handleToggleLeftSection} isLeftSectionVisible={isLeftSectionVisible} isSmallScreen={isSmallScreen}/>
+                  ) : loadHeatmap == true ? (
+                      <div className='heat-map-instruction-with-loader'>
+                          <p className='heat-map-instruction-text-loader'>
+                              {t('Please wait while the heatmap is being generated.')}
+                          </p>
+                          <div class="loader" style={{marginTop: '16vh'}}></div>
+                      </div>  
+                  ) : geojson == null ? (
+                    <div className='heat-map-instruction'>
+                      <p className='heat-map-instruction-text'>
+                        {t('Sorry, no data available for the selected categories.')}
+                        <br />
+                        {t('Please try again with different categories.')}
+                      </p>
+                    </div>  
+                  ) : (
+                    <div className='heat-map-instruction'>
+                      <p className='heat-map-instruction-text'>
+                        {t('Select the categories and click "Show on map" to display the heatmap.')}
+                      </p>
+                    </div>  
+                  )}
+              </div>
+              <div className="left-section-responsiveness">
+                {isExpanded == false ? (
+                  <div
+                    className="choose-criteria-mobile-div"
+                    onClick={() => handleIsExpandedClick()}
+                  >
+                    <div className="choose-criteria-mobile">
+                      {t('Select criteria')}
+                    </div>
+                  </div>
                 ) : (
-                    <p>Check your categories and click on search button - Test heatmap. Please wait 5-30 seconds</p>
+                  <div className="modal-overlay-category">
+                    <div className="modal-contents-category">
+                      <Roles
+                        onSelectPreferences={handlePreferencesSelect}
+                        selectedPreferencesShowPage={
+                          selectedPreferencesShowPage
+                        }
+                        toggleRoleSVisible={handleToggleLeftSection}
+                        isLeftSectionVisible={isLeftSectionVisible}
+                        setPreferencedDataShowPage={handlePreferencesData}
+                        preferencesSearchDataShowPage={
+                          preferencesSearchDataShowPage
+                        }
+                        setPreferencesSearchDataShowPage={
+                          handlePreferencesSearchSelect
+                        }
+                        handleSearch={handleEnterPress}
+                        isMobile={true}
+                        toggleExpendedClick={handleIsExpandedClick}
+                        isHeatmap={true}
+                        fetchHeatmap={fetchHeatmap}
+                      />
+                    </div>
+                  </div>
                 )}
+              </div>
             </div>
+          ) : (
+          <div className='show-data-map'>
+              <div className='left-section' style={{width: '40vw', height: '77vh'}}> 
+                  <Roles
+                      onSelectPreferences={handlePreferencesSelect}
+                      selectedPreferencesShowPage={selectedPreferencesShowPage}
+                      toggleRoleSVisible={handleToggleLeftSection}
+                      isLeftSectionVisible={isLeftSectionVisible}
+                      setPreferencedDataShowPage={handlePreferencesData}
+                      preferencesSearchDataShowPage={
+                          preferencesSearchDataShowPage
+                      }
+                      setPreferencesSearchDataShowPage={
+                          handlePreferencesSearchSelect
+                      }
+                      handleSearch={handleEnterPress}
+                      isHeatmap={true}
+                      fetchHeatmap={fetchHeatmap}
+                  />
+              </div>
+              <div
+                  className={`right-section map-container ${
+                    isLeftSectionVisible ? '' : 'right-section-center'
+                  }`}
+                  style={{ width: isLeftSectionVisible ? '60vw' : '350%', height: '76.5vh'}}
+                >
+                  {Object(geojson).length != 0 && geojson != null ? (
+                      <HeatMap geojson={geojson} toggleRoleSVisible={handleToggleLeftSection} isLeftSectionVisible={isLeftSectionVisible} isSmallScreen={isSmallScreen}/>
+                  ) : loadHeatmap == true ? (
+                      <div className='heat-map-instruction-with-loader'>
+                          <p className='heat-map-instruction-text-loader'>
+                              {t('Please wait while the heatmap is being generated.')}
+                          </p>
+                          <div class="loader" style={{marginTop: '16vh'}}></div>
+                      </div>  
+                  ) : geojson == null ? (
+                    <div className='heat-map-instruction'>
+                      <p className='heat-map-instruction-text'>
+                        {t('Sorry, no data available for the selected categories.')}
+                        <br />
+                        {t('Please try again with different categories.')}
+                      </p>
+                    </div>  
+                  ) : (
+                    <div className='heat-map-instruction'>
+                      <p className='heat-map-instruction-text'>
+                        {t('Select the categories and click "Show on map" to display the heatmap.')}
+                      </p>
+                    </div>  
+                  )}
+              </div>
+          </div>
+          )}
         </div>
         <Footer useMargin={true} />
     </div>

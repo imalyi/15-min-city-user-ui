@@ -5,12 +5,12 @@ export const LeftSectionSlide = {
   },
   enter: {
     x: '0%',
-    transition: { duration: 0.5 },
+    transition: { duration: 0.3 },
     opacity: 1,
   },
   exit: {
     x: '-100%',
-    transition: { duration: 0.4 },
+    transition: { duration: 0.05 },
     opacity: 0,
   },
 };

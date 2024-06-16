@@ -1,6 +1,6 @@
 import React from 'react';
 import Home from './componennts/Home';
-import About from './componennts/About';
+import AboutUs from './componennts/AboutUs';
 import ShowDataPage from './componennts/ShowDataPage';
 import Report from './componennts/Report';
 import Compare from './componennts/Compare';
@@ -17,6 +17,7 @@ function App() {
         <Route path="/report" element={<Report />} />
         <Route path="/compare" element={<Compare />} />
         <Route path="/heatmap" element={<HeatmapComponent />} />
+        <Route path="/about-us" element={<AboutUs />} />
       </Routes>
     </Router>
   );

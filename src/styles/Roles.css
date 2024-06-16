@@ -234,13 +234,14 @@
   padding: 2.125vh 1vh;
   padding-left: 32px;
   font-family: Lato, sans-serif;
-  font-size: 24px;
+  font-size: 3vh;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   border-radius: 8px;
   background: var(--primary, #24254c);
   cursor: pointer;
+  white-space: nowrap; /* Zapobiega zawijaniu tekstu */
 }
 
 .toggle-left-section-icon {
@@ -434,7 +435,7 @@
     padding: 2.125vh 1vh;
     padding-left: 32px;
     font-family: Lato, sans-serif;
-    font-size: 16px;
+    font-size: 2vh;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -670,7 +671,7 @@
   .toggle-left-section {
     color: #f0f8ff;
     padding: 2.125vh 1vh;
-    padding-left: 24px;
+    padding-left: 3vh;
     font-family: Lato, sans-serif;
     font-size: 12px;
     font-style: normal;
