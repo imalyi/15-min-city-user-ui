@@ -42,7 +42,7 @@ function CustomControl({toggleRoleSVisible, isLeftSectionVisible}) {
 }
 
 function HeatMap({ geojson, toggleRoleSVisible, isLeftSectionVisible, isSmallScreen }) {
-  const [mapCenter, setMapCenter] = useState(isSmallScreen ? [54.435787, 18.558210] : [54.41577, 18.927222]);
+  const [mapCenter, setMapCenter] = useState(isSmallScreen ? [54.435787, 18.558210] : [54.42577, 18.727222]);
 
 
   const setColor = ({ properties }) => {
