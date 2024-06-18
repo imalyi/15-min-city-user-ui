@@ -19,7 +19,7 @@ function HeatMapComponent() {
     const [loadHeatmap, setLoadHeatmap] = useState(false);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 450);
     const [isExpanded, setIsExpanded] = useState(false);
-  
+    const [IdHeatMap, setIdHeatMap] = useState('');
     useEffect(() => {
       const handleResize = () => {
         setIsSmallScreen(window.innerWidth <= 450);
@@ -90,6 +90,7 @@ function HeatMapComponent() {
     const handleEnterPress = () => {
         
     };
+    logger.log(loadHeatmap)
 
     const fetchHeatmap = async () => {
         handleIsExpandedClick();  
@@ -118,13 +119,44 @@ function HeatMapComponent() {
             }
             logger.log(res + 'res')
             const result = await res.json();
-            setGeojson(result);
-            logger.log(result)
+            setIdHeatMap(result);
+            logger.log(result);
+            const pollHeatmapStatus = async () => {
+              try {
+                  const res_heatmap = await fetch(`${api.APP_URL_USER_API}heatmap/task_status/${result.task_id}`, {
+                      method: 'GET',
+                      headers: {
+                          'Content-Type': 'application/json'
+                      }
+                  });
+      
+                  if (!res_heatmap.ok) {
+                      throw new Error(`Error: ${res_heatmap.status}`);
+                  }
+                  logger.log(res_heatmap)
+                  const heatmapResult = await res_heatmap.json();
+                  logger.log(heatmapResult);
+                  if (heatmapResult.status == 'success') {
+                      setGeojson(heatmapResult.result);
+                      logger.log(heatmapResult);
+                      setLoadHeatmap(false);
+                      clearInterval(intervalId); // Stop polling when geojson is found
+                  } else {
+                      logger.log("GeoJSON not available yet");
+                  }
+              } catch (err) {
+                  logger.error(err);
+                  clearInterval(intervalId); // Stop polling on error
+              }
+            };
+
+            const intervalId = setInterval(pollHeatmapStatus, 1000); // Poll every second
+
         } catch (err) {
             logger.error(err);
-        }
-        setLoadHeatmap(false);
-    };
+      }
+
+};
 
 
 
@@ -237,7 +269,7 @@ function HeatMapComponent() {
                   }`}
                   style={{ width: isLeftSectionVisible ? '60vw' : '350%', height: '76.5vh'}}
                 >
-                  {Object(geojson).length != 0 && geojson != null ? (
+                  {Object(geojson).length != 0 && Object(geojson.features).length != 0 ? (
                       <HeatMap geojson={geojson} toggleRoleSVisible={handleToggleLeftSection} isLeftSectionVisible={isLeftSectionVisible} isSmallScreen={isSmallScreen}/>
                   ) : loadHeatmap == true ? (
                       <div className='heat-map-instruction-with-loader'>
@@ -246,7 +278,7 @@ function HeatMapComponent() {
                           </p>
                           <div class="loader" style={{marginTop: '16vh'}}></div>
                       </div>  
-                  ) : geojson == null ? (
+                  ) : Object(geojson.features).length == 0 ? (
                     <div className='heat-map-instruction'>
                       <p className='heat-map-instruction-text'>
                         {t('Sorry, no data available for the selected categories.')}

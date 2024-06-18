@@ -22,7 +22,7 @@ function AboutUs() {
   }, []);
 
   const handleEmailClick = () => {
-    const email = 'contact_with_cityinminutes@pm.me';
+    const email = 'cityinminutes@mailbox.org';
     navigator.clipboard.writeText(email).then(() => {
       setShowPopup(true);
       setTimeout(() => {
@@ -91,7 +91,7 @@ function AboutUs() {
             {t('Write to us at ')}
         </span>
         <span className="blue-link" onClick={handleEmailClick}>
-            contact_with_cityinminutes@pm.me
+          cityinminutes@mailbox.org
         </span>
             {showPopup && <div className="popup">            
             {t(

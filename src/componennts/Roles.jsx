@@ -452,8 +452,8 @@ const Roles = ({
           </motion.div>
         )}
       </AnimatePresence>
-
-      <AnimatePresence mode="wait">
+      {isHeatmap==undefined && (
+        <AnimatePresence mode="wait">
         {!isLeftSectionVisible && (
           <motion.div
             variants={LeftSectionSlideHide}
@@ -478,6 +478,8 @@ const Roles = ({
           </motion.div>
         )}
       </AnimatePresence>
+      )}
+      
     </div>
   );
 };

@@ -43,7 +43,9 @@ function Home() {
   }, []);
 
   const loadData = async (id) => {
+    logger.log('Loading data for user with id:', id);
     try {
+      logger.log(`${api.APP_URL_USER_API}user/load?secret=${id}`);
       const response = await fetch(
         `${api.APP_URL_USER_API}user/load?secret=${id}`,
         {
