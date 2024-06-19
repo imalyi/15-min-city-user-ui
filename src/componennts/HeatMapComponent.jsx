@@ -274,7 +274,7 @@ function HeatMapComponent() {
                   ) : loadHeatmap == true ? (
                       <div className='heat-map-instruction-with-loader'>
                           <p className='heat-map-instruction-text-loader'>
-                              {t('Please wait while the heatmap is being generated.')}
+                              {t('Wait for the map to be generated.')}
                           </p>
                           <div class="loader" style={{marginTop: '16vh'}}></div>
                       </div>  
@@ -289,7 +289,7 @@ function HeatMapComponent() {
                   ) : (
                     <div className='heat-map-instruction'>
                       <p className='heat-map-instruction-text'>
-                        {t('Select the categories and click "Show on map" to display the heatmap.')}
+                        {t('Select the categories and click "Show on map" to display matched locations.')}
                       </p>
                     </div>  
                   )}

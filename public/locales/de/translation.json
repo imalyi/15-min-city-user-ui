@@ -252,6 +252,8 @@
   "Select the categories and click \"Show on map\" to display the heatmap.": "Wählen Sie die Kategorien aus und klicken Sie auf \"Auf Karte anzeigen\", um die Heatmap anzuzeigen.",
   "Please wait while the heatmap is being generated.": "Bitte warten Sie, während die Heatmap generiert wird.",
   "Sorry, no data available for the selected categories.": "Leider sind keine Daten für die ausgewählten Kategorien verfügbar.",
-  "Please try again with different categories.": "Bitte versuchen Sie es erneut mit anderen Kategorien."
+  "Please try again with different categories.": "Bitte versuchen Sie es erneut mit anderen Kategorien.",
+  "Select the categories and click \"Show on map\" to display matched locations.": "Wählen Sie die Kategorien aus und klicken Sie auf \"Auf Karte anzeigen\", um die übereinstimmenden Standorte anzuzeigen.",
+  "Wait for the map to be generated.": "Warten Sie, bis die Karte generiert ist."
   
 }

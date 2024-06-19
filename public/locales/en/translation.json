@@ -253,5 +253,7 @@
   "Select the categories and click \"Show on map\" to display the heatmap.": "Select the categories and click \"Show on map\" to display the heatmap.",
   "Please wait while the heatmap is being generated.": "Please wait while the heatmap is being generated.",
   "Sorry, no data available for the selected categories.": "Sorry, no data available for the selected categories.",
-  "Please try again with different categories.": "Please try again with different categories."
+  "Please try again with different categories.": "Please try again with different categories.",
+  "Select the categories and click \"Show on map\" to display matched locations.": "Select the categories and click \"Show on map\" to display matched locations.",
+  "Wait for the map to be generated.": "Wait for the map to be generated."
 }

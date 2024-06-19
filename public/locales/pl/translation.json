@@ -253,5 +253,7 @@
   "Select the categories and click \"Show on map\" to display the heatmap.": "Wybierz kategorie i kliknij \"Pokaż na mapie\", aby wyświetlić mapę ciepła.",
   "Please wait while the heatmap is being generated.": "Proszę czekać, aż zostanie wygenerowana mapa ciepła.",
   "Sorry, no data available for the selected categories.": "Przepraszamy, brak danych dla wybranych kategorii.",
-  "Please try again with different categories.": "Spróbuj ponownie z innymi kategoriami."
+  "Please try again with different categories.": "Spróbuj ponownie z innymi kategoriami.",
+  "Select the categories and click \"Show on map\" to display matched locations.": "Wybierz kategorie i kliknij \"Pokaż na mapie\", aby wyświetlić dopasowane lokalizacje.",
+  "Wait for the map to be generated.": "Poczekaj na wygenerowanie mapy."
 }
