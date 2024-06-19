@@ -22,11 +22,13 @@ function Map({
     iconUrl: '/icons/gps.png',
     iconSize: [50, 50],
   });
-
+  const lat = selectedCoordinatesShowPage[0];
+  const lng = selectedCoordinatesShowPage[1];
+  logger.log(lat, lng)
   return (
     <MapContainer
       center={selectedCoordinatesShowPage}
-      zoom={17}
+      zoom={16}
       scrollWheelZoom={true}
       zoomControl={false}
     >

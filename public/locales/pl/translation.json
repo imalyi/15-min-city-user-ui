@@ -241,5 +241,19 @@
   "Please select at least one preference to compare addresses": "Wybierz co najmniej jedno kryterium, aby porównać adresy",
   "invalid address": "nieprawidłowy adres",
   "Select criteria": "Wybierz kryteria",
-  "Map": "Mapa"
+  "Map": "Mapa",
+  "You have no address? ": "Nie masz adresu? ",
+  "Choose the necessary objects and discover the best neighborhood": "Wybierz niezbędne obiekty i odkryj najlepszą okolicę",
+  "We believe in cities where everything you need is at your fingertips.": "Wierzymy w miasta, w których wszystko, czego potrzebujesz, jest na wyciągnięcie ręki.",
+  "Our team": "Nasz zespół",
+  "Do you have questions or suggestions?": "Masz pytania, sugestie?",
+  "Write to us at ": "Napisz do nas na ",
+  "Address copied to clipboard!": "Adres skopiowany do schowka!",
+  "Show on map": "Pokaż na mapie",
+  "Select the categories and click \"Show on map\" to display the heatmap.": "Wybierz kategorie i kliknij \"Pokaż na mapie\", aby wyświetlić mapę ciepła.",
+  "Please wait while the heatmap is being generated.": "Proszę czekać, aż zostanie wygenerowana mapa ciepła.",
+  "Sorry, no data available for the selected categories.": "Przepraszamy, brak danych dla wybranych kategorii.",
+  "Please try again with different categories.": "Spróbuj ponownie z innymi kategoriami.",
+  "Select the categories and click \"Show on map\" to display matched locations.": "Wybierz kategorie i kliknij \"Pokaż na mapie\", aby wyświetlić dopasowane lokalizacje.",
+  "Wait for the map to be generated.": "Poczekaj na wygenerowanie mapy."
 }
