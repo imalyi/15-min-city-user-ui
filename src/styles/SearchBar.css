@@ -134,7 +134,7 @@ input:focus {
   }
 
   .home-searchBar {
-    width: calc(100% - 10vh);
+    width: calc(100% - 35vw);
     height: 9vh;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -144,8 +144,7 @@ input:focus {
     background-color: #dce6fa;
     display: flex;
     align-items: center;
-    margin-left: 5vh;
-    margin-right: 5vh;
+    margin-left: 3vw;
     margin-top: 6vh;
   }
 

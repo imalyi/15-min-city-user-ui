@@ -241,5 +241,19 @@
   "Please select at least one preference to compare addresses": "Please select at least one preference to compare addresses",
   "invalid address": "invalid address",
   "Select criteria": "Select criteria",
-  "Map": "Map"
+  "Map": "Map",
+  "You have no address? ": "You have no address? ",
+  "Choose the necessary objects and discover the best neighborhood": "Choose the necessary objects and discover the best neighborhood",
+  "We believe in cities where everything you need is at your fingertips.": "We believe in cities where everything you need is at your fingertips.",
+  "Our team": "Our team",
+  "Do you have questions or suggestions?": "Do you have questions or suggestions?",
+  "Write to us at ": "Write to us at ",
+  "Address copied to clipboard!": "Address copied to clipboard!",
+  "Show on map": "Show on map",
+  "Select the categories and click \"Show on map\" to display the heatmap.": "Select the categories and click \"Show on map\" to display the heatmap.",
+  "Please wait while the heatmap is being generated.": "Please wait while the heatmap is being generated.",
+  "Sorry, no data available for the selected categories.": "Sorry, no data available for the selected categories.",
+  "Please try again with different categories.": "Please try again with different categories.",
+  "Select the categories and click \"Show on map\" to display matched locations.": "Select the categories and click \"Show on map\" to display matched locations.",
+  "Wait for the map to be generated.": "Wait for the map to be generated."
 }

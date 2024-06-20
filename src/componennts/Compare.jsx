@@ -220,7 +220,7 @@ function Compare() {
       }
     }
 
-    const percentage =
+    let percentage =
       ((categoryCount + totalAddressesCount + totalPlacesCount) /
         (requestedCategories.length +
           requestedAddresses.length +

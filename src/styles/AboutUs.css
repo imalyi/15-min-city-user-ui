@@ -1,0 +1,146 @@
+.about-us-description-title{
+    max-width: 65vw;
+    margin-top: 16vh;
+    margin-left: 3vw;
+    font-family: 'Lato', sans-serif;
+    font-size: 4vh;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    color: var(--primary, #24254c);
+}
+
+.about-us-description-our-team{
+    width: 55vw;
+    margin-top: 3vh;
+    margin-left: 3vw;
+    font-family: 'Lato', sans-serif;
+    font-size: 2.5vh;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--primary, #24254c);
+}
+
+.logo-about-us{
+    margin-left: 2.5vw;
+    margin-top: 4vh;
+    height: 8vh;
+    border: none;
+    background-color: #f0f8ff;
+    border-radius: 8px;
+}
+
+.info-about-us-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+.team-members{
+    display: flex;
+    flex-direction: row;
+    margin-top: 3vh;
+    margin-left: 3vw;
+}
+
+.team-member{
+    display: flex;
+    flex-direction: column;
+    margin-right: 3vw;
+    width: 30vw;
+    height: 30vh;
+    background-color: #F0F8FF;
+    box-shadow: 0px 8px 24px 0px #3044CA33;
+    border-radius: 16px;
+    align-items: center;
+    justify-content: center;
+}
+
+.linkedin{
+    color: blue;
+    cursor: pointer;
+    text-decoration: none;
+
+}
+.linkedin:hover {
+    text-decoration: none;
+}
+
+.member-name{
+    font-family: 'Lato', sans-serif;
+    font-size: 2.5vh;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    color: var(--primary, #24254c);
+}
+
+.member-role{
+    font-family: 'Lato', sans-serif;
+    font-size: 2vh;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: var(--primary, #24254c);
+}
+
+.blue-link {
+    color: blue;
+    cursor: pointer;
+}
+
+.popup {
+    position: fixed;
+    bottom: 15vh;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100000;
+    opacity: 0.9;
+    animation: fadeInOut 2.5s;
+  }
+  
+  @keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 0.9; }
+    90% { opacity: 0.9; }
+    100% { opacity: 0; }
+  }
+
+@media only screen and (max-width: 850px) {
+
+    .logo-about-us{
+        margin-left: 1.5vw;
+        margin-top: 2.5vh;
+        width: 64px;
+        height: 6vh;
+        border: none;
+        background-color: #f0f8ff;
+        border-radius: 8px;
+    }
+    .team-members{
+        display: flex;
+        flex-direction: column;
+        margin-top: 3vh;
+        margin-left: 5vw;
+    }
+    
+    .team-member{
+        margin-top: 3vh;
+        display: flex;
+        flex-direction: column;
+        margin-right: 5vw;
+        width: 90vw;
+        height: 20vh;
+        background-color: #F0F8FF;
+        box-shadow: 0px 8px 24px 0px #3044CA33;
+        border-radius: 16px;
+        align-items: center;
+        justify-content: center;
+    }
+}

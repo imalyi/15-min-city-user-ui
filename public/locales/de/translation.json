@@ -240,5 +240,20 @@
   "Please select at least one preference to compare addresses": "Bitte wählen Sie mindestens eine Präferenz aus, um Adressen zu vergleichen",
   "invalid address": "ungültige Adresse",
   "Select criteria": "Kriterien auswählen",
-  "Map": "Karte"
+  "Map": "Karte",
+  "You have no address? ": "Sie haben keine Adresse? ",
+  "Choose the necessary objects and discover the best neighborhood": "Wählen Sie die notwendigen Objekte und entdecken Sie das beste Viertel",
+  "We believe in cities where everything you need is at your fingertips.": "Wir glauben an Städte, in denen alles, was Sie brauchen, in Reichweite ist.",
+  "Our team": "Unser Team",
+  "Do you have questions or suggestions?": "Haben Sie Fragen oder Anregungen?",
+  "Write to us at ": "Schreiben Sie uns an ",
+  "Address copied to clipboard!": "Adresse in die Zwischenablage kopiert!",
+  "Show on map": "Auf Karte anzeigen",
+  "Select the categories and click \"Show on map\" to display the heatmap.": "Wählen Sie die Kategorien aus und klicken Sie auf \"Auf Karte anzeigen\", um die Heatmap anzuzeigen.",
+  "Please wait while the heatmap is being generated.": "Bitte warten Sie, während die Heatmap generiert wird.",
+  "Sorry, no data available for the selected categories.": "Leider sind keine Daten für die ausgewählten Kategorien verfügbar.",
+  "Please try again with different categories.": "Bitte versuchen Sie es erneut mit anderen Kategorien.",
+  "Select the categories and click \"Show on map\" to display matched locations.": "Wählen Sie die Kategorien aus und klicken Sie auf \"Auf Karte anzeigen\", um die übereinstimmenden Standorte anzuzeigen.",
+  "Wait for the map to be generated.": "Warten Sie, bis die Karte generiert ist."
+  
 }
