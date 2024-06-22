@@ -368,7 +368,10 @@ const Roles = ({
                   </div>
                 </div>
                 {isHeatmap==undefined && (
-                <label className="filters-label">{t('Your filters')}</label>
+                  <div style={{flexDirection: "column"}}>
+                    <div className="filters-label">{t('Your locations')}</div>
+                    <div className="filters-label-explain">{t('Add the address or name of the object in the bar above')}</div>
+                  </div>
                 )
                 }
 

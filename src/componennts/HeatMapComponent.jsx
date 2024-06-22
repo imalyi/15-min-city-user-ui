@@ -90,7 +90,7 @@ function HeatMapComponent() {
     const handleEnterPress = () => {
         
     };
-    logger.log(loadHeatmap)
+    logger.log(isSmallScreen)
 
     const fetchHeatmap = async () => {
         handleIsExpandedClick();  
@@ -198,11 +198,7 @@ function HeatMapComponent() {
                       </p>
                     </div>  
                   ) : (
-                    <div className='heat-map-instruction'>
-                      <p className='heat-map-instruction-text'>
-                        {t('Select the categories and click "Show on map" to display the heatmap.')}
-                      </p>
-                    </div>  
+                    <HeatMap toggleRoleSVisible={handleToggleLeftSection} isLeftSectionVisible={isLeftSectionVisible} isSmallScreen={isSmallScreen}/>
                   )}
               </div>
               <div className="left-section-responsiveness">
