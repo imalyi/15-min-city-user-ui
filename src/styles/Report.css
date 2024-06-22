@@ -214,6 +214,19 @@
   color: white;
 }
 
+.preferenceNameWithoutData{
+  display: flex;
+  text-align: center;
+  align-items: center;
+  height: 6vh;
+  background-color: #dce6fa;
+  border-radius: 16px;
+  border: 1px solid #99A0A9;
+  color: #99A0A9;
+  padding: 1vw;
+  margin-right: 0.5vw;
+}
+
 .preferenceNameDisabled {
   cursor: pointer;
   display: flex;
@@ -227,7 +240,6 @@
   margin-right: 0.5vw;
 }
 .preferenceLabel {
-  cursor: pointer;
   font-family: Lato;
   font-size: 3vh;
   font-style: normal;
@@ -471,6 +483,8 @@
   margin-left: 3vw;
   margin-right: 3wh;
   box-shadow: 0px 6px 24px 0px #3044ca1a;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .toggleCategorySection {
@@ -497,6 +511,7 @@
 }
 
 .report-category-item {
+  height: 6vh;
   padding-left: 2vh;
   font-family: Lato;
   font-size: 2vh;
@@ -588,7 +603,6 @@
   }
 
   .preferenceLabel {
-    cursor: pointer;
     font-family: Lato;
     font-size: 2vh;
     font-style: normal;
@@ -673,12 +687,23 @@
     margin-right: 0.5vw;
     color: white;
   }
+  .preferenceNameWithoutData{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    height: 4vh;
+    background-color: #dce6fa;
+    border-radius: 8px;
+    border: 1px solid #99A0A9;
+    color: #99A0A9;
+    padding: 1vw;
+    margin-right: 0.5vw;
+  }
   .preferenceNameDisabled {
     cursor: pointer;
     display: flex;
     text-align: center;
     align-items: center;
-    height: 4vh;
     background-color: #dce6fa;
     border-radius: 8px;
     border: 1px solid #3044ca;
@@ -687,7 +712,6 @@
     justify-content: center;
   }
   .preferenceLabel {
-    cursor: pointer;
     font-family: Lato;
     font-size: 1.5vh;
     font-style: normal;

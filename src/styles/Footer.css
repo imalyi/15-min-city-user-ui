@@ -246,7 +246,7 @@
 
 @media only screen and (max-width: 450px) {
   .translate-button-visible {
-    margin-top: 2.15vh;
+    margin-top: 1.8vh;
   }
 
   .button-footer {
@@ -254,7 +254,7 @@
     margin-left: 6vw;
     font-family: 'Lato', sans-serif;
     font-weight: 500;
-    font-size: 1.5vh;
+    font-size: 2vh;
     background-color: #f0f8ff;
     margin-top: 2vh;
   }
@@ -279,20 +279,20 @@
   .translate-button-footer {
     font-family: 'Lato', sans-serif;
     font-weight: 500;
-    font-size: 1.5vh;
+    font-size: 2vh;
     background-color: #f0f8ff;
   }
 
   .translate-toggle-visible {
-    height: 18vh;
+    height: 20vh;
     width: 25vw;
     position: absolute;
-    top: -13.05vh;
+    top: -15.15vh;
     background-color: #f0f8ff;
     padding-left: 1vw;
     text-align: left;
     box-shadow: 0px 8px 24px 0px #3044ca33;
-    border-radius: 16px;
+    border-radius: 8px;
     cursor: pointer;
     z-index: 10000;
   }
@@ -308,7 +308,7 @@
     padding-top: 0.8vh;
     font-family: 'Lato', sans-serif;
     font-weight: 500;
-    font-size: 1.5vh;
+    font-size: 2vh;
     background-color: #f0f8ff;
     color: #99a0a9;
   }

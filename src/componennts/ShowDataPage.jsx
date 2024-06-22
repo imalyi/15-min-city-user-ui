@@ -141,7 +141,7 @@ function ShowDataPage() {
     const foundAddress = Object.values(places.custom_addresses).find(
       (addr) => addr.address.full === address,
     );
-
+    logger.log(places)
     if (foundAddress) {
       // Jeśli adres został znaleziony, pobierz jego lokalizację
       location = foundAddress.location;
