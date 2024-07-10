@@ -7,6 +7,8 @@ import HeatMap from './HeatMap';
 import { logger } from '../logger';
 import api from '../config';
 import Footer from './Footer';
+import { heatmapFetch } from './api.jsx';
+
 function HeatMapComponent() {
 
     const { i18n, t } = useTranslation();
@@ -106,35 +108,12 @@ function HeatMapComponent() {
         logger.log("da" + 'res')
         setLoadHeatmap(true);
         try {
-            const res = await fetch(`${api.APP_URL_USER_API}heatmap/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (!res.ok) {
-                throw new Error(`Error: ${res.status}`);
-            }
-            logger.log(res + 'res')
-            const result = await res.json();
+            const result = await heatmapFetch(data, api.APP_URL_USER_API);
             setIdHeatMap(result);
             logger.log(result);
             const pollHeatmapStatus = async () => {
               try {
-                  const res_heatmap = await fetch(`${api.APP_URL_USER_API}heatmap/task_status/${result.task_id}`, {
-                      method: 'GET',
-                      headers: {
-                          'Content-Type': 'application/json'
-                      }
-                  });
-      
-                  if (!res_heatmap.ok) {
-                      throw new Error(`Error: ${res_heatmap.status}`);
-                  }
-                  logger.log(res_heatmap)
-                  const heatmapResult = await res_heatmap.json();
+                  const heatmapResult = await heatmapFetch(result, api.APP_URL_USER_API);
                   logger.log(heatmapResult);
                   if (heatmapResult.status == 'success') {
                       setGeojson(heatmapResult.result);

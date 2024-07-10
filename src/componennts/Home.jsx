@@ -14,6 +14,7 @@ import api from '../config';
 import { set } from 'animejs';
 import { useCookies } from 'react-cookie';
 import md5 from 'md5';
+import { loadDataFetch } from './api.jsx';
 
 function Home() {
   const [results, setResults] = useState([]);
@@ -43,41 +44,24 @@ function Home() {
   }, []);
 
   const loadData = async (id) => {
-    logger.log('Loading data for user with id:', id);
     try {
-      logger.log(`${api.APP_URL_USER_API}user/load?secret=${id}`);
-      const response = await fetch(
-        `${api.APP_URL_USER_API}user/load?secret=${id}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        setInput((prevInput) => {
-          if (prevInput === '') {
-            return data.request.addresses[0];
-          }
-          return prevInput;
-        });
-        handleSetCustomAdressesAndObjects(data.request);
-        handleSetPreferences(data.request);
-        setSelectedPreferencesTransformed(data.request.categories);
-        i18n.changeLanguage(data.language);
-        setAddresses(data.request.addresses);
-      } else {
-        console.error('Error getting report:', response.statusText);
-        throw new Error(response.statusText);
-      }
+      const data = await loadDataFetch(id, api.APP_URL_USER_API);
+      
+      setInput((prevInput) => {
+        if (prevInput === '') {
+          return data.request.addresses[0];
+        }
+        return prevInput;
+      });
+      handleSetCustomAdressesAndObjects(data.request);
+      handleSetPreferences(data.request);
+      setSelectedPreferencesTransformed(data.request.categories);
+      i18n.changeLanguage(data.language);
+      setAddresses(data.request.addresses);
     } catch (error) {
       console.error('Error getting report:', error);
     }
   };
-
   const generateUserID = () => {
     const timestamp = new Date().getTime();
     const randomNumber =

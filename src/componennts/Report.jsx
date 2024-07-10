@@ -11,6 +11,7 @@ import anime from 'animejs';
 import { useCookies } from 'react-cookie';
 import api from '../config';
 import { use } from 'i18next';
+import { loadDataFetch } from './api.jsx';
 
 function Report() {
   const location = useLocation();
@@ -112,18 +113,8 @@ function Report() {
   logger.log(selectedObjectPreferences);
   const loadData = async (id) => {
     try {
-      const response = await fetch(
-        `${api.APP_URL_USER_API}user/load?secret=${id}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
+        const data = await loadDataFetch(id, api.APP_URL_USER_API);
 
-      if (response.ok) {
-        const data = await response.json();
 
         // Filtrujemy raporty, aby znaleźć ten z odpowiednim adresem
         const reportWithRequestedAddress = data.reports.find(
@@ -195,10 +186,7 @@ function Report() {
             );
           }
         }
-      } else {
-        console.error('Error getting report:', response.statusText);
-        throw new Error(response.statusText);
-      }
+
     } catch (error) {
       console.error('Error getting report:', error);
     }

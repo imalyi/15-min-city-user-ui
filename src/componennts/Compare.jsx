@@ -12,6 +12,7 @@ import { useCookies } from 'react-cookie';
 import api from '../config';
 import { use } from 'i18next';
 import md5 from 'md5';
+import { loadDataFetch, saveDataToApi } from './api.jsx';
 
 function Compare() {
   const { i18n, t } = useTranslation();
@@ -85,59 +86,47 @@ function Compare() {
     window.open(reportUrl, '_blank');
   };
 
-  const loadData = async (id) => {
-    try {
-      const response = await fetch(
-        `${api.APP_URL_USER_API}user/load?secret=${id}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
+const loadData = async (id) => {
+  try {
+    const data = await loadDataFetch(id, api.APP_URL_USER_API);
 
-      if (response.ok) {
-        const data = await response.json();
-        setAddresses(data.request.addresses);
-        setRequestedAddresses(data.request.requested_addresses);
-        setRequestedObjects(data.request.requested_objects);
-        setRequestedCategories(data.request.categories);
-        setReport(data.reports);
-        setMainCategoriesToShow(
-          Object.keys(data.reports[0].points_of_interest),
-        );
-        const newAddressData = data.request.addresses.map((address) => {
-          const categories = Object.keys(
-            data.reports[0].points_of_interest,
-          ).map((category) => {
-            return {
-              name: category,
-              percentage: calculatePercentageInCategory(
-                address,
-                category,
-                data.reports,
-                data.request.categories,
-              ),
-            };
-          });
+    setAddresses(data.request.addresses);
+    setRequestedAddresses(data.request.requested_addresses);
+    setRequestedObjects(data.request.requested_objects);
+    setRequestedCategories(data.request.categories);
+    setReport(data.reports);
+    setMainCategoriesToShow(
+      Object.keys(data.reports[0].points_of_interest),
+    );
 
-          return {
+    const newAddressData = data.request.addresses.map((address) => {
+      const categories = Object.keys(
+        data.reports[0].points_of_interest,
+      ).map((category) => {
+        return {
+          name: category,
+          percentage: calculatePercentageInCategory(
             address,
-            categories,
-          };
-        });
-        setAddressData(newAddressData);
-        logger.log(newAddressData);
-        i18n.changeLanguage(data.language);
-      } else {
-        console.error('Error getting report:', response.statusText);
-        throw new Error(response.statusText);
-      }
-    } catch (error) {
-      console.error('Error getting report:', error);
-    }
-  };
+            category,
+            data.reports,
+            data.request.categories,
+          ),
+        };
+      });
+
+      return {
+        address,
+        categories,
+      };
+    });
+
+    setAddressData(newAddressData);
+    logger.log(newAddressData);
+    i18n.changeLanguage(data.language);
+  } catch (error) {
+    console.error('Error getting report:', error);
+  }
+}
 
   const saveData = async (id) => {
     try {
@@ -149,20 +138,9 @@ function Compare() {
         requested_objects: requestedObjects,
         requested_addresses: requestedAddresses,
       };
-      const response = await fetch(`${api.APP_URL_USER_API}user/save`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-      });
 
-      if (response.ok) {
-        const data = await response.json();
-      } else {
-        console.error('Error getting report:', response.statusText);
-        throw new Error(response.statusText);
-      }
+      const data = await saveDataToApi(id, requestBody, api.APP_URL_USER_API);
+
     } catch (error) {
       console.error('Error getting report:', error);
     }

@@ -7,7 +7,6 @@ import Map from './Map';
 import Footer from './Footer';
 import { SearchBar } from './SearchBar';
 import { SearchResultsList } from './SearchResultsList';
-import { UserLocationButton } from './UserLocationButton';
 import ShowDataButton from './ShowDataButton';
 import Roles from './Roles';
 import { useTranslation } from 'react-i18next';
@@ -21,6 +20,7 @@ import { useCookies } from 'react-cookie';
 import CompareWindow from './CompareWindow';
 import md5 from 'md5';
 import { set } from 'animejs';
+import { loadDataFetch, saveDataToApi } from './api.jsx';
 
 function ShowDataPage() {
   const navigate = useNavigate();
@@ -170,31 +170,16 @@ function ShowDataPage() {
 
   const loadData = async (id) => {
     try {
-      const response = await fetch(
-        `${api.APP_URL_USER_API}user/load?secret=${id}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        setAddresses((prevAddresses) => {
-          if (prevAddresses.length === 0) {
-            if (data.request.addresses.includes(address)) {
-              return data.request.addresses;
-            }
-            return [address, ...data.request.addresses];
+      const data = await loadDataFetch(id, api.APP_URL_USER_API);
+      setAddresses((prevAddresses) => {
+        if (prevAddresses.length === 0) {
+          if (data.request.addresses.includes(address)) {
+            return data.request.addresses;
           }
-          return prevAddresses;
-        });
-      } else {
-        console.error('Error getting report:', response.statusText);
-        throw new Error(response.statusText);
-      }
+          return [address, ...data.request.addresses];
+        }
+        return prevAddresses;
+      });
     } catch (error) {
       console.error('Error getting report:', error);
     }
@@ -236,20 +221,9 @@ function ShowDataPage() {
           requested_objects: customNamesArray,
           requested_addresses: custom_addresses,
         };
-        const response = await fetch(`${api.APP_URL_USER_API}user/save`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestBody),
-        });
 
-        if (response.ok) {
-          const data = await response.json();
-        } else {
-          console.error('Error getting report:', response.statusText);
-          throw new Error(response.statusText);
-        }
+        const data = await saveDataToApi(id, requestBody, api.APP_URL_USER_API);
+
       } catch (error) {
         console.error('Error getting report:', error);
       }

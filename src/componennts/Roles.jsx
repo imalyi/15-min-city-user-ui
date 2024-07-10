@@ -14,6 +14,7 @@ import {
   MobileLeftSectionSlide,
 } from './anim.js';
 import { logger } from '../logger';
+import { CategoriesFetch } from './api.jsx';
 
 const Roles = ({
   onSelectPreferences,
@@ -99,8 +100,7 @@ const Roles = ({
     // Fetch data from the API
     const fetchData = async () => {
       try {
-        const response = await fetch(`${api.APP_URL_USER_API}categories/`);
-        const data = await response.json();
+        const data = await CategoriesFetch(api.APP_URL_USER_API);
         // Assuming the data structure is an array with a single object
         setPreferencesData(data);
         setPreferencedDataShowPage(data);

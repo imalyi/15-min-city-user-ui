@@ -6,6 +6,7 @@ import { ShowDataButton } from './ShowDataButton';
 import { use } from 'i18next';
 import { logger } from '../logger';
 import { Icon } from '@iconify/react';
+import { AdressFetch } from './api.jsx';
 
 export const SearchBar = ({
   setResults,
@@ -41,26 +42,9 @@ export const SearchBar = ({
         return;
       }
       try {
-        const response = await fetch(
-          `${api.APP_URL_USER_API}address/?name=${value}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            }, // Zamień dane na format JSON
-          },
-        );
-        if (response.ok) {
-          const data = await response.json();
-          const results = data.slice(0, 3);
-          setResults(results);
-        } else {
-          console.error(
-            'Error getting address from coordinatessss:',
-            response.statusText,
-          );
-          throw new Error(response.statusText);
-        }
+        const data = await AdressFetch(value, api.APP_URL_USER_API);
+        const results = data.slice(0, 3);
+        setResults(results);
       } catch (error) {
         console.error('Error getting address from coordinates:', error);
       }

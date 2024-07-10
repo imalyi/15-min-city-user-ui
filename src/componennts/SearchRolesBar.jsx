@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import api from '../config';
 import { Icon } from '@iconify/react';
 import { logger } from '../logger';
+import { ObjectFetch } from './api.jsx';
 
 export const SearchRolesBar = ({
   setCustomAddress,
@@ -32,27 +33,9 @@ export const SearchRolesBar = ({
         return;
       }
       try {
-        const response = await fetch(
-          `${api.APP_URL_USER_API}object/?partial_name=${value}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            }, // Zamień dane na format JSON
-          },
-        );
-        if (response.ok) {
-          const data = await response.json();
-          const results = data;
-          setCustomAddress(results.addresses);
-          setCustomObject(results.objects);
-        } else {
-          console.error(
-            'Error getting address from coordinates:',
-            response.statusText,
-          );
-          throw new Error(response.statusText);
-        }
+          const data = await ObjectFetch(value, api.APP_URL_USER_API)
+          setCustomAddress(data.addresses);
+          setCustomObject(data.objects);
       } catch (error) {
         console.error('Error getting address from coordinates:', error);
       }

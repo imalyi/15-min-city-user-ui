@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import api from '../config';
 import { Icon } from '@iconify/react';
 import { logger } from '../logger';
+import { ReportFetch } from './api.jsx';
 
 export const ShowDataButton = React.forwardRef(
   (
@@ -76,21 +77,10 @@ export const ShowDataButton = React.forwardRef(
           requested_objects: customNamesArray,
           requested_addresses: custom_addresses,
         };
-        const response = await fetch(`${api.APP_URL_USER_API}report/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestBody),
-        });
+        
+        const data = await ReportFetch(requestBody, api.APP_URL_USER_API);
+        return data;
 
-        if (response.ok) {
-          const data = await response.json();
-          return data;
-        } else {
-          console.error('Error getting report:', response.statusText);
-          throw new Error(response.statusText);
-        }
       } catch (error) {
         console.error('Error getting report:', error);
       }
