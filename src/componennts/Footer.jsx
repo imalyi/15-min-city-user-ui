@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../styles/Footer.css';
 import { useTranslation } from 'react-i18next';
 import { logger } from '../logger';
@@ -11,16 +11,20 @@ function Footer({ useMargin }) {
   const [isTranslateChangeVisible, setTranslateChangeVisible] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
   const navigate = useNavigate();
+  const translateRef = useRef();
 
   const translateTranscript = {
     pl: 'Polski',
     en: 'English',
     de: 'Deutsch',
   };
+
   const language = translateTranscript[selectedLanguage];
+
   const handleToggleTranslateChange = () => {
     setTranslateChangeVisible((prev) => !prev);
   };
+
   const handleLanguageChange = (lng) => {
     setSelectedLanguage(lng);
     i18n.changeLanguage(lng);
@@ -30,25 +34,39 @@ function Footer({ useMargin }) {
     setSelectedLanguage(i18n.language);
   }, [i18n.language]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (translateRef.current && !translateRef.current.contains(event.target)) {
+        setTranslateChangeVisible(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [translateRef]);
+
   const handleAboutUsClick = () => {
     navigate('/about-us');
-  }
+  };
 
   return (
     <div className={footerClass}>
       <div className="bg-dark text-light p-3 footer">
         <hr className="footer-hr" />
         <div className="footer-divs">
-          <div className="button-footer" onClick={handleAboutUsClick}>{t('About us')}</div>
+          <div className="button-footer" onClick={handleAboutUsClick}>
+            {t('About us')}
+          </div>
           {isTranslateChangeVisible ? (
-            <div className="translate-main-div">
+            <div className="translate-main-div" ref={translateRef}>
               <div className="translate-toggle-visible">
                 {Object.keys(translateTranscript).map((languageCode) => {
-                  if (languageCode == selectedLanguage) {
+                  if (languageCode === selectedLanguage) {
                     return (
-                      <div className="language-flex-with-icon">
+                      <div className="language-flex-with-icon" key={languageCode}>
                         <div
-                          key={languageCode}
                           className="language-select-names selected-language"
                           onClick={() => {
                             handleLanguageChange(languageCode);

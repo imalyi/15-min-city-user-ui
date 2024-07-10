@@ -46,6 +46,7 @@ function ShowDataPage() {
   const [selectedPreferencesShowPage, setSelectedPreferencesShowPage] =
     useState(selectedPreferences);
   const buttonRef = useRef(null);
+  const MatchRef = useRef();
   const [preferencesData, setPreferencesData] = useState([]);
 
   const [flyToLocation, setFlyToLocation] = useState(null);
@@ -92,6 +93,19 @@ function ShowDataPage() {
       setDataLoaded(true);
     }
   }, [cookies.userID, dataLoaded]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (MatchRef.current && !MatchRef.current.contains(event.target)) {
+        setIsMatchVisible(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [MatchRef]);
 
   const handleIsExpandedClick = () => {
     setIsExpanded(!isExpanded);
@@ -565,7 +579,7 @@ function ShowDataPage() {
                 </div>
               </div>
             </div>
-            <div className="widthReportSection">
+            <div className="widthReportSection" ref={MatchRef}>
               <div className="position">
                 <button
                   className={
