@@ -255,5 +255,6 @@
   "Sorry, no data available for the selected categories.": "Sorry, no data available for the selected categories.",
   "Please try again with different categories.": "Please try again with different categories.",
   "Select the categories and click \"Show on map\" to display matched locations.": "Select the categories and click \"Show on map\" to display matched locations.",
-  "Wait for the map to be generated.": "Wait for the map to be generated."
+  "Wait for the map to be generated.": "Wait for the map to be generated.",
+  "Add the address or name of the object in the bar above": "Add the address or name of the object in the bar above"
 }

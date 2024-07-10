@@ -255,5 +255,6 @@
   "Sorry, no data available for the selected categories.": "Przepraszamy, brak danych dla wybranych kategorii.",
   "Please try again with different categories.": "Spróbuj ponownie z innymi kategoriami.",
   "Select the categories and click \"Show on map\" to display matched locations.": "Wybierz kategorie i kliknij \"Pokaż na mapie\", aby wyświetlić dopasowane lokalizacje.",
-  "Wait for the map to be generated.": "Poczekaj na wygenerowanie mapy."
+  "Wait for the map to be generated.": "Poczekaj na wygenerowanie mapy.",
+  "Add the address or name of the object in the bar above": "Dodaj adres lub nazwę obiektu w pasku powyżej"
 }

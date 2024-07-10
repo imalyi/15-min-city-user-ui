@@ -151,11 +151,21 @@
 
 .filters-label {
   font-family: Lato, sans-serif;
-  font-size: 32px;
+  font-size: 4vh;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  margin-bottom: 30px;
+  margin-bottom: 4vh;
+}
+
+.filters-label-explain{
+  font-family: Lato, sans-serif;
+  font-size: 2.5vh;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #99A0A9;
+  margin-bottom: 2vh;
 }
 
 .selected-search-preferences {
@@ -171,7 +181,7 @@
   align-items: center;
   gap: 27px;
   border-radius: 16px;
-  border: 1px solid var(--font-light-background, #101720);
+  border: 1px solid var(--font-light-background, #3044CA);
   background: var(--secondary-80, #dce6fa);
   font-family: Lato, sans-serif;
   font-size: 24px;
@@ -591,11 +601,20 @@
   }
   .filters-label {
     font-family: Lato, sans-serif;
-    font-size: 20px;
+    font-size: 2.5vh;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
     margin-bottom: 10px;
+  }
+  .filters-label-explain{
+    font-family: Lato, sans-serif;
+    font-size: 2vh;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #99A0A9;
+    margin-bottom: 1vh;
   }
 
   .category-container {
@@ -976,6 +995,17 @@
     margin-bottom: 1vh;
     margin-left: 1vh;
   }
+  .filters-label-explain{
+    font-family: Lato, sans-serif;
+    font-size: 1.5vh;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #99A0A9;
+    margin-bottom: 1vh;
+    margin-left: 1vh;
+  }
+
 
   .category-container {
     margin-bottom: 1.2vh;

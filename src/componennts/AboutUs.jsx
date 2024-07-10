@@ -70,7 +70,7 @@ function AboutUs() {
         </div>
         <div className='team-member'>
             <p className='member-name'>Artsem</p>
-            <p className='member-role'>Full-stack developer</p>
+            <p className='member-role'>Front-end developer</p>
             <a href='https://www.linkedin.com/in/artsem-stankevich/' className='linkedin'>LinkedIn</a>
         </div>
         <div className='team-member'>

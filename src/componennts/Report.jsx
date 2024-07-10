@@ -443,10 +443,14 @@ function Report() {
                           const preference = allPreferences.find(
                             (pref) => pref.key === category,
                           );
-                          const className =
+                          logger.log(preference);
+                          let className = 'preferenceNameWithoutData';
+                          if (preference){
+                            className =
                             preference && preference.value === true
                               ? 'preferenceName'
                               : 'preferenceNameDisabled';
+                          }
                           return (
                             <div
                               className={className}

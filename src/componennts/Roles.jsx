@@ -368,7 +368,12 @@ const Roles = ({
                   </div>
                 </div>
                 {isHeatmap==undefined && (
-                <label className="filters-label">{t('Your filters')}</label>
+                  <div style={{flexDirection: "column"}}>
+                    <div className="filters-label">{t('Your locations')}</div>
+                    {preferencesSearchData.length === 0 && (
+                      <div className="filters-label-explain">{t('Add the address or name of the object in the bar above')}</div>
+                    )}
+                  </div>
                 )
                 }
 
@@ -410,8 +415,7 @@ const Roles = ({
                       className="toggle-left-section-icon"
                     />
                   )}
-
-                  {isMobile == true && isHeatmap == undefined? (
+                  {isMobile == true && isHeatmap == undefined ? (
                     <div>
                       <label
                         className="toggle-left-section"

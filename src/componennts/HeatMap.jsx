@@ -7,8 +7,6 @@ import '../styles/Map.css';
 import '../styles/Leaflet.css';
 import '../styles/HeatMap.css';
 import { logger } from '../logger';
-import seg from '../data/geojsonexample.json';
-import ecomp from '../data/geojsonexample2.json';
 
 function CustomControl({toggleRoleSVisible, isLeftSectionVisible}) {
   const map = useMap();
@@ -75,10 +73,10 @@ function HeatMap({ geojson, toggleRoleSVisible, isLeftSectionVisible, isSmallScr
         attribution="Jawg.Dark"
         url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png"
       />
-      <GeoJSON data={geojson} style={setColor} />
-      <GeoJSON data={seg} style={setColor} />
-      <GeoJSON data={ecomp} pointToLayer={pointToLayer} />
-      {!isSmallScreen &&(
+      {geojson && (
+        <GeoJSON data={geojson} style={setColor} />
+      )}
+      {!isSmallScreen && (
         <CustomControl toggleRoleSVisible={toggleRoleSVisible} isLeftSectionVisible={isLeftSectionVisible}/>
       )}
       
