@@ -235,7 +235,6 @@ function ShowDataPage() {
           requested_objects: customNamesArray,
           requested_addresses: custom_addresses,
         };
-
         const data = await saveDataToApi(id, requestBody, api.APP_URL_USER_API);
 
       } catch (error) {

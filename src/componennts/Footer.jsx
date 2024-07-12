@@ -17,6 +17,8 @@ function Footer({ useMargin }) {
     pl: 'Polski',
     en: 'English',
     de: 'Deutsch',
+    ru: 'Русский',
+    ua: 'Українська',
   };
 
   const language = translateTranscript[selectedLanguage];

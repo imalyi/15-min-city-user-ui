@@ -1,4 +1,5 @@
-// api.js
+import { logger } from '../logger';
+
 export const loadDataFetch = async (id, apiBaseUrl) => {
     try {
       console.log(`${apiBaseUrl}user/load?secret=${id}`);
@@ -27,6 +28,8 @@ export const loadDataFetch = async (id, apiBaseUrl) => {
   
   export const saveDataToApi = async (id, requestBody, apiBaseUrl) => {
     try {
+      logger.log(requestBody);
+      requestBody.language = "de"
       const response = await fetch(`${apiBaseUrl}user/save`, {
         method: 'POST',
         headers: {
