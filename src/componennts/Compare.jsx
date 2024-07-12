@@ -12,7 +12,7 @@ import { useCookies } from 'react-cookie';
 import api from '../config';
 import { use } from 'i18next';
 import md5 from 'md5';
-import { loadDataFetch, saveDataToApi } from './api.jsx';
+import { loadDataFetch, saveDataToApi, ReportFetch } from './api.jsx';
 
 function Compare() {
   const { i18n, t } = useTranslation();
@@ -79,7 +79,6 @@ function Compare() {
 
   const handleUserReportClick = async (address) => {
     const id = generateUserID();
-    saveData(id);
     const reportUrl = `/report?userid=${id}&address=${encodeURIComponent(
       address,
     )}`;
@@ -88,28 +87,47 @@ function Compare() {
 
 const loadData = async (id) => {
   try {
-    const data = await loadDataFetch(id, api.APP_URL_USER_API);
+    const storedData = localStorage.getItem('myData');
+    let request = {};
+    if (storedData) {
+      request = JSON.parse(storedData);
+    }
+    logger.log(request);
 
-    setAddresses(data.request.addresses);
-    setRequestedAddresses(data.request.requested_addresses);
-    setRequestedObjects(data.request.requested_objects);
-    setRequestedCategories(data.request.categories);
-    setReport(data.reports);
+    let reports = [];
+
+    const fetchPromises = request.addresses.map(async (address) => {
+      const requestBody = {
+        address: address,
+        categories: request.categories,
+        requested_objects: request.requested_objects,
+        requested_addresses: request.requested_addresses,
+      };
+      const data = await ReportFetch(requestBody, api.APP_URL_USER_API);
+      return data;
+    });
+    reports = await Promise.all(fetchPromises);
+    logger.log(reports)
+    setAddresses(request.addresses);
+    setRequestedAddresses(request.requested_addresses);
+    setRequestedObjects(request.requested_objects);
+    setRequestedCategories(request.categories);
+    setReport(reports);
     setMainCategoriesToShow(
-      Object.keys(data.reports[0].points_of_interest),
+      Object.keys(reports[0].points_of_interest),
     );
 
-    const newAddressData = data.request.addresses.map((address) => {
+    const newAddressData = request.addresses.map((address) => {
       const categories = Object.keys(
-        data.reports[0].points_of_interest,
+        reports[0].points_of_interest,
       ).map((category) => {
         return {
           name: category,
           percentage: calculatePercentageInCategory(
             address,
             category,
-            data.reports,
-            data.request.categories,
+            reports,
+            request.categories,
           ),
         };
       });
@@ -122,29 +140,11 @@ const loadData = async (id) => {
 
     setAddressData(newAddressData);
     logger.log(newAddressData);
-    i18n.changeLanguage(data.language);
+    i18n.changeLanguage(request.language);
   } catch (error) {
     console.error('Error getting report:', error);
   }
 }
-
-  const saveData = async (id) => {
-    try {
-      const requestBody = {
-        secret: id,
-        language: i18n.language,
-        addresses: addresses,
-        categories: requestedCategories,
-        requested_objects: requestedObjects,
-        requested_addresses: requestedAddresses,
-      };
-
-      const data = await saveDataToApi(id, requestBody, api.APP_URL_USER_API);
-
-    } catch (error) {
-      console.error('Error getting report:', error);
-    }
-  };
 
   const getPercentageForAddressAndCategory = (address, category) => {
     const addressEntry = addressData.find((data) => data.address === address);

@@ -45,19 +45,25 @@ function Home() {
 
   const loadData = async (id) => {
     try {
-      const data = await loadDataFetch(id, api.APP_URL_USER_API);
-      
+      const storedData = localStorage.getItem('myData');
+      let request = {};
+      if (storedData) {
+        request = JSON.parse(storedData);
+      }
+      logger.log(request);
+
       setInput((prevInput) => {
         if (prevInput === '') {
-          return data.request.addresses[0];
+          return request.addresses[0];
         }
         return prevInput;
       });
-      handleSetCustomAdressesAndObjects(data.request);
-      handleSetPreferences(data.request);
-      setSelectedPreferencesTransformed(data.request.categories);
-      i18n.changeLanguage(data.language);
-      setAddresses(data.request.addresses);
+
+      handleSetCustomAdressesAndObjects(request);
+      handleSetPreferences(request);
+      setSelectedPreferencesTransformed(request.categories);
+      i18n.changeLanguage(request.language);
+      setAddresses(request.addresses);
     } catch (error) {
       console.error('Error getting report:', error);
     }
@@ -120,6 +126,7 @@ function Home() {
 
   const handleSetCustomAdressesAndObjects = (data) => {
     const customObjectsAndAdresses = [];
+    console.log(data);
     data.requested_addresses.forEach((item) => {
       customObjectsAndAdresses.push(item);
     });

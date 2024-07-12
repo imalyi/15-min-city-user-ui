@@ -11,7 +11,7 @@ import anime from 'animejs';
 import { useCookies } from 'react-cookie';
 import api from '../config';
 import { use } from 'i18next';
-import { loadDataFetch } from './api.jsx';
+import { loadDataFetch, ReportFetch } from './api.jsx';
 
 function Report() {
   const location = useLocation();
@@ -44,7 +44,7 @@ function Report() {
   const [selectedObjectPreferences, setselectedObjectPreferences] =
     useState(false);
   const [allPreferences, setAllPreferences] = useState([]);
-
+  logger.log(allPreferences)
   const [selectedCategory, setselectedCategory] = useState(null);
 
   const handleObjectClick = () => {
@@ -113,30 +113,40 @@ function Report() {
   logger.log(selectedObjectPreferences);
   const loadData = async (id) => {
     try {
-        const data = await loadDataFetch(id, api.APP_URL_USER_API);
+      const storedData = localStorage.getItem('myData');
+      let request = {};
+      if (storedData) {
+        request = JSON.parse(storedData);
+      }
+      logger.log(request);
 
+      const reportWithRequestedAddress = request.addresses.find(
+        (report) => report === address,
+      );
 
-        // Filtrujemy raporty, aby znaleźć ten z odpowiednim adresem
-        const reportWithRequestedAddress = data.reports.find(
-          (report) => report.address.full === address,
-        );
+      const requestBody = {
+        address: reportWithRequestedAddress,
+        categories: request.categories,
+        requested_objects: request.requested_objects,
+        requested_addresses: request.requested_addresses,
+      };
+      
+      const data = await ReportFetch(requestBody, api.APP_URL_USER_API);
+        logger.log(data)
+
         if (reportWithRequestedAddress) {
           // Jeśli znaleziono raport z odpowiednim adresem, ustawiamy dane
-          setCustomAddresses(reportWithRequestedAddress.custom_addresses);
-          setCustomObject(reportWithRequestedAddress.custom_objects);
-          setTransformedPreferences(reportWithRequestedAddress.categories);
-          setPlaces(reportWithRequestedAddress.points_of_interest);
-          setRequestedObjects(data.request.requested_objects);
-          setRequestedAddresses(data.request.requested_addresses);
-          logger.log(reportWithRequestedAddress.custom_addresses);
-          logger.log(reportWithRequestedAddress.custom_objects);
-          logger.log(data.request.requested_addresses);
-          i18n.changeLanguage(reportWithRequestedAddress.language);
+          setCustomAddresses(data.custom_addresses);
+          setCustomObject(data.custom_objects);
+          setPlaces(data.points_of_interest);
+          logger.log(data.points_of_interest);
+          logger.log(data.custom_objects);
+          i18n.changeLanguage(request.language);
 
           setAllPreferences(() => {
-            return reportWithRequestedAddress.points_of_interest
+            return data.points_of_interest
               ? Object.values(
-                  reportWithRequestedAddress.points_of_interest,
+                data.points_of_interest,
                 ).flatMap((category) => {
                   return Object.keys(category).flatMap((subcategory) =>
                     category[subcategory].map((item) => ({
@@ -148,12 +158,12 @@ function Report() {
               : [];
           });
           const allObjectsLoad = [];
-          Object.keys(reportWithRequestedAddress.custom_objects).forEach(
+          Object.keys(data.custom_objects).forEach(
             (categoryName) => {
               Object.keys(
-                reportWithRequestedAddress.custom_objects[categoryName],
+                data.custom_objects[categoryName],
               ).forEach((subcategoryName) => {
-                reportWithRequestedAddress.custom_objects[categoryName][
+                data.custom_objects[categoryName][
                   subcategoryName
                 ].forEach((item) => {
                   allObjectsLoad.push({
@@ -166,23 +176,23 @@ function Report() {
               });
             },
           );
-          if (reportWithRequestedAddress.custom_addresses.length > 0) {
+          if (data.custom_addresses.length > 0) {
             handleLoadDataCategorySelected('custom_addresses', null);
             logger.log('handleAddressClick');
           } else if (
-            Object.keys(reportWithRequestedAddress.custom_objects).length > 0 &&
+            Object.keys(data.custom_objects).length > 0 &&
             allObjectsLoad.length > 0
           ) {
             handleLoadDataCategorySelected('custom_objects', null);
             logger.log('handleObjectClick');
           } else {
             handleLoadDataCategorySelected(
-              Object.keys(reportWithRequestedAddress.points_of_interest)[0],
-              reportWithRequestedAddress.points_of_interest,
+              Object.keys(data.points_of_interest)[0],
+              data.points_of_interest,
             );
             logger.log(
               'handleCategoryClick',
-              reportWithRequestedAddress.points_of_interest,
+              data.points_of_interest,
             );
           }
         }

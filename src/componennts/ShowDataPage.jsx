@@ -38,6 +38,7 @@ function ShowDataPage() {
     location.state?.places.location[0],
   ];
   const [addresses, setAddresses] = useState(addresses_home);
+  logger.log(addresses)
   const [results, setResults] = useState([]);
   const [input, setInput] = useState(address);
   const [isResultClicked, setIsResultClicked] = useState(true);
@@ -183,17 +184,25 @@ function ShowDataPage() {
   };
 
   const loadData = async (id) => {
+
     try {
-      const data = await loadDataFetch(id, api.APP_URL_USER_API);
-      setAddresses((prevAddresses) => {
-        if (prevAddresses.length === 0) {
-          if (data.request.addresses.includes(address)) {
-            return data.request.addresses;
+      const storedData = localStorage.getItem('myData');
+      let request = {};
+      if (storedData) {
+        request = JSON.parse(storedData);
+      }
+      if (request.addresses) {
+        setAddresses((prevAddresses) => {
+          if (prevAddresses.length === 0) {
+            if (addresses.includes(address)) {
+              return addresses;
+            }
+            return [address, ...addresses];
           }
-          return [address, ...data.request.addresses];
-        }
-        return prevAddresses;
-      });
+          return prevAddresses;
+        });
+      }
+
     } catch (error) {
       console.error('Error getting report:', error);
     }
@@ -227,6 +236,7 @@ function ShowDataPage() {
         if (searchBarAddress !== '') {
           adresses_request = addresses.concat(searchBarAddress);
         }
+        logger.log(addresses);
         const requestBody = {
           secret: id,
           language: i18n.language,
@@ -235,7 +245,9 @@ function ShowDataPage() {
           requested_objects: customNamesArray,
           requested_addresses: custom_addresses,
         };
-        const data = await saveDataToApi(id, requestBody, api.APP_URL_USER_API);
+
+        localStorage.setItem('myData', JSON.stringify(requestBody));
+
 
       } catch (error) {
         console.error('Error getting report:', error);

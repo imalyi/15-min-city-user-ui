@@ -170,6 +170,7 @@ export const loadDataFetch = async (id, apiBaseUrl) => {
 
   export const ReportFetch = async (requestBody, apiBaseUrl) => {
     try {
+        logger.log(requestBody);
         const response = await fetch(`${apiBaseUrl}report/`, {
             method: 'POST',
             headers: {
@@ -180,6 +181,7 @@ export const loadDataFetch = async (id, apiBaseUrl) => {
   
           if (response.ok) {
             const data = await response.json();
+            logger.log(data)
             return data;
           } else {
             console.error('Error getting report:', response.statusText);
