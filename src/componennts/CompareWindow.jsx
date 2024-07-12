@@ -31,6 +31,21 @@ const CompareWindow = ({
   const [cookies, setCookie] = useCookies(['userID']);
   const [isNotAddressLoaded, setIsNotAddressLoaded] = useState(true);
   const userId = cookies.userID;
+  const CompareWindowRef = useRef();
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (CompareWindowRef.current && !CompareWindowRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [CompareWindowRef]);
+
   useEffect(() => {
     if (addressesShowData) {
       setAddresses(addressesShowData);
@@ -110,8 +125,8 @@ const CompareWindow = ({
   };
   if (!isOpen) return null;
   return (
-    <div className="modal-overlay">
-      <div className="modal-contents">
+    <div className="modal-overlay" >
+      <div className="modal-contents" ref={CompareWindowRef}>
         <div className="first-comment">
           {t('Do you have more addresses?')}
           <button className="close-button" onClick={onClose}>
