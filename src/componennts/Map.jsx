@@ -7,6 +7,7 @@ import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
 import { useLeafletContext } from '@react-leaflet/core';
 import { logger } from '../logger';
+import MarkerClusterGroup from 'react-leaflet-cluster'
 
 function Map({
   places,
@@ -51,6 +52,12 @@ function Map({
       </Marker>
       <FlyToMarkerReverse flyToLocation={selectedCoordinatesShowPage} />
       <FlyToMarker flyToLocation={flyToLocation} />
+      <MarkerClusterGroup
+        maxClusterRadius={30}
+        spiderfyOnMaxZoom={true}
+
+        showCoverageOnHover={true}
+      >
       {mainCategoriesToShow &&
         mainCategoriesToShow.map((category) => {
           const categoryData = places[category];
@@ -75,6 +82,7 @@ function Map({
           }
           return null; // Jeśli categoryData jest niezdefiniowane lub puste, zwracamy null
         })}
+      </MarkerClusterGroup>
       {Object.entries(custom_names).map(
         ([categoryName, categoryList], index1) => {
           return Object.entries(categoryList).map(
