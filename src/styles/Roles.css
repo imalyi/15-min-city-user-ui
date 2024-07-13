@@ -45,7 +45,7 @@
 
 .category-label {
   font-family: Lato, sans-serif;
-  font-size: 28px;
+  font-size: 3.3vh;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -143,7 +143,7 @@
 
 .preferences-label {
   font-family: Lato, sans-serif;
-  font-size: 26px;
+  font-size: 3.3vh;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -377,14 +377,14 @@
 @media only screen and (max-width: 1300px) {
   .category-label {
     font-family: Lato, sans-serif;
-    font-size: 20px;
+    font-size: 3vh;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
   }
   .preferences-label {
     font-family: Lato, sans-serif;
-    font-size: 16px;
+    font-size: 3vh;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -557,14 +557,14 @@
   }
   .category-label {
     font-family: Lato, sans-serif;
-    font-size: 16px;
+    font-size: 2.5vh;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
   }
   .preferences-label {
     font-family: Lato, sans-serif;
-    font-size: 12px;
+    font-size: 2.5vh;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -725,7 +725,7 @@
   }
   .category-label {
     font-family: Lato, sans-serif;
-    font-size: 12px;
+    font-size: 1.5vh;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -733,7 +733,7 @@
   }
   .preferences-label {
     font-family: Lato, sans-serif;
-    font-size: 8px;
+    font-size: 1.5vh;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -943,14 +943,14 @@
 
   .category-label {
     font-family: Lato, sans-serif;
-    font-size: 1.7vh;
+    font-size: 2vh;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
   }
   .preferences-label {
     font-family: Lato, sans-serif;
-    font-size: 1.5vh;
+    font-size: 2vh;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
