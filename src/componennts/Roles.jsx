@@ -409,12 +409,14 @@ const Roles = ({
                   {t('Clear all')}
                 </label>
                 <div className="toggle-left-section-wrapper">
+                  {/* 
                   {isHeatmap==undefined && (
                     <Icon
                       icon="mdi-light:arrow-left"
                       className="toggle-left-section-icon"
                     />
                   )}
+                  */}
                   {isMobile == true && isHeatmap == undefined ? (
                     <div>
                       <label
@@ -428,6 +430,7 @@ const Roles = ({
                     </div>
                   ) : isHeatmap == undefined ? (
                     <div>
+                      {/*
                       <label
                         className="toggle-left-section"
                         onClick={() => {
@@ -436,12 +439,13 @@ const Roles = ({
                       >
                         {t('Hide')}
                       </label>
+                      */}
                     </div>
                   ) : (
                     <div>
                       <label
                         className="toggle-left-section"
-                        style={{padding: '1.5vh'}}
+                        style={{padding: '1.5vh 2vh'}}
                         onClick={() => {
                           fetchHeatmap();
                         }}

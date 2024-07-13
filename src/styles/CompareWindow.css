@@ -139,7 +139,7 @@
   color: white;
   border: none;
   border-radius: 12px;
-  padding: 1.5vh 3vh;
+  padding: 1.5vh 2vh;
   font-family: Lato, sans-serif;
   font-size: 3vh;
   font-style: normal;
@@ -230,8 +230,8 @@
     background-color: #24254c;
     color: white;
     border: none;
-    border-radius: 12px;
-    padding: 1.2vh 2.5vh;
+    border-radius: 8px;
+    padding: 1.2vh 1.8vh;
     font-family: Lato, sans-serif;
     font-size: 2.5vh;
     font-style: normal;
@@ -327,7 +327,7 @@
     background-color: #24254c;
     color: white;
     border: none;
-    border-radius: 12px;
+    border-radius: 8px;
     padding: 1vh 2vh;
     font-family: Lato, sans-serif;
     font-size: 2vh;

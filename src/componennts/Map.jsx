@@ -8,6 +8,39 @@ import { Icon } from 'leaflet';
 import { useLeafletContext } from '@react-leaflet/core';
 import { logger } from '../logger';
 import MarkerClusterGroup from 'react-leaflet-cluster'
+import L from 'leaflet';
+import { useMap } from 'react-leaflet';
+
+function CustomControl({toggleRoleSVisible, isLeftSectionVisible}) {
+  const map = useMap();
+
+  useEffect(() => {
+    const customControl = L.Control.extend({
+      options: {
+        position: 'topleft',
+      },
+      onAdd: function () {
+        logger.log(isLeftSectionVisible);
+        const classNameButton = isLeftSectionVisible ? 'leaflet-control leaflet-control-custom my-custom-button' : 'leaflet-control leaflet-control-custom my-custom-button-active';
+        const container = L.DomUtil.create('button', classNameButton);
+        container.onclick = function () {
+          toggleRoleSVisible();
+        };
+        return container;
+      },
+    });
+
+    const controlInstance = new customControl();
+    map.addControl(controlInstance);
+
+    // Cleanup control on component unmount
+    return () => {
+      map.removeControl(controlInstance);
+    };
+  }, [map, isLeftSectionVisible, toggleRoleSVisible]);
+
+  return null;
+}
 
 function Map({
   places,
@@ -18,6 +51,9 @@ function Map({
   preferencesSearchDataShowPage,
   custom_names,
   custom_addresses,
+  toggleRoleSVisible, 
+  isLeftSectionVisible, 
+  isSmallScreen
 }) {
   const locationIcon = new Icon({
     iconUrl: '/icons/gps.png',
@@ -25,7 +61,7 @@ function Map({
   });
   const lat = selectedCoordinatesShowPage[0];
   const lng = selectedCoordinatesShowPage[1];
-  logger.log(lat, lng)
+  logger.log(isSmallScreen)
   return (
     <MapContainer
       center={selectedCoordinatesShowPage}
@@ -117,6 +153,9 @@ function Map({
           />
         );
       })}
+      {isSmallScreen !== undefined && (
+        <CustomControl toggleRoleSVisible={toggleRoleSVisible} isLeftSectionVisible={isLeftSectionVisible}/>
+      )}
     </MapContainer>
   );
 }
@@ -142,7 +181,7 @@ function FlyToMarkerReverse({ flyToLocation }) {
   useEffect(() => {
     if (flyToLocation) {
       const [lat, lng] = flyToLocation;
-      let zoomLevel = 13;
+      let zoomLevel = 14;
       if (window.innerWidth < 800) {
         zoomLevel = 12;
       }

@@ -886,6 +886,9 @@ function ShowDataPage() {
                   custom_names={places.custom_objects}
                   custom_addresses={places.custom_addresses}
                   preferencesSearchDataShowPage={preferencesSearchDataShowPage}
+                  isLeftSectionVisible={isLeftSectionVisible}
+                  toggleRoleSVisible={handleToggleLeftSection}
+                  isSmallScreen={isSmallScreen}
                 />
               </div>
             </div>
