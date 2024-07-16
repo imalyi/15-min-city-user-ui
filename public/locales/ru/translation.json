@@ -120,6 +120,11 @@
     "Please try again with different categories.": "Пожалуйста, попробуйте еще раз, используя другие категории.",
     "Select the categories and click \"Show on map\" to display matched locations.": "Выберите категории и нажмите кнопку \"Показать на карте\", чтобы отобразить подходящие места.",
     "Wait for the map to be generated.": "Подождите, пока карта будет сгенерирована.",
-    "Add the address or name of the object in the bar above": "Добавьте адрес или название объекта в строке выше"
+    "Add the address or name of the object in the bar above": "Добавьте адрес или название объекта в строке выше",
+    "Log in": "Войти",
+    "Sign up": "Регистрация",
+    "Your Name": "Ваше имя",
+    "Address e-mail": "Адрес электронной почты",
+    "Password": "Пароль"
   }
   

@@ -256,5 +256,10 @@
   "Please try again with different categories.": "Please try again with different categories.",
   "Select the categories and click \"Show on map\" to display matched locations.": "Select the categories and click \"Show on map\" to display matched locations.",
   "Wait for the map to be generated.": "Wait for the map to be generated.",
-  "Add the address or name of the object in the bar above": "Add the address or name of the object in the bar above"
+  "Add the address or name of the object in the bar above": "Add the address or name of the object in the bar above",
+  "Log in": "Log in",
+  "Sign up": "Sign up",
+  "Your Name": "Your Name",
+  "Address e-mail": "Address e-mail",
+  "Password": "Password"
 }

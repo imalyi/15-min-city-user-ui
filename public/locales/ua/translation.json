@@ -120,6 +120,11 @@
     "Please try again with different categories.": "Будь ласка, спробуйте ще раз, використовуючи інші категорії.",
     "Select the categories and click \"Show on map\" to display matched locations.": "Виберіть категорії та натисніть \"Показати на карті\", щоб відобразити відповідні місця.",
     "Wait for the map to be generated.": "Зачекайте, поки карта буде створена.",
-    "Add the address or name of the object in the bar above": "Додайте адресу або назву об'єкта у рядку вище"
+    "Add the address or name of the object in the bar above": "Додайте адресу або назву об'єкта у рядку вище",
+    "Log in": "Увійти",
+    "Sign up": "Реєстрація",
+    "Your Name": "Ваше ім'я",
+    "Address e-mail": "Адреса електронної пошти",
+    "Password": "Пароль"
   }
     

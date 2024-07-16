@@ -5,6 +5,7 @@ import ShowDataPage from './componennts/ShowDataPage';
 import Report from './componennts/Report';
 import Compare from './componennts/Compare';
 import HeatmapComponent from './componennts/HeatMapComponent';
+import SignIn from './componennts/SignIn';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { logger } from './logger';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -18,6 +19,7 @@ function App() {
         <Route path="/compare" element={<Compare />} />
         <Route path="/heatmap" element={<HeatmapComponent />} />
         <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/sign-in" element={<SignIn />} />
       </Routes>
     </Router>
   );

@@ -255,6 +255,11 @@
   "Please try again with different categories.": "Bitte versuchen Sie es erneut mit anderen Kategorien.",
   "Select the categories and click \"Show on map\" to display matched locations.": "Wählen Sie die Kategorien aus und klicken Sie auf \"Auf Karte anzeigen\", um die übereinstimmenden Standorte anzuzeigen.",
   "Wait for the map to be generated.": "Warten Sie, bis die Karte generiert ist.",
-  "Add the address or name of the object in the bar above": "Fügen Sie die Adresse oder den Namen des Objekts in die Leiste oben ein"
+  "Add the address or name of the object in the bar above": "Fügen Sie die Adresse oder den Namen des Objekts in die Leiste oben ein",
+  "Log in": "Einloggen",
+  "Sign up": "Registrieren",
+  "Your Name": "Ihr Name",
+  "Address e-mail": "E-Mail-Adresse",
+  "Password": "Passwort"
   
 }

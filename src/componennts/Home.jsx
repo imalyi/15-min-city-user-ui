@@ -150,6 +150,7 @@ function Home() {
     setSelectedPreferences(preferences);
   };
 
+
   return (
     <div className="home-container">
       <div className="language-select-container">
@@ -221,6 +222,9 @@ function Home() {
                 )}
               </span>
               <Link to="/heatmap" className="blue-link">
+                {t('Choose the necessary objects and discover the best neighborhood')}
+              </Link>
+              <Link to="/sign-in" className="blue-link">
                 {t('Choose the necessary objects and discover the best neighborhood')}
               </Link>
             </div>
