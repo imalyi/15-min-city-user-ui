@@ -30,6 +30,15 @@ function Footer({ useMargin }) {
   const handleLanguageChange = (lng) => {
     setSelectedLanguage(lng);
     i18n.changeLanguage(lng);
+    const storedData = localStorage.getItem('myData');
+    let request = {};
+    if (storedData) {
+      request = JSON.parse(storedData);
+    }
+
+    request.language = lng;
+
+    localStorage.setItem('myData', JSON.stringify(request));
   };
 
   useEffect(() => {

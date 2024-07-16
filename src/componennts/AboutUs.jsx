@@ -32,7 +32,7 @@ function AboutUs() {
   };
 
   return (
-    <div className="home-container">
+    <div className="about-us-container">
       <div className="language-select-container">
         <Link to="/">
           <motion.button
@@ -86,20 +86,22 @@ function AboutUs() {
             )}
         </h2>
       </div>
-      <div className="home-description-second-title"> 
-        <span>              
-            {t('Write to us at ')}
-        </span>
-        <span className="blue-link" onClick={handleEmailClick}>
-          cityinminutes@mailbox.org
-        </span>
-            {showPopup && <div className="popup">            
-            {t(
-              'Address copied to clipboard!',
-            )}
-            </div>}
-        </div>
-        </div>
+        <div className="home-description-second-title"> 
+          <span>              
+              {t('Write to us at ')}
+          </span>
+          <span className="blue-link" onClick={handleEmailClick}>
+            cityinminutes@mailbox.org
+          </span>
+              {showPopup && <div className="popup">            
+              {t(
+                'Address copied to clipboard!',
+              )}
+        </div>}
+      </div>
+
+      </div>
+      
       <Footer useMargin={true} />
     </div>
   );
