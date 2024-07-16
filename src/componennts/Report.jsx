@@ -910,7 +910,7 @@ function Report() {
                                   {item.name}
                                 </div>
                                 <div className="preferenceItemAddress">
-                                  {category}
+                                  {t(category)}
                                 </div>
                                 <div className="preferenceItemAddress">
                                   {item.address.full}

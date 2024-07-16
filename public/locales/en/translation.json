@@ -261,5 +261,10 @@
   "Sign up": "Sign up",
   "Your Name": "Your Name",
   "Address e-mail": "Address e-mail",
-  "Password": "Password"
+  "Password": "Password",
+  "Forgot your password?": "Forgot your password?",
+  "Creating an account is equivalent to accepting ": "Creating an account is equivalent to accepting ",
+  "Terms and Conditions": "Terms and Conditions",
+  " and ": " and ",
+  "Privacy Policy": "Privacy Policy"
 }

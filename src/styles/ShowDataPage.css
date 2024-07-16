@@ -380,7 +380,7 @@ html {
   text-align: center;
   height: 7vh;
   background-color: #dce6fa;
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -397,7 +397,7 @@ html {
   text-align: center;
   height: 7vh;
   background-color: #dce6fa;
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -487,7 +487,7 @@ html {
   text-align: center;
   height: 13vh;
   background-color: #dce6fa;
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -726,7 +726,7 @@ html {
 }
 
 .choose-criteria-mobile {
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 2vh;
   font-weight: 600;
   line-height: 14.4px;
@@ -766,7 +766,7 @@ html {
 }
 
 .compare-button-show-data-page-text {
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 3vh;
   font-weight: 400;
   line-height: 28.8px;
@@ -803,7 +803,7 @@ html {
   }
 
   .compare-button-show-data-page-text {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-weight: 400;
     line-height: 28.8px;
@@ -874,7 +874,7 @@ html {
     text-align: center;
     height: 7vh;
     background-color: #dce6fa;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -942,7 +942,7 @@ html {
     text-align: center;
     height: 11vh;
     background-color: #dce6fa;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
@@ -1038,7 +1038,7 @@ html {
     text-align: center;
     height: 7vh;
     background-color: #dce6fa;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -1104,7 +1104,7 @@ html {
   }
 
   .compare-button-show-data-page-text {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-weight: 400;
     line-height: 28.8px;
@@ -1149,7 +1149,7 @@ html {
     text-align: center;
     height: 7vh;
     background-color: #dce6fa;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -1203,7 +1203,7 @@ html {
     text-align: center;
     height: 5vh;
     background-color: #dce6fa;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 10px;
     font-style: normal;
     font-weight: 400;
@@ -1250,7 +1250,7 @@ html {
     text-align: center;
     height: 9vh;
     background-color: #dce6fa;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
@@ -1393,7 +1393,7 @@ html {
     text-align: center;
     height: 5vh;
     background-color: #dce6fa;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-style: normal;
     font-weight: 400;
@@ -1447,7 +1447,7 @@ html {
   }
 
   .compare-button-show-data-page-text {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 3vw;
     font-weight: 400;
     line-height: 28.8px;
@@ -1512,7 +1512,7 @@ html {
     text-align: center;
     height: 7vh;
     background-color: #dce6fa;
-    font-family: Lato;
+        font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-style: normal;
     font-weight: 400;

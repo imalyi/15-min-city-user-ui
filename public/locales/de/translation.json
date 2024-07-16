@@ -260,6 +260,11 @@
   "Sign up": "Registrieren",
   "Your Name": "Ihr Name",
   "Address e-mail": "E-Mail-Adresse",
-  "Password": "Passwort"
+  "Password": "Passwort",
+  "Forgot your password?": "Passwort vergessen?",
+  "Creating an account is equivalent to accepting ": "Das Erstellen eines Kontos entspricht der Annahme der ",
+  "Terms and Conditions": "Nutzungsbedingungen",
+  " and ": " und ",
+  "Privacy Policy": "Datenschutzrichtlinie"
   
 }

@@ -261,5 +261,10 @@
   "Sign up": "Utwórz konto",
   "Your Name": "Twoje imię",
   "Address e-mail": "Adres e-mail",
-  "Password": "Hasło"
+  "Password": "Hasło",
+  "Forgot your password?": "Zapomniałeś hasła?",
+  "Creating an account is equivalent to accepting ": "Utworzenie konta jest równoznaczne z akceptacją ",
+  "Terms and Conditions": "Warunków",
+  " and ": " i ",
+  "Privacy Policy": "Polityki Prywatności"
 }

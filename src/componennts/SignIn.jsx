@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Footer from './Footer';
 import '../styles/Home.css';
 import '../styles/SignIn.css';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { TextField, InputAdornment, IconButton, FormControl, InputLabel, Input } from '@mui/material';
+import { TextField, InputAdornment, IconButton, FormControl, InputLabel, Input, FormHelperText  } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
@@ -14,6 +14,39 @@ function SignIn() {
   const [option, setOption] = useState('sign-up');
   const [showPassword, setShowPassword] = React.useState(false);
 
+
+  const [valuesSignUp, setValuesSignUp] = useState({
+    name: '',
+    email: '',
+    password: '',
+    showPassword: false,
+    passwordError: false,
+  });
+
+  const [valuesLogIn, setValuesLogIn] = useState({
+    email: '',
+    password: '',
+    showPassword: false,
+  });
+
+  const handleChangeValuesSignUp = (prop) => (event) => {
+    setValuesSignUp({ ...valuesSignUp, [prop]: event.target.value });
+
+    if (prop === 'password') {
+      setValuesSignUp({ 
+            ...valuesSignUp, 
+            [prop]: event.target.value,
+            passwordError: event.target.value.length <= 8 
+        });
+    }
+  };
+
+  const handleChangeValuesLogIn = (prop) => (event) => {
+    setValuesLogIn({ ...valuesLogIn, [prop]: event.target.value });
+  };
+
+
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
 
@@ -21,11 +54,6 @@ function SignIn() {
     setOption(option);
   };
 
-
-  const optionVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
 
   return (
     <div className="home-container">
@@ -94,25 +122,59 @@ function SignIn() {
           {option === 'sign-up' ? (
             <div>
                 <div className='text-fields-div'>
-                    <TextField id="standard-basic" label={t('Your Name')} variant="standard" className='text-field-default'/>
-                    <TextField id="standard-basic" label={t('Address e-mail')} variant="standard"  className='text-field-default' style={{marginTop: '3vh'}}/>
-                    <FormControl variant="standard" className='text-field-default' style={{marginTop: '3vh'}}>
+                    <TextField 
+                      id="standard-basic" 
+                      label={t('Your Name')} 
+                      variant="standard" 
+                      className='text-field-default'
+                      value={valuesSignUp.name} 
+                      onChange={handleChangeValuesSignUp('name')}
+                      autoComplete="no"
+                    />
+                    <TextField 
+                      id="standard-basic" 
+                      label={t('Address e-mail')} 
+                      variant="standard"  
+                      className='text-field-default' 
+                      style={{marginTop: '3vh'}}
+                      value={valuesSignUp.email} 
+                      onChange={handleChangeValuesSignUp('email')}
+                      autoComplete="no"
+                    />
+                    <FormControl 
+                      variant="standard" 
+                      className='text-field-default' 
+                      style={{marginTop: '3vh'}}
+                      error={valuesSignUp.passwordError}
+                      autoComplete="no"
+                    >
                         <InputLabel htmlFor="standard-adornment-password">{t('Password')}</InputLabel>
                         <Input
                             id="standard-adornment-password"
                             type={showPassword ? 'text' : 'password'}
+                            value={valuesSignUp.password}
+                            onChange={handleChangeValuesSignUp('password')}
+                            autoComplete="no"
                             endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
                                 aria-label="toggle password visibility"
                                 onClick={handleClickShowPassword}
                                 >
-                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
                                 </IconButton>
                             </InputAdornment>
                             }
                         />
+                        {valuesSignUp.passwordError && (
+                          <FormHelperText error style={{fontSize:"1.5vh"}}>{'Password must be longer than 8 characters'}</FormHelperText>
+                        )}
                     </FormControl>
+                <div>
+                  <div className='terms-and-conditions'>
+                    {t('Creating an account is equivalent to accepting ')} <Link className='blue-link'>{t('Terms and Conditions')}</Link> {t(' and ')} <Link className='blue-link'>{t('Privacy Policy')}</Link>
+                  </div>
+                </div>
                 </div>
                     <div className='sign-up-button'>
                     <div className='sign-up-button-label'>{t('Sign up')}</div>
@@ -121,31 +183,46 @@ function SignIn() {
           ) : option === "log-in" ? (
             <div>
                 <div className='text-fields-div'>
-                    <TextField id="standard-basic" label={t('Adress e-mail')} variant="standard"  className='text-field-default'/>
-                    <FormControl variant="standard" className='text-field-default' style={{marginTop: '3vh'}}>
-                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                    <TextField 
+                      id="standard-basic" 
+                      label={t('Address e-mail')} 
+                      variant="standard"  
+                      className='text-field-default'
+                      value={valuesLogIn.email} 
+                      onChange={handleChangeValuesLogIn('email')}
+                    />
+                    <FormControl 
+                      variant="standard" 
+                      className='text-field-default' 
+                      style={{marginTop: '3vh'}}
+                    >
+                        <InputLabel htmlFor="standard-adornment-password">{t('Password')}</InputLabel>
                         <Input
                             id="standard-adornment-password"
                             type={showPassword ? 'text' : 'password'}
+                            value={valuesLogIn.password}
+                            onChange={handleChangeValuesLogIn('password')}
                             endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
                                 aria-label="toggle password visibility"
                                 onClick={handleClickShowPassword}
                                 >
-                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
                                 </IconButton>
                             </InputAdornment>
                             }
                         />
                     </FormControl>
                 </div>
+                <div className='forgot-password'>
+                    <Link className='blue-link'>{t('Forgot your password?')}</Link>
+                </div>
                 <div className='sign-up-button'>
                     <div className='sign-up-button-label'>{t('Log in')}</div>
                 </div>
             </div>
           ) : null}
-
         </div>
       </div>
       <Footer useMargin={true} />

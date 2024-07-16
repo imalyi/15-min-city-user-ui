@@ -56,6 +56,15 @@ const CompareWindow = ({
     }
   }, [addressesShowData]);
 
+  useEffect(() => {
+    const uniqueAddresses = [...new Set(addressesShowData)];
+    if (uniqueAddresses.length !== addressesShowData.length || uniqueAddresses.length > 3) {
+      setAddresses(uniqueAddresses.slice(0, 3));
+      setAddressesShowPage(uniqueAddresses.slice(0, 3));
+      setAlarm(t('Duplicate addresses removed or excess addresses trimmed to 3.'));
+    }
+  }, [addressesShowData, setAddressesShowPage, t]);
+
   const reportUrl = `/compare?userid=${userId}`;
   const handleCompareButton = () => {
     if (addresses.length < 2) {

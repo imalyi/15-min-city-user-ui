@@ -99,8 +99,7 @@
   text-align: center;
   align-items: center;
   height: 8vh;
-  background-color: #dce6fa;
-  font-family: Lato;
+  background-color: #dce6fa;    font-family: Lato, sans-serif;
   font-size: 3vh;
   font-style: normal;
   font-weight: 400;
@@ -115,8 +114,7 @@
   text-align: center;
   align-items: center;
   height: 8vh;
-  background-color: #bcc6da;
-  font-family: Lato;
+  background-color: #bcc6da;    font-family: Lato, sans-serif;
   font-size: 3vh;
   font-style: normal;
   font-weight: 400;
@@ -151,8 +149,7 @@
   height: 1px;
 }
 
-.emptyRaport-labelFirst {
-  font-family: Lato;
+.emptyRaport-labelFirst {    font-family: Lato, sans-serif;
   font-size: 4vh;
   font-style: normal;
   font-weight: 500;
@@ -239,8 +236,7 @@
   padding: 1vw;
   margin-right: 0.5vw;
 }
-.preferenceLabel {
-  font-family: Lato;
+.preferenceLabel {    font-family: Lato, sans-serif;
   font-size: 3vh;
   font-style: normal;
   font-weight: 500;
@@ -324,8 +320,7 @@
   display: flex;
 }
 .preferenceItemName {
-  margin-top: 0.2vh;
-  font-family: Lato;
+  margin-top: 0.2vh;    font-family: Lato, sans-serif;
   font-size: 3vh;
   font-style: normal;
   font-weight: 600;
@@ -333,8 +328,7 @@
 }
 
 .preferenceItemAddress {
-  margin-top: 2vh;
-  font-family: Lato;
+  margin-top: 2vh;    font-family: Lato, sans-serif;
   font-size: 3vh;
   font-style: normal;
   font-weight: 400;
@@ -342,8 +336,7 @@
 }
 
 .preferenceItemDistance {
-  margin-top: 2vh;
-  font-family: Lato;
+  margin-top: 2vh;    font-family: Lato, sans-serif;
   font-size: 3vh;
   font-style: normal;
   font-weight: 400;
@@ -354,8 +347,7 @@
 }
 
 .preferenceAddressItemDistance {
-  margin-top: 2vh;
-  font-family: Lato;
+  margin-top: 2vh;    font-family: Lato, sans-serif;
   font-size: 3vh;
   font-style: normal;
   font-weight: 600;
@@ -364,8 +356,7 @@
   display: flex;
 }
 
-.preferenceAddressItemDistance-without-margin-top {
-  font-family: Lato;
+.preferenceAddressItemDistance-without-margin-top {    font-family: Lato, sans-serif;
   font-size: 2vh;
   font-style: normal;
   font-weight: 600;
@@ -380,15 +371,13 @@
   margin-top: 0.5vh;
 }
 
-.distance {
-  font-family: Lato;
+.distance {    font-family: Lato, sans-serif;
   font-size: 3vh;
   font-style: normal;
   font-weight: 400;
 }
 
-.time {
-  font-family: Lato;
+.time {    font-family: Lato, sans-serif;
   font-size: 3vh;
   font-style: normal;
   font-weight: 400;
@@ -466,8 +455,7 @@
 
 .report-selected-category-label {
   margin-top: 0.5vh;
-  margin-left: 2vh;
-  font-family: Lato;
+  margin-left: 2vh;    font-family: Lato, sans-serif;
   font-size: 2vh;
   font-weight: 600;
   line-height: 14.4px;
@@ -512,8 +500,7 @@
 
 .report-category-item {
   height: 6vh;
-  padding-left: 2vh;
-  font-family: Lato;
+  padding-left: 2vh;    font-family: Lato, sans-serif;
   font-size: 2vh;
   font-weight: 600;
   line-height: 14.4px;
@@ -567,7 +554,7 @@
     align-items: center;
     height: 8vh;
     background-color: #dce6fa;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-style: normal;
     font-weight: 400;
@@ -583,7 +570,7 @@
     align-items: center;
     height: 8vh;
     background-color: #bcc6da;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-style: normal;
     font-weight: 400;
@@ -592,7 +579,7 @@
     width: 100%;
   }
   .emptyRaport-labelFirst {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 3vh;
     font-style: normal;
     font-weight: 500;
@@ -603,7 +590,7 @@
   }
 
   .preferenceLabel {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-style: normal;
     font-weight: 500;
@@ -611,7 +598,7 @@
   }
   .preferenceItemName {
     margin-top: 0.2vh;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-style: normal;
     font-weight: 600;
@@ -620,7 +607,7 @@
 
   .preferenceItemAddress {
     margin-top: 2vh;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-style: normal;
     font-weight: 400;
@@ -629,7 +616,7 @@
 
   .preferenceItemDistance {
     margin-top: 2vh;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-style: normal;
     font-weight: 400;
@@ -641,7 +628,7 @@
 
   .preferenceAddressItemDistance {
     margin-top: 2vh;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-style: normal;
     font-weight: 600;
@@ -651,14 +638,14 @@
   }
 
   .distance {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-style: normal;
     font-weight: 400;
   }
 
   .time {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-style: normal;
     font-weight: 400;
@@ -712,7 +699,7 @@
     justify-content: center;
   }
   .preferenceLabel {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-style: normal;
     font-weight: 500;
@@ -770,7 +757,7 @@
     align-items: center;
     height: 8vh;
     background-color: #dce6fa;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-style: normal;
     font-weight: 400;
@@ -786,7 +773,7 @@
     align-items: center;
     height: 8vh;
     background-color: #bcc6da;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-style: normal;
     font-weight: 400;
@@ -795,7 +782,7 @@
     width: 100%;
   }
   .emptyRaport-labelFirst {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-style: normal;
     font-weight: 500;
@@ -807,7 +794,7 @@
 
   .preferenceItemName {
     margin-top: 0.2vh;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-style: normal;
     font-weight: 600;
@@ -816,7 +803,7 @@
 
   .preferenceItemAddress {
     margin-top: 2vh;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.7vh;
     font-style: normal;
     font-weight: 400;
@@ -825,7 +812,7 @@
 
   .preferenceItemDistance {
     margin-top: 2vh;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-style: normal;
     font-weight: 400;
@@ -837,7 +824,7 @@
 
   .preferenceAddressItemDistance {
     margin-top: 2vh;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-style: normal;
     font-weight: 600;
@@ -847,14 +834,14 @@
   }
 
   .distance {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-style: normal;
     font-weight: 400;
   }
 
   .time {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-style: normal;
     font-weight: 400;
@@ -925,14 +912,14 @@
     margin-top: 0.5vh;
   }
   .distance {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.7vh;
     font-style: normal;
     font-weight: 400;
   }
 
   .time {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.7vh;
     font-style: normal;
     font-weight: 400;

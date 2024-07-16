@@ -53,6 +53,9 @@ function Home() {
       logger.log(request);
 
       setInput((prevInput) => {
+        if (request.addresses === undefined) {
+          return prevInput;
+        }
         if (prevInput === '') {
           return request.addresses[0];
         }
@@ -126,11 +129,11 @@ function Home() {
 
   const handleSetCustomAdressesAndObjects = (data) => {
     const customObjectsAndAdresses = [];
-    console.log(data);
-    data.requested_addresses.forEach((item) => {
+    console.log(data); 
+    data.requested_addresses && data.requested_addresses.forEach((item) => {
       customObjectsAndAdresses.push(item);
     });
-    data.requested_objects.forEach((item) => {
+    data.requested_objects && data.requested_objects.forEach((item) => {
       customObjectsAndAdresses.push({
         name: item.name,
         category: item.main_category,
@@ -142,7 +145,7 @@ function Home() {
 
   const handleSetPreferences = (data) => {
     const preferences = [];
-    data.categories.forEach((item) => {
+    data.categories && data.categories.forEach((item) => {
       preferences.push({
         name: item.category,
       });

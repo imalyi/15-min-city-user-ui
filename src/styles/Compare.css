@@ -55,7 +55,7 @@
 }
 
 .match-div {
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 3vh;
   font-weight: 500;
   line-height: 28.8px;
@@ -65,7 +65,7 @@
 }
 
 .address-name {
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 3vh;
   font-weight: 600;
   line-height: 28.8px;
@@ -93,7 +93,7 @@
   display: flex;
   margin-left: 3vh;
   margin-top: 1vh;
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 3vh;
   font-weight: 600;
   line-height: 28.8px;
@@ -106,7 +106,7 @@
 }
 
 .preference-item-distance {
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 3vh;
   font-style: normal;
   font-weight: 400;
@@ -121,7 +121,7 @@
 }
 
 .compare-nearest-place-name {
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 3vh;
   font-weight: 400;
   line-height: 28.8px;
@@ -139,7 +139,7 @@
 }
 
 .compare-distance {
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 2vh;
   font-style: normal;
   font-weight: 400;
@@ -149,7 +149,7 @@
 .compare-time {
   margin-top: 2.5vh;
   margin-right: 1vw;
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 3vh;
   font-style: normal;
   font-weight: 400;
@@ -162,7 +162,7 @@
 }
 
 .compare-button-one-address {
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 3vh;
   font-weight: 400;
   line-height: 28.8px;
@@ -190,7 +190,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   background-color: #3044ca;
   border-radius: 8px;
   margin-left: 3vh;
@@ -223,7 +223,7 @@
 
 @media only screen and (max-width: 1200px) {
   .match-div {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2.5vh;
     font-weight: 500;
     line-height: 28.8px;
@@ -233,7 +233,7 @@
   }
 
   .address-name {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2.5vh;
     font-weight: 600;
     line-height: 28.8px;
@@ -244,7 +244,7 @@
   .compare-category-name {
     margin-left: 3vh;
     margin-top: 1vh;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2.5vh;
     font-weight: 600;
     line-height: 28.8px;
@@ -253,7 +253,7 @@
   }
 
   .preference-item-distance {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2.5vh;
     font-style: normal;
     font-weight: 400;
@@ -262,7 +262,7 @@
     display: flex;
   }
   .compare-nearest-place-name {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2.5vh;
     font-weight: 400;
     line-height: 28.8px;
@@ -280,13 +280,13 @@
   .compare-time {
     margin-top: 2.5vh;
     margin-right: 1vw;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2.5vh;
     font-style: normal;
     font-weight: 400;
   }
   .compare-button-one-address {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2.5vh;
     font-weight: 400;
     line-height: 28.8px;
@@ -303,7 +303,7 @@
 
 @media only screen and (max-width: 1000px) {
   .match-div {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-weight: 500;
     line-height: 28.8px;
@@ -313,7 +313,7 @@
   }
 
   .address-name {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-weight: 600;
     line-height: 28.8px;
@@ -324,7 +324,7 @@
   .compare-category-name {
     margin-left: 3vh;
     margin-top: 1vh;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-weight: 600;
     line-height: 28.8px;
@@ -332,7 +332,7 @@
   }
 
   .preference-item-distance {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-style: normal;
     font-weight: 400;
@@ -341,7 +341,7 @@
     display: flex;
   }
   .compare-nearest-place-name {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-weight: 400;
     line-height: 28.8px;
@@ -359,13 +359,13 @@
   .compare-time {
     margin-top: 3vh;
     margin-right: 2vw;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-style: normal;
     font-weight: 400;
   }
   .compare-button-one-address {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-weight: 400;
     line-height: 28.8px;
@@ -385,7 +385,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     background-color: #3044ca;
     border-radius: 8px;
     margin-left: 1vh;
@@ -403,7 +403,7 @@
     margin-bottom: 0px;
   }
   .match-div {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-weight: 500;
     line-height: 28.8px;
@@ -413,7 +413,7 @@
   }
 
   .address-name {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-weight: 600;
     line-height: 28.8px;
@@ -424,7 +424,7 @@
   .compare-category-name {
     margin-left: 3vh;
     margin-top: 0vh;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-weight: 600;
     line-height: 28.8px;
@@ -432,7 +432,7 @@
   }
 
   .preference-item-distance {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-style: normal;
     font-weight: 400;
@@ -441,7 +441,7 @@
     display: flex;
   }
   .compare-nearest-place-name {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-weight: 400;
     line-height: 28.8px;
@@ -459,13 +459,13 @@
   .compare-time {
     margin-top: 3.3vh;
     margin-right: 3vw;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-style: normal;
     font-weight: 400;
   }
   .compare-button-one-address {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-weight: 400;
     line-height: 28.8px;
@@ -535,7 +535,7 @@
     background-color: #f0f8ff; /* Color of the scrollbar track */
   }
   .match-div {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-weight: 600;
     line-height: 28.8px;
@@ -547,7 +547,7 @@
 
   .address-name {
     height: 5vh;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-weight: 600;
     line-height: 18.8px;
@@ -563,7 +563,7 @@
   .compare-category-name {
     margin-left: 1.5vh;
     margin-top: 1vh;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-weight: 600;
     line-height: 28.8px;
@@ -571,7 +571,7 @@
   }
 
   .preference-item-distance {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-style: normal;
     font-weight: 400;
@@ -581,7 +581,7 @@
   }
   .compare-nearest-place-name {
     height: 2vh;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-weight: 400;
     line-height: 12.8px;
@@ -600,7 +600,7 @@
   .compare-time {
     margin-top: 1.4vh;
     margin-right: 3vw;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.6vh;
     font-style: normal;
     font-weight: 400;
@@ -618,7 +618,7 @@
   }
 
   .compare-button-one-address {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.7vh;
     font-weight: 400;
     line-height: 28.8px;
