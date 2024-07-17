@@ -266,5 +266,17 @@
   "Creating an account is equivalent to accepting ": "Utworzenie konta jest równoznaczne z akceptacją ",
   "Terms and Conditions": "Warunków",
   " and ": " i ",
-  "Privacy Policy": "Polityki Prywatności"
+  "Privacy Policy": "Polityki Prywatności",
+  "Password must be longer than 8 characters": "Hasło musi mieć więcej niż 8 znaków",
+  " or use the form below. ": " lub skorzystaj z poniższego formularza. ",
+  "What would you like to communicate to us?": "Co chciałbyś nam przekazać?",
+  "Message": "Wiadomość",
+  "Send": "Wyślij",
+  "Error in the application": "Błąd w aplikacji",
+  "Difficulty of use": "Trudność w obsłudze",
+  "Idea": "Pomysł",
+  "Collaboration": "Współpraca",
+  "Other": "Inne",
+  "Enter your email address and click the button. We will send you a link to reset your password.": "Wpisz swój adres e-mail i kliknij przycisk. Wyślemy Ci link do zresetowania hasła.",
+  "Back to Login": "Powrót do logowania"
 }

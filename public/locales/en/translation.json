@@ -266,5 +266,17 @@
   "Creating an account is equivalent to accepting ": "Creating an account is equivalent to accepting ",
   "Terms and Conditions": "Terms and Conditions",
   " and ": " and ",
-  "Privacy Policy": "Privacy Policy"
+  "Privacy Policy": "Privacy Policy",
+  "Password must be longer than 8 characters": "Password must be longer than 8 characters",
+  " or use the form below. ": " or use the form below. ",
+  "What would you like to communicate to us?": "What would you like to communicate to us?",
+  "Message": "Message",
+  "Send": "Send",
+  "Error in the application": "Error in the application",
+  "Difficulty of use": "Difficulty of use",
+  "Idea": "Idea",
+  "Collaboration": "Collaboration",
+  "Other": "Other",
+  "Enter your email address and click the button. We will send you a link to reset your password.": "Enter your email address and click the button. We will send you a link to reset your password.",
+  "Back to Login": "Back to Login"
 }

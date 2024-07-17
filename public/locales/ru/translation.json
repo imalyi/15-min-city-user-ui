@@ -130,6 +130,18 @@
     "Creating an account is equivalent to accepting ": "Создание учетной записи эквивалентно принятию ",
     "Terms and Conditions": "Условия и Положения",
     " and ": " и ",
-    "Privacy Policy": "Политики конфиденциальности"
+    "Privacy Policy": "Политики конфиденциальности",
+    "Password must be longer than 8 characters": "Пароль должен быть длиннее 8 символов",
+    " or use the form below. ": " или используйте форму ниже. ",
+    "What would you like to communicate to us?": "Что вы хотели бы нам сообщить?",
+    "Message": "Сообщение",
+    "Send": "Отправить",
+    "Error in the application": "Ошибка в приложении",
+    "Difficulty of use": "Сложность использования",
+    "Idea": "Идея",
+    "Collaboration": "Сотрудничество",
+    "Other": "Другое",
+    "Enter your email address and click the button. We will send you a link to reset your password.": "Введите свой адрес электронной почты и нажмите кнопку. Мы отправим вам ссылку для сброса пароля.",
+    "Back to Login": "Вернуться к входу"
   }
   

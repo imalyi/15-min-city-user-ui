@@ -13,7 +13,10 @@ function SignIn() {
   const { t } = useTranslation();
   const [option, setOption] = useState('sign-up');
   const [showPassword, setShowPassword] = React.useState(false);
-
+  const [forgotPassword, setForgotPassword] = React.useState(false);
+  const [valuesForgotPassword, setValuesForgotPassword] = useState({
+    email: '',
+  });
 
   const [valuesSignUp, setValuesSignUp] = useState({
     name: '',
@@ -45,6 +48,13 @@ function SignIn() {
     setValuesLogIn({ ...valuesLogIn, [prop]: event.target.value });
   };
 
+  const handleChangeValuesForgotPassword = (prop) => (event) => {
+    setValuesForgotPassword({ ...valuesForgotPassword, [prop]: event.target.value });
+  };
+
+  const handleForgotPasswrodChange = () => {
+    setForgotPassword((forgot) => !forgot);
+  };
 
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -56,7 +66,8 @@ function SignIn() {
 
 
   return (
-    <div className="home-container">
+    <div className="sign-in-container">
+      <div className='sign-in-color-back'></div>
       <div className="language-select-container">
         <Link to="/">
           <motion.button
@@ -74,7 +85,7 @@ function SignIn() {
         </Link>
       </div>
       <div className="search-bar-container">
-        <div>
+        <div className='sign-up-left-section'>
           <h1 className="sign-in-description-title">
             {t(
               'Imagine that getting to the points in the city that are important to you requires only a short walk.'
@@ -87,40 +98,71 @@ function SignIn() {
           </h2>
         </div>
         <div className="sign-up-right-section">
-          <div className="choose-login-option">
-            <div
-              className={`sign-up-option ${option === 'sign-up' ? 'selected-option' : ''}`}
-              onClick={() => handleOptionChange('sign-up')}
-            >
-              {t('Sign up')}
-              {option === 'sign-up' && (
-                <motion.div
-                  initial={{ opacity: 0, width: 0 }}
-                  animate={{ opacity: 1, width: '100%' }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <hr className="choose-option-sign-up-hr" />
-                </motion.div>
-              )}
-            </div>
-            <div
-              className={`login-option ${option === 'log-in' ? 'selected-option' : ''}`}
-              onClick={() => handleOptionChange('log-in')}
-            >
-              {t('Log in')}
-              {option === 'log-in' && (
-                <motion.div
-                  initial={{ opacity: 0, width: 0 }}
-                  animate={{ opacity: 1, width: '100%' }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <hr className="choose-option-sign-up-hr" />
-                </motion.div>
-              )}
-            </div>
-          </div>
-          {option === 'sign-up' ? (
+          {forgotPassword === true ? (
             <div>
+              <div className='text-fields-div'>
+                <div>
+                  <div className="forgot-password-title">
+                    <div className='forgot-password-title-text'>{t('Forgot your password?')}</div>
+                    <div className='forgot-password-subtitle-text'>{t('Enter your email address and click the button. We will send you a link to reset your password.')}</div>
+                  </div>
+                </div>
+              </div>
+              <div className='text-fields-div'>
+                <TextField 
+                  id="standard-basic" 
+                  label={t('Address e-mail')} 
+                  variant="standard"  
+                  className='text-field-default'
+                  value={valuesForgotPassword.email} 
+                  onChange={handleChangeValuesForgotPassword('email')}
+                />
+              </div>
+              <div 
+                className={`send-button ${valuesForgotPassword.email === '' ? 'send-empty' : ''}`}
+              >
+                <div className='sign-up-button-label'>{t('Send')}</div>
+              </div>
+              <div className='back-to-login-button' onClick={() => handleForgotPasswrodChange()}>
+                <div className='back-to-login-button-label'>{t('Back to Login')}</div>
+              </div>
+            </div>
+          ) : (
+          <div>
+            <div className="choose-login-option">
+              <div
+                className={`sign-up-option ${option === 'sign-up' ? 'selected-option' : ''}`}
+                onClick={() => handleOptionChange('sign-up')}
+              >
+                {t('Sign up')}
+                {option === 'sign-up' && (
+                  <motion.div
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: '100%' }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <hr className="choose-option-sign-up-hr" />
+                  </motion.div>
+                )}
+              </div>
+              <div
+                className={`login-option ${option === 'log-in' ? 'selected-option' : ''}`}
+                onClick={() => handleOptionChange('log-in')}
+              >
+                {t('Log in')}
+                {option === 'log-in' && (
+                  <motion.div
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: '100%' }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <hr className="choose-option-sign-up-hr" />
+                  </motion.div>
+                )}
+              </div>
+            </div>
+            {option === 'sign-up' ? (
+              <div>
                 <div className='text-fields-div'>
                     <TextField 
                       id="standard-basic" 
@@ -167,19 +209,19 @@ function SignIn() {
                             }
                         />
                         {valuesSignUp.passwordError && (
-                          <FormHelperText error style={{fontSize:"1.5vh"}}>{'Password must be longer than 8 characters'}</FormHelperText>
+                          <FormHelperText error style={{fontSize:"1.5vh"}}>{t('Password must be longer than 8 characters')}</FormHelperText>
                         )}
                     </FormControl>
                 <div>
                   <div className='terms-and-conditions'>
-                    {t('Creating an account is equivalent to accepting ')} <Link className='blue-link'>{t('Terms and Conditions')}</Link> {t(' and ')} <Link className='blue-link'>{t('Privacy Policy')}</Link>
+                    {t('Creating an account is equivalent to accepting ')} <a className='blue-link' href="https://www.termsfeed.com/live/52215264-c2c7-42ed-9987-b99da269e480" target="_blank" rel="noopener noreferrer">{t('Terms and Conditions')}</a> {/*{t(' and ')} <a className='blue-link' href="https://www.termsfeed.com/live/52215264-c2c7-42ed-9987-b99da269e480" target="_blank" rel="noopener noreferrer">{t('Privacy Policy')}</a>*/}
                   </div>
                 </div>
                 </div>
                     <div className='sign-up-button'>
                     <div className='sign-up-button-label'>{t('Sign up')}</div>
                 </div>
-            </div>
+              </div>
           ) : option === "log-in" ? (
             <div>
                 <div className='text-fields-div'>
@@ -216,13 +258,16 @@ function SignIn() {
                     </FormControl>
                 </div>
                 <div className='forgot-password'>
-                    <Link className='blue-link'>{t('Forgot your password?')}</Link>
+                    <Link className='blue-link' onClick={() => handleForgotPasswrodChange()}>{t('Forgot your password?')}</Link>
                 </div>
                 <div className='sign-up-button'>
                     <div className='sign-up-button-label'>{t('Log in')}</div>
                 </div>
             </div>
-          ) : null}
+            ) : null}
+          </div>
+          )}
+          
         </div>
       </div>
       <Footer useMargin={true} />
