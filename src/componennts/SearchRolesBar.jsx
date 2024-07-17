@@ -14,6 +14,7 @@ export const SearchRolesBar = ({
   setIsResultClicked,
   onEnterPress,
   searchBarClassName,
+  IconVisibility
 }) => {
   const { t } = useTranslation();
   const [debouncedValue, setDebouncedValue] = useState(input);
@@ -86,9 +87,12 @@ export const SearchRolesBar = ({
         onChange={(e) => handleChange(e.target.value)}
       />
       <button ref={buttonRef} style={{ display: 'none' }}></button>
-      <div className="show-data-button-roles">
-        {<Icon icon="carbon:search" id="search-icon" />}
-      </div>
+      {IconVisibility && (
+        <div className="show-data-button-roles">
+          {<Icon icon="carbon:search" id="search-icon" />}
+        </div>
+      )
+    }
     </div>
   );
 };

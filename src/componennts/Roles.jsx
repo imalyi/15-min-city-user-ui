@@ -226,6 +226,7 @@ const Roles = ({
                     setInput={handleSearchBarChange}
                     setIsResultClicked={setIsResultClicked}
                     searchBarClassName="roles-search-bar"
+                    IconVisibility={false}
                   />
                   {(customAddress || customObject) &&
                     (customAddress.length > 0 || customObject.length > 0) &&

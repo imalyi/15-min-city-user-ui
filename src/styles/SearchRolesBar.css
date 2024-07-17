@@ -5,7 +5,7 @@
   border-top-right-radius: 8px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  padding: 0 24px;
+  padding: 0 calc(3vh - 2px);
   background-color: #dce6fa;
   display: flex;
   align-items: center;
@@ -16,21 +16,21 @@
 .roles-search-bar input::placeholder {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 3vh;
   color: #99a0a9;
 }
 
 .roles-search-bar input {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 3vh;
 }
 
 input {
   background-color: transparent;
   border: none;
   height: 100%;
-  font-size: 1.25rem;
+  font-size: 3vh;
   width: 100%;
   margin-left: 5px;
 }
@@ -55,20 +55,20 @@ input:focus {
   .roles-search-bar input::placeholder {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 2vh;
     color: #99a0a9;
   }
 
   .roles-search-bar input {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 2vh;
   }
   input {
     background-color: transparent;
     border: none;
     height: 100%;
-    font-size: 16px;
+    font-size: 2vh;
     width: 100%;
     margin-left: 5px;
   }
@@ -84,7 +84,7 @@ input:focus {
     border-top-right-radius: 8px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    padding: 0 24px;
+    padding: 0 calc(3vh - 2px);
     background-color: #dce6fa;
     display: flex;
     align-items: center;
@@ -113,7 +113,7 @@ input:focus {
   .roles-search-bar input::placeholder {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
-    font-size: 12px;
+    font-size: 2vh;
     color: #99a0a9;
   }
 

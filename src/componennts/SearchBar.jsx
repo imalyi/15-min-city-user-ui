@@ -23,6 +23,7 @@ export const SearchBar = ({
   ShowDataButtonCompare,
   setAlarm,
   alarm,
+  IconVisibility
 }) => {
   const { t } = useTranslation();
 
@@ -118,6 +119,7 @@ export const SearchBar = ({
           preferencesSearchData={preferencesSearchData}
           ShowDataButtonCompare={ShowDataButtonCompare}
           setAlarm={setAlarm}
+          IconVisibility={IconVisibility}
         />
       </div>
       <div>

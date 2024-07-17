@@ -18,6 +18,7 @@ export const ShowDataButton = React.forwardRef(
       preferencesSearchData,
       ShowDataButtonCompare,
       setAlarm,
+      IconVisibility
     },
     ref,
   ) => {
@@ -92,6 +93,7 @@ export const ShowDataButton = React.forwardRef(
           className="show-data-button-invisible"
           onClick={handleUserLocationClick}
         />
+        {IconVisibility && (
         <button
           className="show-data-button"
           onClick={handleUserLocationClick}
@@ -99,6 +101,9 @@ export const ShowDataButton = React.forwardRef(
         >
           {<Icon icon="carbon:search" id="search-icon-button" />}
         </button>
+        )
+        }
+
       </div>
     );
   },

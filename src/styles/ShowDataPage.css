@@ -683,7 +683,7 @@ html {
   width: calc(100% - 24px);
   height: 11vh;
   border-radius: 8px;
-  padding: 0 3vh;
+  padding: 0 calc(3vh - 2px);
   background-color: #dce6fa;
   display: flex;
   align-items: center;
@@ -691,8 +691,14 @@ html {
   margin-top: 4vh;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.border-bottom {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 .show-data-page-search-result-list {
@@ -709,7 +715,7 @@ html {
   border-bottom-right-radius: 8px;
   max-height: 480px;
   overflow-y: auto;
-  z-index: 999;
+  z-index: 5000;
 }
 
 .choose-criteria-mobile-div {
@@ -839,7 +845,7 @@ html {
     border-bottom-right-radius: 8px;
     max-height: 480px;
     overflow-y: auto;
-    z-index: 999;
+    z-index: 10000;
   }
   .right-section {
     width: 70%; /* Adjust the width as needed */
@@ -1020,7 +1026,7 @@ html {
     width: calc(100% - 24px);
     height: 11vh;
     border-radius: 8px;
-    padding: 0 3vh;
+    padding: 0 calc(3vh - 2px);
     background-color: #dce6fa;
     display: flex;
     align-items: center;
@@ -1140,7 +1146,7 @@ html {
     border-bottom-right-radius: 8px;
     max-height: 480px;
     overflow-y: auto;
-    z-index: 999;
+    z-index: 10000;
   }
   .selectyourCriteriaWithoutCategories {
     box-shadow: 0px 9px 30px 0px rgba(46, 54, 61, 0.15);
@@ -1328,12 +1334,11 @@ html {
     width: calc(100% - 1vh);
     height: 7vh;
     border-radius: 8px;
-    padding: 0 1.5vh;
+    padding: 0 calc(1.5vh - 2px);
     background-color: #dce6fa;
     display: flex;
     align-items: center;
     margin-left: 1vh;
-    margin-right: 1vh;
     margin-top: 1vh;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -1412,7 +1417,7 @@ html {
     width: calc(100% - 4vh);
     height: 7vh;
     border-radius: 8px;
-    padding: 0 1.5vh;
+    padding: 0 calc(1.5vh - 2px);
     background-color: #dce6fa;
     display: flex;
     align-items: center;

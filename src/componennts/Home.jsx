@@ -202,6 +202,7 @@ function Home() {
             preferencesSearchData={selectedPreferencesSearch}
             transformedPreferences={selectedPreferencesTransformed}
             setAlarm={setAlarm}
+            IconVisibility={true}
           />
           <div className="relative">
             <div className="home-alarm">{t(alarm)}</div>

@@ -749,6 +749,7 @@ function ShowDataPage() {
                       transformedPreferences={transformedPreferences}
                       preferencesSearchData={preferencesSearchDataShowPage}
                       setAlarm={setAlarm}
+                      IconVisibility={true}
                     />
                   </motion.div>
                   {results && results.length > 0 && !isResultClicked && (
@@ -864,6 +865,7 @@ function ShowDataPage() {
                       transformedPreferences={transformedPreferences}
                       preferencesSearchData={preferencesSearchDataShowPage}
                       setAlarm={setAlarm}
+                      IconVisibility={true}
                     />
                   </motion.div>
                   {results && results.length > 0 && !isResultClicked && (
