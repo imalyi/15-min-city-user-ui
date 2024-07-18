@@ -30,6 +30,9 @@ export const SearchBar = ({
   const [debouncedValue, setDebouncedValue] = useState(input);
   const delay = 500; // Ustaw opóźnienie (w milisekundach) zależnie od Twoich preferencji
   const fetchTimeoutRef = useRef(null);
+  const searchBarRef = useRef(null); // Ref for the search bar container
+  const buttonRef = useRef(null); // Ref for the button
+
   const showServerErrorAlert = () => {
     alert(
       'Oops! Something went wrong with our server. Please try using Search Bar again later. We apologize for the inconvenience.',
@@ -66,7 +69,6 @@ export const SearchBar = ({
     }
   };
 
-  const buttonRef = useRef(null); // Dodaj ref do przycisku
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -94,8 +96,23 @@ export const SearchBar = ({
     };
   }, [debouncedValue, fetchData, delay]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchBarRef.current && !searchBarRef.current.contains(event.target)) {
+        setTimeout(() => {
+          setIsResultClicked(true);
+        }, 100);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [setIsResultClicked]);
+
   return (
-    <div className={`${alarm === '' ? '' : 'search-bar-with-alarm'}`}>
+    <div ref={searchBarRef} className={`${alarm === '' ? '' : 'search-bar-with-alarm'}`}>
       <div
         className={`${
           searchBarClassName === 'compare-window-search-bar'

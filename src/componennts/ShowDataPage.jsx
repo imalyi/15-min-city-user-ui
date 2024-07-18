@@ -38,7 +38,6 @@ function ShowDataPage() {
     location.state?.places.location[0],
   ];
   const [addresses, setAddresses] = useState(addresses_home);
-  logger.log(addresses)
   const [results, setResults] = useState([]);
   const [input, setInput] = useState(address);
   const [isResultClicked, setIsResultClicked] = useState(true);
@@ -156,7 +155,6 @@ function ShowDataPage() {
     const foundAddress = Object.values(places.custom_addresses).find(
       (addr) => addr.address.full === address,
     );
-    logger.log(places)
     if (foundAddress) {
       // Jeśli adres został znaleziony, pobierz jego lokalizację
       location = foundAddress.location;
@@ -176,6 +174,7 @@ function ShowDataPage() {
       setIsResultClicked(true);
     }
     */
+   logger.log('Enter press')
     if (buttonRef.current) {
       setTimeout(() => {
         buttonRef.current.click();
@@ -191,16 +190,10 @@ function ShowDataPage() {
       if (storedData) {
         request = JSON.parse(storedData);
       }
+
+      
       if (request.addresses) {
-        setAddresses((prevAddresses) => {
-          if (prevAddresses.length === 0) {
-            if (addresses.includes(address)) {
-              return addresses;
-            }
-            return [address, ...addresses];
-          }
-          return prevAddresses;
-        });
+        setAddresses((request.addresses)) 
       }
 
     } catch (error) {
@@ -236,7 +229,6 @@ function ShowDataPage() {
         if (searchBarAddress !== '') {
           adresses_request = addresses.concat(searchBarAddress);
         }
-        logger.log(addresses);
         const requestBody = {
           secret: id,
           language: i18n.language,
@@ -264,7 +256,6 @@ function ShowDataPage() {
   const handleSearchBarChange = (value) => {
     setInput(value);
     setIsResultClicked(false);
-    handleEnterPress();
   };
 
   const handleSearchBarChangeCompare = (value) => {
