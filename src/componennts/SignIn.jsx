@@ -69,9 +69,11 @@ function SignIn() {
     <div className="sign-in-container">
       <div className='sign-in-color-back'></div>
       <div className="language-select-container">
+        <div className="language-select-sign-up">
         <Link to="/">
           <motion.button
             className="logo_home"
+            style={{backgroundColor: '#DCE6FA'}}
             title={t('Search Page')}
             whileHover={{ scale: 1 }}
             whileTap={{ scale: 1 }}
@@ -80,9 +82,11 @@ function SignIn() {
               src={'/images/15min_logo.svg'}
               alt="Red Cross"
               className="centered-img-cross"
+              style={{backgroundColor: '#DCE6FA'}}
             ></img>
           </motion.button>
         </Link>
+        </div>
       </div>
       <div className="search-bar-container">
         <div className='sign-up-left-section'>
@@ -270,7 +274,7 @@ function SignIn() {
           
         </div>
       </div>
-      <Footer useMargin={true} />
+      <Footer useMargin={true} SignIn={true} />
     </div>
   );
 }

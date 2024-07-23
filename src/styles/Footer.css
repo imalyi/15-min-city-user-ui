@@ -5,7 +5,6 @@
 
 .footer-hr {
   border-top: 0px;
-  width: 95%;
   box-align: center;
   background-color: rgba(128, 128, 128, 0.277);
   height: 1px;
@@ -22,10 +21,7 @@
   height: 1px;
 }
 
-.margin-footer {
-  margin-top: 2vh;
-  margin-bottom: 2vh;
-}
+
 
 .footer-divs {
   display: flex;
@@ -77,7 +73,7 @@
   margin-top: 3vh;
   margin-bottom: 1vh;
   cursor: pointer;
-
+  float: left;
 }
 
 .button-footer-contact {
@@ -126,7 +122,7 @@
 }
 .translate-main-div {
   position: relative;
-  margin-left: 75vw;
+  margin-left: 30vw;
   cursor: pointer;
   margin-top: 2.7vh;
 
@@ -144,11 +140,25 @@
 .selected-language {
   color: #101720;
 }
+.margin-footer {
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+.footer-sign-in{
+  width:48vw;
+  background-color: #DCE6FA;
+  padding-bottom: 2vh;
+}
+
+.button-footer-color{
+  background-color: #DCE6FA !important;
+}
+
 
 @media only screen and (max-width: 1250px) {
   .translate-main-div {
     position: relative;
-    margin-left: 70vw;
+    margin-left: 30vw;
     cursor: pointer;
     margin-top: 2.7vh;
   }
@@ -225,7 +235,7 @@
   }
   .translate-main-div {
     position: relative;
-    margin-left: 65vw;
+    margin-left: 30vw;
     cursor: pointer;
     margin-top: 2.7vh;
   }
@@ -301,7 +311,7 @@
   }
   .translate-main-div {
     position: relative;
-    margin-left: 52vw;
+    margin-left: 30vw;
     cursor: pointer;
     margin-top: 1.9vh;
   }

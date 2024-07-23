@@ -5,8 +5,10 @@ import { logger } from '../logger';
 import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
 
-function Footer({ useMargin }) {
-  const footerClass = useMargin ? 'margin-footer' : '';
+function Footer({ useMargin, SignIn }) {
+  const footerClass = useMargin && !SignIn ? 'margin-footer' : '';
+  const SignInClass = SignIn ? 'footer-sign-in' : '';
+
   const { i18n, t } = useTranslation();
   const [isTranslateChangeVisible, setTranslateChangeVisible] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
@@ -67,8 +69,13 @@ function Footer({ useMargin }) {
       <div className="bg-dark text-light p-3 footer">
         <hr className="footer-hr" />
         <div className="footer-divs">
-          <div className="button-footer" onClick={handleAboutUsClick}>
-            {t('About us')}
+          <div className={SignInClass}>
+            <div 
+              onClick={handleAboutUsClick} 
+              className={`button-footer ${SignIn === true ? 'button-footer-color' : ''}`}
+            >
+              {t('About us')}
+            </div>
           </div>
           {isTranslateChangeVisible ? (
             <div className="translate-main-div" ref={translateRef}>
