@@ -160,7 +160,6 @@ html::-webkit-scrollbar-thumb {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    padding-top: 11vh; /* Opcjonalnie: odstępy wewnętrzne */
   }
   .blue-link{
     color: blue;
@@ -248,7 +247,6 @@ html::-webkit-scrollbar-thumb {
     line-height: normal;
     position: fixed;
     bottom: 0;
-    text-align: center;
     padding: 14vh 0; /* Opcjonalnie: odstępy wewnętrzne */
   }
   .blue-link{

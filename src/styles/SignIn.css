@@ -1,12 +1,14 @@
 .sign-in-container {
     overflow-x: hidden;
+    overflow-y: hidden;
     display: flex;
     flex-direction: column;
     height: 100vh;
     background-color: #f0f8ff;
     background-size: cover;
     background-position: center;
-    min-width: 100vh;
+    min-width: 100%;
+
 }
 
 .sign-in-description-title{
@@ -22,6 +24,19 @@
     color: var(--primary, #24254c);
 }
 
+.sign-in-description-title-small{
+    width: 90vw;
+    margin-top: 20vh;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    font-family: Lato;
+    font-size: 3vh;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: left;    
+    color: var(--primary, #24254c);
+}
+
 .sign-in-description-second-title {
     width: 42vw;
     margin-top: 3vh;
@@ -34,6 +49,26 @@
     line-height: 28.8px;
     line-height: normal;
     color: var(--primary, #24254c);
+  }
+
+  .sign-in-description-second-title-small {
+    width: 90vw;
+    margin-top: 3vh;
+    margin-bottom: 5vh;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    font-family: 'Lato', sans-serif;
+    font-family: Lato;
+    font-size: 1.8vh;
+    font-weight: 400;
+    line-height: 14.4px;
+    text-align: left;    
+    color: var(--primary, #24254c);
+  }
+
+  .sign-in-titles-small{
+    height: 48vh;
+    background-color: #DCE6FA;
   }
 
 .sign-up-right-section{
@@ -112,6 +147,33 @@
     padding: 4px 0px 5px 0px;
 }
 
+.text-field-default-small{
+    font-size: 2.5vh;
+}
+
+.text-field-default-small .MuiInputBase-root{
+    font-size: 2.5vh !important;
+}
+
+.text-field-default-small .MuiInputLabel-root{
+    font-size: 2vh;
+    z-index: 1000;
+}
+
+.text-field-default-small .MuiInput-input{
+    padding: 4px 0px 5px 0px;
+}
+
+
+.text-fields-div-small{
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-top: 3vh;
+}
+
 .sign-up-button{
     cursor: pointer;
     width: 42vw;
@@ -140,11 +202,28 @@
     margin-right: 5vw;
     margin-top: 4vh;
     margin-bottom: 4vh;
+    font-family: 'Lato', sans-serif;
+    font-size: 2vh;
+    font-weight: 600;
+    color: #101720;
 }
 
 .terms-and-conditions{
     margin-top: 4vh;
+    font-family: 'Lato', sans-serif;
+    font-size: 2vh;
+    font-weight: 600;
+    color: #101720;
 }
+
+.terms-and-conditions-small{
+    margin-top: 4vh;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.5vh;
+    font-weight: 600;
+    color: #101720;
+}
+
 
 .forgot-password-title{
     display: flex;
@@ -224,6 +303,81 @@
     background-color: #DCE6FA;
 }
 
+.language-select-sign-up-small{
+    width: 100vw;
+    background-color: #DCE6FA;
+}
+
 .sign-up-left-section{
     background-color: #DCE6FA;
+}
+
+.search-bar-container-small {
+    flex: 1;
+    display: flex;
+    width: 100vw;
+    height: 96px;
+    min-width: 200px;
+    flex-direction: column;
+}
+
+.sign-in-buttons-small{
+    display: flex;
+    flex-direction: column;
+}
+
+.sign-up-button-small{
+    cursor: pointer;
+    width: 90vw;
+    margin-left: 5vw;
+    height: 7vh;
+    margin-top: 5vh;
+    background-color: #24254C;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-radius: 8px;
+    color: white;
+}
+
+.log-in-button-small{
+    cursor: pointer;
+    width: 90vw;
+    margin-left: 5vw;
+    height: 7vh;
+    margin-top: 2vh;
+    background-color: #F0F8FF;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-radius: 8px;
+    border: 1px solid #24254C;
+    color: #101720;
+}
+
+.sign-up-button-label-small{
+    font-family: 'Lato', sans-serif;
+    font-size: 2vh;
+    font-weight: 600;
+    line-height: 19.2px;
+    text-align: center;    
+}
+
+.log-in-button-label-small{
+    font-family: 'Lato', sans-serif;
+    font-size: 2vh;
+    font-weight: 600;
+    line-height: 28.8px;
+}
+
+.title-small{
+    margin-top: 15vh;
+    font-family: 'Lato', sans-serif;
+    font-size: 3vh;
+    font-weight: 600;
+    line-height: 28.8px;
+    text-align: center;
+    color: #101720;
 }
