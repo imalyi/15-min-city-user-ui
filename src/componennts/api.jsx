@@ -1,8 +1,10 @@
 import { logger } from '../logger';
 
+
 export const loadDataFetch = async (id, apiBaseUrl) => {
+  
     try {
-      console.log(`${apiBaseUrl}user/load?secret=${id}`);
+      logger.log(`${apiBaseUrl}user/load?secret=${id}`);
       const response = await fetch(
         `${apiBaseUrl}user/load?secret=${id}`,
         {
@@ -114,18 +116,20 @@ export const loadDataFetch = async (id, apiBaseUrl) => {
     }
   };
 
-  export const AdressFetch = async (value, apiBaseUrl) => {
+  export const AdressFetch = async (value, apiBaseUrl, token) => {
     try {
         const response = await fetch(
-            `${apiBaseUrl}address/?name=${value}`,
+            `${apiBaseUrl}addresses/?partial_name=${value}`,
             {
                 method: 'GET',
                 headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
                 }, // Zamień dane na format JSON
             },
             );
         if (response.ok) {
+            logger.log(response);
             const data = await response.json();
             return data;
         } else {
@@ -192,3 +196,57 @@ export const loadDataFetch = async (id, apiBaseUrl) => {
       throw error;
     }
   };
+
+  export const RegistrationFetch = async (apiBaseUrl, requestBody) => {
+    try {
+        logger.log(requestBody);
+        const response = await fetch(`${apiBaseUrl}users/register`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+          });
+  
+          if (response.ok) {
+            const data = await response.json();
+            logger.log(data)
+            return data;
+          } else {
+            console.error('Error getting report:', response.statusText);
+            throw new Error(response.statusText);
+          }
+    } catch (error) {
+      console.error('Error getting object from searchbar:', error);
+      throw error;
+    }
+  };
+
+  export const LoginFetch = async (apiBaseUrl, requestBody) => {
+    try {
+        logger.log(requestBody);
+        
+        // Convert requestBody to URL-encoded format
+        const urlEncodedData = new URLSearchParams(requestBody).toString();
+
+        const response = await fetch(`${apiBaseUrl}users/login`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: urlEncodedData,
+          });
+          logger.log(response);
+          if (response.ok) {
+            const data = await response.json();
+            logger.log(data);
+            return data;
+          } else {
+            console.error('Error getting report:', response.statusText);
+            throw new Error(response.statusText);
+          }
+    } catch (error) {
+      console.error('Error getting object from searchbar:', error);
+      throw error;
+    }
+};

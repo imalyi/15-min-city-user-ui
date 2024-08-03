@@ -8,6 +8,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { TextField, InputAdornment, IconButton, FormControl, InputLabel, Input, FormHelperText  } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useCookies } from 'react-cookie';
+import { RegistrationFetch, LoginFetch } from './api.jsx';
+import api from '../config';
+import { logger } from '../logger';
+import { use } from 'i18next';
+
 
 function SignIn() {
   const { t } = useTranslation();
@@ -16,6 +22,7 @@ function SignIn() {
   const [showPassword, setShowPassword] = React.useState(false);
   const [forgotPassword, setForgotPassword] = React.useState(false);
   const isDefault = optionSmall !== 'sign-up' && optionSmall !== 'log-in';
+  const [cookies, setCookie] = useCookies(['token']);
   const [valuesForgotPassword, setValuesForgotPassword] = useState({
     email: '',
   });
@@ -81,6 +88,40 @@ function SignIn() {
   const handleOptionChangeSmall = (option) => {
     setOptionSmall(option);
   }
+
+  const handleUserRegistration = async () => {
+    try {
+      const requestBody = {
+        name: valuesSignUp.name,
+        email: valuesSignUp.email,
+        password: valuesSignUp.password,
+      };
+      const data = await RegistrationFetch(api.APP_URL_USER_API, requestBody);
+      logger.log(data)
+    } catch (error) {
+      console.error('Error fetching preferences data:', error);
+    }
+  }
+
+  const handleUserLogin = async () => {
+    try {
+      const requestBody = {
+        username: valuesLogIn.email,
+        password: valuesLogIn.password,
+      };
+      const data = await LoginFetch(api.APP_URL_USER_API, requestBody);
+      logger.log(data.access_token);
+      setCookie('token', data.access_token);
+    } catch (error) {
+      console.error('Error fetching preferences data:', error);
+    }
+  }
+
+  useEffect(() => {
+    if (cookies.token) {
+      window.location.href = '/';
+    }
+  }, [cookies]);
 
 
   return (
@@ -366,7 +407,7 @@ function SignIn() {
                         className='text-field-default'
                         value={valuesSignUp.name} 
                         onChange={handleChangeValuesSignUp('name')}
-                        autoComplete="no"
+                        autoComplete='off'
                       />
                       <TextField 
                         id="standard-basic" 
@@ -376,14 +417,14 @@ function SignIn() {
                         style={{marginTop: '3vh'}}
                         value={valuesSignUp.email} 
                         onChange={handleChangeValuesSignUp('email')}
-                        autoComplete="no"
+                        autoComplete='off'
                       />
                       <FormControl 
                         variant="standard" 
                         className='text-field-default' 
                         style={{marginTop: '3vh'}}
                         error={valuesSignUp.passwordError}
-                        autoComplete="no"
+                        autoComplete='off'
                       >
                           <InputLabel htmlFor="standard-adornment-password">{t('Password')}</InputLabel>
                           <Input
@@ -391,7 +432,7 @@ function SignIn() {
                               type={showPassword ? 'text' : 'password'}
                               value={valuesSignUp.password}
                               onChange={handleChangeValuesSignUp('password')}
-                              autoComplete="no"
+                              autoComplete='off'
                               endAdornment={
                               <InputAdornment position="end">
                                   <IconButton
@@ -413,8 +454,8 @@ function SignIn() {
                     </div>
                   </div>
                   </div>
-                  <div className='sign-up-button'>
-                      <div className='sign-up-button-label'>{t('Sign up')}</div>
+                  <div className='sign-up-button' onClick={() => handleUserRegistration()}>
+                      <div className='sign-up-button-label' >{t('Sign up')}</div>
                   </div>
                 </div>
             ) : option === "log-in" ? (
@@ -427,19 +468,22 @@ function SignIn() {
                         className='text-field-default'
                         value={valuesLogIn.email} 
                         onChange={handleChangeValuesLogIn('email')}
-                      />
+                        autoComplete='off'
+                    />
                       <FormControl 
                         variant="standard" 
                         className='text-field-default' 
                         style={{marginTop: '3vh'}}
-                      >
+                        autoComplete='off'
+                    >
                           <InputLabel htmlFor="standard-adornment-password">{t('Password')}</InputLabel>
                           <Input
                               id="standard-adornment-password"
                               type={showPassword ? 'text' : 'password'}
                               value={valuesLogIn.password}
                               onChange={handleChangeValuesLogIn('password')}
-                              endAdornment={
+                              autoComplete='off'
+                            endAdornment={
                               <InputAdornment position="end">
                                   <IconButton
                                   aria-label="toggle password visibility"
@@ -455,7 +499,7 @@ function SignIn() {
                   <div className='forgot-password'>
                       <Link className='blue-link' onClick={() => handleForgotPasswrodChange()}>{t('Forgot your password?')}</Link>
                   </div>
-                  <div className='sign-up-button'>
+                  <div className='sign-up-button' onClick={() => handleUserLogin()}>
                       <div className='sign-up-button-label'>{t('Log in')}</div>
                   </div>
               </div>

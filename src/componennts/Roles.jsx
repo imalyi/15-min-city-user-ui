@@ -15,6 +15,7 @@ import {
 } from './anim.js';
 import { logger } from '../logger';
 import { CategoriesFetch } from './api.jsx';
+import { useCookies } from 'react-cookie';
 
 const Roles = ({
   onSelectPreferences,
@@ -46,6 +47,8 @@ const Roles = ({
   const [preferencesSearchData, setPreferencesSearchData] = useState(
     preferencesSearchDataShowPage,
   );
+  const [cookies, setCookie] = useCookies(['token']);
+  
   logger.warn('Preferences search data:', preferencesSearchDataShowPage);
   const handleRemoveAllPreferences = () => {
     setPreferencesSearchData([]);

@@ -7,6 +7,7 @@ import { use } from 'i18next';
 import { logger } from '../logger';
 import { Icon } from '@iconify/react';
 import { AdressFetch } from './api.jsx';
+import { useCookies } from 'react-cookie';
 
 export const SearchBar = ({
   setResults,
@@ -32,6 +33,7 @@ export const SearchBar = ({
   const fetchTimeoutRef = useRef(null);
   const searchBarRef = useRef(null); // Ref for the search bar container
   const buttonRef = useRef(null); // Ref for the button
+  const [cookies, setCookie] = useCookies(['token']);
 
   const showServerErrorAlert = () => {
     alert(
@@ -46,7 +48,8 @@ export const SearchBar = ({
         return;
       }
       try {
-        const data = await AdressFetch(value, api.APP_URL_USER_API);
+        const data = await AdressFetch(value, api.APP_URL_USER_API, cookies.token);
+        logger.log(data);
         const results = data.slice(0, 3);
         setResults(results);
       } catch (error) {
