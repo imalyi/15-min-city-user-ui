@@ -32,7 +32,8 @@ const CompareWindow = ({
   const [isNotAddressLoaded, setIsNotAddressLoaded] = useState(true);
   const userId = cookies.userID;
   const CompareWindowRef = useRef();
-
+  logger.log(addressesShowData);
+  logger.log(addresses);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (CompareWindowRef.current && !CompareWindowRef.current.contains(event.target)) {
@@ -107,8 +108,9 @@ const CompareWindow = ({
     setAddresses(addresses.filter((item) => item !== address));
     setIsNotAddressLoaded(false);
   };
-
+  logger.log(results);
   const handleResultClick = (result) => {
+    logger.log(result);
     setInput(result);
     setInputShowData(result);
     setIsResultClicked(true);
@@ -168,6 +170,7 @@ const CompareWindow = ({
             alarm={alarm}
             setAlarm={setAlarm}
             IconVisibility={false}
+            results={results}
           />
           <div style={{ position: 'relative' }}>
             <div className="alarm">{t(alarm)}</div>
@@ -193,7 +196,7 @@ const CompareWindow = ({
                 className="selected-search-address"
                 onClick={() => onAddressClick(address)}
               >
-                <span className="selected-preference-label">{t(address)}</span>
+                <span className="selected-preference-label">{t(address.fullAddress)}</span>
                 <Icon
                   icon="material-symbols-light:close"
                   className="close-icon"

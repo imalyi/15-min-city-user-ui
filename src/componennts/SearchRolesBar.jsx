@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import api from '../config';
 import { Icon } from '@iconify/react';
 import { logger } from '../logger';
-import { ObjectFetch } from './api.jsx';
+import { ObjectFetch, useAuthFetch } from './api.jsx';
 
 export const SearchRolesBar = ({
   setCustomAddress,
@@ -26,7 +26,7 @@ export const SearchRolesBar = ({
       'Oops! Something went wrong with our server. Please try using Search Bar again later. We apologize for the inconvenience.',
     );
   };
-
+  const { fetchWithAuth, token } = useAuthFetch();
   const fetchData = useCallback(
     async (value) => {
       if (value === '') {
@@ -34,7 +34,7 @@ export const SearchRolesBar = ({
         return;
       }
       try {
-          const data = await ObjectFetch(value, api.APP_URL_USER_API)
+          const data = await ObjectFetch(value, api.APP_URL_USER_API, fetchWithAuth)
           setCustomAddress(data.addresses);
           setCustomObject(data.objects);
       } catch (error) {

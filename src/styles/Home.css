@@ -141,7 +141,7 @@ html::-webkit-scrollbar-thumb {
 
   .home-description-third-title {
     max-width: 80vw;
-    margin-top: 3vh;
+    margin-top: 5vh;
     margin-left: 3vh;
     color: var(--primary, #24254c);
     font-family: 'Lato', sans-serif;

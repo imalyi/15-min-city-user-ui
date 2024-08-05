@@ -12,7 +12,7 @@ export const SearchResult = ({
       className={`search-list ${searchResultsClassName}`}
       onClick={() => onResultClick(result)}
     >
-      {result}
+      {result.fullAddress}
     </div>
   );
 };

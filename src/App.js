@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useEffect } from 'react';
+import ErrorBoundary from './componennts/ErrorBoundary';
 
 function App() {
   const [cookies, setCookie] = useCookies(['token']);
@@ -20,7 +21,7 @@ function App() {
       window.location.href = '/sign-in';
     }
   }, [cookies.token, location.pathname]);
-
+  
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -37,7 +38,9 @@ function App() {
 function AppWrapper() {
   return (
     <Router>
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </Router>
   );
 }

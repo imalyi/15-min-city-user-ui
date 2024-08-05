@@ -14,7 +14,7 @@ import {
   MobileLeftSectionSlide,
 } from './anim.js';
 import { logger } from '../logger';
-import { CategoriesFetch } from './api.jsx';
+import { CategoriesFetch, useAuthFetch } from './api.jsx';
 import { useCookies } from 'react-cookie';
 
 const Roles = ({
@@ -48,7 +48,7 @@ const Roles = ({
     preferencesSearchDataShowPage,
   );
   const [cookies, setCookie] = useCookies(['token']);
-  
+  const { fetchWithAuth, token } = useAuthFetch();
   logger.warn('Preferences search data:', preferencesSearchDataShowPage);
   const handleRemoveAllPreferences = () => {
     setPreferencesSearchData([]);
@@ -103,7 +103,8 @@ const Roles = ({
     // Fetch data from the API
     const fetchData = async () => {
       try {
-        const data = await CategoriesFetch(api.APP_URL_USER_API);
+        const data = await CategoriesFetch(api.APP_URL_USER_API, fetchWithAuth);
+        logger.log(data)
         // Assuming the data structure is an array with a single object
         setPreferencesData(data);
         setPreferencedDataShowPage(data);

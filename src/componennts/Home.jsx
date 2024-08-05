@@ -14,7 +14,8 @@ import api from '../config';
 import { set } from 'animejs';
 import { useCookies } from 'react-cookie';
 import md5 from 'md5';
-import { loadDataFetch } from './api.jsx';
+import { loadDataFetch, useAuthFetch } from './api.jsx';
+import { useLocation } from 'react-router-dom';
 
 function Home() {
   const [results, setResults] = useState([]);
@@ -32,8 +33,9 @@ function Home() {
   );
   const { i18n, t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
-
+  const { fetchWithAuth, token } = useAuthFetch();
   const [cookies, setCookie] = useCookies(['userID']);
+
 
   useEffect(() => {
     if (cookies.userID) {
@@ -53,20 +55,23 @@ function Home() {
       logger.log(request);
 
       setInput((prevInput) => {
-        if (request.addresses === undefined) {
+        if (request.results.length === 0) {
+          logger.log('No results');
           return prevInput;
         }
         if (prevInput === '') {
-          return request.addresses[0];
+          return request.results[0].fullAddress;
         }
         return prevInput;
       });
+      logger.log(request.results);
 
       handleSetCustomAdressesAndObjects(request);
       handleSetPreferences(request);
       setSelectedPreferencesTransformed(request.categories);
       i18n.changeLanguage(request.language);
       setAddresses(request.addresses);
+      logger.log(request);
     } catch (error) {
       console.error('Error getting report:', error);
     }
@@ -107,7 +112,7 @@ function Home() {
   };
 
   const handleResultClick = (result) => {
-    setInput(result);
+    setInput(result.fullAddress);
     setAddressId(result);
     setIsResultClicked(true);
     setTimeout(handleEnterPress, 20);
@@ -203,6 +208,7 @@ function Home() {
             transformedPreferences={selectedPreferencesTransformed}
             setAlarm={setAlarm}
             IconVisibility={true}
+            results={results}
           />
           <div className="relative">
             <div className="home-alarm">{t(alarm)}</div>
@@ -219,6 +225,7 @@ function Home() {
                 'Enter the address of your choice, indicate the facilities you are using and make sure you have everything at hand where you are staying.',
               )}
             </h2>
+            {/*            
             <div className="home-heatmap-link">
               <span>              
                 {t(
@@ -231,7 +238,9 @@ function Home() {
               <Link to="/sign-in" className="blue-link">
                 {t('Choose the necessary objects and discover the best neighborhood')}
               </Link>
-            </div>
+            </div>*/
+            }
+
           </div>
         </div>
       </div>

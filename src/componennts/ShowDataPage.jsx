@@ -20,7 +20,7 @@ import { useCookies } from 'react-cookie';
 import CompareWindow from './CompareWindow';
 import md5 from 'md5';
 import { set } from 'animejs';
-import { loadDataFetch, saveDataToApi } from './api.jsx';
+import { loadDataFetch, saveDataToApi, useAuthFetch } from './api.jsx';
 
 function ShowDataPage() {
   const navigate = useNavigate();
@@ -30,15 +30,17 @@ function ShowDataPage() {
   const location = useLocation();
   const places = location.state?.places || {};
   const address = location.state?.address || 'Unknown Address';
+  const geojson = location.state?.geojson || {};
   const addresses_home = location.state?.addresses || [];
   const selectedPreferences = location.state?.selectedPreferences || [];
   const preferencesSearchData = location.state?.preferencesSearchData || [];
   const selectedCoordinates = [
-    location.state?.places.location[1],
-    location.state?.places.location[0],
+    location.state?.places.start_point.lat,
+    location.state?.places.start_point.lon,
   ];
   const [addresses, setAddresses] = useState(addresses_home);
   const [results, setResults] = useState([]);
+  logger.log('ShowDataPage:', results);
   const [input, setInput] = useState(address);
   const [isResultClicked, setIsResultClicked] = useState(true);
   const [selectedCoordinatesShowPage, setSelectedCoordinatesShowPage] =
@@ -48,7 +50,7 @@ function ShowDataPage() {
   const buttonRef = useRef(null);
   const MatchRef = useRef();
   const [preferencesData, setPreferencesData] = useState([]);
-
+  const { fetchWithAuth, token } = useAuthFetch();
   const [flyToLocation, setFlyToLocation] = useState(null);
 
   const [isLeftSectionVisible, setIsLeftSectionVisible] = useState(true);
@@ -121,9 +123,10 @@ function ShowDataPage() {
   };
   const handleUserReportClick = async () => {
     const id = generateUserID();
-    saveData(id, places.address.full);
+    logger.log(places)
+    saveData(id, address);
     const reportUrl = `/report?userid=${id}&address=${encodeURIComponent(
-      places.address.full,
+      results[0].fullAddress,
     )}`;
     window.open(reportUrl, '_blank');
   };
@@ -191,9 +194,9 @@ function ShowDataPage() {
         request = JSON.parse(storedData);
       }
 
-      
+      logger.log("Request:", request);
       if (request.addresses) {
-        setAddresses((request.addresses)) 
+        setAddresses((request.results)) 
       }
 
     } catch (error) {
@@ -229,15 +232,20 @@ function ShowDataPage() {
         if (searchBarAddress !== '') {
           adresses_request = addresses.concat(searchBarAddress);
         }
+        const ids = transformedPreferences.map(item => item.id);
+        if (ids.length === 0) {
+          ids.push(90);
+        }
         const requestBody = {
           secret: id,
           language: i18n.language,
-          addresses: adresses_request,
-          categories: transformedPreferences,
+          addresses: addresses,
+          results: results,
+          categories: ids,
           requested_objects: customNamesArray,
           requested_addresses: custom_addresses,
         };
-
+        logger.log('Request body:', requestBody);
         localStorage.setItem('myData', JSON.stringify(requestBody));
 
 
@@ -248,7 +256,7 @@ function ShowDataPage() {
   };
 
   const handleResultClick = (result) => {
-    setInput(result);
+    setInput(result.fullAddress);
     setIsResultClicked(true);
     handleEnterPress();
   };
@@ -259,7 +267,7 @@ function ShowDataPage() {
   };
 
   const handleSearchBarChangeCompare = (value) => {
-    setInput(value);
+    setInput(value.fullAddress);
     setIsResultClicked(true);
     handleEnterPress();
   };
@@ -288,6 +296,7 @@ function ShowDataPage() {
 
   const handleAddressesAdd = (addresses) => {
     setAddresses(addresses);
+    logger.log('Addresses:', addresses);
   };
 
   const countVisibleCategories = () => {
@@ -330,6 +339,7 @@ function ShowDataPage() {
       (preferencesSearchDataShowPage.length != 0 ||
         custom_addresses.length != 0)
     ) {
+
       const percentage =
         ((totalPlacesCount + totalAddressesCount) /
           (custom_names.length + custom_addresses.length)) *
@@ -355,7 +365,7 @@ function ShowDataPage() {
       };
     }
 
-    if (places.points_of_interest === undefined) {
+    if (places.pois === undefined) {
       return {
         text: '0%',
         class: 'red-text',
@@ -364,8 +374,8 @@ function ShowDataPage() {
     }
 
     const visibleCategories = categoriesToShow.filter((category) => {
-      return Object.keys(places.points_of_interest).some((interestKey) => {
-        const interests = places.points_of_interest[interestKey];
+      return Object.keys(places.pois).some((interestKey) => {
+        const interests = places.pois[interestKey];
         return (
           Array.isArray(interests[category.key]) &&
           interests[category.key].length > 0
@@ -381,7 +391,6 @@ function ShowDataPage() {
       100;
     // Ustal klasę tekstu w zależności od procentu
     let textClass = '';
-
     if (percentage <= 30) {
       textClass = 'red-text';
     } else if (percentage > 30 && percentage < 50) {
@@ -414,8 +423,8 @@ function ShowDataPage() {
     };
   };
 
-  const mainCategoriesToShow = places.points_of_interest
-    ? Object.keys(places.points_of_interest)
+  const mainCategoriesToShow = places.pois
+    ? Object.keys(places.pois)
     : null;
 
   const filteredPreferencesData = Object.keys(preferencesData).reduce(
@@ -436,6 +445,7 @@ function ShowDataPage() {
     },
     {},
   );
+
 
   const calculatePercentageInCategory = (category) => {
     const placesCounts = {};
@@ -464,7 +474,7 @@ function ShowDataPage() {
       (item) => item.main_category === category,
     );
 
-    const allPreferencesInCategory = places.points_of_interest[category];
+    const allPreferencesInCategory = places.pois[category];
 
     const filteredPreferencesInCategory = filteredPreferencesData[category];
 
@@ -505,17 +515,18 @@ function ShowDataPage() {
   const transformedPreferences = Object.entries(filteredPreferencesData).reduce(
     (acc, [mainCategory, subCategories]) => {
       subCategories.forEach((subCategory) => {
-        acc.push({ main_category: mainCategory, category: subCategory.name });
+        acc.push({ main_category: mainCategory, category: subCategory.name, id: subCategory.id });
       });
       return acc;
     },
     [],
   );
 
+
   /*
   categoriesToShow.sort((a, b) => {
-    const hasPlacesA = !!places.points_of_interest[a.key];
-    const hasPlacesB = !!places.points_of_interest[b.key];
+    const hasPlacesA = !!places.pois[a.key];
+    const hasPlacesB = !!places.pois[b.key];
 
     // Kategorie z miejscami będą na początku
     if (hasPlacesA && !hasPlacesB) {
@@ -741,6 +752,7 @@ function ShowDataPage() {
                       preferencesSearchData={preferencesSearchDataShowPage}
                       setAlarm={setAlarm}
                       IconVisibility={true}
+                      results={results}
                     />
                   </motion.div>
                   {results && results.length > 0 && !isResultClicked && (
@@ -752,8 +764,9 @@ function ShowDataPage() {
                     />
                   )}
                 </div>
+                {/*
                 <Map
-                  places={places.points_of_interest}
+                  places={places.pois}
                   mainCategoriesToShow={mainCategoriesToShow}
                   categoriesToShow={categoriesToShow.map(
                     (category) => category.key,
@@ -764,6 +777,8 @@ function ShowDataPage() {
                   custom_addresses={places.custom_addresses}
                   preferencesSearchDataShowPage={preferencesSearchDataShowPage}
                 />
+              */}
+
               </div>
               <div className="left-section-responsiveness">
                 {isExpanded == false ? (
@@ -857,6 +872,7 @@ function ShowDataPage() {
                       preferencesSearchData={preferencesSearchDataShowPage}
                       setAlarm={setAlarm}
                       IconVisibility={true}
+                      results={results}
                     />
                   </motion.div>
                   {results && results.length > 0 && !isResultClicked && (
@@ -869,7 +885,7 @@ function ShowDataPage() {
                   )}
                 </div>
                 <Map
-                  places={places.points_of_interest}
+                  places={places.pois}
                   mainCategoriesToShow={mainCategoriesToShow}
                   categoriesToShow={categoriesToShow.map(
                     (category) => category.key,
@@ -882,6 +898,7 @@ function ShowDataPage() {
                   isLeftSectionVisible={isLeftSectionVisible}
                   toggleRoleSVisible={handleToggleLeftSection}
                   isSmallScreen={isSmallScreen}
+                  geojson={geojson}
                 />
               </div>
             </div>

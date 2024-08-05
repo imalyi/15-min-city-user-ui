@@ -6,7 +6,7 @@ import { ShowDataButton } from './ShowDataButton';
 import { use } from 'i18next';
 import { logger } from '../logger';
 import { Icon } from '@iconify/react';
-import { AdressFetch } from './api.jsx';
+import { AdressFetch, useAuthFetch } from './api.jsx';
 import { useCookies } from 'react-cookie';
 
 export const SearchBar = ({
@@ -24,10 +24,13 @@ export const SearchBar = ({
   ShowDataButtonCompare,
   setAlarm,
   alarm,
-  IconVisibility
+  IconVisibility,
+  results,
+
 }) => {
   const { t } = useTranslation();
 
+  const { fetchWithAuth, token } = useAuthFetch();
   const [debouncedValue, setDebouncedValue] = useState(input);
   const delay = 500; // Ustaw opóźnienie (w milisekundach) zależnie od Twoich preferencji
   const fetchTimeoutRef = useRef(null);
@@ -48,9 +51,17 @@ export const SearchBar = ({
         return;
       }
       try {
-        const data = await AdressFetch(value, api.APP_URL_USER_API, cookies.token);
-        logger.log(data);
-        const results = data.slice(0, 3);
+        const data = await AdressFetch(value, api.APP_URL_USER_API, cookies.token, fetchWithAuth);
+        const addressMap = new Map();
+        data.forEach((item) => {
+          if (!addressMap.has(item.fullAddress)) {
+            addressMap.set(item.fullAddress, item);
+          }
+        });
+  
+        const uniqueAddresses = Array.from(addressMap.values());
+        const results = uniqueAddresses.slice(0, 3);
+        logger.log('Results:', results);
         setResults(results);
       } catch (error) {
         console.error('Error getting address from coordinates:', error);
@@ -133,6 +144,7 @@ export const SearchBar = ({
         <ShowDataButton
           ref={showDataRef}
           address={input}
+          results={results}
           addresses={addresses}
           selectedPreferences={selectedPreferences}
           transformedPreferences={transformedPreferences}

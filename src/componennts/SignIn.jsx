@@ -9,7 +9,7 @@ import { TextField, InputAdornment, IconButton, FormControl, InputLabel, Input, 
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useCookies } from 'react-cookie';
-import { RegistrationFetch, LoginFetch } from './api.jsx';
+import { RegistrationFetch, LoginFetch, useAuthFetch } from './api.jsx';
 import api from '../config';
 import { logger } from '../logger';
 import { use } from 'i18next';
@@ -21,31 +21,36 @@ function SignIn() {
   const [optionSmall, setOptionSmall] = useState('default');
   const [showPassword, setShowPassword] = React.useState(false);
   const [forgotPassword, setForgotPassword] = React.useState(false);
-  const isDefault = optionSmall !== 'sign-up' && optionSmall !== 'log-in';
+  const isDefault = optionSmall !== 'sign-up' && optionSmall !== 'log-in' && optionSmall !== 'pre-log-in';
   const [cookies, setCookie] = useCookies(['token']);
   const [valuesForgotPassword, setValuesForgotPassword] = useState({
     email: '',
   });
+  const { fetchWithAuth, token } = useAuthFetch();
+
 
   const [valuesSignUp, setValuesSignUp] = useState({
     name: '',
     email: '',
     password: '',
     showPassword: false,
+    nameError: false,
+    emailError: false,
     passwordError: false,
   });
 
   const [valuesLogIn, setValuesLogIn] = useState({
     email: '',
     password: '',
+    showError: false,
     showPassword: false,
   });
 
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 450);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 450 || window.innerWidth / window.innerHeight < 1);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 450);
+      setIsSmallScreen(window.innerWidth <= 450 || window.innerWidth / window.innerHeight < 1);
     };
 
     window.addEventListener('resize', handleResize);
@@ -61,6 +66,20 @@ function SignIn() {
             ...valuesSignUp, 
             [prop]: event.target.value,
             passwordError: event.target.value.length <= 8 
+        });
+    }
+    if (prop === 'name') {
+      setValuesSignUp({ 
+            ...valuesSignUp, 
+            [prop]: event.target.value,
+            nameError: event.target.value.length <= 3 
+        });
+    }
+    if (prop === 'email') {
+      setValuesSignUp({ 
+            ...valuesSignUp, 
+            [prop]: event.target.value,
+            emailError: !event.target.value.includes('@') || !event.target.value.includes('.')  
         });
     }
   };
@@ -91,13 +110,18 @@ function SignIn() {
 
   const handleUserRegistration = async () => {
     try {
+      if (valuesSignUp.nameError || valuesSignUp.emailError || valuesSignUp.passwordError || valuesSignUp.email === '' || valuesSignUp.name === '' || valuesSignUp.password === '') {
+        return;
+      }
       const requestBody = {
         name: valuesSignUp.name,
         email: valuesSignUp.email,
         password: valuesSignUp.password,
       };
-      const data = await RegistrationFetch(api.APP_URL_USER_API, requestBody);
+      const data = await RegistrationFetch(api.APP_URL_USER_API, requestBody, fetchWithAuth);
       logger.log(data)
+      setOption('pre-log-in');
+      setOptionSmall('pre-log-in');
     } catch (error) {
       console.error('Error fetching preferences data:', error);
     }
@@ -105,15 +129,19 @@ function SignIn() {
 
   const handleUserLogin = async () => {
     try {
+      if (valuesLogIn.email === '' || valuesLogIn.password === '' || valuesLogIn.showError) {
+        return;
+      }
       const requestBody = {
         username: valuesLogIn.email,
         password: valuesLogIn.password,
       };
-      const data = await LoginFetch(api.APP_URL_USER_API, requestBody);
+      const data = await LoginFetch(api.APP_URL_USER_API, requestBody, fetchWithAuth);
       logger.log(data.access_token);
       setCookie('token', data.access_token);
     } catch (error) {
       console.error('Error fetching preferences data:', error);
+      setValuesLogIn({ ...valuesLogIn, showError: true });
     }
   }
 
@@ -130,9 +158,9 @@ function SignIn() {
         <div className="sign-in-container"> 
           <div className="language-select-container">
           <div 
-            className={`${optionSmall === 'sign-up' ||  optionSmall === 'log-in'? '' : 'language-select-sign-up-small'}`}
+            className={`${optionSmall === 'sign-up' ||  optionSmall === 'log-in' ||  optionSmall === 'pre-log-in' ? '' : 'language-select-sign-up-small'}`}
           >
-          <Link to="/">
+          <Link to="/sign-in">
             <motion.button
               className="logo_home"
               style={isDefault ? { backgroundColor: '#DCE6FA' } : {}}
@@ -189,25 +217,30 @@ function SignIn() {
                     variant="standard" 
                     className='text-field-default-small'
                     value={valuesSignUp.name} 
+                    error={valuesSignUp.nameError}
                     onChange={handleChangeValuesSignUp('name')}
-                    autoComplete="no"
+                    helperText={valuesSignUp.nameError ? t('Name must be longer than 3 characters') : ' '}
+                    FormHelperTextProps={{
+                      style: { fontSize: '1vh' } // Dodanie stylu inline
+                    }}
                   />
                   <TextField 
                     id="standard-basic" 
                     label={t('Address e-mail')} 
                     variant="standard"  
                     className='text-field-default-small' 
-                    style={{marginTop: '3vh'}}
                     value={valuesSignUp.email} 
+                    error={valuesSignUp.emailError}
                     onChange={handleChangeValuesSignUp('email')}
-                    autoComplete="no"
+                    helperText={valuesSignUp.emailError ? t('Incorrect email') : ' '}
+                    FormHelperTextProps={{
+                      style: { fontSize: '1vh' } // Dodanie stylu inline
+                    }}
                   />
                   <FormControl 
                     variant="standard" 
                     className='text-field-default-small' 
-                    style={{marginTop: '3vh'}}
                     error={valuesSignUp.passwordError}
-                    autoComplete="no"
                   >
                       <InputLabel htmlFor="standard-adornment-password">{t('Password')}</InputLabel>
                       <Input
@@ -215,7 +248,6 @@ function SignIn() {
                           type={showPassword ? 'text' : 'password'}
                           value={valuesSignUp.password}
                           onChange={handleChangeValuesSignUp('password')}
-                          autoComplete="no"
                           endAdornment={
                           <InputAdornment position="end">
                               <IconButton
@@ -227,8 +259,10 @@ function SignIn() {
                           </InputAdornment>
                           }
                       />
-                      {valuesSignUp.passwordError && (
+                      {valuesSignUp.passwordError ? (
                         <FormHelperText error style={{fontSize:"1vh"}}>{t('Password must be longer than 8 characters')}</FormHelperText>
+                      ) : (
+                        <FormHelperText style={{fontSize:"1vh"}}>{' '}</FormHelperText>
                       )}
                   </FormControl>
                   <div>
@@ -237,7 +271,8 @@ function SignIn() {
                     </div>
                   </div>
                 </div>
-                <div className='sign-up-button-small'>
+                
+                <div className={`${valuesSignUp.nameError || valuesSignUp.emailError || valuesSignUp.passwordError || valuesSignUp.email === '' || valuesSignUp.name === '' || valuesSignUp.password === '' ? 'sign-up-button-small-invalid-data' : 'sign-up-button-small'}`} onClick={() => handleUserRegistration()}>
                       <div className='sign-up-button-label'>{t('Sign up')}</div>
                 </div>
               </div>
@@ -252,17 +287,14 @@ function SignIn() {
                     label={t('Address e-mail')} 
                     variant="standard"  
                     className='text-field-default-small' 
-                    style={{marginTop: '3vh'}}
                     value={valuesLogIn.email} 
                     onChange={handleChangeValuesLogIn('email')}
-                    autoComplete="no"
                   />
                   <FormControl 
                     variant="standard" 
                     className='text-field-default-small' 
+                    error={valuesLogIn.showError}
                     style={{marginTop: '3vh'}}
-                    error={valuesLogIn.passwordError}
-                    autoComplete="no"
                   >
                       <InputLabel htmlFor="standard-adornment-password">{t('Password')}</InputLabel>
                       <Input
@@ -270,7 +302,6 @@ function SignIn() {
                           type={showPassword ? 'text' : 'password'}
                           value={valuesLogIn.password}
                           onChange={handleChangeValuesLogIn('password')}
-                          autoComplete="no"
                           endAdornment={
                           <InputAdornment position="end">
                               <IconButton
@@ -282,18 +313,29 @@ function SignIn() {
                           </InputAdornment>
                           }
                       />
+                      {valuesLogIn.showError && (
+                        <FormHelperText error style={{fontSize:"1vh"}}>{t('Incorrect email or password')}</FormHelperText>
+                      )}
                   </FormControl>
                 </div>
                 <div className='forgot-password'>
                       <Link className='blue-link' onClick={() => handleForgotPasswrodChange()}>{t('Forgot your password?')}</Link>
                 </div>
-                <div className='sign-up-button-small'>
+                <div className={`${valuesLogIn.password === '' || valuesLogIn.name === '' ? 'sign-up-button-small-invalid-data' : 'sign-up-button-small'}`} onClick={() => handleUserLogin()}>
                   <div className='sign-up-button-label'>{t('Log in')}</div>
                 </div>
               </div>
-            ) : null
-            }
-
+            ) : optionSmall === 'pre-log-in' ? (
+              <div className='pre-log-in-title-small'>
+                <div className='pre-log-in-title-text'>{t('You have successfully registered')}</div>
+                <div className='pre-log-in-subtitle-text'>{t('Please log in')}</div>
+                <div>
+                  <div className='sign-up-button' onClick={() => handleOptionChangeSmall('log-in')}>
+                    <div className='sign-up-button-label'>{t('Log in')}</div>
+                  </div>
+                </div>
+              </div>
+            ) : null}
           </div>
           <Footer useMargin={true} />
         </div>
@@ -302,7 +344,7 @@ function SignIn() {
         <div className="sign-in-container">
         <div className="language-select-container">
           <div className="language-select-sign-up">
-          <Link to="/">
+          <Link to="/sign-in">
             <motion.button
               className="logo_home"
               style={{backgroundColor: '#DCE6FA'}}
@@ -334,7 +376,17 @@ function SignIn() {
             </h2>
           </div>
           <div className="sign-up-right-section">
-            {forgotPassword === true ? (
+            {option === 'pre-log-in' ? (
+                  <div className='pre-log-in-title'>
+                    <div className='pre-log-in-title-text'>{t('Welcome on board!')}</div>
+                    <div className='pre-log-in-subtitle-text'>{t('Log in to your account to start using the application.')}</div>
+                    <div>
+                      <div className='sign-up-button' onClick={() => handleOptionChange('log-in')}>
+                        <div className='sign-up-button-label'>{t('Log in')}</div>
+                      </div>
+                    </div>
+                  </div>
+            ) : forgotPassword === true ? (
               <div>
                 <div className='text-fields-div'>
                   <div>
@@ -406,25 +458,30 @@ function SignIn() {
                         variant="standard" 
                         className='text-field-default'
                         value={valuesSignUp.name} 
+                        error={valuesSignUp.nameError}
                         onChange={handleChangeValuesSignUp('name')}
-                        autoComplete='off'
+                        helperText={valuesSignUp.nameError ? t('Name must be longer than 3 characters') : ' '}
+                        FormHelperTextProps={{
+                          style: { fontSize: '1.5vh' } // Dodanie stylu inline
+                        }}
                       />
                       <TextField 
                         id="standard-basic" 
                         label={t('Address e-mail')} 
                         variant="standard"  
                         className='text-field-default' 
-                        style={{marginTop: '3vh'}}
+                        error={valuesSignUp.emailError}
                         value={valuesSignUp.email} 
                         onChange={handleChangeValuesSignUp('email')}
-                        autoComplete='off'
+                        helperText={valuesSignUp.emailError ? t('Incorrect email') : ' '}
+                        FormHelperTextProps={{
+                          style: { fontSize: '1.5vh' } // Dodanie stylu inline
+                        }}
                       />
                       <FormControl 
                         variant="standard" 
                         className='text-field-default' 
-                        style={{marginTop: '3vh'}}
                         error={valuesSignUp.passwordError}
-                        autoComplete='off'
                       >
                           <InputLabel htmlFor="standard-adornment-password">{t('Password')}</InputLabel>
                           <Input
@@ -432,7 +489,6 @@ function SignIn() {
                               type={showPassword ? 'text' : 'password'}
                               value={valuesSignUp.password}
                               onChange={handleChangeValuesSignUp('password')}
-                              autoComplete='off'
                               endAdornment={
                               <InputAdornment position="end">
                                   <IconButton
@@ -444,8 +500,10 @@ function SignIn() {
                               </InputAdornment>
                               }
                           />
-                          {valuesSignUp.passwordError && (
+                          {valuesSignUp.passwordError ? (
                             <FormHelperText error style={{fontSize:"1.5vh"}}>{t('Password must be longer than 8 characters')}</FormHelperText>
+                          ) : (
+                            <FormHelperText style={{fontSize:"1.5vh"}}>{' '}</FormHelperText>
                           )}
                       </FormControl>
                   <div>
@@ -454,7 +512,7 @@ function SignIn() {
                     </div>
                   </div>
                   </div>
-                  <div className='sign-up-button' onClick={() => handleUserRegistration()}>
+                  <div className={`${valuesSignUp.nameError || valuesSignUp.emailError || valuesSignUp.passwordError || valuesSignUp.email === '' || valuesSignUp.name === '' || valuesSignUp.password === '' ? 'sign-up-button-invalid-data' : 'sign-up-button'}`} onClick={() => handleUserRegistration()}>
                       <div className='sign-up-button-label' >{t('Sign up')}</div>
                   </div>
                 </div>
@@ -468,13 +526,12 @@ function SignIn() {
                         className='text-field-default'
                         value={valuesLogIn.email} 
                         onChange={handleChangeValuesLogIn('email')}
-                        autoComplete='off'
                     />
                       <FormControl 
                         variant="standard" 
                         className='text-field-default' 
+                        error={valuesLogIn.showError}
                         style={{marginTop: '3vh'}}
-                        autoComplete='off'
                     >
                           <InputLabel htmlFor="standard-adornment-password">{t('Password')}</InputLabel>
                           <Input
@@ -482,8 +539,7 @@ function SignIn() {
                               type={showPassword ? 'text' : 'password'}
                               value={valuesLogIn.password}
                               onChange={handleChangeValuesLogIn('password')}
-                              autoComplete='off'
-                            endAdornment={
+                              endAdornment={
                               <InputAdornment position="end">
                                   <IconButton
                                   aria-label="toggle password visibility"
@@ -494,12 +550,15 @@ function SignIn() {
                               </InputAdornment>
                               }
                           />
+                          {valuesLogIn.showError && (
+                            <FormHelperText error style={{fontSize:"1.5vh"}}>{t('Incorrect email or password')}</FormHelperText>
+                          )}
                       </FormControl>
                   </div>
                   <div className='forgot-password'>
                       <Link className='blue-link' onClick={() => handleForgotPasswrodChange()}>{t('Forgot your password?')}</Link>
                   </div>
-                  <div className='sign-up-button' onClick={() => handleUserLogin()}>
+                  <div className={`${valuesLogIn.password === '' || valuesLogIn.name === '' ? 'sign-up-button-invalid-data' : 'sign-up-button'}`} onClick={() => handleUserLogin()}>
                       <div className='sign-up-button-label'>{t('Log in')}</div>
                   </div>
               </div>

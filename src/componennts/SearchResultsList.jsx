@@ -9,9 +9,11 @@ export const SearchResultsList = ({
   searchResultsListClassName,
   searchResultsClassName,
 }) => {
+
   return (
     <div className={`results-list ${searchResultsListClassName}`}>
       {results.map((result) => {
+        {logger.log(result)}
         return (
           <SearchResult
             key={result}

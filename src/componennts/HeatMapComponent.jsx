@@ -7,10 +7,10 @@ import HeatMap from './HeatMap';
 import { logger } from '../logger';
 import api from '../config';
 import Footer from './Footer';
-import { heatmapFetch } from './api.jsx';
+import { heatmapFetch, useAuthFetch } from './api.jsx';
 
 function HeatMapComponent() {
-
+    const { fetchWithAuth, token } = useAuthFetch();
     const { i18n, t } = useTranslation();
     const [selectedPreferencesShowPage, setSelectedPreferencesShowPage] = useState([]);
     const [isLeftSectionVisible, setIsLeftSectionVisible] = useState(true);
@@ -108,12 +108,12 @@ function HeatMapComponent() {
         logger.log("da" + 'res')
         setLoadHeatmap(true);
         try {
-            const result = await heatmapFetch(data, api.APP_URL_USER_API);
+            const result = await heatmapFetch(data, api.APP_URL_USER_API, fetchWithAuth);
             setIdHeatMap(result);
             logger.log(result);
             const pollHeatmapStatus = async () => {
               try {
-                  const heatmapResult = await heatmapFetch(result, api.APP_URL_USER_API);
+                  const heatmapResult = await heatmapFetch(result, api.APP_URL_USER_API, fetchWithAuth);
                   logger.log(heatmapResult);
                   if (heatmapResult.status == 'success') {
                       setGeojson(heatmapResult.result);
