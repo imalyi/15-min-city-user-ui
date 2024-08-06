@@ -32,7 +32,7 @@ export const SearchBar = ({
 
   const { fetchWithAuth, token } = useAuthFetch();
   const [debouncedValue, setDebouncedValue] = useState(input);
-  const delay = 500; // Ustaw opóźnienie (w milisekundach) zależnie od Twoich preferencji
+  const delay = 300; // Ustaw opóźnienie (w milisekundach) zależnie od Twoich preferencji
   const fetchTimeoutRef = useRef(null);
   const searchBarRef = useRef(null); // Ref for the search bar container
   const buttonRef = useRef(null); // Ref for the button

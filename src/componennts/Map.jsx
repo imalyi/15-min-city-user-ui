@@ -74,7 +74,7 @@ function Map({
 
   logger.log(isSmallScreen);
   logger.log(geojson);
-
+  logger.log(selectedCoordinatesShowPage)
   return (
     <MapContainer
       center={selectedCoordinatesShowPage}

@@ -75,7 +75,6 @@ export const ShowDataButton = React.forwardRef(
         let ids = transformedPreferences.map(item => item.id);
         if (ids.length === 0 || ids[0] === undefined) {
           ids = [];
-          ids.push(90);
         }
         const requestBody = {
           addressId: item.id,

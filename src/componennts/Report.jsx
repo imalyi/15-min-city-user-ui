@@ -126,8 +126,10 @@ function Report() {
         (report) => report === address,
       );
       */
-      const item = request.results.find((item) => item.fullAddress === address);
-      logger.log(request.results);
+      const item = request.addresses.find((item) => item.fullAddress === address);
+      logger.log(request);
+
+      logger.log(request.addresses);
       if (item === undefined) {
         return null;
       }

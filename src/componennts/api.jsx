@@ -41,7 +41,10 @@ const loadDataFetch = async (id, apiBaseUrl, fetchWithAuth) => {
 
     if (response.ok) {
       const data = await response.json();
-      return data;
+      return {
+        name: data.name,
+        email: data.email,
+      };
     } else {
       console.error('Error loadDataFetch:', response.statusText);
       throw new Error(response.statusText);
@@ -311,6 +314,31 @@ const LoginFetch = async (apiBaseUrl, requestBody, fetchWithAuth) => {
   }
 };
 
+const UserFetch = async (apiBaseUrl, token, fetchWithAuth) => {
+  try {
+    const response = await fetchWithAuth(
+      `${apiBaseUrl}users/me`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      logger.log(data);
+      return data;
+    } else {
+      console.error('Error getting object from coordinates:', response.statusText);
+      throw new Error(response.statusText);
+    }
+  } catch (error) {
+    console.error('Error getting object from searchbar:', error);
+    throw error;
+  }
+};
+
 export {
   useAuthFetch,
   loadDataFetch,
@@ -324,4 +352,5 @@ export {
   ReportIdFetch,
   RegistrationFetch,
   LoginFetch,
+  UserFetch,
 };

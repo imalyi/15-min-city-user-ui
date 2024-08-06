@@ -265,6 +265,7 @@ const GeoJSONMarkers = ({ geojson }) => {
     'Sklepy ogólnospożywcze': shop,
     'Produkcja spożywcza': shop,
     'Odżywki i suplementy diety': shop,
+    Pharmacies: pharmacy,
     Drogerie: shop,
     'Sklepy zielarsko-medyczne': shop,
     'Sklepy monopolowe': shop,

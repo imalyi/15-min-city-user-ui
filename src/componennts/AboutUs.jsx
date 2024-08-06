@@ -7,6 +7,10 @@ import { TextField, InputAdornment, IconButton, FormControl, InputLabel, Input, 
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import '../styles/AboutUs.css';
+import { useCookies } from 'react-cookie';
+import api from '../config';
+
+import { AdressFetch, useAuthFetch, UserFetch } from './api.jsx';
 
 function AboutUs() {
   const { i18n, t } = useTranslation();
@@ -19,6 +23,9 @@ function AboutUs() {
     {id: 4, name: 'Collaboration', selected: false},
     {id: 5, name: 'Other', selected: false}
   ]);
+  const [cookies, setCookie] = useCookies(['token']);
+  const { fetchWithAuth, token } = useAuthFetch();
+
 
   const [valuesMessage, setValuesMessage] = useState({
     name: '',
@@ -35,13 +42,31 @@ function AboutUs() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const userInfo = await UserFetch(api.APP_URL_USER_API, cookies.token, fetchWithAuth);
+        logger.log('User info:', userInfo);
+        setValuesMessage({
+          ...valuesMessage,
+          name: userInfo.name,
+          email: userInfo.email
+        });
+      } catch (error) {
+        logger.error('Error fetching user info:', error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []); // Pusty array dependency oznacza, że useEffect uruchomi się tylko raz, po zamontowaniu komponentu
+
   const handleEmailClick = () => {
     const email = 'cityinminutes@mailbox.org';
     navigator.clipboard.writeText(email).then(() => {
       setShowPopup(true);
       setTimeout(() => {
         setShowPopup(false);
-      }, 2450); // Popup zniknie po 2 sekundach
+      }, 2450); // Popup zniknie po 2.45 sekundach
     });
   };
 

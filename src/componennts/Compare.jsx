@@ -95,7 +95,9 @@ const loadData = async (id) => {
     logger.log(request);
 
     let reports = [];
-
+    if (request.addresses.length < 2) {
+      return;
+    }
     const fetchPromises = request.addresses.map(async (address) => {
       const requestBody = {
         addressId: address.id,
@@ -169,7 +171,7 @@ const loadData = async (id) => {
         categories,
       };
     });
-
+    logger.log("newAddressData", newAddressData);
     setAddressData(newAddressData);
     logger.log(newAddressData);
     i18n.changeLanguage(request.language);
@@ -247,8 +249,8 @@ const loadData = async (id) => {
     let totalPlacesCount = 0;
     let totalAddressesCount = 0;
 
-    if (foundReport.custom_objects) {
-      Object.values(foundReport.custom_objects).forEach((category) => {
+    if (foundReport.custom_pois) {
+      Object.values(foundReport.custom_pois).forEach((category) => {
         Object.values(category).forEach((preferences) => {
           totalPlacesCount += preferences.length;
         });
@@ -283,12 +285,12 @@ const loadData = async (id) => {
           requestedAddresses.length +
           requestedObjects.length)) *
       100;
-
+    logger.log("percentage", percentage)
     if (percentage > 100) {
       percentage = 100;
       return `${percentage.toFixed(0)}%`;
     }
-    if (isNaN(percentage) || percentage < 0) {
+    if (isNaN(percentage) || percentage <= 0) {
       percentage = 0;
       return `${percentage.toFixed(0)}%`;
     }
@@ -334,24 +336,32 @@ const loadData = async (id) => {
     report,
     requestedCategories,
   ) => {
-    logger.log('report', report);
+
     const foundReport = report.find(
       (report) => report.addressId === address.id,
+    );
+    logger.log(    
+      address,
+      category,
+      report,
+      requestedCategories,
+      foundReport
     );
     if (!foundReport || !foundReport.pois) {
       return '0%';
     }
     const placesCounts = {};
 
-    if (foundReport.custom_objects) {
-      Object.keys(foundReport.custom_objects).forEach((category) => {
+    if (foundReport.custom_pois) {
+      Object.keys(foundReport.custom_pois).forEach((category) => {
         placesCounts[category] = Object.values(
-          foundReport.custom_objects[category],
+          foundReport.custom_pois[category],
         ).reduce((total, preferences) => {
           return total + preferences.length;
         }, 0);
       });
     }
+    logger.log("placesCounts", placesCounts)
 
     const placesCategoryCount = placesCounts[category] || 0;
 
@@ -372,10 +382,14 @@ const loadData = async (id) => {
         }
       }
     }
+    logger.log("categoryCount", categoryCount)
+
+    /*
     const preferencesCategory = requestedCategories.filter(
       (item) => item.main_category === category,
     );
-
+    */
+    const preferencesCategory = requestedCategories;
     let countObjects = 0;
 
     requestedObjects.forEach((object) => {
@@ -396,8 +410,7 @@ const loadData = async (id) => {
         (preferencesCategory.length + countObjects)) *
       100;
 
-    logger.log('percentage', percentage);
-
+    
     if (percentage > 100) {
       return '100%';
     } else if (percentage < 0) {
@@ -426,6 +439,8 @@ const loadData = async (id) => {
       return acc.concat(currentArray);
     }, []);
     // Jeśli nie ma żadnych miejsc w kategorii, zwróć null
+    logger.log("aaa", address, allPlacesInCategory, category);
+
     if (allPlacesInCategory.length === 0) {
       return {
         name: 'No places in category',
@@ -434,6 +449,14 @@ const loadData = async (id) => {
     }
     // Sortujemy miejsca według odległości
     allPlacesInCategory.sort((a, b) => a.distance - b.distance);
+    logger.log("aaa", address, allPlacesInCategory, category, allPlacesInCategory[0].distance);
+    if (allPlacesInCategory[0].distance === -1) {
+      return {
+        name: allPlacesInCategory[0].name,
+        distance: 0,
+      };
+    }
+
     return {
       name: allPlacesInCategory[0].name,
       distance: allPlacesInCategory[0].distance,

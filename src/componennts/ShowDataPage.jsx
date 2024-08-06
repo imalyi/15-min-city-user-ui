@@ -35,8 +35,8 @@ function ShowDataPage() {
   const selectedPreferences = location.state?.selectedPreferences || [];
   const preferencesSearchData = location.state?.preferencesSearchData || [];
   const selectedCoordinates = [
-    location.state?.places.start_point.lat,
-    location.state?.places.start_point.lon,
+    location.state?.places.start_point.location.lat,
+    location.state?.places.start_point.location.lon,
   ];
   const [addresses, setAddresses] = useState(addresses_home);
   const [results, setResults] = useState([]);
@@ -233,9 +233,7 @@ function ShowDataPage() {
           adresses_request = addresses.concat(searchBarAddress);
         }
         const ids = transformedPreferences.map(item => item.id);
-        if (ids.length === 0) {
-          ids.push(90);
-        }
+
         const requestBody = {
           secret: id,
           language: i18n.language,
