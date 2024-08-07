@@ -83,8 +83,8 @@ function SignIn() {
         });
     }
   };
-
   const handleChangeValuesLogIn = (prop) => (event) => {
+    valuesLogIn.showError = false;
     setValuesLogIn({ ...valuesLogIn, [prop]: event.target.value });
   };
 

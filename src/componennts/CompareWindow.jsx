@@ -52,7 +52,7 @@ const CompareWindow = ({
       setAddresses(addressesShowData);
     }
     if (addressesShowData.length === 0 && isNotAddressLoaded) {
-      setAddresses([...addressesShowData, addressInput]);
+      setAddresses([...addressesShowData]);
       setIsNotAddressLoaded(false);
     }
   }, [addressesShowData]);

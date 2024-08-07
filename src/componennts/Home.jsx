@@ -53,6 +53,9 @@ function Home() {
         request = JSON.parse(storedData);
       }
       logger.log(request);
+      if (Object.keys(request).length === 0) {
+        return;
+      }
 
       setInput((prevInput) => {
         if (request.results.length === 0) {
@@ -158,7 +161,7 @@ function Home() {
     setSelectedPreferences(preferences);
   };
 
-
+  logger.log(addresses)
   return (
     <div className="home-container">
       <div className="language-select-container">
