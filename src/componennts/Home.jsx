@@ -14,6 +14,8 @@ import api from '../config';
 import { set } from 'animejs';
 import { useCookies } from 'react-cookie';
 import md5 from 'md5';
+import { loadDataFetch, useAuthFetch } from './api.jsx';
+import { useLocation } from 'react-router-dom';
 
 function Home() {
   const [results, setResults] = useState([]);
@@ -31,8 +33,9 @@ function Home() {
   );
   const { i18n, t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
-
+  const { fetchWithAuth, token } = useAuthFetch();
   const [cookies, setCookie] = useCookies(['userID']);
+
 
   useEffect(() => {
     if (cookies.userID) {
@@ -43,41 +46,36 @@ function Home() {
   }, []);
 
   const loadData = async (id) => {
-    logger.log('Loading data for user with id:', id);
     try {
-      logger.log(`${api.APP_URL_USER_API}user/load?secret=${id}`);
-      const response = await fetch(
-        `${api.APP_URL_USER_API}user/load?secret=${id}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        setInput((prevInput) => {
-          if (prevInput === '') {
-            return data.request.addresses[0];
-          }
-          return prevInput;
-        });
-        handleSetCustomAdressesAndObjects(data.request);
-        handleSetPreferences(data.request);
-        setSelectedPreferencesTransformed(data.request.categories);
-        i18n.changeLanguage(data.language);
-        setAddresses(data.request.addresses);
-      } else {
-        console.error('Error getting report:', response.statusText);
-        throw new Error(response.statusText);
+      const storedData = localStorage.getItem('myData');
+      let request = {};
+      if (storedData) {
+        request = JSON.parse(storedData);
       }
+      logger.log(request);
+
+      setInput((prevInput) => {
+        if (request.results.length === 0) {
+          logger.log('No results');
+          return prevInput;
+        }
+        if (prevInput === '') {
+          return request.results[0].fullAddress;
+        }
+        return prevInput;
+      });
+      logger.log(request.results);
+
+      handleSetCustomAdressesAndObjects(request);
+      handleSetPreferences(request);
+      setSelectedPreferencesTransformed(request.categories);
+      i18n.changeLanguage(request.language);
+      setAddresses(request.addresses);
+      logger.log(request);
     } catch (error) {
       console.error('Error getting report:', error);
     }
   };
-
   const generateUserID = () => {
     const timestamp = new Date().getTime();
     const randomNumber =
@@ -114,7 +112,7 @@ function Home() {
   };
 
   const handleResultClick = (result) => {
-    setInput(result);
+    setInput(result.fullAddress);
     setAddressId(result);
     setIsResultClicked(true);
     setTimeout(handleEnterPress, 20);
@@ -136,10 +134,11 @@ function Home() {
 
   const handleSetCustomAdressesAndObjects = (data) => {
     const customObjectsAndAdresses = [];
-    data.requested_addresses.forEach((item) => {
+    console.log(data); 
+    data.requested_addresses && data.requested_addresses.forEach((item) => {
       customObjectsAndAdresses.push(item);
     });
-    data.requested_objects.forEach((item) => {
+    data.requested_objects && data.requested_objects.forEach((item) => {
       customObjectsAndAdresses.push({
         name: item.name,
         category: item.main_category,
@@ -151,13 +150,14 @@ function Home() {
 
   const handleSetPreferences = (data) => {
     const preferences = [];
-    data.categories.forEach((item) => {
+    data.categories && data.categories.forEach((item) => {
       preferences.push({
         name: item.category,
       });
     });
     setSelectedPreferences(preferences);
   };
+
 
   return (
     <div className="home-container">
@@ -207,6 +207,8 @@ function Home() {
             preferencesSearchData={selectedPreferencesSearch}
             transformedPreferences={selectedPreferencesTransformed}
             setAlarm={setAlarm}
+            IconVisibility={true}
+            results={results}
           />
           <div className="relative">
             <div className="home-alarm">{t(alarm)}</div>
@@ -223,6 +225,7 @@ function Home() {
                 'Enter the address of your choice, indicate the facilities you are using and make sure you have everything at hand where you are staying.',
               )}
             </h2>
+            {/*            
             <div className="home-heatmap-link">
               <span>              
                 {t(
@@ -232,7 +235,12 @@ function Home() {
               <Link to="/heatmap" className="blue-link">
                 {t('Choose the necessary objects and discover the best neighborhood')}
               </Link>
-            </div>
+              <Link to="/sign-in" className="blue-link">
+                {t('Choose the necessary objects and discover the best neighborhood')}
+              </Link>
+            </div>*/
+            }
+
           </div>
         </div>
       </div>

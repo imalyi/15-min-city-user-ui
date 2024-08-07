@@ -380,7 +380,7 @@ html {
   text-align: center;
   height: 7vh;
   background-color: #dce6fa;
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -397,7 +397,7 @@ html {
   text-align: center;
   height: 7vh;
   background-color: #dce6fa;
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -487,7 +487,7 @@ html {
   text-align: center;
   height: 13vh;
   background-color: #dce6fa;
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -505,7 +505,7 @@ html {
   color: #f0f8ff;
   padding: 2.125vh 2vh;
   font-family: Lato, sans-serif;
-  font-size: 24px;
+  font-size: 3vh;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -683,7 +683,7 @@ html {
   width: calc(100% - 24px);
   height: 11vh;
   border-radius: 8px;
-  padding: 0 3vh;
+  padding: 0 calc(3vh - 2px);
   background-color: #dce6fa;
   display: flex;
   align-items: center;
@@ -691,8 +691,14 @@ html {
   margin-top: 4vh;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.border-bottom {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 .show-data-page-search-result-list {
@@ -709,7 +715,7 @@ html {
   border-bottom-right-radius: 8px;
   max-height: 480px;
   overflow-y: auto;
-  z-index: 999;
+  z-index: 5000;
 }
 
 .choose-criteria-mobile-div {
@@ -726,7 +732,7 @@ html {
 }
 
 .choose-criteria-mobile {
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 2vh;
   font-weight: 600;
   line-height: 14.4px;
@@ -761,12 +767,12 @@ html {
   margin-top: 4vh;
   right: 0;
   position: absolute;
-  margin-right: 47vh;
+  margin-right: 52vh;
   cursor: pointer;
 }
 
 .compare-button-show-data-page-text {
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 3vh;
   font-weight: 400;
   line-height: 28.8px;
@@ -803,7 +809,7 @@ html {
   }
 
   .compare-button-show-data-page-text {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-weight: 400;
     line-height: 28.8px;
@@ -839,7 +845,7 @@ html {
     border-bottom-right-radius: 8px;
     max-height: 480px;
     overflow-y: auto;
-    z-index: 999;
+    z-index: 10000;
   }
   .right-section {
     width: 70%; /* Adjust the width as needed */
@@ -874,7 +880,7 @@ html {
     text-align: center;
     height: 7vh;
     background-color: #dce6fa;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -906,9 +912,9 @@ html {
   }
   .toggle-match-details {
     color: #f0f8ff;
-    padding: 2.125vh 2vh;
+    padding: 1.5vh 2vh;
     font-family: Lato, sans-serif;
-    font-size: 16px;
+    font-size: 2.5vh;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -942,7 +948,7 @@ html {
     text-align: center;
     height: 11vh;
     background-color: #dce6fa;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
@@ -1020,7 +1026,7 @@ html {
     width: calc(100% - 24px);
     height: 11vh;
     border-radius: 8px;
-    padding: 0 3vh;
+    padding: 0 calc(3vh - 2px);
     background-color: #dce6fa;
     display: flex;
     align-items: center;
@@ -1038,7 +1044,7 @@ html {
     text-align: center;
     height: 7vh;
     background-color: #dce6fa;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -1104,7 +1110,7 @@ html {
   }
 
   .compare-button-show-data-page-text {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-weight: 400;
     line-height: 28.8px;
@@ -1140,7 +1146,7 @@ html {
     border-bottom-right-radius: 8px;
     max-height: 480px;
     overflow-y: auto;
-    z-index: 999;
+    z-index: 10000;
   }
   .selectyourCriteriaWithoutCategories {
     box-shadow: 0px 9px 30px 0px rgba(46, 54, 61, 0.15);
@@ -1149,7 +1155,7 @@ html {
     text-align: center;
     height: 7vh;
     background-color: #dce6fa;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -1203,7 +1209,7 @@ html {
     text-align: center;
     height: 5vh;
     background-color: #dce6fa;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 10px;
     font-style: normal;
     font-weight: 400;
@@ -1222,7 +1228,7 @@ html {
     line-height: normal;
     background: var(--primary, #24254c);
     cursor: pointer;
-    border-radius: 16px;
+    border-radius: 8px;
     margin-top: 3vh;
   }
 
@@ -1250,7 +1256,7 @@ html {
     text-align: center;
     height: 9vh;
     background-color: #dce6fa;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
@@ -1328,12 +1334,11 @@ html {
     width: calc(100% - 1vh);
     height: 7vh;
     border-radius: 8px;
-    padding: 0 1.5vh;
+    padding: 0 calc(1.5vh - 2px);
     background-color: #dce6fa;
     display: flex;
     align-items: center;
     margin-left: 1vh;
-    margin-right: 1vh;
     margin-top: 1vh;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -1393,7 +1398,7 @@ html {
     text-align: center;
     height: 5vh;
     background-color: #dce6fa;
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-style: normal;
     font-weight: 400;
@@ -1412,7 +1417,7 @@ html {
     width: calc(100% - 4vh);
     height: 7vh;
     border-radius: 8px;
-    padding: 0 1.5vh;
+    padding: 0 calc(1.5vh - 2px);
     background-color: #dce6fa;
     display: flex;
     align-items: center;
@@ -1442,13 +1447,13 @@ html {
     margin-top: 2.5vh;
     right: 0;
     position: absolute;
-    margin-right: 23vh;
+    margin-right: 44vw;
     height: 6vh;
   }
 
   .compare-button-show-data-page-text {
-    font-family: Lato;
-    font-size: 1.5vh;
+    font-family: Lato, sans-serif;
+    font-size: 3vw;
     font-weight: 400;
     line-height: 28.8px;
     text-align: left;
@@ -1496,7 +1501,7 @@ html {
   }
   .toggleReportSection-label {
     font-family: Lato, sans-serif;
-    font-size: 1.5vh;
+    font-size: 3vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -1512,7 +1517,7 @@ html {
     text-align: center;
     height: 7vh;
     background-color: #dce6fa;
-    font-family: Lato;
+        font-family: Lato, sans-serif;
     font-size: 1.5vh;
     font-style: normal;
     font-weight: 400;

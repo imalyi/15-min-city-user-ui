@@ -6,6 +6,8 @@ import { ShowDataButton } from './ShowDataButton';
 import { use } from 'i18next';
 import { logger } from '../logger';
 import { Icon } from '@iconify/react';
+import { AdressFetch, useAuthFetch } from './api.jsx';
+import { useCookies } from 'react-cookie';
 
 export const SearchBar = ({
   setResults,
@@ -22,12 +24,20 @@ export const SearchBar = ({
   ShowDataButtonCompare,
   setAlarm,
   alarm,
+  IconVisibility,
+  results,
+
 }) => {
   const { t } = useTranslation();
 
+  const { fetchWithAuth, token } = useAuthFetch();
   const [debouncedValue, setDebouncedValue] = useState(input);
-  const delay = 500; // Ustaw opóźnienie (w milisekundach) zależnie od Twoich preferencji
+  const delay = 300; // Ustaw opóźnienie (w milisekundach) zależnie od Twoich preferencji
   const fetchTimeoutRef = useRef(null);
+  const searchBarRef = useRef(null); // Ref for the search bar container
+  const buttonRef = useRef(null); // Ref for the button
+  const [cookies, setCookie] = useCookies(['token']);
+
   const showServerErrorAlert = () => {
     alert(
       'Oops! Something went wrong with our server. Please try using Search Bar again later. We apologize for the inconvenience.',
@@ -41,26 +51,18 @@ export const SearchBar = ({
         return;
       }
       try {
-        const response = await fetch(
-          `${api.APP_URL_USER_API}address/?name=${value}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            }, // Zamień dane na format JSON
-          },
-        );
-        if (response.ok) {
-          const data = await response.json();
-          const results = data.slice(0, 3);
-          setResults(results);
-        } else {
-          console.error(
-            'Error getting address from coordinatessss:',
-            response.statusText,
-          );
-          throw new Error(response.statusText);
-        }
+        const data = await AdressFetch(value, api.APP_URL_USER_API, cookies.token, fetchWithAuth);
+        const addressMap = new Map();
+        data.forEach((item) => {
+          if (!addressMap.has(item.fullAddress)) {
+            addressMap.set(item.fullAddress, item);
+          }
+        });
+  
+        const uniqueAddresses = Array.from(addressMap.values());
+        const results = uniqueAddresses.slice(0, 3);
+        logger.log('Results:', results);
+        setResults(results);
       } catch (error) {
         console.error('Error getting address from coordinates:', error);
       }
@@ -81,7 +83,6 @@ export const SearchBar = ({
     }
   };
 
-  const buttonRef = useRef(null); // Dodaj ref do przycisku
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -109,8 +110,23 @@ export const SearchBar = ({
     };
   }, [debouncedValue, fetchData, delay]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchBarRef.current && !searchBarRef.current.contains(event.target)) {
+        setTimeout(() => {
+          setIsResultClicked(true);
+        }, 100);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [setIsResultClicked]);
+
   return (
-    <div className={`${alarm === '' ? '' : 'search-bar-with-alarm'}`}>
+    <div ref={searchBarRef} className={`${alarm === '' ? '' : 'search-bar-with-alarm'}`}>
       <div
         className={`${
           searchBarClassName === 'compare-window-search-bar'
@@ -128,12 +144,14 @@ export const SearchBar = ({
         <ShowDataButton
           ref={showDataRef}
           address={input}
+          results={results}
           addresses={addresses}
           selectedPreferences={selectedPreferences}
           transformedPreferences={transformedPreferences}
           preferencesSearchData={preferencesSearchData}
           ShowDataButtonCompare={ShowDataButtonCompare}
           setAlarm={setAlarm}
+          IconVisibility={IconVisibility}
         />
       </div>
       <div>

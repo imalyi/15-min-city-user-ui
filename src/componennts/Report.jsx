@@ -11,6 +11,7 @@ import anime from 'animejs';
 import { useCookies } from 'react-cookie';
 import api from '../config';
 import { use } from 'i18next';
+import { loadDataFetch, ReportFetch, ReportIdFetch, useAuthFetch } from './api.jsx';
 
 function Report() {
   const location = useLocation();
@@ -33,7 +34,7 @@ function Report() {
     ? Object.entries(places.custom_objects)
     : null;
     */
-
+  const { fetchWithAuth, token } = useAuthFetch();
   const userId = searchParams.get('userid');
   const [selectedCategoryPreferences, setselectedCategoryPreferences] =
     useState(null);
@@ -43,7 +44,7 @@ function Report() {
   const [selectedObjectPreferences, setselectedObjectPreferences] =
     useState(false);
   const [allPreferences, setAllPreferences] = useState([]);
-
+  logger.log(allPreferences)
   const [selectedCategory, setselectedCategory] = useState(null);
 
   const handleObjectClick = () => {
@@ -112,40 +113,59 @@ function Report() {
   logger.log(selectedObjectPreferences);
   const loadData = async (id) => {
     try {
-      const response = await fetch(
-        `${api.APP_URL_USER_API}user/load?secret=${id}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
+      const storedData = localStorage.getItem('myData');
+      let request = {};
+      if (storedData) {
+        request = JSON.parse(storedData);
+      }
+      logger.log(request);
+      logger.log(address);
+
+      /*
+      const reportWithRequestedAddress = request.addresses.find(
+        (report) => report === address,
       );
+      */
+      const item = request.addresses.find((item) => item.fullAddress === address);
+      logger.log(request);
 
-      if (response.ok) {
-        const data = await response.json();
+      logger.log(request.addresses);
+      if (item === undefined) {
+        return null;
+      }
 
-        // Filtrujemy raporty, aby znaleźć ten z odpowiednim adresem
-        const reportWithRequestedAddress = data.reports.find(
-          (report) => report.address.full === address,
-        );
-        if (reportWithRequestedAddress) {
+
+      const requestBody = {
+        addressId: item.id,
+        categoryIds: request.categories,
+        customAddressIds: [],
+        distance: 1000,
+      };
+      logger.log(requestBody);
+
+      id = await getReportId(requestBody, api.APP_URL_USER_API);
+      if (id === null) {
+        logger.error('No report id found');
+        return;
+      }
+      
+      const poi = await getReportFetch(id, api.APP_URL_USER_API);
+      const data = poi.result.full
+      logger.log(data)
+
+        if (item) {
           // Jeśli znaleziono raport z odpowiednim adresem, ustawiamy dane
-          setCustomAddresses(reportWithRequestedAddress.custom_addresses);
-          setCustomObject(reportWithRequestedAddress.custom_objects);
-          setTransformedPreferences(reportWithRequestedAddress.categories);
-          setPlaces(reportWithRequestedAddress.points_of_interest);
-          setRequestedObjects(data.request.requested_objects);
-          setRequestedAddresses(data.request.requested_addresses);
-          logger.log(reportWithRequestedAddress.custom_addresses);
-          logger.log(reportWithRequestedAddress.custom_objects);
-          logger.log(data.request.requested_addresses);
-          i18n.changeLanguage(reportWithRequestedAddress.language);
+          setCustomAddresses([]);
+          setCustomObject([]);
+          setPlaces(data.pois);
+          logger.log(data.pois);
+          logger.log(data.custom_objects);
+          i18n.changeLanguage(request.language);
 
           setAllPreferences(() => {
-            return reportWithRequestedAddress.points_of_interest
+            return data.pois
               ? Object.values(
-                  reportWithRequestedAddress.points_of_interest,
+                data.pois,
                 ).flatMap((category) => {
                   return Object.keys(category).flatMap((subcategory) =>
                     category[subcategory].map((item) => ({
@@ -157,12 +177,12 @@ function Report() {
               : [];
           });
           const allObjectsLoad = [];
-          Object.keys(reportWithRequestedAddress.custom_objects).forEach(
+          data.custom_objects && Object.keys(data.custom_objects).forEach(
             (categoryName) => {
               Object.keys(
-                reportWithRequestedAddress.custom_objects[categoryName],
+                data.custom_objects[categoryName],
               ).forEach((subcategoryName) => {
-                reportWithRequestedAddress.custom_objects[categoryName][
+                data.custom_objects[categoryName][
                   subcategoryName
                 ].forEach((item) => {
                   allObjectsLoad.push({
@@ -175,32 +195,76 @@ function Report() {
               });
             },
           );
-          if (reportWithRequestedAddress.custom_addresses.length > 0) {
+          if (data.custom_addresses && data.custom_addresses.length > 0) {
             handleLoadDataCategorySelected('custom_addresses', null);
             logger.log('handleAddressClick');
           } else if (
-            Object.keys(reportWithRequestedAddress.custom_objects).length > 0 &&
+            data.custom_objects && Object.keys(data.custom_objects).length > 0 &&
             allObjectsLoad.length > 0
           ) {
             handleLoadDataCategorySelected('custom_objects', null);
             logger.log('handleObjectClick');
           } else {
             handleLoadDataCategorySelected(
-              Object.keys(reportWithRequestedAddress.points_of_interest)[0],
-              reportWithRequestedAddress.points_of_interest,
+              Object.keys(data.pois)[0],
+              data.pois,
             );
             logger.log(
               'handleCategoryClick',
-              reportWithRequestedAddress.points_of_interest,
+              data.pois,
             );
           }
         }
-      } else {
-        console.error('Error getting report:', response.statusText);
-        throw new Error(response.statusText);
-      }
+
     } catch (error) {
       console.error('Error getting report:', error);
+    }
+  };
+
+  const getReportFetch = async (report_id) => {
+    try {
+      
+             logger.log(report_id)
+             if (report_id === undefined) {
+               return;
+             }
+     
+             let data = await ReportFetch(report_id, api.APP_URL_USER_API, cookies.token, fetchWithAuth);
+             logger.log(data)
+             const task_id = data.task_id;
+             while (true) {
+               logger.log(data)
+               logger.log(data.status);
+               await new Promise((resolve) => setTimeout(resolve, 2000));
+               if (data.status === 'Pending' && data.task_id !== "undefined") {
+                 await new Promise((resolve) => setTimeout(resolve, 2000));
+                 data = await ReportFetch(task_id, api.APP_URL_USER_API, cookies.token, fetchWithAuth);
+                 logger.log(data)
+               }
+               if (data.task_id === "undefined") {
+                 logger.log(data)
+                 return;
+               }
+               if (data.status === "Success") {
+                 logger.log(data)
+                 return data;
+               }
+               logger.log(data)
+     
+             }
+           } catch (error) {
+             console.error('Error getting report:', error);
+           }
+         };
+
+  const getReportId = async (requestBody) => {
+    try {
+
+      const data = await ReportIdFetch(requestBody, api.APP_URL_USER_API, cookies.token, fetchWithAuth);
+      logger.log(data);
+      return data;
+    } catch (error) {
+      console.error('Error getting report id:', error);
     }
   };
 
@@ -490,7 +554,7 @@ function Report() {
                 <div className="preferenceItems">
                   {selectedAddressPreferences &&
                     Object.entries(custom_addresses).map((address, index) => {
-                      const address_name = address[1].address.full;
+                      const address_name = address[1].address.full_address;
                       const address_info = address[1];
                       return (
                         <div className="preferenceItem-responsible">
@@ -641,7 +705,7 @@ function Report() {
                               {object.name}
                             </div>
                             <div className="preferenceItemAddress">
-                              {object.address.full}
+                              {object.address.full_address}
                             </div>
                           </div>
                           <div className="preferenceItemDistance">
@@ -686,7 +750,10 @@ function Report() {
                                   {item.name}
                                 </div>
                                 <div className="preferenceItemAddress">
-                                  {item.address.full}
+                                  {t(category)}
+                                </div>
+                                <div className="preferenceItemAddress">
+                                  {item.address.full_address}
                                 </div>
                               </div>
                               <div className="preferenceItemDistance">
@@ -723,7 +790,7 @@ function Report() {
                 <div className="preferenceItems">
                   {selectedAddressPreferences &&
                     Object.entries(custom_addresses).map((address, index) => {
-                      const address_name = address[1].address.full;
+                      const address_name = address[1].address.full_address;
                       const address_info = address[1];
                       return (
                         <div className="preferenceItem">
@@ -870,7 +937,7 @@ function Report() {
                               {object.name}
                             </div>
                             <div className="preferenceItemAddress">
-                              {object.address.full}
+                              {object.address.full_address}
                             </div>
                           </div>
                           <div className="preferenceItemDistance">
@@ -912,7 +979,10 @@ function Report() {
                                   {item.name}
                                 </div>
                                 <div className="preferenceItemAddress">
-                                  {item.address.full}
+                                  {t(category)}
+                                </div>
+                                <div className="preferenceItemAddress">
+                                  {item.address.full_address}
                                 </div>
                               </div>
                               <div className="preferenceItemDistance">

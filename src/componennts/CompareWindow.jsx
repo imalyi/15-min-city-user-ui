@@ -31,6 +31,22 @@ const CompareWindow = ({
   const [cookies, setCookie] = useCookies(['userID']);
   const [isNotAddressLoaded, setIsNotAddressLoaded] = useState(true);
   const userId = cookies.userID;
+  const CompareWindowRef = useRef();
+  logger.log(addressesShowData);
+  logger.log(addresses);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (CompareWindowRef.current && !CompareWindowRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [CompareWindowRef]);
+
   useEffect(() => {
     if (addressesShowData) {
       setAddresses(addressesShowData);
@@ -40,6 +56,14 @@ const CompareWindow = ({
       setIsNotAddressLoaded(false);
     }
   }, [addressesShowData]);
+
+  useEffect(() => {
+    const uniqueAddresses = [...new Set(addressesShowData)];
+    if (uniqueAddresses.length !== addressesShowData.length || uniqueAddresses.length > 3) {
+      setAddresses(uniqueAddresses.slice(0, 3));
+      setAddressesShowPage(uniqueAddresses.slice(0, 3));
+    }
+  }, [addressesShowData, setAddressesShowPage, t]);
 
   const reportUrl = `/compare?userid=${userId}`;
   const handleCompareButton = () => {
@@ -84,8 +108,9 @@ const CompareWindow = ({
     setAddresses(addresses.filter((item) => item !== address));
     setIsNotAddressLoaded(false);
   };
-
+  logger.log(results);
   const handleResultClick = (result) => {
+    logger.log(result);
     setInput(result);
     setInputShowData(result);
     setIsResultClicked(true);
@@ -110,8 +135,8 @@ const CompareWindow = ({
   };
   if (!isOpen) return null;
   return (
-    <div className="modal-overlay">
-      <div className="modal-contents">
+    <div className="modal-overlay" >
+      <div className="modal-contents" ref={CompareWindowRef}>
         <div className="first-comment">
           {t('Do you have more addresses?')}
           <button className="close-button" onClick={onClose}>
@@ -144,6 +169,8 @@ const CompareWindow = ({
             ShowDataButtonCompare="alert-none"
             alarm={alarm}
             setAlarm={setAlarm}
+            IconVisibility={false}
+            results={results}
           />
           <div style={{ position: 'relative' }}>
             <div className="alarm">{t(alarm)}</div>
@@ -169,7 +196,7 @@ const CompareWindow = ({
                 className="selected-search-address"
                 onClick={() => onAddressClick(address)}
               >
-                <span className="selected-preference-label">{t(address)}</span>
+                <span className="selected-preference-label">{t(address.fullAddress)}</span>
                 <Icon
                   icon="material-symbols-light:close"
                   className="close-icon"

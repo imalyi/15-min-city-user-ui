@@ -1,12 +1,48 @@
 import React, { useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import Markers from './Markers';
+import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet';
+import { Icon } from 'leaflet';
+import { useLeafletContext } from '@react-leaflet/core';
+import MarkerClusterGroup from 'react-leaflet-cluster';
+import L from 'leaflet';
+import { useMap } from 'react-leaflet';
 import '../styles/Map.css';
 import '../styles/Leaflet.css';
 import 'leaflet/dist/leaflet.css';
-import { Icon } from 'leaflet';
-import { useLeafletContext } from '@react-leaflet/core';
 import { logger } from '../logger';
+import GeoJSONMarkers from './GeoJSONMarkers';
+
+function CustomControl({ toggleRoleSVisible, isLeftSectionVisible }) {
+  const map = useMap();
+
+  useEffect(() => {
+    const customControl = L.Control.extend({
+      options: {
+        position: 'topleft',
+      },
+      onAdd: function () {
+        logger.log(isLeftSectionVisible);
+        const classNameButton = isLeftSectionVisible
+          ? 'leaflet-control leaflet-control-custom my-custom-button'
+          : 'leaflet-control leaflet-control-custom my-custom-button-active';
+        const container = L.DomUtil.create('button', classNameButton);
+        container.onclick = function () {
+          toggleRoleSVisible();
+        };
+        return container;
+      },
+    });
+
+    const controlInstance = new customControl();
+    map.addControl(controlInstance);
+
+    // Cleanup control on component unmount
+    return () => {
+      map.removeControl(controlInstance);
+    };
+  }, [map, isLeftSectionVisible, toggleRoleSVisible]);
+
+  return null;
+}
 
 function Map({
   places,
@@ -17,14 +53,28 @@ function Map({
   preferencesSearchDataShowPage,
   custom_names,
   custom_addresses,
+  toggleRoleSVisible,
+  isLeftSectionVisible,
+  isSmallScreen,
+  geojson,
 }) {
   const locationIcon = new Icon({
     iconUrl: '/icons/gps.png',
     iconSize: [50, 50],
   });
+
+  const defaultIcon = new Icon({
+    iconUrl: '/icons/gps.png', // Replace with the actual path to your default icon
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+  });
+
   const lat = selectedCoordinatesShowPage[0];
   const lng = selectedCoordinatesShowPage[1];
-  logger.log(lat, lng)
+
+  logger.log(isSmallScreen);
+  logger.log(geojson);
+  logger.log(selectedCoordinatesShowPage)
   return (
     <MapContainer
       center={selectedCoordinatesShowPage}
@@ -49,66 +99,24 @@ function Map({
           </div>
         </Popup>
       </Marker>
+
       <FlyToMarkerReverse flyToLocation={selectedCoordinatesShowPage} />
       <FlyToMarker flyToLocation={flyToLocation} />
-      {mainCategoriesToShow &&
-        mainCategoriesToShow.map((category) => {
-          const categoryData = places[category];
-          if (categoryData) {
-            return Object.entries(categoryData).map(
-              ([preferenceName, preference], index) => {
-                return preference.map((item, index) => {
-                  return (
-                    <Markers
-                      key={`${category}-${index}`}
-                      placeName={preferenceName}
-                      lat={item.location[1]}
-                      lng={item.location[0]}
-                      distance={item.distance}
-                      address={item.address.full}
-                      name={item.name}
-                    />
-                  );
-                });
-              },
-            );
-          }
-          return null; // Jeśli categoryData jest niezdefiniowane lub puste, zwracamy null
-        })}
-      {Object.entries(custom_names).map(
-        ([categoryName, categoryList], index1) => {
-          return Object.entries(categoryList).map(
-            ([subcategoryName, subcategory], index2) => {
-              return subcategory.map((item, index3) => {
-                return (
-                  <Markers
-                    key={`${subcategoryName}-${index1}-${index2}-${index3}`}
-                    placeName={subcategoryName} // Użycie nazwy subkategorii jako placeName
-                    lat={item.location[1]}
-                    lng={item.location[0]}
-                    distance={item.distance}
-                    address={item.address.full}
-                    name={item.name}
-                  />
-                );
-              });
-            },
-          );
-        },
+
+      {isSmallScreen !== undefined && (
+        <CustomControl
+          toggleRoleSVisible={toggleRoleSVisible}
+          isLeftSectionVisible={isLeftSectionVisible}
+        />
       )}
-      {Object.values(custom_addresses).map((address, index1) => {
-        return (
-          <Markers
-            key={`${address}`}
-            placeName={address.address.full} // Załóżmy, że subcategory zawiera informacje o kategorii
-            lat={address.location[1]}
-            lng={address.location[0]}
-            distance={address.commute_time.walk.distance}
-            address={''}
-            name={address.address.full}
-          />
-        );
-      })}
+      <MarkerClusterGroup
+        maxClusterRadius={30}
+        spiderfyOnMaxZoom={true}
+
+        showCoverageOnHover={true}
+      >
+      <GeoJSONMarkers geojson={geojson} />
+      </MarkerClusterGroup>
     </MapContainer>
   );
 }
@@ -134,7 +142,7 @@ function FlyToMarkerReverse({ flyToLocation }) {
   useEffect(() => {
     if (flyToLocation) {
       const [lat, lng] = flyToLocation;
-      let zoomLevel = 13;
+      let zoomLevel = 14;
       if (window.innerWidth < 800) {
         zoomLevel = 12;
       }

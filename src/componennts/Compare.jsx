@@ -12,6 +12,7 @@ import { useCookies } from 'react-cookie';
 import api from '../config';
 import { use } from 'i18next';
 import md5 from 'md5';
+import { loadDataFetch, saveDataToApi, ReportFetch, ReportIdFetch, useAuthFetch } from './api.jsx';
 
 function Compare() {
   const { i18n, t } = useTranslation();
@@ -23,7 +24,7 @@ function Compare() {
   const [mainCategoriesToShow, setMainCategoriesToShow] = useState([]);
   const [addressData, setAddressData] = useState([]);
   const categoriesRefs = useRef([]); // Reference to the categories divs
-
+  const { fetchWithAuth, token } = useAuthFetch();
   const location = useLocation();
   const [cookies, setCookie] = useCookies(['userID']);
   const searchParams = new URLSearchParams(location.search);
@@ -78,96 +79,154 @@ function Compare() {
 
   const handleUserReportClick = async (address) => {
     const id = generateUserID();
-    saveData(id);
     const reportUrl = `/report?userid=${id}&address=${encodeURIComponent(
-      address,
+      address.fullAddress,
     )}`;
     window.open(reportUrl, '_blank');
   };
 
-  const loadData = async (id) => {
-    try {
-      const response = await fetch(
-        `${api.APP_URL_USER_API}user/load?secret=${id}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        setAddresses(data.request.addresses);
-        setRequestedAddresses(data.request.requested_addresses);
-        setRequestedObjects(data.request.requested_objects);
-        setRequestedCategories(data.request.categories);
-        setReport(data.reports);
-        setMainCategoriesToShow(
-          Object.keys(data.reports[0].points_of_interest),
-        );
-        const newAddressData = data.request.addresses.map((address) => {
-          const categories = Object.keys(
-            data.reports[0].points_of_interest,
-          ).map((category) => {
-            return {
-              name: category,
-              percentage: calculatePercentageInCategory(
-                address,
-                category,
-                data.reports,
-                data.request.categories,
-              ),
-            };
-          });
-
-          return {
-            address,
-            categories,
-          };
-        });
-        setAddressData(newAddressData);
-        logger.log(newAddressData);
-        i18n.changeLanguage(data.language);
-      } else {
-        console.error('Error getting report:', response.statusText);
-        throw new Error(response.statusText);
-      }
-    } catch (error) {
-      console.error('Error getting report:', error);
+const loadData = async (id) => {
+  try {
+    const storedData = localStorage.getItem('myData');
+    let request = {};
+    if (storedData) {
+      request = JSON.parse(storedData);
     }
-  };
+    logger.log(request);
 
-  const saveData = async (id) => {
-    try {
+    let reports = [];
+    if (request.addresses.length < 2) {
+      return;
+    }
+    const fetchPromises = request.addresses.map(async (address) => {
       const requestBody = {
-        secret: id,
-        language: i18n.language,
-        addresses: addresses,
-        categories: requestedCategories,
-        requested_objects: requestedObjects,
-        requested_addresses: requestedAddresses,
+        addressId: address.id,
+        categoryIds: request.categories,
+        customAddressIds: [],
+        distance: 1000,
       };
-      const response = await fetch(`${api.APP_URL_USER_API}user/save`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
+      id = await getReportId(requestBody, api.APP_URL_USER_API);
+      if (id === null) {
+        logger.error('No report id found');
+        return;
+      }
+      
+      const poi = await getReportFetch(id, api.APP_URL_USER_API);
+      const data = poi.result.full
+      data.addressId = address.id;
+      logger.log(data)
+      return data;
+    });
+    reports = await Promise.all(fetchPromises);
+    logger.log(reports)
+    setAddresses(request.addresses);
+    setRequestedAddresses(request.requested_addresses);
+    setRequestedObjects(request.requested_objects);
+    setRequestedCategories(request.categories);
+    setReport(reports);
+    logger.log(Object.keys(reports[0]), 'main categories');
+    if (reports.length === 2) {
+      if (Object.keys(reports[0].pois).length > Object.keys(reports[1].pois).length) {
+        setMainCategoriesToShow(
+          Object.keys(reports[0].pois),
+        );
+      } else {
+        setMainCategoriesToShow(
+          Object.keys(reports[1].pois),
+        );
+      }
+    } else if  (reports.length === 3) {
+      if (Object.keys(reports[0].pois).length > Object.keys(reports[1].pois).length && Object.keys(reports[0].pois).length > Object.keys(reports[2].pois).length) {
+        setMainCategoriesToShow(
+          Object.keys(reports[0].pois),
+        );
+      } else if (Object.keys(reports[1].pois).length > Object.keys(reports[0].pois).length && Object.keys(reports[1].pois).length > Object.keys(reports[2].pois).length) {
+        setMainCategoriesToShow(
+          Object.keys(reports[1].pois),
+        );
+      } else{
+        setMainCategoriesToShow(
+          Object.keys(reports[2].pois),
+        );
+      }
+    }
+
+    const newAddressData = request.addresses.map((address) => {
+      const categories = Object.keys(
+        reports[0].pois,
+      ).map((category) => {
+        return {
+          name: category,
+          percentage: calculatePercentageInCategory(
+            address,
+            category,
+            reports,
+            request.categories,
+          ),
+        };
       });
 
-      if (response.ok) {
-        const data = await response.json();
-      } else {
-        console.error('Error getting report:', response.statusText);
-        throw new Error(response.statusText);
-      }
+      return {
+        address,
+        categories,
+      };
+    });
+    logger.log("newAddressData", newAddressData);
+    setAddressData(newAddressData);
+    logger.log(newAddressData);
+    i18n.changeLanguage(request.language);
+  } catch (error) {
+    console.error('Error getting report:', error);
+  }
+}
+
+  const getReportFetch = async (report_id) => {
+    try {
+      
+            logger.log(report_id)
+            if (report_id === undefined) {
+              return;
+            }
+    
+            let data = await ReportFetch(report_id, api.APP_URL_USER_API, cookies.token, fetchWithAuth);
+            logger.log(data)
+            const task_id = data.task_id;
+            while (true) {
+              logger.log(data)
+              logger.log(data.status);
+              await new Promise((resolve) => setTimeout(resolve, 2000));
+              if (data.status === 'Pending' && data.task_id !== "undefined") {
+                await new Promise((resolve) => setTimeout(resolve, 2000));
+                data = await ReportFetch(task_id, api.APP_URL_USER_API, cookies.token, fetchWithAuth);
+                logger.log(data)
+              }
+              if (data.task_id === "undefined") {
+                logger.log(data)
+                return;
+              }
+              if (data.status === "Success") {
+                logger.log(data)
+                return data;
+              }
+              logger.log(data)
+    
+            }
+          } catch (error) {
+            console.error('Error getting report:', error);
+          }
+        };
+
+  const getReportId = async (requestBody) => {
+    try {
+
+      const data = await ReportIdFetch(requestBody, api.APP_URL_USER_API, cookies.token, fetchWithAuth);
+      logger.log(data);
+      return data;
     } catch (error) {
-      console.error('Error getting report:', error);
+      console.error('Error getting report id:', error);
     }
   };
-
+  logger.log(mainCategoriesToShow)
   const getPercentageForAddressAndCategory = (address, category) => {
     const addressEntry = addressData.find((data) => data.address === address);
     if (!addressEntry) return null;
@@ -182,16 +241,16 @@ function Compare() {
 
   const countVisibleCategories = (address) => {
     const foundReport = report.find(
-      (report) => report.address.full === address,
+      (report) => report.addressId === address.id,
     );
-    if (!foundReport || !foundReport.points_of_interest) {
+    if (!foundReport || !foundReport.pois) {
       return '0%';
     }
     let totalPlacesCount = 0;
     let totalAddressesCount = 0;
 
-    if (foundReport.custom_objects) {
-      Object.values(foundReport.custom_objects).forEach((category) => {
+    if (foundReport.custom_pois) {
+      Object.values(foundReport.custom_pois).forEach((category) => {
         Object.values(category).forEach((preferences) => {
           totalPlacesCount += preferences.length;
         });
@@ -211,10 +270,10 @@ function Compare() {
 
     let categoryCount = 0;
 
-    for (const category in foundReport.points_of_interest) {
+    for (const category in foundReport.pois) {
       // Sprawdzenie, czy długość tablicy miejsc w danej kategorii jest większa od zera
-      for (const interest in foundReport.points_of_interest[category]) {
-        if (foundReport.points_of_interest[category][interest].length > 0) {
+      for (const interest in foundReport.pois[category]) {
+        if (foundReport.pois[category][interest].length > 0) {
           categoryCount++; // Zwiększenie licznika, jeśli są jakieś miejsca w kategorii
         }
       }
@@ -226,12 +285,12 @@ function Compare() {
           requestedAddresses.length +
           requestedObjects.length)) *
       100;
-
+    logger.log("percentage", percentage)
     if (percentage > 100) {
       percentage = 100;
       return `${percentage.toFixed(0)}%`;
     }
-    if (isNaN(percentage) || percentage < 0) {
+    if (isNaN(percentage) || percentage <= 0) {
       percentage = 0;
       return `${percentage.toFixed(0)}%`;
     }
@@ -277,37 +336,45 @@ function Compare() {
     report,
     requestedCategories,
   ) => {
-    logger.log('report', report);
+
     const foundReport = report.find(
-      (report) => report.address.full === address,
+      (report) => report.addressId === address.id,
     );
-    if (!foundReport || !foundReport.points_of_interest) {
+    logger.log(    
+      address,
+      category,
+      report,
+      requestedCategories,
+      foundReport
+    );
+    if (!foundReport || !foundReport.pois) {
       return '0%';
     }
     const placesCounts = {};
 
-    if (foundReport.custom_objects) {
-      Object.keys(foundReport.custom_objects).forEach((category) => {
+    if (foundReport.custom_pois) {
+      Object.keys(foundReport.custom_pois).forEach((category) => {
         placesCounts[category] = Object.values(
-          foundReport.custom_objects[category],
+          foundReport.custom_pois[category],
         ).reduce((total, preferences) => {
           return total + preferences.length;
         }, 0);
       });
     }
+    logger.log("placesCounts", placesCounts)
 
     const placesCategoryCount = placesCounts[category] || 0;
 
     let categoryCount = 0;
 
-    for (const foundReportCategory in foundReport.points_of_interest) {
+    for (const foundReportCategory in foundReport.pois) {
       // Sprawdzenie, czy długość tablicy miejsc w danej kategorii jest większa od zera
       if (foundReportCategory === category) {
-        for (const interest in foundReport.points_of_interest[
+        for (const interest in foundReport.pois[
           foundReportCategory
         ]) {
           if (
-            foundReport.points_of_interest[foundReportCategory][interest]
+            foundReport.pois[foundReportCategory][interest]
               .length > 0
           ) {
             categoryCount++; // Zwiększenie licznika, jeśli są jakieś miejsca w kategorii
@@ -315,10 +382,14 @@ function Compare() {
         }
       }
     }
+    logger.log("categoryCount", categoryCount)
+
+    /*
     const preferencesCategory = requestedCategories.filter(
       (item) => item.main_category === category,
     );
-
+    */
+    const preferencesCategory = requestedCategories;
     let countObjects = 0;
 
     requestedObjects.forEach((object) => {
@@ -339,8 +410,7 @@ function Compare() {
         (preferencesCategory.length + countObjects)) *
       100;
 
-    logger.log('percentage', percentage);
-
+    
     if (percentage > 100) {
       return '100%';
     } else if (percentage < 0) {
@@ -352,22 +422,25 @@ function Compare() {
 
   const findNearestPlace = (address, category) => {
     const foundReport = report.find(
-      (report) => report.address.full === address,
+      (report) => report.addressId === address.id,
     );
     if (
       !foundReport ||
-      !foundReport.points_of_interest ||
-      !foundReport.points_of_interest[category]
+      !foundReport.pois ||
+      !foundReport.pois[category]
     ) {
+      logger.log('No report or no category');
       return null; // Jeśli nie ma raportu lub brak kategorii "Gastronomia", zwróć null
     }
 
-    const placesInCategoryObj = foundReport.points_of_interest[category];
+    const placesInCategoryObj = foundReport.pois[category];
     const placesInCategory = Object.values(placesInCategoryObj);
     const allPlacesInCategory = placesInCategory.reduce((acc, currentArray) => {
       return acc.concat(currentArray);
     }, []);
     // Jeśli nie ma żadnych miejsc w kategorii, zwróć null
+    logger.log("aaa", address, allPlacesInCategory, category);
+
     if (allPlacesInCategory.length === 0) {
       return {
         name: 'No places in category',
@@ -376,6 +449,14 @@ function Compare() {
     }
     // Sortujemy miejsca według odległości
     allPlacesInCategory.sort((a, b) => a.distance - b.distance);
+    logger.log("aaa", address, allPlacesInCategory, category, allPlacesInCategory[0].distance);
+    if (allPlacesInCategory[0].distance === -1) {
+      return {
+        name: allPlacesInCategory[0].name,
+        distance: 0,
+      };
+    }
+
     return {
       name: allPlacesInCategory[0].name,
       distance: allPlacesInCategory[0].distance,
@@ -421,7 +502,7 @@ function Compare() {
                   }
                 >
                   <div className="main-info">
-                    <div className="address-name">{t(address)}</div>
+                    <div className="address-name">{t(address.fullAddress)}</div>
                     <div className="match-div">
                       {t('Matching')} {countVisibleCategories(address)}
                     </div>

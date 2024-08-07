@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import api from '../config';
 import { Icon } from '@iconify/react';
 import { logger } from '../logger';
+import { ObjectFetch, useAuthFetch } from './api.jsx';
 
 export const SearchRolesBar = ({
   setCustomAddress,
@@ -13,6 +14,7 @@ export const SearchRolesBar = ({
   setIsResultClicked,
   onEnterPress,
   searchBarClassName,
+  IconVisibility
 }) => {
   const { t } = useTranslation();
   const [debouncedValue, setDebouncedValue] = useState(input);
@@ -24,7 +26,7 @@ export const SearchRolesBar = ({
       'Oops! Something went wrong with our server. Please try using Search Bar again later. We apologize for the inconvenience.',
     );
   };
-
+  const { fetchWithAuth, token } = useAuthFetch();
   const fetchData = useCallback(
     async (value) => {
       if (value === '') {
@@ -32,27 +34,9 @@ export const SearchRolesBar = ({
         return;
       }
       try {
-        const response = await fetch(
-          `${api.APP_URL_USER_API}object/?partial_name=${value}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            }, // Zamień dane na format JSON
-          },
-        );
-        if (response.ok) {
-          const data = await response.json();
-          const results = data;
-          setCustomAddress(results.addresses);
-          setCustomObject(results.objects);
-        } else {
-          console.error(
-            'Error getting address from coordinates:',
-            response.statusText,
-          );
-          throw new Error(response.statusText);
-        }
+          const data = await ObjectFetch(value, api.APP_URL_USER_API, fetchWithAuth)
+          setCustomAddress(data.addresses);
+          setCustomObject(data.objects);
       } catch (error) {
         console.error('Error getting address from coordinates:', error);
       }
@@ -103,9 +87,12 @@ export const SearchRolesBar = ({
         onChange={(e) => handleChange(e.target.value)}
       />
       <button ref={buttonRef} style={{ display: 'none' }}></button>
-      <div className="show-data-button-roles">
-        {<Icon icon="carbon:search" id="search-icon" />}
-      </div>
+      {IconVisibility && (
+        <div className="show-data-button-roles">
+          {<Icon icon="carbon:search" id="search-icon" />}
+        </div>
+      )
+    }
     </div>
   );
 };

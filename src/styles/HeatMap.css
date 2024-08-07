@@ -6,6 +6,7 @@
   }
   
   .my-custom-button {
+    cursor: pointer;
     width: 6vh;
     height: 6vh;
     background-color: #DCE6FA;
@@ -28,6 +29,7 @@
   }
 
   .my-custom-button-active {
+    cursor: pointer;
     width: 6vh;
     height: 6vh;
     background-color: #DCE6FA;

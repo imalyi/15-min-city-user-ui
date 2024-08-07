@@ -60,7 +60,7 @@ html::-webkit-scrollbar-thumb {
 }
 
 .home-alarm {
-  font-family: Lato;
+  font-family: Lato, sans-serif;
   font-size: 2.5vh;
   font-weight: 600;
   line-height: 28.8px;
@@ -72,7 +72,7 @@ html::-webkit-scrollbar-thumb {
 
 @media only screen and (max-width: 850px) {
   .home-alarm {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
     font-size: 2vh;
     font-weight: 600;
     line-height: 28.8px;
@@ -141,7 +141,7 @@ html::-webkit-scrollbar-thumb {
 
   .home-description-third-title {
     max-width: 80vw;
-    margin-top: 3vh;
+    margin-top: 5vh;
     margin-left: 3vh;
     color: var(--primary, #24254c);
     font-family: 'Lato', sans-serif;
@@ -160,7 +160,6 @@ html::-webkit-scrollbar-thumb {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    padding-top: 11vh; /* Opcjonalnie: odstępy wewnętrzne */
   }
   .blue-link{
     color: blue;
@@ -176,7 +175,7 @@ html::-webkit-scrollbar-thumb {
     min-width: 200px;
   }
   .logo_home {
-    margin-left: 2vw;
+    margin-left: 2.5vw;
     margin-top: 4vh;
     height: 8vh;
     border: none;
@@ -248,7 +247,6 @@ html::-webkit-scrollbar-thumb {
     line-height: normal;
     position: fixed;
     bottom: 0;
-    text-align: center;
     padding: 14vh 0; /* Opcjonalnie: odstępy wewnętrzne */
   }
   .blue-link{
